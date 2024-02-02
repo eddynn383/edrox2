@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+:root {
+    height: 100vh;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-font-family: "Roboto", sans-serif;
+}
+
+*,
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    --webkit-appearance: button;
+}
+
+.flex {
+    display: flex;
+}
+
+.gap-4 {
+    gap: 4px;
+}
+
+.justify-content-between { 
+    justify-content: space-between;
+}
+
+.grid {
+    display: grid;
+}
+
+.layout {
+    display: grid;
+    height: 100vh;
+
+    &--two-cols {
+        grid-template-columns: min-content auto;
+    }
+
+    &_left {
+        // min-width: 300px;
+        background-color: var(--layout-left-background, var(--primary-background-200));
+    }
+    &_right {
+        background-color: var(--layout-right-background, var(--primary-background-100));
+    }
+}
+
+.link {
+    display: inline-block;
+    width: fit-content;
+    &--primary {
+        color: var(--link-primary-text-default, var(--primary-text-400));
+        text-decoration: underline;
+        &:visited {
+            color: var(--link-primary-text-visited, var(--primary-text-300));
+        }
+        &:hover {
+            color: var(--link-primary-text-hover, var(--primary-text-500));
+            text-decoration: none;
+        }
+    }
+    &--accent {
+        color: var(--link-accent-text-default, var(--accent-brand-500));
+        text-decoration: underline;
+        transition: color .3s ease-in-out;
+        &:visited {
+            color: var(--link-accent-text-visited, var(--accent-brand-300));
+        }
+        &:hover {
+            color: var(--link-accent-text-hover, var(--accent-brand-600));
+            text-decoration: none;
+        }
+    }
+}
+

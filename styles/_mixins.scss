@@ -1,0 +1,21 @@
+// @mixin rgba($color, $alpha) {
+//     $hex: hex($color); // Check if $color is a color, if not, assume it's a CSS custom property
+//     $red: red($hex);
+//     $green: green($hex);
+//     $blue: blue($hex);
+//     $rgba: rgba($red, $green, $blue, $alpha);
+//     background-color: $rgba;
+// }
+
+@function hex-to-rgba($hex, $opacity: 1) {
+    $color: hex($hex);
+    // $alpha: $opacity * 100;
+  
+    $red: red($color) * 255;
+    $green: green($color) * 255;
+    $blue: blue($color) * 255;
+  
+    $rgba: rgba($red, $green, $blue, $opacity);
+  
+    @return $rgba;
+}

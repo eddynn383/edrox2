@@ -1,0 +1,108 @@
+
+// Sidebar
+.sidebar {
+    --sidebar-header-padding: var(--padding-300, 12px);
+    --sidebar-body-padding: var(--padding-300, 12px);
+    --sidebar-footer-padding: var(--padding-300, 12px);
+    
+    display: grid;
+    grid-template-rows: min-content auto min-content;
+    height: 100%;
+    background-color: var(--primary-background-200);
+    transition: width .3s ease-in-out;
+    overflow: hidden;
+    
+    &_header {
+        padding: var(--sidebar-header-padding);
+    }
+    &_body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--sidebar-body-gap, var(--gap-200, 8px));
+        // grid-template-rows: min-content ;
+        padding: var(--sidebar-body-padding);
+    }
+    &_footer {
+        padding: var(--sidebar-footer-padding);
+    }
+
+    &_separator {
+        width: 100%;
+        height: 1px;
+        background-color: var(--sidebar-separator, var(--primary-background-300));
+    }
+    &[data-state="collapsed"] {
+        width: 68px;
+    }
+    &[data-state="expanded"] {
+        width: 224px;
+    }
+    &--mobile {
+        position: absolute;
+        width: 360px !important;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        transition: transform .3s ease-in-out;
+        &[data-state="collapsed"] {
+            transform: translateX(-100%);
+        }
+        &[data-state="expanded"] {
+            transform: translateX(0);
+        }
+    }
+}
+
+
+// Header
+.header {
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    align-items: center;
+    padding: var(--header-padding, var(--padding-200));
+    border-bottom: 1px solid var(--header-border-bottom, var(--primary-background-200));
+    min-height: 64px;
+    &_left,
+    &_right  {
+        min-width: 220px;
+    }
+    &_center {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    &_right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .header {
+        &_left,
+        &_right  {
+            min-width: 60px;
+        }
+    }
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    &_inner {
+        width: 100%;
+        max-width: 480px;
+    }
+}
+
+.social {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--social-gap, var(--gap-400, 16px));
+}
+
+

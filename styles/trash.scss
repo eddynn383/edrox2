@@ -1,0 +1,162 @@
+// @layer base {
+//     :root {
+//         --primary-hue: 220;
+//         --primary-saturation: 10%;
+//         --primary-lightness: 85%;
+//         --primary-progression: 2;
+
+//         --primary-background-100: hsl(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness) + var(--primary-progression) * 3));
+//         --primary-background-200: hsl(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness) + var(--primary-progression) * 2));
+//         --primary-background-300: hsl(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness) + var(--primary-progression) * 1));
+//         --primary-background-400: hsl(var(--primary-hue), var(--primary-saturation), var(--primary-lightness));
+//         --primary-background-500: hsl(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness) - var(--primary-progression) * 3));
+//         --primary-background-600: hsl(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness) - var(--primary-progression) * 2));
+//         --primary-background-700: hsl(var(--primary-hue), var(--primary-saturation), calc(var(--primary-lightness) - var(--primary-progression) * 1));
+
+//     }
+// }
+
+// body {
+//     background-color: var(--primary-background-100);
+// }
+
+// .layout {
+//     background-color: var(--primary-background-100);
+// }
+
+// @layer base {
+//   :root {
+//     // --accent-brand-400: hsl(242, 100%, 66%);
+//     --background: 0 0% 100%;
+//     --foreground: 222.2 84% 4.9%;
+
+//     --card: 0 0% 100%;
+//     --card-foreground: 222.2 84% 4.9%;
+
+//     --popover: 0 0% 100%;
+//     --popover-foreground: 222.2 84% 4.9%;
+
+//     --primary: 222.2 47.4% 11.2%;
+//     --primary-foreground: 210 40% 98%;
+
+//     --secondary: 210 40% 96.1%;
+//     --secondary-foreground: 222.2 47.4% 11.2%;
+
+//     --muted: 210 40% 96.1%;
+//     --muted-foreground: 215.4 16.3% 46.9%;
+
+//     --accent: 210 40% 96.1%;
+//     --accent-foreground: 222.2 47.4% 11.2%;
+
+//     --destructive: 0 84.2% 60.2%;
+//     --destructive-foreground: 210 40% 98%;
+
+//     --border: 214.3 31.8% 91.4%;
+//     --input: 214.3 31.8% 91.4%;
+//     --ring: 222.2 84% 4.9%;
+
+//     --radius: 8px;
+
+//     --padding-100: 20px 10px;
+//   }
+
+//   .dark {
+//     --background: 222.2 84% 4.9%;
+//     --foreground: 210 40% 98%;
+
+//     --card: 222.2 84% 4.9%;
+//     --card-foreground: 210 40% 98%;
+
+//     --popover: 222.2 84% 4.9%;
+//     --popover-foreground: 210 40% 98%;
+
+//     --primary: 210 40% 98%;
+//     --primary-foreground: 222.2 47.4% 11.2%;
+
+//     --secondary: 217.2 32.6% 17.5%;
+//     --secondary-foreground: 210 40% 98%;
+
+//     --muted: 217.2 32.6% 17.5%;
+//     --muted-foreground: 215 20.2% 65.1%;
+
+//     --accent: 217.2 32.6% 17.5%;
+//     --accent-foreground: 210 40% 98%;
+
+//     --destructive: 0 62.8% 30.6%;
+//     --destructive-foreground: 210 40% 98%;
+
+//     --border: 217.2 32.6% 17.5%;
+//     --input: 217.2 32.6% 17.5%;
+//     --ring: 212.7 26.8% 83.9%;
+//   }
+// }
+
+// @layer base {
+//   * {
+//     @apply border-border;
+//   }
+//   body {
+//     @apply bg-background text-foreground;
+//   }
+// }
+
+
+// @mixin generate-shades($base-color, $name, $direction: normal) {
+//     $shades: ();
+
+//     @if $direction == normal {    
+//         $shades: (
+//                 100: mix($base-color, white, 10%),
+//                 200: mix($base-color, white, 40%),
+//                 300: mix($base-color, white, 70%),
+//                 400: $base-color,
+//                 500: mix($base-color, black, 70%),
+//                 600: mix($base-color, black, 40%),
+//                 700: mix($base-color, black, 10%)
+//             );
+//     } @else if ($direction == inverted) {
+//         $shades: (
+//                 100: mix($base-color, black, 10%),
+//                 200: mix($base-color, black, 40%),
+//                 300: mix($base-color, black, 70%),
+//                 400: $base-color,
+//                 500: mix($base-color, white, 70%),
+//                 600: mix($base-color, white, 40%),
+//                 700: mix($base-color, white, 10%)
+//             );
+//     } @else {
+//         @error "Property #{$direction} must be either normal or inverted.";
+//     }
+
+//     @each $weight, $mixture in $shades {
+//             $variable-name: #{$name}-#{$weight};
+//             $shade-color: $mixture;
+
+//         :root {
+//             --#{$variable-name}: #{$shade-color};
+//         }
+//     }
+// }
+
+// $primary-background: #D5D7DD;
+// $primary-text: #393D46;
+// $secondary-background: #282828;
+// $secondary-text: #E0E0E0;
+// $accent-brand: #3498db;
+// $accent-success: #6AB66C;
+// $accent-fail: #BA2D0B;
+// $accent-warning: #FF9F1C;
+// $accent-info: #0FA3B1;
+// $accent-neutral: #403F4C;
+
+
+// @include generate-shades($primary-background, primary-background);
+// @include generate-shades($primary-text, primary-text, inverted);
+// @include generate-shades($secondary-background, secondary-background, inverted);
+// @include generate-shades($secondary-text, secondary-text);
+// @include generate-shades($accent-brand, accent-brand);
+// @include generate-shades($accent-success, accent-success);
+// @include generate-shades($accent-fail, accent-fail);
+// @include generate-shades($accent-warning, accent-warning);
+// @include generate-shades($accent-info, accent-info);
+// @include generate-shades($accent-neutral, accent-neutral);

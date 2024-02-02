@@ -1,0 +1,72 @@
+@mixin generate-shades($base-color, $name, $direction: normal, $theme: light) {
+
+    $shades: ();
+    @if $direction == normal {    
+        $shades: (
+            100: mix($base-color, white, 10%),
+            200: mix($base-color, white, 40%),
+            300: mix($base-color, white, 70%),
+            400: $base-color,
+            500: mix($base-color, black, 70%),
+            600: mix($base-color, black, 40%),
+            700: mix($base-color, black, 10%)
+        );
+    } @else if ($direction == inverted) {
+        $shades: (
+            100: mix($base-color, black, 10%),
+            200: mix($base-color, black, 40%),
+            300: mix($base-color, black, 70%),
+            400: $base-color,
+            500: mix($base-color, white, 70%),
+            600: mix($base-color, white, 40%),
+            700: mix($base-color, white, 10%)
+        );
+    } @else {
+        @error "Property #{$direction} must be either normal or inverted.";
+    }
+
+    @each $weight, $mixture in $shades {
+        $variable-name: #{$name}-#{$weight};
+        $shade-color: $mixture;
+
+        --#{$variable-name}: #{$shade-color};
+    }
+}
+
+$primary-background: #d5d7dd;
+$primary-text: #393d46;
+$secondary-background: #292929;
+$secondary-text: #e0e0e0;
+$accent-brand: #5752ff;
+$accent-success: #69b56b;
+$accent-fail: #bc2e0b;
+$accent-warning: #ff9f1a;
+$accent-info: #10a5b2;
+$accent-neutral: #403f4b;
+
+
+:root {
+    @include generate-shades($primary-background, primary-background, normal);
+    @include generate-shades($primary-text, primary-text, normal);
+    @include generate-shades($secondary-background, secondary-background, normal);
+    @include generate-shades($secondary-text, secondary-text, normal);
+    @include generate-shades($accent-brand, accent-brand, normal);
+    @include generate-shades($accent-success, accent-success, normal);
+    @include generate-shades($accent-fail, accent-fail, normal);
+    @include generate-shades($accent-warning, accent-warning, normal);
+    @include generate-shades($accent-info, accent-info, normal);
+    @include generate-shades($accent-neutral, accent-neutral, normal);
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        @include generate-shades($primary-text, primary-background, inverted);
+        @include generate-shades($primary-background, primary-text, normal);
+        @include generate-shades($secondary-text, secondary-background, normal);
+        @include generate-shades($secondary-background, secondary-text, inverted);
+    }
+
+}
+
+

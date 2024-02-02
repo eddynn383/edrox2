@@ -1,0 +1,19 @@
+.logo {
+    display: flex;
+    position: relative;
+    &[data-position="left"] {
+        justify-self: flex-start;
+    }
+    &[data-position="center"] {
+        justify-self: center;
+    }
+        &[data-position="right"] {
+        justify-self: flex-end;
+    }
+
+    img {
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+    }
+}

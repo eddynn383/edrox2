@@ -1,0 +1,17 @@
+@mixin generate-size($name, $base-size, $number-of-sizes) {
+    $step: $base-size;
+
+    @for $i from 1 through $number-of-sizes {
+        $variable-name: --#{$name}-#{$i * 100};
+        $size-value: $step * $i;
+
+        #{$variable-name}: #{$size-value};
+    }
+}
+
+:root {
+    @include generate-size(padding, 4px, 20);
+    @include generate-size(gap, 4px, 9);
+    @include generate-size(size, 4px, 16);
+    @include generate-size(radius, 2px, 8);
+}
