@@ -16,13 +16,11 @@ import { newPassword } from "@/actions/new-password"
  
 export const NewPasswordForm = () => {
     const searchParams = useSearchParams();
-    const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-    ? "Email already in use with different provider!"
-    : "";
+    const token = searchParams.get("token");
 
     const [isPending, startTransition] = useTransition();
-    const [error, setError] = useState<any>();
-    const [success, setSuccess] = useState<any>();
+    const [error, setError] = useState<string | undefined>("");
+    const [success, setSuccess] = useState<string | undefined>("");
 
     const form = useForm<z.infer<typeof NewPasswordSchema>>({
         resolver: zodResolver(NewPasswordSchema),
@@ -35,16 +33,10 @@ export const NewPasswordForm = () => {
         setSuccess("");
 
         startTransition(() => {
-            newPassword(values).then((data) => {
-                if (data?.error) {
-                    form.reset();
-                    setError(data.error);
-                }
-
-                if (data?.success) {
-                    form.reset();
-                    setSuccess(data.success);
-                }
+            newPassword(values, token)
+            .then((data) => {
+                setError(data?.error);
+                setSuccess(data?.success);
             })
         })
     }
@@ -57,11 +49,11 @@ export const NewPasswordForm = () => {
                         <CardDescription>Enter your new password below.</CardDescription>
                     </CardHeader>
                     {
-                        (error || urlError) &&
+                        (error) &&
                         <Alert mode="text" status="fail">
                             <AlertDescription>
                                 <Icon name="alert-circle" size={20}/>
-                                <span>{ error || urlError }</span>
+                                <span>{ error }</span>
                             </AlertDescription>
                         </Alert>
                     }
@@ -81,6 +73,7 @@ export const NewPasswordForm = () => {
                             <FormField 
                                 control={form.control} 
                                 name="password" 
+                                disabled={isPending}
                                 render={({field}) => (
                                     <FormItem>
                                         <div className="flex gap-4 justify-content-between">
@@ -93,7 +86,6 @@ export const NewPasswordForm = () => {
                                                 shade="200"
                                                 placeholder="********"
                                                 type="password"
-                                                disabled={isPending}
                                             />
                                         </FormControl>
                                     </FormItem>

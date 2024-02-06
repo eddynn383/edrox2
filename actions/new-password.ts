@@ -8,7 +8,7 @@ import { getPasswordResetTokenByToken } from "@/data/passResetToken"
 import { getUserByEmail } from "@/data/user"
 import { db } from "@/lib/db"
 
-export const newPassword = async (values: z.infer<typeof NewPasswordSchema>, token?: string) => {
+export const newPassword = async (values: z.infer<typeof NewPasswordSchema>, token?: string | null) => {
     if (!token) {
         return { error: "Missing token!" }
     }
@@ -56,5 +56,5 @@ export const newPassword = async (values: z.infer<typeof NewPasswordSchema>, tok
         }
     })
 
-    return { success: "Passwrod updated!" }
+    return { success: "Password updated!" }
 }

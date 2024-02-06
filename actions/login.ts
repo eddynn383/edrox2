@@ -9,8 +9,9 @@ import { signIn } from "@/auth"
 import { LoginSchema } from "@/schemas"
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
 import { getUserByEmail } from "@/data/user"
-import { generateVerificationToken } from "@/lib/tokens"
-import { sendVerificationEmail } from "@/lib/mail"
+import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens"
+import { sendVerificationEmail, sendTwoFactorTokenEmail } from "@/lib/mail"
+import { userAgent } from "next/server"
 
 
 export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: string | null) => {
@@ -25,12 +26,16 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
 
     const existingUser = await getUserByEmail(email);
 
+    console.log({ existingUser })
+
     if (!existingUser || !existingUser.email || !existingUser.password) {
         return { error: "Email does not exist!" }
     }
 
     if (!existingUser.emailVerified) {
+
         const verificationToken = await generateVerificationToken(existingUser.email)
+        console.log(verificationToken)
 
         await sendVerificationEmail(
             verificationToken.email,
@@ -38,6 +43,16 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
         )
 
         return {success: "A confirmation email was sent!"}
+    }
+
+    if (existingUser.isTwoFactorEnabled && existingUser.email) {
+        const twoFactorToken = await generateTwoFactorToken(existingUser.email)
+
+        await sendTwoFactorTokenEmail(twoFactorToken.email, twoFactorToken.token)
+
+        return {
+            twoFactor: true
+        }
     }
 
     try {

@@ -1,6 +1,9 @@
+import { NewPasswordForm } from "@/module/NewPasswordForm";
+
+
 const ResetPasswordPage = () => {
     return ( 
-        <h1>Reset Password</h1>
+        <NewPasswordForm />
     );
 }
  

@@ -8,6 +8,8 @@ import { getVerificationTokenByToken } from "@/data/verificationToken"
 export const tokenValidation = async (token:string) => {
     const existingToken = await getVerificationTokenByToken(token)
 
+    console.log({existingToken})
+
     if (!existingToken) {
         return { error: "Token does not exist!" }
     }
@@ -19,6 +21,8 @@ export const tokenValidation = async (token:string) => {
     }
 
     const existingUser = await getUserByEmail(existingToken.email);
+
+    console.log({ex: {existingUser}})
     if (!existingUser) {
         return { error: "Email does not exist!" }
     }
