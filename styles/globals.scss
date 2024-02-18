@@ -8,7 +8,9 @@ body,
     height: 100vh;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -34,7 +36,7 @@ button {
     gap: 4px;
 }
 
-.justify-content-between { 
+.justify-content-between {
     justify-content: space-between;
 }
 
@@ -54,7 +56,10 @@ button {
         // min-width: 300px;
         background-color: var(--layout-left-background, var(--primary-background-200));
     }
+
     &_right {
+        display: grid;
+        grid-template-rows: min-content 1fr;
         background-color: var(--layout-right-background, var(--primary-background-100));
     }
 }
@@ -62,24 +67,30 @@ button {
 .link {
     display: inline-block;
     width: fit-content;
+
     &--primary {
         color: var(--link-primary-text-default, var(--primary-text-400));
         text-decoration: underline;
+
         &:visited {
             color: var(--link-primary-text-visited, var(--primary-text-300));
         }
+
         &:hover {
             color: var(--link-primary-text-hover, var(--primary-text-500));
             text-decoration: none;
         }
     }
+
     &--accent {
         color: var(--link-accent-text-default, var(--accent-brand-500));
         text-decoration: underline;
         transition: color .3s ease-in-out;
+
         &:visited {
             color: var(--link-accent-text-visited, var(--accent-brand-300));
         }
+
         &:hover {
             color: var(--link-accent-text-hover, var(--accent-brand-600));
             text-decoration: none;
@@ -87,3 +98,14 @@ button {
     }
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

@@ -33,3 +33,14 @@ export const NewPasswordSchema = z.object({
         message: "Minimum of 6 characters required",
     }),
 });
+
+export const NewCourseSchema = z.object({
+    title: z.string().min(1, {
+        message: "Title is required"
+    }),
+    description: z.string().min(1, {
+        message: "bla bla bla"
+    }),
+    // metadata: z.record(z.string(), z.string()).optional(),
+    // image: z.any().optional(),
+})

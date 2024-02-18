@@ -22,16 +22,14 @@ export default function RootLayout({
 
 
     return (
-        // <ClerkProvider>
-            <html lang="en">
-                <body className={roboto.className}>
-                    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange >
-                        <ToggleProvider>
-                            {children}
-                        </ToggleProvider>
-                    </ThemeProvider>
-                </body>
-            </html>
-        // </ClerkProvider>
+        <html lang="en">
+            <body className={roboto.className}>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange >
+                    <ToggleProvider>
+                        {children}
+                    </ToggleProvider>
+                </ThemeProvider>
+            </body>
+        </html>
     );
 }

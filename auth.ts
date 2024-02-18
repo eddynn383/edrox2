@@ -8,20 +8,24 @@ import { db } from "@/lib/db";
 import { JWT } from "next-auth/jwt";
 import { getUserById } from "@/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/data/twoFactorConfirmation";
+import { getAccountByUserId } from "./data/account";
 
 export type ExtendedUser = DefaultSession["user"] & {
-    role: "ADMIN" | "USER"
+    role: "ADMIN" | "USER";
+    isOAuth?: boolean;
 }
 
 declare module "next-auth" {
     interface Session {
         user: ExtendedUser;
+        isOAuth: boolean;
     }
 }
 
 declare module "next-auth/jwt" {
     interface JWT {
-        role?: "ADMIN" | "USER"
+        role?: "ADMIN" | "USER";    
+        isOAuth: boolean;
     }
 }
 
@@ -49,7 +53,7 @@ export const {
     },
     callbacks: {
         async signIn({ user, account }) {
-            console.log({user})
+            console.log("SIGNIN CB: ", {user})
             if (account?.provider !== "credentials") return true;
             
             if (!user.id) return false;
@@ -62,7 +66,7 @@ export const {
             if (existingUser.isTwoFactorEnabled) {
                 const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id)
 
-                console.log(twoFactorConfirmation)
+                console.log("TFC SIGNIN CB: ",twoFactorConfirmation)
 
                 if (!twoFactorConfirmation) return false
 
@@ -76,7 +80,7 @@ export const {
             return true
         },
         async session({ session, token }: { session: Session, token?: JWT }) {
-            console.log({ 
+            console.log("SESSION: ", { 
                 sessionToken: token,
                 session
             })
@@ -88,15 +92,29 @@ export const {
             if (token?.role && session.user) {
                 session.user.role = token.role;
             }
+
+            if (session.user) {
+                session.user.name = token?.name;
+                session.user.email = token?.email;
+                session.user.isOAuth = token?.isOAuth;
+            }
+
             return session;
         },
         async jwt({ token }) {
             if (!token.sub) return token;
 
             const existingUser = await getUserById(token.sub)
+            console.log("JWT: ", existingUser)
             if(!existingUser) return token;
+
+            const existingAccount = await getAccountByUserId(existingUser.id);
             
-            token.role = existingUser.role
+            token.isOAuth = !!existingAccount;
+            token.name = existingUser.name;
+            token.email = existingUser.email;
+            token.role = existingUser.role;
+            token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
 
             return token;
         }

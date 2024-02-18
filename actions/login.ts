@@ -12,6 +12,8 @@ import { getUserByEmail } from "@/data/user"
 import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens"
 import { sendVerificationEmail, sendTwoFactorTokenEmail } from "@/lib/mail"
 import { userAgent } from "next/server"
+import { getTwoFactorTokenByEmail } from "@/data/twoFactorToken"
+import { getTwoFactorConfirmationByUserId } from "@/data/twoFactorConfirmation"
 
 
 export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: string | null) => {
@@ -22,11 +24,12 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
         return { error: "Invalid fields!"}
     }
 
-    const { email, password } = validatedFields.data;
+    const { email, password, code } = validatedFields.data;
+
 
     const existingUser = await getUserByEmail(email);
-
-    console.log({ existingUser })
+    console.log("LOGIN ACTION EMAIL:", email.trim())
+    console.log("LOGIN ACTION: ", { existingUser })
 
     if (!existingUser || !existingUser.email || !existingUser.password) {
         return { error: "Email does not exist!" }
@@ -35,7 +38,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
     if (!existingUser.emailVerified) {
 
         const verificationToken = await generateVerificationToken(existingUser.email)
-        console.log(verificationToken)
+        console.log("VerToken LOGIN ACTION: ", verificationToken)
 
         await sendVerificationEmail(
             verificationToken.email,
@@ -46,12 +49,55 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
     }
 
     if (existingUser.isTwoFactorEnabled && existingUser.email) {
-        const twoFactorToken = await generateTwoFactorToken(existingUser.email)
 
-        await sendTwoFactorTokenEmail(twoFactorToken.email, twoFactorToken.token)
+        if (code) { 
 
-        return {
-            twoFactor: true
+            const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email)
+
+            if (!twoFactorToken) {
+                return { error: "Invalid Code!" }
+            }
+
+            if (twoFactorToken.token !== code) {
+                return { error: "Invalid Code!" }
+            }
+
+            const hasExpired = new Date(twoFactorToken.expires) < new Date();
+
+            if (hasExpired) {
+                return { error: "Code is expired!" }
+            }
+
+            await db.twoFactorToken.delete({
+                where: { 
+                    id: twoFactorToken.id 
+                }
+            })
+
+            const existingConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id)
+
+            if (existingConfirmation) {
+                await db.twoFactorConfirmation.delete({
+                    where: { 
+                        id: existingConfirmation.id
+                    }
+                })
+            }
+
+            await db.twoFactorConfirmation.create({
+                data: {
+                    userId: existingUser.id
+                }
+            })
+
+        } else {
+            const twoFactorToken = await generateTwoFactorToken(existingUser.email)
+    
+            await sendTwoFactorTokenEmail(twoFactorToken.email, twoFactorToken.token)
+    
+            return {
+                twoFactor: true
+            }
         }
     }
 
@@ -61,6 +107,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
             password,
             redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT
         })
+        
     } catch (error) {
         if (error instanceof AuthError) {
             switch (error.type) {

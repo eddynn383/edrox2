@@ -1,0 +1,21 @@
+.user-profile {
+    position: relative;
+    height: 180px;
+    .cover {
+        border-radius: 8px 8px 0 0;
+    }
+    &-info {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+    }
+    &-details {
+        display: flex;
+        flex-direction: column;
+        padding: 12px 0;
+        gap: 4px;
+    }
+}

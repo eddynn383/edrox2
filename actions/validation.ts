@@ -16,6 +16,7 @@ export const tokenValidation = async (token:string) => {
 
     const hasExpired = new Date(existingToken.expires) < new Date()
 
+
     if (hasExpired) {
         return { error: "Token has expired!" }
     }
@@ -23,7 +24,9 @@ export const tokenValidation = async (token:string) => {
     const existingUser = await getUserByEmail(existingToken.email);
 
     console.log({ex: {existingUser}})
+
     if (!existingUser) {
+        console.log("User exists!")
         return { error: "Email does not exist!" }
     }
 

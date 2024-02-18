@@ -8,19 +8,19 @@ import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LoginSchema } from "@/schemas"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/Form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/Form"
 import { Social } from "../Social"
 import { Alert, AlertDescription, Button, Card, CardDescription, CardHeader, CardTitle, Icon, Input } from "@/components"
 import { login } from "@/actions/login"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
- 
+
 export const LoginForm = () => {
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl");
     const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-    ? "Email already in use with different provider!"
-    : "";
+        ? "Email already in use with different provider!"
+        : "";
 
     const [showTwoFactor, setShowTwoFactor] = useState(false)
     const [isPending, startTransition] = useTransition();
@@ -40,6 +40,7 @@ export const LoginForm = () => {
 
         startTransition(() => {
             login(values, callbackUrl).then((data) => {
+                console.log(data)
                 if (data?.error) {
                     form.reset();
                     setError(data.error);
@@ -50,7 +51,7 @@ export const LoginForm = () => {
                     setSuccess(data.success);
                 }
 
-                if(data?.twoFactor) {
+                if (data?.twoFactor) {
                     setShowTwoFactor(true)
                 }
             }).catch(() => setError("Something went wrong!"))
@@ -60,7 +61,7 @@ export const LoginForm = () => {
         <div className={msx["auth"]}>
             <div className={msx["auth_inner"]}>
                 <Card effect="glass" size="2XL">
-                    <CardHeader style={{"display": "flex", "flexDirection": "column", "gap": "8px", "alignItems": "center"}}>                        
+                    <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px", "alignItems": "center" }}>
                         <CardTitle rank={1}>Welcome back!</CardTitle>
                         <CardDescription>Use your credentials to login into the app</CardDescription>
                     </CardHeader>
@@ -68,8 +69,8 @@ export const LoginForm = () => {
                         (error || urlError) &&
                         <Alert mode="text" status="fail">
                             <AlertDescription>
-                                <Icon name="alert-circle" size={20}/>
-                                <span>{ error || urlError }</span>
+                                <Icon name="alert-circle" size={20} />
+                                <span>{error || urlError}</span>
                             </AlertDescription>
                         </Alert>
                     }
@@ -78,7 +79,7 @@ export const LoginForm = () => {
                         success &&
                         <Alert mode="text" status="success">
                             <AlertDescription>
-                                <Icon name="check-circle" size={20}/>
+                                <Icon name="check-circle" size={20} />
                                 <span>{success}</span>
                             </AlertDescription>
                         </Alert>
@@ -88,43 +89,43 @@ export const LoginForm = () => {
                         <form className={csx["form"]} onSubmit={form.handleSubmit(onSubmit)}>
                             {
                                 showTwoFactor && (
-                                    <FormField 
-                                        control={form.control} 
-                                        name="code" 
-                                        render={({field}) => (
-                                            <FormItem> 
+                                    <FormField
+                                        control={form.control}
+                                        name="code"
+                                        render={({ field }) => (
+                                            <FormItem>
                                                 <div className="flex gap-4 justify-content-between">
                                                     <FormLabel>Code</FormLabel>
                                                     <FormMessage icon="alert-triangle" />
                                                 </div>
                                                 <FormControl>
-                                                    <Input 
-                                                        {...field}  
+                                                    <Input
+                                                        {...field}
                                                         shade="200"
                                                         placeholder="123456"
                                                         disabled={isPending}
                                                     />
                                                 </FormControl>
                                             </FormItem>
-                                        )}  
+                                        )}
                                     />
                                 )
                             }
                             {
                                 !showTwoFactor && (
                                     <>
-                                        <FormField 
-                                            control={form.control} 
-                                            name="email" 
-                                            render={({field}) => (
-                                                <FormItem> 
+                                        <FormField
+                                            control={form.control}
+                                            name="email"
+                                            render={({ field }) => (
+                                                <FormItem>
                                                     <div className="flex gap-4 justify-content-between">
                                                         <FormLabel>Email</FormLabel>
                                                         <FormMessage icon="alert-triangle" />
                                                     </div>
                                                     <FormControl>
-                                                        <Input 
-                                                            {...field}  
+                                                        <Input
+                                                            {...field}
                                                             shade="200"
                                                             placeholder="john.doe@example.com"
                                                             type="email"
@@ -132,19 +133,19 @@ export const LoginForm = () => {
                                                         />
                                                     </FormControl>
                                                 </FormItem>
-                                            )}  
+                                            )}
                                         />
-                                        <FormField 
-                                            control={form.control} 
-                                            name="password" 
-                                            render={({field}) => (
+                                        <FormField
+                                            control={form.control}
+                                            name="password"
+                                            render={({ field }) => (
                                                 <FormItem>
                                                     <div className="flex gap-4 justify-content-between">
                                                         <FormLabel>Password</FormLabel>
                                                         <FormMessage icon="alert-triangle" />
                                                     </div>
                                                     <FormControl>
-                                                        <Input 
+                                                        <Input
                                                             {...field}
                                                             shade="200"
                                                             placeholder="********"
@@ -154,7 +155,7 @@ export const LoginForm = () => {
                                                     </FormControl>
                                                     <Link href="forgot-password" className="link link--primary">Forgot password?</Link>
                                                 </FormItem>
-                                            )}  
+                                            )}
                                         />
                                     </>
                                 )

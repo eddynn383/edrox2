@@ -33,7 +33,7 @@ export const NavigationMenuItem = ({ icon, text, path, iconsOnly = false }: Navi
     }
 
     return (
-        <button className={`${sx["menu_item"]} ${isActive ? sx["menu_item--active"] : ""}`} onClick={clickHanlder}>
+        <button className={`${sx["menu_item"]} ${isActive ? sx["menu_item--active"] : ""}`} title={text} onClick={clickHanlder}>
             <span className={sx["menu_icon"]}><Icon name={icon} /></span>
             {isCollapsed && <span className={sx["menu_text"]} data-visibility={iconsOnly ? "visible" : "hidden"}>{text}</span>}
         </button>

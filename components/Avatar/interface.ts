@@ -1,7 +1,7 @@
 import { Size } from "@/interfaces/global"
 
 
-export interface IPropsAvatar {
+export interface AvatarProps {
     src: string;
     alt?: string;
     id?: string;

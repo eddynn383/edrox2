@@ -1,31 +1,33 @@
 @mixin generate-shades($base-color, $name, $direction: normal, $theme: light) {
 
     $shades: ();
-    @if $direction == normal {    
-        $shades: (
-            100: mix($base-color, white, 10%),
-            200: mix($base-color, white, 40%),
-            300: mix($base-color, white, 70%),
-            400: $base-color,
-            500: mix($base-color, black, 70%),
-            600: mix($base-color, black, 40%),
-            700: mix($base-color, black, 10%)
-        );
-    } @else if ($direction == inverted) {
-        $shades: (
-            100: mix($base-color, black, 10%),
-            200: mix($base-color, black, 40%),
-            300: mix($base-color, black, 70%),
-            400: $base-color,
-            500: mix($base-color, white, 70%),
-            600: mix($base-color, white, 40%),
-            700: mix($base-color, white, 10%)
-        );
-    } @else {
+
+    @if $direction==normal {
+        $shades: (100: mix($base-color, white, 10%),
+                200: mix($base-color, white, 40%),
+                300: mix($base-color, white, 70%),
+                400: $base-color,
+                500: mix($base-color, black, 70%),
+                600: mix($base-color, black, 40%),
+                700: mix($base-color, black, 10%));
+    }
+
+    @else if ($direction==inverted) {
+        $shades: (100: mix($base-color, black, 10%),
+                200: mix($base-color, black, 40%),
+                300: mix($base-color, black, 70%),
+                400: $base-color,
+                500: mix($base-color, white, 70%),
+                600: mix($base-color, white, 40%),
+                700: mix($base-color, white, 10%));
+    }
+
+    @else {
         @error "Property #{$direction} must be either normal or inverted.";
     }
 
-    @each $weight, $mixture in $shades {
+    @each $weight,
+    $mixture in $shades {
         $variable-name: #{$name}-#{$weight};
         $shade-color: $mixture;
 
@@ -47,8 +49,8 @@ $accent-neutral: #403f4b;
 
 :root {
     @include generate-shades($primary-background, primary-background, normal);
-    @include generate-shades($primary-text, primary-text, normal);
-    @include generate-shades($secondary-background, secondary-background, normal);
+    @include generate-shades($primary-text, primary-text, inverted);
+    @include generate-shades($secondary-background, secondary-background, inverted);
     @include generate-shades($secondary-text, secondary-text, normal);
     @include generate-shades($accent-brand, accent-brand, normal);
     @include generate-shades($accent-success, accent-success, normal);
@@ -68,5 +70,3 @@ $accent-neutral: #403f4b;
     }
 
 }
-
-

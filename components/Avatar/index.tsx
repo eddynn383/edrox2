@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { IPropsAvatar } from "./interface";
-import sx from './component.module.scss'
+import { AvatarProps } from "./interface";
+import sx from "@/styles/component.module.scss"
 
 
-const Avatar = ({ src, alt, id, style, size = "M", type = "square" }: IPropsAvatar) => {
+const Avatar = ({ src, alt, id, style, size = "M", type = "square" }: AvatarProps) => {
     let imageSize;
 
     switch (size) {

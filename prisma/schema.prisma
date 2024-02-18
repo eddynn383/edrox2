@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
+    previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -17,16 +18,25 @@ enum UserRole {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    password      String?
-    role          UserRole  @default(USER)
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    isTwoFactorEnabled Boolean @default(false)
+    id                    String                 @id @default(cuid())
+    name                  String?
+    email                 String?                @unique
+    password              String?
+    role                  UserRole               @default(USER)
+    emailVerified         DateTime?
+    image                 String?
+    accounts              Account[]
+    isTwoFactorEnabled    Boolean                @default(false)
     twoFactorConfirmation TwoFactorConfirmation?
+
+    // catalogCreated  Catalog[]    @relation("CreatedById")
+    // catalogUpdated  Catalog[]    @relation("UpdatedById")
+    courseCreated    Course[]       @relation("CreatedById")
+    courseUpdated    Course[]       @relation("UpdatedById")
+    // coursesInstructed Course[]         @relation("Instructor")
+    coursesEnrolled  Enrollment[]
+    coursesPurchased Purchase[]
+    courseProgress   UserProgress[]
 }
 
 model Account {
@@ -58,27 +68,219 @@ model VerificationToken {
 }
 
 model PasswordResetToken {
-    id String @id @default(cuid())
-    email String
-    token String @unique
+    id      String   @id @default(cuid())
+    email   String
+    token   String   @unique
     expires DateTime
 
     @@unique([email, token])
 }
 
 model TwoFactorToken {
-    id String @id @default(cuid())
-    email String
-    token String @unique
+    id      String   @id @default(cuid())
+    email   String
+    token   String   @unique
     expires DateTime
 
     @@unique([email, token])
 }
 
 model TwoFactorConfirmation {
-    id String @id @default(cuid())
+    id     String @id @default(cuid())
     userId String
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([userId])
+}
+
+// model Catalog {
+//     id          String @id @default(cuid())
+//     title       String
+//     description String @default("")
+
+//     createdBy   User?    @relation(name: "CreatedById", fields: [createdById], references: [id])
+//     createdById String
+//     createdAt   DateTime @default(now())
+//     updatedBy   User?    @relation(name: "UpdatedById", fields: [updatedById], references: [id])
+//     updatedById String?
+//     updatedAt   DateTime @updatedAt
+
+//     courses Course[]
+
+//     @@map("Catalogs")
+// }
+
+model Course {
+    id          String       @id @default(cuid())
+    title       String
+    description String?
+    image       String?
+    categoryId  String?
+    category    Category?    @relation(fields: [categoryId], references: [id])
+    price       Decimal      @default(0.0)
+    // level        String
+    isPublished Boolean      @default(false)
+    metadata    Metadata[]
+    // startDate   DateTime
+    // endDate     DateTime?
+    // students     Enrollment[]
+    // instructorId String 
+    // instructor   User?        @relation("Instructor", fields: [instructorId], references: [id])
+    createdById String
+    createdBy   User?        @relation(name: "CreatedById", fields: [createdById], references: [id])
+    createdAt   DateTime     @default(now())
+    updatedBy   User?        @relation(name: "UpdatedById", fields: [updatedById], references: [id])
+    updatedById String?
+    updatedAt   DateTime     @updatedAt
+    // catalogs    Catalog[]  
+    chapters    Chapter[]
+    attachments Attachment[]
+    purchases   Purchase[]
+    enrollments Enrollment[]
+
+    @@index([categoryId])
+    @@map("Courses")
+}
+
+model Category {
+    id   String @id @default(uuid())
+    name String @unique
+
+    courses Course[]
+
+    @@map("Categories")
+}
+
+model Metadata {
+    id       String @id @default(uuid())
+    key      String @unique
+    value    String
+    type     String
+    courseId String
+    course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Attachment {
+    id   String @id @default(uuid())
+    name String
+    url  String @db.Text
+
+    courseId String
+    course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([courseId])
+    @@map("Attachments")
+}
+
+model Chapter {
+    id          String  @id @default(uuid())
+    title       String
+    description String? @db.Text
+    videoUrl    String? @db.Text
+    position    Int
+    isPublished Boolean @default(false)
+    isFree      Boolean @default(false)
+
+    muxData MuxData?
+
+    courseId String
+    course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+    userProgress UserProgress[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([courseId])
+}
+
+model MuxData {
+    id         String  @id @default(uuid())
+    assetId    String
+    playbackId String?
+
+    chapterId String  @unique
+    chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+}
+
+model UserProgress {
+    id     String @id @default(uuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    chapterId String
+    chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+    isCompleted Boolean @default(false)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([userId, chapterId])
+    @@index([chapterId])
+}
+
+model Purchase {
+    id       String @id @default(uuid())
+    userId   String
+    user     User   @relation(fields: [userId], references: [id])
+    courseId String
+    course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt()
+
+    @@unique([userId, courseId])
+    @@index([courseId])
+    @@map("Purchases")
+}
+
+// model Content {
+//     id        String      @id @default(cuid())
+//     title     String
+//     type      ContentType
+//     content   String
+//     courseId  String
+//     course    Course      @relation(fields: [courseId], references: [id])
+//     createdAt DateTime    @default(now())
+//     updatedAt DateTime    @updatedAt
+
+//     @@map("Contents")
+// }
+
+model Enrollment {
+    id             String           @id @default(cuid())
+    userId         String
+    user           User             @relation(fields: [userId], references: [id])
+    courseId       String
+    course         Course           @relation(fields: [courseId], references: [id])
+    grade          Int?
+    status         EnrollmentStatus
+    completionDate DateTime?
+    createdAt      DateTime         @default(now())
+    updatedAt      DateTime         @updatedAt
+
+    @@unique([userId, courseId])
+    @@map("Enrollments")
+}
+
+enum ContentType {
+    TEXT
+    VIDEO
+    AUDIO
+    PDF
+}
+
+enum EnrollmentStatus {
+    STARTED
+    COMPLETED
+    CANCELLED
+}
+
+enum CourseStatus {
+    DRAFTED
+    PUBLISHED
 }

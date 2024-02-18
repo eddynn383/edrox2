@@ -1,4 +1,7 @@
 "use client";
+/*
+    @preview
+*/
 
 import React from 'react';
 import { AlertProps } from "./interface";
@@ -13,7 +16,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(({ mode = "solid", st
 
 Alert.displayName = "Alert"
 
-const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(({...props }, ref) => (
+const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(({ ...props }, ref) => (
     <h5 className={sx['alert_title']} ref={ref} {...props} />
 ))
 

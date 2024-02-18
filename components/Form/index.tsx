@@ -13,8 +13,8 @@ import {
 import { Label } from "@/components/Label"
 import { Icon } from "@/components/Icon"
 
-import sx from "@/styles/component.module.scss"
 import { FormMessageProps } from "./interface"
+import sx from "@/styles/component.module.scss"
 
 const Form = FormProvider
 
@@ -76,12 +76,12 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 const FormItem = React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
+>(({ className = `${sx["form-item"]}`, ...props }, ref) => {
     const id = React.useId()
 
     return (
         <FormItemContext.Provider value={{ id }}>
-            <div ref={ref} className={sx["form_item"]} {...props} />
+            <div ref={ref} className={className} {...props} />
         </FormItemContext.Provider>
     )
 })
@@ -90,13 +90,13 @@ FormItem.displayName = "FormItem"
 const FormLabel = React.forwardRef<
     React.ElementRef<typeof LabelPrimitive.Root>,
     React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className, ...props }, ref) => {
+>(({ className = `${sx["form-label"]}`, ...props }, ref) => {
     const { error, formItemId } = useFormField()
 
     return (
         <Label
             ref={ref}
-            className={sx["form_label"]}
+            className={className}
             htmlFor={formItemId}
             {...props}
         />
@@ -129,7 +129,7 @@ FormControl.displayName = "FormControl"
 const FormDescription = React.forwardRef<
     HTMLParagraphElement,
     React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => {
+>(({ className = `${sx["form-description"]}`, ...props }, ref) => {
     const { formDescriptionId } = useFormField()
 
     return (
@@ -141,8 +141,8 @@ const FormDescription = React.forwardRef<
         />
     )
 })
-FormDescription.displayName = "FormDescription"
 
+FormDescription.displayName = "FormDescription"
 
 
 const FormMessage = React.forwardRef<
@@ -157,14 +157,9 @@ const FormMessage = React.forwardRef<
     }
 
     return (
-        <div className={`${sx["form_message"]} ${error && sx["form_message--error"]}`}>
-            {icon && <Icon name="alert-triangle" className={sx["form_message-icon"]} />}
-            <p
-                ref={ref}
-                id={formMessageId}
-                className={sx["form_message-text"]}
-                {...props}
-            >
+        <div className={`${sx["form-message"]} ${error && sx["form-message--error"]}`}>
+            {icon && <Icon name="alert-triangle" className={sx["form-message-icon"]} />}
+            <p ref={ref} id={formMessageId} className={sx["form-message-text"]} {...props}>
                 {body}
             </p>
         </div>
