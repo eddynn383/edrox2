@@ -6,6 +6,7 @@ const Rating = ({ score, reviews }: IPropsRating) => {
     return (
         <div className={sx["rating"]}>
             <span className={sx["rating-score"]}>
+                <span className={sx["rating-score-value"]}>{score}</span>
                 <span className={sx["rating-score-stars"]}>
                     {
                         [...Array(5)].map((item, idx) => {
@@ -16,9 +17,8 @@ const Rating = ({ score, reviews }: IPropsRating) => {
                         })
                     }
                 </span>
-                <span className={sx["rating-score-value"]}>{score}</span>
             </span>
-            <span className={sx["rating-reviews"]}>({reviews} reviews)</span>
+            {/* <span className={sx["rating-reviews"]}>({reviews} reviews)</span> */}
         </div>
     )
 }

@@ -37,6 +37,7 @@ model User {
     coursesEnrolled  Enrollment[]
     coursesPurchased Purchase[]
     courseProgress   UserProgress[]
+    reviews          Review[]
 }
 
 model Account {
@@ -111,32 +112,33 @@ model TwoFactorConfirmation {
 // }
 
 model Course {
-    id          String       @id @default(cuid())
-    title       String
-    description String?
-    image       String?
-    categoryId  String?
-    category    Category?    @relation(fields: [categoryId], references: [id])
-    price       Decimal      @default(0.0)
-    // level        String
-    isPublished Boolean      @default(false)
-    metadata    Metadata[]
+    id            String       @id @default(cuid())
+    title         String
+    description   String?
+    image         String?
+    categoryId    String
+    category      Category     @relation(fields: [categoryId], references: [id])
+    price         Float?       @default(0.0)
+    discountPrice Float?       @default(0.0)
+    level         Int?         @default(1)
+    isPublished   Boolean      @default(false)
+    metadata      Metadata[]
     // startDate   DateTime
     // endDate     DateTime?
-    // students     Enrollment[]
     // instructorId String 
     // instructor   User?        @relation("Instructor", fields: [instructorId], references: [id])
-    createdById String
-    createdBy   User?        @relation(name: "CreatedById", fields: [createdById], references: [id])
-    createdAt   DateTime     @default(now())
-    updatedBy   User?        @relation(name: "UpdatedById", fields: [updatedById], references: [id])
-    updatedById String?
-    updatedAt   DateTime     @updatedAt
+    createdById   String
+    createdBy     User         @relation(name: "CreatedById", fields: [createdById], references: [id])
+    createdAt     DateTime     @default(now())
+    updatedBy     User?        @relation(name: "UpdatedById", fields: [updatedById], references: [id])
+    updatedById   String?
+    updatedAt     DateTime     @updatedAt
     // catalogs    Catalog[]  
-    chapters    Chapter[]
-    attachments Attachment[]
-    purchases   Purchase[]
-    enrollments Enrollment[]
+    chapters      Chapter[]
+    attachments   Attachment[]
+    purchases     Purchase[]
+    enrollments   Enrollment[]
+    reviews       Review[]
 
     @@index([categoryId])
     @@map("Courses")
@@ -193,8 +195,25 @@ model Chapter {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    // @@map("Chapters")
 
     @@index([courseId])
+}
+
+model Review {
+    id       String  @id @default(cuid())
+    courseId String
+    course   Course  @relation(fields: [courseId], references: [id])
+    userId   String
+    user     User    @relation(fields: [userId], references: [id])
+    rating   Int // Rating for the course (e.g., 1 to 5 stars)
+    title    String?
+    comment  String? // Optional comment/review text
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("Reviews")
 }
 
 model MuxData {

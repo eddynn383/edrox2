@@ -32,10 +32,10 @@ const Header = ({ user, onLogout }: { user: any, onLogout?: () => void }) => {
                     mobile &&
                     <Logo src="/logo.svg" alt="logo" width={200} height={42} />
                 }
-                {
+                {/* {
                     !mobile &&
                     <Search placeholder="Search" />
-                }
+                } */}
             </div>
             <div className={sx["page-header-right"]}>
                 {/* <UserButton afterSignOutUrl="/" /> */}

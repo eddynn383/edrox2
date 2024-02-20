@@ -1,7 +1,6 @@
 
-import { Button, Icon } from "@/components";
+import { Button, Icon, PageTitle } from "@/components";
 import CourseCreationControls from "@/module/CourseCreationControls";
-import PageTitle from "@/components/PageTitle";
 import sx from "@/styles/module.module.scss"
 
 const NewCourseLayout = ({ children }: { children: React.ReactNode }) => {

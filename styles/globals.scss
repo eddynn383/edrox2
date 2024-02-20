@@ -45,22 +45,27 @@ button {
 }
 
 .layout {
-    display: grid;
+    display: flex;
+    grid-template-rows: 100%;
+    width: 100vw;
     height: 100vh;
+    overflow: hidden;
 
-    &--two-cols {
-        grid-template-columns: min-content auto;
-    }
+    // &--two-cols {
+    //     grid-template-columns: min-content auto;
+    // }
 
     &_left {
-        // min-width: 300px;
         background-color: var(--layout-left-background, var(--primary-background-200));
     }
 
     &_right {
         display: grid;
-        grid-template-rows: min-content 1fr;
+        grid-template-columns: 100%;
+        grid-template-rows: 64px calc(100% - 64px);
+        flex-grow: 1;
         background-color: var(--layout-right-background, var(--primary-background-100));
+        overflow: hidden;
     }
 }
 

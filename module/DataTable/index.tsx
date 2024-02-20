@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-    ColumnDef,
     ColumnFiltersState,
     flexRender,
     getCoreRowModel,
@@ -13,13 +12,8 @@ import {
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components";
 import { DataTableToolbar } from "../DataTableToolbar";
 import { DataTablePagination } from "../DataTablePagination";
+import { DataTableProps } from "./interaface";
 import sx from "@/styles/module.module.scss"
-
-interface DataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[];
-    data: TData[];
-    pageTitle: string;
-}
 
 const DataTable = <TData, TValue>({ columns, data, pageTitle }: DataTableProps<TData, TValue>) => {
     const [rowSelection, setRowSelection] = useState({})

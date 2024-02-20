@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3888",
-    "build": "npm prisma generate --no-engine && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -25,6 +25,7 @@
     "next": "14.0.4",
     "next-auth": "^5.0.0-beta.5",
     "next-themes": "^0.2.1",
+    "query-string": "^8.2.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.49.3",

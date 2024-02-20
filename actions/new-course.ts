@@ -22,13 +22,13 @@ export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
 
     const { title, description } = validatedFields.data;
 
-    await db.course.create({
-        data: {
-            title,
-            description,
-            createdById: session?.user.id,
-        },
-    });
+    // await db.course.create({
+    //     data: {
+    //         title,
+    //         description,
+    //         createdById: session?.user.id as string,
+    //     },
+    // });
 
     return { success: "The course was successfully created!" };
 };

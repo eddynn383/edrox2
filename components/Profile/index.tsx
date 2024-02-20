@@ -5,9 +5,8 @@ import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
 
 import { ProfileProps } from "./interface";
 import sx from "@/styles/component.module.scss";
-import { signOut } from "next-auth/react";
 
-const Profile = ({ size, user, onLogout }: ProfileProps) => {
+const Profile = ({ size, user }: ProfileProps) => {
 
     const role = user?.role?.toUpperCase()
 

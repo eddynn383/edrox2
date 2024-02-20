@@ -5,15 +5,23 @@ import { NextResponse } from "next/server"
 export async function POST(request: Request) {
     try {
         const session = await auth()
+        const user = session?.user
         const res = await request.json()
         console.log({ res })
+
+        if (!user) {
+            return new NextResponse("Unauthorized", { status: 401 })
+        }
+
         const course = await db.course.create({
             data: {
                 title: res.title,
                 description: res.description,
                 image: res.image,
                 categoryId: res.categoryId,
-                createdById: session?.user.id,
+                price: res.price,
+                level: res.level,
+                createdById: user.id as string,
             }
         })
 

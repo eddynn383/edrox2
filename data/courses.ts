@@ -1,17 +1,51 @@
 import { db } from "@/lib/db";
 
-export const getCourses = async () => {
-    const courses = await db.course.findMany({
-        include: {
-            category: true,
-            chapters: true
-        }
-    })
+type GetCourses = {
+    title?: string;
+    categoryId?: string;
+};
 
-    console.log(courses)
+export const getAllCourses = async () => {
+    try {        
+        const courses = await db.course.findMany()
+    
+        return courses
+    } catch (error) {
+        console.log(error)
+        return [];
+    }
+}
 
-    return courses
+export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) => {
+    try {
+        const courses = await db.course.findMany({
+            where: {
+                isPublished: true,
+                title: {
+                    contains: title,
+                    mode: 'insensitive'
+                },
+                categoryId,
+            },
+            include: {
+                category: true,
+                chapters: {
+                    where: {
+                        isPublished: true,
+                    },
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        })
+        console.log(courses)
 
+        return courses
+    } catch (error) {
+        console.log(error)
+        return null
+    }
 }
 
 export const getCoursesById = async (id: string) => {

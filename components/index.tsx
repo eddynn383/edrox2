@@ -1,6 +1,7 @@
 
 import { Alert, AlertTitle, AlertDescription } from "./Alert";
 import { Avatar } from "./Avatar";
+import { Badge } from "./Badge";
 import { Button } from "./Button";
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription, CourseCard } from "./Card";
 import { ColorPicker } from "./ColorPicker";
@@ -14,6 +15,7 @@ import { LogOut } from "./LogOut";
 import { NavigationMenu } from "./NavigationMenu";
 import { NavigationMenuItem } from "./NavigationMenuItem";
 import { NavigationToggle } from "./NavigationToggle";
+import { PageTitle } from "./PageTitle";
 import { Profile } from "./Profile";
 import { Progress } from "./Progress";
 import { Rating } from "./Rating";
@@ -31,6 +33,7 @@ export {
     AlertTitle,
     AlertDescription,
     Avatar,
+    Badge,
     Button,
     Card,
     CardHeader,
@@ -64,6 +67,7 @@ export {
     NavigationMenu,
     NavigationMenuItem,
     NavigationToggle,
+    PageTitle,
     Profile,
     Progress,
     Rating,

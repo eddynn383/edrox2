@@ -1,5 +1,6 @@
 import { Icon } from "@/components/Icon"
 import { IPropsStar } from "./interface"
+import { FaStar } from "react-icons/fa6";
 import sx from "@/styles/component.module.scss"
 
 const Star = ({ value, idx }: IPropsStar) => {
@@ -16,10 +17,10 @@ const Star = ({ value, idx }: IPropsStar) => {
             <input id={`star-${idx}`} type="radio" defaultChecked={idx <= value ? true : false} />
             <span className={sx["star-icon"]}>
                 <span className={sx["star-icon-fill"]} style={{ width: `${progress}%` }}>
-                    <Icon name="star" />
+                    <FaStar />
                 </span>
                 <span className={sx["star-icon-base"]}>
-                    <Icon name="star" />
+                    <FaStar />
                 </span>
             </span>
         </span>

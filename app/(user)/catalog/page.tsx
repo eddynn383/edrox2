@@ -1,12 +1,29 @@
-import { Button } from "@/components/Button";
+import { getCategories } from "@/data/categories";
+import { getPublishdedCourses } from "@/data/courses";
+import Catalog from "@/module/Catalog";
+import sx from "@/styles/module.module.scss"
 
-const Page = () => {
-    return ( 
-    <>
-        <h1>test tesrtttttttt bla bla </h1> 
-        <Button size={"M"} variant="secondary">CLick me!</Button>
-    </>
+interface CatalogPageProps {
+    searchParams: {
+        title: string;
+        categoryId: string;
+    }
+};
+
+const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
+    const courses = await getPublishdedCourses({...searchParams});
+    const categories = await getCategories()
+
+    console.log("courses: ", courses)
+    console.log("categories: ", categories)
+
+    return (
+        <div className={sx["page-body"]}>
+            <section className={sx["page-content"]}>
+                <Catalog courses={courses} categories={categories} pageTitle="Catalog" />
+            </section>
+        </div>
     );
 }
- 
-export default Page;
+
+export default CatalogPage;

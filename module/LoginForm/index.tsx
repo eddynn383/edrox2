@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { LoginSchema } from "@/schemas"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/Form"
 import { Social } from "../Social"
-import { Alert, AlertDescription, Button, Card, CardDescription, CardHeader, CardTitle, Icon, Input } from "@/components"
+import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input } from "@/components"
 import { login } from "@/actions/login"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
@@ -65,107 +65,109 @@ export const LoginForm = () => {
                         <CardTitle rank={1}>Welcome back!</CardTitle>
                         <CardDescription>Use your credentials to login into the app</CardDescription>
                     </CardHeader>
-                    {
-                        (error || urlError) &&
-                        <Alert mode="text" status="fail">
-                            <AlertDescription>
-                                <Icon name="alert-circle" size={20} />
-                                <span>{error || urlError}</span>
-                            </AlertDescription>
-                        </Alert>
-                    }
+                    <CardContent>
+                        {
+                            (error || urlError) &&
+                            <Alert mode="text" status="fail">
+                                <AlertDescription>
+                                    <Icon name="alert-circle" size={20} />
+                                    <span>{error || urlError}</span>
+                                </AlertDescription>
+                            </Alert>
+                        }
 
-                    {
-                        success &&
-                        <Alert mode="text" status="success">
-                            <AlertDescription>
-                                <Icon name="check-circle" size={20} />
-                                <span>{success}</span>
-                            </AlertDescription>
-                        </Alert>
-                    }
+                        {
+                            success &&
+                            <Alert mode="text" status="success">
+                                <AlertDescription>
+                                    <Icon name="check-circle" size={20} />
+                                    <span>{success}</span>
+                                </AlertDescription>
+                            </Alert>
+                        }
 
-                    <Form {...form}>
-                        <form className={csx["form"]} onSubmit={form.handleSubmit(onSubmit)}>
-                            {
-                                showTwoFactor && (
-                                    <FormField
-                                        control={form.control}
-                                        name="code"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <div className="flex gap-4 justify-content-between">
-                                                    <FormLabel>Code</FormLabel>
-                                                    <FormMessage icon="alert-triangle" />
-                                                </div>
-                                                <FormControl>
-                                                    <Input
-                                                        {...field}
-                                                        shade="200"
-                                                        placeholder="123456"
-                                                        disabled={isPending}
-                                                    />
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
-                                    />
-                                )
-                            }
-                            {
-                                !showTwoFactor && (
-                                    <>
+                        <Form {...form}>
+                            <form className={csx["form"]} onSubmit={form.handleSubmit(onSubmit)}>
+                                {
+                                    showTwoFactor && (
                                         <FormField
                                             control={form.control}
-                                            name="email"
+                                            name="code"
                                             render={({ field }) => (
                                                 <FormItem>
                                                     <div className="flex gap-4 justify-content-between">
-                                                        <FormLabel>Email</FormLabel>
+                                                        <FormLabel>Code</FormLabel>
                                                         <FormMessage icon="alert-triangle" />
                                                     </div>
                                                     <FormControl>
                                                         <Input
                                                             {...field}
                                                             shade="200"
-                                                            placeholder="john.doe@example.com"
-                                                            type="email"
+                                                            placeholder="123456"
                                                             disabled={isPending}
                                                         />
                                                     </FormControl>
                                                 </FormItem>
                                             )}
                                         />
-                                        <FormField
-                                            control={form.control}
-                                            name="password"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <div className="flex gap-4 justify-content-between">
-                                                        <FormLabel>Password</FormLabel>
-                                                        <FormMessage icon="alert-triangle" />
-                                                    </div>
-                                                    <FormControl>
-                                                        <Input
-                                                            {...field}
-                                                            shade="200"
-                                                            placeholder="********"
-                                                            type="password"
-                                                            disabled={isPending}
-                                                        />
-                                                    </FormControl>
-                                                    <Link href="forgot-password" className="link link--primary">Forgot password?</Link>
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </>
-                                )
-                            }
+                                    )
+                                }
+                                {
+                                    !showTwoFactor && (
+                                        <>
+                                            <FormField
+                                                control={form.control}
+                                                name="email"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <div className="flex gap-4 justify-content-between">
+                                                            <FormLabel>Email</FormLabel>
+                                                            <FormMessage icon="alert-triangle" />
+                                                        </div>
+                                                        <FormControl>
+                                                            <Input
+                                                                {...field}
+                                                                shade="200"
+                                                                placeholder="john.doe@example.com"
+                                                                type="email"
+                                                                disabled={isPending}
+                                                            />
+                                                        </FormControl>
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name="password"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <div className="flex gap-4 justify-content-between">
+                                                            <FormLabel>Password</FormLabel>
+                                                            <FormMessage icon="alert-triangle" />
+                                                        </div>
+                                                        <FormControl>
+                                                            <Input
+                                                                {...field}
+                                                                shade="200"
+                                                                placeholder="********"
+                                                                type="password"
+                                                                disabled={isPending}
+                                                            />
+                                                        </FormControl>
+                                                        <Link href="forgot-password" className="link link--primary">Forgot password?</Link>
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </>
+                                    )
+                                }
 
-                            <Button variant="accent" status="default" mode="solid" size="M" type="submit">Login</Button>
-                        </form>
-                    </Form>
-                    <Social />
-                    <p>Don&apos;t have an account yet? <Link href="register" className="link link--accent">Sign up</Link></p>
+                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">Login</Button>
+                            </form>
+                        </Form>
+                        <Social />
+                        <p>Don&apos;t have an account yet? <Link href="register" className="link link--accent">Sign up</Link></p>
+                    </CardContent>
                 </Card>
             </div>
         </div>
