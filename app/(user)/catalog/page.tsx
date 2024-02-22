@@ -1,3 +1,4 @@
+import { SkeletonCard } from "@/components";
 import { getCategories } from "@/data/categories";
 import { getPublishdedCourses } from "@/data/courses";
 import Catalog from "@/module/Catalog";
@@ -22,6 +23,8 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
         <div className={sx["page-body"]}>
             <section className={sx["page-content"]}>
                 <Catalog courses={courses} categories={categories} selectedCategory={searchParams.categoryId} pageTitle="Catalog" />
+                <SkeletonCard />
+            
             </section>
         </div>
     );

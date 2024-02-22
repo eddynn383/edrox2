@@ -1,5 +1,6 @@
 import { auth, signOut } from "@/auth"
 import { Button } from "@/components";
+import { Bone, SkeletonCard } from "@/components/Skeleton";
 import sxm from "@/styles/module.module.scss"
 
 
@@ -15,6 +16,8 @@ const Dashboard = async () => {
                 "use server"
                 await signOut()
             }}>
+                <SkeletonCard />
+                <Bone width="376px" height="210px" radius="8px" animationType="" animationDuration={300} />
                 <Button type="submit" variant="accent" status="fail">Sign Out</Button>
             </form>
         </div>

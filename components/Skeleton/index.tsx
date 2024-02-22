@@ -1,7 +1,7 @@
 import sx from "@/styles/component.module.scss"
 import { IPropsSkeleton } from "./interface"
 
-const Bone = ({ background="var(--background-color-200)", foreground="var(--background-color-300)", width, height, radius, animationType, animationDuration }: IPropsSkeleton) => {
+const Bone = ({ background="var(--primary-background-200)", foreground="var(--primary-background-300)", width, height, radius, animationType, animationDuration }: IPropsSkeleton) => {
     return (
         <span className={sx["skeleton-bone"]} data-animation-type={animationType} data-animation-duration={animationDuration} style={{width: width, height: height, borderRadius: radius, backgroundColor: background}}>
             <span className={sx["skeleton-marker"]} style={{backgroundImage: `linear-gradient(to right, transparent, ${foreground}, transparent)`}}></span>
