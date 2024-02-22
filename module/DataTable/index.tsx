@@ -15,7 +15,9 @@ import { DataTablePagination } from "../DataTablePagination";
 import { DataTableProps } from "./interaface";
 import sx from "@/styles/module.module.scss"
 
-const DataTable = <TData, TValue>({ columns, data, pageTitle }: DataTableProps<TData, TValue>) => {
+
+
+const DataTable = <TData, TValue>({ columns, data, pageTitle, toolbarButtons }: DataTableProps<TData, TValue>) => {
     const [rowSelection, setRowSelection] = useState({})
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const table = useReactTable({
@@ -32,9 +34,12 @@ const DataTable = <TData, TValue>({ columns, data, pageTitle }: DataTableProps<T
         }
     })
 
+    // console.log("selected rows: ", rowSelection)
+    // console.log(table.getSelectedRowModel())
+
     return (
         <div className={sx["data-table"]}>
-            <DataTableToolbar table={table} pageTitle={pageTitle} />
+            <DataTableToolbar table={table} pageTitle={pageTitle} toolbarExtraActions={toolbarButtons} showTableColumnsEdit={true} showFilterToggle={true} />
             <div className={sx["data-table-content"]}>
                 <Table>
                     <TableHeader>

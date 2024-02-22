@@ -1,4 +1,6 @@
+import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { NextResponse } from "next/server";
 
 type GetCourses = {
     title?: string;
@@ -77,5 +79,55 @@ export const getCoursesByTitle = async (title: string) => {
     } catch (error) {
         console.log(error)
         return null
+    }
+}
+
+export const deleteCourseById = async (id: string) => {
+    try {
+        const session = await auth()
+
+        if (!session) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        console.log("the deletion is triggered")
+
+        const deletedCourse = await db.course.delete({
+            where: {
+                id
+            }
+        })
+
+
+        return NextResponse.json(deletedCourse)
+    } catch (error) {
+        console.log(error)
+        return new NextResponse("Internal Error", { status: 500 })
+    }
+}
+
+export const deleteCoursesByIds = async (ids: string[]) => {
+    try {
+        const session = await auth()
+
+        if (!session) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        console.log("the deletion is triggered")
+
+        const deletedCourses = await db.course.deleteMany({
+            where: {
+                id: {
+                    in: ids
+                }
+            }
+        })
+
+
+        return NextResponse.json(deletedCourses)
+    } catch (error) {
+        console.log(error)
+        return new NextResponse("Internal Error", { status: 500 })
     }
 }

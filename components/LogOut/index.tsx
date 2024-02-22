@@ -8,7 +8,7 @@ const LogOut = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <Button variant="link" type="button" onClick={clickHandler}>{children}</Button>
+        <Button type="button" mode="text" variant="accent" status="fail" onClick={clickHandler}>{children}</Button>
     );
 }
 

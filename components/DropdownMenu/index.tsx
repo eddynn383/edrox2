@@ -56,8 +56,8 @@ DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 const DropdownMenuItem = React.forwardRef<
     React.ElementRef<typeof DropdownMenuPrimitive.Item>,
     DropdownMenuItemProps
->(({ className = `${sx["dropdown-menu-item"]}`, inset, ...props }, ref) => (
-    <DropdownMenuPrimitive.Item ref={ref} className={className} {...props} />
+>(({ className = `${sx["dropdown-menu-item"]}`, hasChild="false", inset, ...props }, ref) => (
+    <DropdownMenuPrimitive.Item ref={ref} className={className} data-has-children={hasChild} {...props} />
 ))
 
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName
@@ -68,7 +68,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     DropdownMenuCheckboxItemProps
 >(({ className = `${sx["dropdown-menu-checkbox-item"]}`, children, checked, ...props }, ref) => (
     <DropdownMenuPrimitive.CheckboxItem ref={ref} className={className} checked={checked} {...props} >
-        <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+        <span className={sx["dropdown-menu-checkbox-marker"]}>
             <DropdownMenuPrimitive.ItemIndicator>
                 <Check />
             </DropdownMenuPrimitive.ItemIndicator>
@@ -85,9 +85,9 @@ const DropdownMenuRadioItem = React.forwardRef<
     DropdownMenuRadioItemProps
 >(({ className = `${sx["dropdown-menu-radio-item"]}`, children, ...props }, ref) => (
     <DropdownMenuPrimitive.RadioItem ref={ref} className={className} {...props} >
-        <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+        <span className={sx["dropdown-menu-radiobox-marker"]}>
             <DropdownMenuPrimitive.ItemIndicator>
-                <Circle className="h-2 w-2 fill-current" />
+                <Circle />
             </DropdownMenuPrimitive.ItemIndicator >
         </span>
         {children}

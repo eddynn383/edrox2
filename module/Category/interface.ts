@@ -5,4 +5,5 @@ export type Category = {
 
 export interface CategoryProps {
     data: any;
+    current: string;
 }

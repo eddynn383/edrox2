@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { useEffect, useState, useTransition } from "react";
-import { Alert, AlertDescription, Button, Icon, Input, Textarea } from "@/components";
+import { Alert, AlertDescription, Button, Icon, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from "@/components";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,11 @@ import { NewCourseSchema } from "@/schemas";
 import { newCourse } from "@/actions/new-course";
 import sx from "@/styles/component.module.scss"
 
-const CourseCreation = () => {
+interface CourseCreationProps {
+    categories?: any
+}
+
+const CourseCreation = ({categories}: CourseCreationProps) => {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
@@ -98,6 +102,7 @@ const CourseCreation = () => {
                                         shade="200"
                                         type="text"
                                         name="title"
+                                        required={true}
                                         placeholder="Eg. Introduction in front-end technologies"
                                     // status={!success && !error ? "default" : success && !error ? "success" : !success && error ? "error" : "default"}
                                     />
@@ -122,26 +127,33 @@ const CourseCreation = () => {
                             </FormItem>
                         )}
                     />
-                    {/* <FormField 
-                        control={form.control} 
-                        name="category" 
-                        render={({field}) => (
-                            <FormItem data-cols="2"> 
+                    <FormField
+                        control={form.control}
+                        name="categories"
+                        render={({ field }) => (
+                            <FormItem data-cols="2">
                                 <div className={sx["form-item-details"]}>
                                     <FormLabel>Category</FormLabel>
-                                    {!error && <FormDescription>Define the course category</FormDescription>}
+                                    {!error && <FormDescription>Choose one option from the list</FormDescription>}
                                     {error && <FormMessage icon="alert-triangle" />}
                                 </div>
                                 <FormControl>
-                                    <Input 
-                                        {...field}  
-                                        shade="200"
-                                        placeholder="Eg. Management"
-                                    />
+                                    <Select value={field.value} onValueChange={field.onChange} >
+                                        <SelectTrigger mode="outline" size="S">
+                                            <SelectValue placeholder="Select category" />
+                                        </SelectTrigger>
+                                        <SelectContent side="top" shade="200">
+                                            {categories.map((item: any) => (
+                                                <SelectItem key={item.id} value={item.name}>
+                                                    {item.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                 </FormControl>
                             </FormItem>
-                        )}  
-                    /> */}
+                        )}
+                    />
                 </form>
             </Form>
         </>

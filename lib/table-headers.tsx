@@ -5,6 +5,8 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon } from "@/components"
 import { FileBarChart, MoreHorizontal, Pencil, Trash2 } from "lucide-react"
 import sx from "@/styles/component.module.scss"
+import { deleteCourseById } from "@/data/courses"
+import { deleteCourse } from "@/actions/delete-course"
 
 
 export const coursesCols: ColumnDef<Course>[] = [
@@ -18,7 +20,9 @@ export const coursesCols: ColumnDef<Course>[] = [
                 }
                 mode="outline"
                 shade="200"
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+                }}
                 aria-label="Select all"
             />
         ),
@@ -27,7 +31,9 @@ export const coursesCols: ColumnDef<Course>[] = [
                 checked={row.getIsSelected()}
                 mode="outline"
                 shade="200"
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                onCheckedChange={(value) => {
+                    row.toggleSelected(!!value)
+                }}
                 aria-label="Select row"
             />
         ),
@@ -81,6 +87,8 @@ export const coursesCols: ColumnDef<Course>[] = [
         id: "actions",
         cell: ({ row }) => {
             const course = row.original
+
+            // console.log("course details: ", course)
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -90,10 +98,16 @@ export const coursesCols: ColumnDef<Course>[] = [
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent shade="100" align="end">
-                        <DropdownMenuItem><Pencil /> Edit</DropdownMenuItem>
-                        <DropdownMenuItem><FileBarChart /> Report</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Pencil /> Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <FileBarChart /> Report
+                        </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem><Trash2 /> Delete</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Button mode="text" variant="accent" status="fail" onClick={() => deleteCourse(course.id)}><Trash2 /> Delete</Button>
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

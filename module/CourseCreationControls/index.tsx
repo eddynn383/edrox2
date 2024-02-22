@@ -91,6 +91,7 @@ const CourseCreationControls = () => {
         if (step.name === "Course Details") {
             form.handleSubmit(submitHandler)
         }
+        newCourse
         setCurrentStep(currentStep + 1)
         console.log(step)
         router.push(step.url)

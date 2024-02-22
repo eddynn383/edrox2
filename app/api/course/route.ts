@@ -1,5 +1,6 @@
 import { auth } from "@/auth"
 import { db } from "@/lib/db"
+import { revalidateTag } from "next/cache"
 import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
             }
         })
 
+        revalidateTag('courses')
         console.log(course)
         return Response.json(course)
     } catch (error) {

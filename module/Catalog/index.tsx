@@ -5,13 +5,13 @@ import { CatalogProps } from "./interface";
 import sx from "@/styles/module.module.scss"
 
 
-const Catalog = ({ courses, categories, pageTitle }: CatalogProps) => {
+const Catalog = ({ courses, categories, selectedCategory, pageTitle }: CatalogProps) => {
 
     return (
         <div className={sx["catalog"]}>
             <CatalogToolbar pageTitle={pageTitle} />
             <div className={sx["catalog-content"]}>
-                <Category data={categories} />
+                <Category data={categories} current={selectedCategory} />
                 {
                     courses && (
                         <ul className={sx["catalog-list"]}>

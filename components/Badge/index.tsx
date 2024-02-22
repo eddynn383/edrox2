@@ -7,11 +7,11 @@ function Badge({ mode = "solid", shape = "square", size = "M", status = "default
         <>        
             {
                 
-                !href && <div className={sx["badge"]} data-mode={mode} data-size={size} data-status={status} data-shape={shape} data-selected={selected} {...props} />
+                !href && <div className={sx["badge"]} data-mode={mode} data-size={size} data-status={status} data-shape={shape} {...props} />
             }
             {
                 href && <Link href={href}>
-                    <div className={sx["badge"]} data-mode={mode} data-size={size} data-status={status} data-shape={shape} {...props} />
+                    <div className={sx["badge"]} data-mode={mode} data-size={size} data-status={status} data-shape={shape} data-selected={selected} {...props} />
                 </Link>
             }
         </>

@@ -14,13 +14,14 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
     const courses = await getPublishdedCourses({...searchParams});
     const categories = await getCategories()
 
-    console.log("courses: ", courses)
-    console.log("categories: ", categories)
+    // console.log("courses: ", courses)
+    // console.log("categories: ", categories)
+    // console.log("searchParams: ", searchParams)
 
     return (
         <div className={sx["page-body"]}>
             <section className={sx["page-content"]}>
-                <Catalog courses={courses} categories={categories} pageTitle="Catalog" />
+                <Catalog courses={courses} categories={categories} selectedCategory={searchParams.categoryId} pageTitle="Catalog" />
             </section>
         </div>
     );

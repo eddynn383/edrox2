@@ -14,7 +14,8 @@ export interface DropdownMenuSubTriggerProps extends React.ComponentPropsWithout
 }
 
 export interface DropdownMenuItemProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> {
-    inset?: boolean
+    inset?: boolean;
+    hasChild?: boolean;
 }
 
 export interface DropdownMenuCheckboxItemProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem> {

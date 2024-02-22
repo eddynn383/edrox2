@@ -33,6 +33,7 @@ model User {
     // catalogUpdated  Catalog[]    @relation("UpdatedById")
     courseCreated    Course[]       @relation("CreatedById")
     courseUpdated    Course[]       @relation("UpdatedById")
+    // courseTutor      Course[] @relation("CourseTutors", references: [id])
     // coursesInstructed Course[]         @relation("Instructor")
     coursesEnrolled  Enrollment[]
     coursesPurchased Purchase[]
@@ -122,11 +123,8 @@ model Course {
     discountPrice Float?       @default(0.0)
     level         Int?         @default(1)
     isPublished   Boolean      @default(false)
-    metadata      Metadata[]
     // startDate   DateTime
     // endDate     DateTime?
-    // instructorId String 
-    // instructor   User?        @relation("Instructor", fields: [instructorId], references: [id])
     createdById   String
     createdBy     User         @relation(name: "CreatedById", fields: [createdById], references: [id])
     createdAt     DateTime     @default(now())
@@ -134,6 +132,7 @@ model Course {
     updatedById   String?
     updatedAt     DateTime     @updatedAt
     // catalogs    Catalog[]  
+    metadata      Metadata[]
     chapters      Chapter[]
     attachments   Attachment[]
     purchases     Purchase[]
@@ -155,7 +154,7 @@ model Category {
 
 model Metadata {
     id       String @id @default(uuid())
-    key      String @unique
+    key      String
     value    String
     type     String
     courseId String

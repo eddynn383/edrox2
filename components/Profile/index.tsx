@@ -20,17 +20,17 @@ const Profile = ({ size, user }: ProfileProps) => {
                 <div className={sx["profile-right"]}>
                     <Avatar src={user?.image ? user.image : ProfileAvatar} alt={user?.email} size={size} type="circle" />
                     <DropdownMenu >
-                        <DropdownMenuTrigger className={sx["button"]} data-variant="primary" data-shade="100" data-size="S" data-content="icon">
+                        <DropdownMenuTrigger className={sx["button"]} data-mode="solid" data-variant="primary" data-shade="100" data-size="S" data-content="icon">
                             <Icon name="chevron-down" />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" shade="200">
-                            <DropdownMenuItem>
+                            <DropdownMenuItem hasChild>
                                 <Link href="/profile">Profile</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem hasChild>
                                 <Link href="/my-purchases">My Purchases</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem hasChild>
                                 <Link href="/settings">Settings</Link>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />

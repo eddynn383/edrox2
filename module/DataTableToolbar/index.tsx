@@ -1,10 +1,26 @@
-import { Button, Icon, Input } from "@/components"
+import { useEffect, useState } from "react"
+import { Button, Input } from "@/components"
 import { DataTableToolbarProps } from "./interface"
 import { PageTitle } from "../../components/PageTitle"
+import { DataTableViewOptions } from "../DataTableViewOptions"
+import { DataTableFilters } from "../DataTableFilters"
+import { Trash2 } from "lucide-react"
 import sx from "@/styles/module.module.scss"
+import { deleteManyCourses } from "@/actions/delete-course"
 
-export function DataTableToolbar<TData>({ table, pageTitle }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table, pageTitle, toolbarExtraActions, showTableColumnsEdit, showFilterToggle }: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0
+    const [selectedRows, setSelectedRows] = useState<string[]>([])
+    const model = table.getSelectedRowModel()
+    const rows = model.rows
+    const isAnyRowSelected = rows.length > 0
+
+    useEffect(() => {
+        const ids = rows.map((row: any) => row.original.id); // Extract IDs assuming they're in the 'id' property
+        setSelectedRows(ids)
+    }, [rows])
+    
+        console.log(selectedRows)
 
     return (
         <div className={sx["data-table-toolbar"]}>
@@ -27,11 +43,15 @@ export function DataTableToolbar<TData>({ table, pageTitle }: DataTableToolbarPr
                         }
                     />
                 </div>
-                <div className={sx["data-table-toolbar-right"]}>
-                    <Button variant="accent" size="M" content="icon-text"><Icon name="plus" /> New</Button>
-                    <Button variant="primary" shade="200" size="M" content="icon"><Icon name="columns-3" /></Button>
-                    <Button variant="primary" shade="200" size="M" content="icon"><Icon name="filter" /></Button>
-                </div>
+                {
+                    toolbarExtraActions && 
+                    <div className={sx["data-table-toolbar-right"]}>
+                        { isAnyRowSelected && <Button variant="accent" status="fail" onClick={() => deleteManyCourses(selectedRows)}><Trash2 /> Delete</Button>}
+                        {toolbarExtraActions}
+                        {showTableColumnsEdit && <DataTableViewOptions table={table} />}
+                        {showFilterToggle && <DataTableFilters table={table} />}
+                    </div>
+                }
             </div>
         </div>
     )

@@ -38,8 +38,9 @@ export const NewCourseSchema = z.object({
     title: z.string().min(1, {
         message: "Title is required"
     }),
-    description: z.string().min(1, {
-        message: "bla bla bla"
+    description: z.string(),
+    categories: z.string().min(1, {
+        message: "Choose a category"
     }),
     // metadata: z.record(z.string(), z.string()).optional(),
     // image: z.any().optional(),

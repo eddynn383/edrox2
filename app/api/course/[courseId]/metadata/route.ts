@@ -11,40 +11,38 @@ type paramsType = {
 export async function POST(request: Request, { params }: paramsType) {
     try {
         const session = await auth()
-        const user = session?.user
         const data = await request.json()
         const { courseId } = params
 
-        if (!user) {
+        if (!session) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const alreadyExists = await db.review.findFirst({
+        const alreadyExists = await db.metadata.findFirst({
             where: {
                 courseId: courseId,
-                userId: session.user.id
+                key: data.key
             }
         })
 
         console.log("metadata exists: ", alreadyExists)
 
-        if (alreadyExists) {
-            return new NextResponse("Review already exists!", { status: 502 })
+        if(alreadyExists) {
+            return new NextResponse("Metadata already exists!", { status: 502 })
         }
 
         console.log({ data })
-        const review = await db.review.create({
+        const metadata = await db.metadata.create({
             data: {
-                courseId: courseId,
-                userId: session.user.id as string,
-                rating: data.rating,
-                title: data.title,
-                comment: data.comment
+                key: data.key,
+                value: data.value,
+                type: data.type,
+                courseId: courseId
             }
         })
 
-        console.log(review)
-        return Response.json(review)
+        console.log(metadata)
+        return Response.json(metadata)
     } catch (error) {
         console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
