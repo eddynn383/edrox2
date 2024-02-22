@@ -17,7 +17,7 @@ const DashboardLayout = async ({
     return (
         <div className="layout layout--two-cols">
             <div className="layout_left">
-                <Sidebar />
+                <Sidebar user={session?.user} />
             </div>
             <div className="layout_right">
                 <Header user={session?.user} onLogout={logout} />

@@ -4,7 +4,6 @@ import { deleteCourseById, deleteCoursesByIds } from "@/data/courses";
 import { revalidateTag } from "next/cache";
 
 export const deleteCourse = async (id: string) => {
-
     await deleteCourseById(id);
     revalidateTag('courses')
 };

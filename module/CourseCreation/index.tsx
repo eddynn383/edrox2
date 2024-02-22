@@ -138,18 +138,20 @@ const CourseCreation = ({categories}: CourseCreationProps) => {
                                     {error && <FormMessage icon="alert-triangle" />}
                                 </div>
                                 <FormControl>
-                                    <Select value={field.value} onValueChange={field.onChange} >
-                                        <SelectTrigger mode="outline" size="S">
-                                            <SelectValue placeholder="Select category" />
-                                        </SelectTrigger>
-                                        <SelectContent side="top" shade="200">
-                                            {categories.map((item: any) => (
-                                                <SelectItem key={item.id} value={item.name}>
-                                                    {item.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                    <div>
+                                        <Select value={field.value} onValueChange={field.onChange} >
+                                            <SelectTrigger mode="outline" size="M" shade="200">
+                                                <SelectValue placeholder="Select category" />
+                                            </SelectTrigger>
+                                            <SelectContent side="top" shade="200">
+                                                {categories.map((item: any) => (
+                                                    <SelectItem key={item.id} value={item.name}>
+                                                        {item.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </FormControl>
                             </FormItem>
                         )}

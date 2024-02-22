@@ -5,12 +5,15 @@ import { PageTitle } from "../../components/PageTitle"
 import { DataTableViewOptions } from "../DataTableViewOptions"
 import { DataTableFilters } from "../DataTableFilters"
 import { Trash2 } from "lucide-react"
-import sx from "@/styles/module.module.scss"
 import { deleteManyCourses } from "@/actions/delete-course"
+import sx from "@/styles/module.module.scss"
+import toast from "react-hot-toast"
+import { ConfirmModal } from "../ConfirmationModal"
 
 export function DataTableToolbar<TData>({ table, pageTitle, toolbarExtraActions, showTableColumnsEdit, showFilterToggle }: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0
     const [selectedRows, setSelectedRows] = useState<string[]>([])
+    const [isLoading, setIsLoading] = useState(false);
     const model = table.getSelectedRowModel()
     const rows = model.rows
     const isAnyRowSelected = rows.length > 0
@@ -21,6 +24,20 @@ export function DataTableToolbar<TData>({ table, pageTitle, toolbarExtraActions,
     }, [rows])
     
         console.log(selectedRows)
+
+    const clickHandler = () => {
+        try {
+            setIsLoading(true)
+            deleteManyCourses(selectedRows)
+            table.toggleAllPageRowsSelected(false)
+            toast.success("Course deleted");
+        } catch (error) {
+            toast.error("Something went wrong");
+            
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     return (
         <div className={sx["data-table-toolbar"]}>
@@ -46,7 +63,11 @@ export function DataTableToolbar<TData>({ table, pageTitle, toolbarExtraActions,
                 {
                     toolbarExtraActions && 
                     <div className={sx["data-table-toolbar-right"]}>
-                        { isAnyRowSelected && <Button variant="accent" status="fail" onClick={() => deleteManyCourses(selectedRows)}><Trash2 /> Delete</Button>}
+                        { isAnyRowSelected && 
+                        <ConfirmModal onConfirm={clickHandler}>
+                            <Button variant="accent" status="fail" disabled={isLoading}><Trash2 /> Delete</Button>
+                        </ConfirmModal>
+                        }
                         {toolbarExtraActions}
                         {showTableColumnsEdit && <DataTableViewOptions table={table} />}
                         {showFilterToggle && <DataTableFilters table={table} />}

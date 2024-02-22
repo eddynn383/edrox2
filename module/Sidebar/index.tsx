@@ -11,8 +11,11 @@ import { learnerMenu, adminMenu, userTools } from "@/lib/dummy-data"
 import useScreenSize from "@/hooks/useScreenSize"
 import { ToggleContext } from "@/context/toggleContext"
 
+interface SidebarProps {
+    user?: any
+}
 
-export const Sidebar = () => {
+export const Sidebar = ({user}: SidebarProps) => {
     const {state, handleState} = useContext(ToggleContext)
 
     const screen = useScreenSize()
@@ -35,8 +38,12 @@ export const Sidebar = () => {
                     </div>
                     <div className={sx["sidebar_body"]}>
                         <NavigationMenu data={learnerMenu} state={state} />
-                        <span className={sx["sidebar_separator"]}></span>
-                        <NavigationMenu data={adminMenu} state={state} />
+                        {user?.role === "ADMIN" && 
+                            <>
+                                <span className={sx["sidebar_separator"]}></span>
+                                <NavigationMenu data={adminMenu} state={state} />
+                            </>
+                        }
                     </div>
                     <div className={sx["sidebar_footer"]}>
                         <NavigationMenu data={userTools} state={state} />

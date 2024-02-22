@@ -1,19 +1,20 @@
 import Link from "next/link";
-import { Button, Icon } from "@/components";
 import { DataTable } from "@/module/DataTable";
 import { getAllCourses } from "@/data/courses";
 import { coursesCols } from "@/lib/table-headers";
-import sx from "@/styles/module.module.scss";
+import { Plus } from "lucide-react";
+import sxc from "@/styles/component.module.scss"
+import sxm from "@/styles/module.module.scss";
 
 const Page = async () => {
     const courses = await getAllCourses();
 
     return (
-        <div className={sx["page-body"]}>
-            <section className={sx["page-content"]}>
+        <div className={sxm["page-body"]}>
+            <section className={sxm["page-content"]}>
                 <DataTable columns={coursesCols} data={courses} pageTitle="Courses" toolbarButtons={
-                    <Link href="courses/new/details">
-                        <Button variant="accent" size="M" content="icon-text"><Icon name="plus" /> New</Button>
+                    <Link className={sxc["button"]} data-mode="solid" data-variant="accent" data-status="default" data-size="M" data-content="text" href="courses/new/details">
+                        <Plus /> New
                     </Link>
                 } />
             </section>

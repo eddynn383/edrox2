@@ -6,6 +6,8 @@ import "@/styles/globals.scss";
 import "@/styles/theme.scss";
 import "@/styles/sizes.scss";
 import {ToggleProvider} from "@/context/toggleContext"
+import { ConfettiProvider } from "@/providers/confettiProvider";
+import { ToastProvider } from "@/providers/toasterProvider";
 
 const roboto = Roboto({ weight: ["300", "400", "700"], subsets: ['latin'] });
 
@@ -26,6 +28,8 @@ export default function RootLayout({
             <body className={roboto.className}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange >
                     <ToggleProvider>
+                        <ConfettiProvider />
+                        <ToastProvider />
                         {children}
                     </ToggleProvider>
                 </ThemeProvider>

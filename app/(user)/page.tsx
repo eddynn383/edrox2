@@ -1,12 +1,14 @@
 import { auth, signOut } from "@/auth"
 import { Button } from "@/components";
+import sxm from "@/styles/module.module.scss"
+
 
 const Dashboard = async () => {
 
     const session = await auth()
 
     return ( 
-        <div>
+        <div className={sxm["page-content"]}>
             <h1>Dashboard</h1>
             {JSON.stringify(session)}
             <form action={async () => {

@@ -11,6 +11,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/";
+import sxc from "@/styles/component.module.scss"
 
 interface ConfirmModalProps {
     children: React.ReactNode;
@@ -31,8 +32,8 @@ export const ConfirmModal = ({ children, onConfirm }: ConfirmModalProps) => {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={onConfirm}>
+                    <AlertDialogCancel className={sxc["button"]} data-mode="solid" data-variant="primary" data-shade="200" data-status="default" data-size="M" data-content="text">Cancel</AlertDialogCancel>
+                    <AlertDialogAction className={sxc["button"]} data-mode="solid" data-variant="accent" data-status="default" data-size="M" data-content="text" onClick={onConfirm}>
                         Continue
                     </AlertDialogAction>
                 </AlertDialogFooter>

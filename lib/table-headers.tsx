@@ -7,6 +7,7 @@ import { FileBarChart, MoreHorizontal, Pencil, Trash2 } from "lucide-react"
 import sx from "@/styles/component.module.scss"
 import { deleteCourseById } from "@/data/courses"
 import { deleteCourse } from "@/actions/delete-course"
+import { ConfirmModal } from "@/module/ConfirmationModal"
 
 
 export const coursesCols: ColumnDef<Course>[] = [
@@ -106,7 +107,9 @@ export const coursesCols: ColumnDef<Course>[] = [
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <Button mode="text" variant="accent" status="fail" onClick={() => deleteCourse(course.id)}><Trash2 /> Delete</Button>
+                            <ConfirmModal onConfirm={() => deleteCourse(course.id)}>
+                                <Button mode="text" variant="accent" status="fail"><Trash2 /> Delete</Button>
+                            </ConfirmModal>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

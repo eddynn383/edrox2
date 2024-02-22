@@ -1,4 +1,5 @@
-import { CourseCard } from "@/components";
+import { Suspense } from "react";
+import { CourseCard, SkeletonCard } from "@/components";
 import CatalogToolbar from "../CatalogToolbar";
 import Category from "../Category";
 import { CatalogProps } from "./interface";
@@ -18,7 +19,9 @@ const Catalog = ({ courses, categories, selectedCategory, pageTitle }: CatalogPr
                             {
                                 courses.map((item: any) => (
                                     <li key={item.id}>
-                                        <CourseCard data={item} variant="primary" shade="200" />
+                                        <Suspense key={item.id} fallback={<SkeletonCard />} >
+                                            <CourseCard data={item} variant="primary" shade="200" />
+                                        </Suspense>
                                     </li>
                                 ))
                             }
