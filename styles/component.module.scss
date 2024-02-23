@@ -2534,6 +2534,48 @@
 }
 
 
+
+/* ==============SWITCH=============== */
+.switch {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: var(--switch-border-radius, 100px);
+    border-style: var(--switch-border-style, solid);
+    border-width: var(--switch-border-width, 2px);
+    border-color: var(--switch-border-color, transparent);
+    width: var(--switch-width, var(--size-900, 36px));
+    height: var(--switch-height, var(--size-500, 20px));
+    padding: var(--switch-padding, 0px);
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+    
+    &[data-state="checked"] {
+        background-color: var(--switch-background-default, var(--accent-brand-400));
+    }
+    
+    &[data-state="unchecked"] {
+        background-color: var(--switch-background-default, var(--primary-background-400));
+    }
+
+    &-thumb {
+        display: block;
+        width: var(--switch-thumb-width, var(--size-400, 16px));
+        height: var(--switch-thumb-height, var(--size-400, 16px));
+        border-radius: var(--switch-border-thumb-radius, 100px);
+        background-color: var(--switch-background-default, var(--primary-background-100));
+        transition: transform .3s ease-in-out;
+        &[data-state="checked"] {
+            transform: translateX(100%);
+        }
+          
+        &[data-state="unchecked"] {
+            transform: translateX(0);
+        }
+    }
+}
+
+
 /* ==============PROFILE=============== */
 
 .profile {

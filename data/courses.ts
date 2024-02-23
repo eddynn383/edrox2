@@ -20,6 +20,7 @@ export const getAllCourses = async () => {
 
 export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) => {
     try {
+
         const courses = await db.course.findMany({
             where: {
                 isPublished: true,
@@ -39,10 +40,14 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
                         id: true
                     }
                 }
-            }
+            },
+            orderBy: {
+                createdAt: 'desc',
+            },
         })
+        
         console.log(courses)
-
+        // await new Promise((resolve) => setTimeout(resolve, 5000))
         return courses
     } catch (error) {
         console.log(error)
@@ -79,6 +84,31 @@ export const getCoursesByTitle = async (title: string) => {
     } catch (error) {
         console.log(error)
         return null
+    }
+}
+
+export const editCourseById = async (id: string, data: any) => {
+    try {
+        const session = await auth()
+
+        if (!session) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        console.log("edit happened")
+
+        const editedCourse = await db.course.update({
+            where: {
+                id
+            },
+            data
+        })
+
+
+        return NextResponse.json(editedCourse)
+    } catch (error) {
+        console.log(error)
+        return new NextResponse("Internal Error", { status: 500 })
     }
 }
 

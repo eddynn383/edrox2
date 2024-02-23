@@ -1,9 +1,9 @@
-import { Suspense } from "react";
-import { CourseCard, SkeletonCard } from "@/components";
+import { CourseCard } from "@/components";
 import CatalogToolbar from "../CatalogToolbar";
 import Category from "../Category";
 import { CatalogProps } from "./interface";
 import sx from "@/styles/module.module.scss"
+import { Suspense } from "react";
 
 
 const Catalog = ({ courses, categories, selectedCategory, pageTitle }: CatalogProps) => {
@@ -12,16 +12,16 @@ const Catalog = ({ courses, categories, selectedCategory, pageTitle }: CatalogPr
         <div className={sx["catalog"]}>
             <CatalogToolbar pageTitle={pageTitle} />
             <div className={sx["catalog-content"]}>
-                <Category data={categories} current={selectedCategory} />
+                <Suspense fallback={"loading suspense..."}>
+                    <Category data={categories} current={selectedCategory} />
+                </Suspense>
                 {
                     courses && (
                         <ul className={sx["catalog-list"]}>
                             {
                                 courses.map((item: any) => (
                                     <li key={item.id}>
-                                        <Suspense key={item.id} fallback={<SkeletonCard />} >
-                                            <CourseCard data={item} variant="primary" shade="200" />
-                                        </Suspense>
+                                        <CourseCard data={item} variant="primary" shade="200" />
                                     </li>
                                 ))
                             }

@@ -8,6 +8,8 @@ import sx from "@/styles/component.module.scss"
 import { deleteCourseById } from "@/data/courses"
 import { deleteCourse } from "@/actions/delete-course"
 import { ConfirmModal } from "@/module/ConfirmationModal"
+import { Switch } from "@/components/Switch"
+import { editCourse } from "@/actions/edit-course"
 
 
 export const coursesCols: ColumnDef<Course>[] = [
@@ -52,6 +54,16 @@ export const coursesCols: ColumnDef<Course>[] = [
     {
         accessorKey: "isPublished",
         header: "Is Publish?",
+        cell: ({ row }) => {
+            const published: boolean = row.getValue("isPublished")
+
+            return <div>
+                <Switch 
+                    checked={published}
+                    onCheckedChange={() => editCourse(row.original.id, {isPublished: !published})}
+                />
+            </div>
+        }
     },
     {
         accessorKey: "chapters",

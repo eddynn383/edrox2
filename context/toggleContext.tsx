@@ -14,8 +14,6 @@ const ToggleProvider = ({ children }: any) => {
         setState(!state);
     };
 
-    console.log(state)
-
     return (
         <ToggleContext.Provider value={{state, handleState}}>
             {children}
