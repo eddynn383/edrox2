@@ -1,10 +1,11 @@
-import { Mode, Shade, Size } from "@/interfaces/global"
+import { Mode, Shade, Size, Status } from "@/interfaces/global"
 import * as SelectPrimitive from "@radix-ui/react-select"
 
 export interface SelectTriggerProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {
     mode?: Mode;
     shade?: Shade;
     size?: Size;
+    status?: Status;
 }
 
 export interface SelectScrollUpButtonProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton> {

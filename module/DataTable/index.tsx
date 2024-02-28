@@ -14,6 +14,7 @@ import { DataTableToolbar } from "../DataTableToolbar";
 import { DataTablePagination } from "../DataTablePagination";
 import { DataTableProps } from "./interaface";
 import sx from "@/styles/module.module.scss"
+import { deleteCourse } from "@/actions/delete-course";
 
 
 
@@ -33,9 +34,6 @@ const DataTable = <TData, TValue>({ columns, data, pageTitle, toolbarButtons }: 
             columnFilters
         }
     })
-
-    // console.log("selected rows: ", rowSelection)
-    // console.log(table.getSelectedRowModel())
 
     return (
         <div className={sx["data-table"]}>

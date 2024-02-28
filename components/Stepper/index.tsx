@@ -25,9 +25,9 @@ const Stepper = ({ steps, currentStep, onPrev, onNext, onClick, onDone }: Steppe
                 }
             </ul>
             <div className={sx["stepper-controls"]}>
-                <Button variant="primary" shade="200" type="button" mode="solid" size="M" disabled={currentStep < 1} onClick={() => onPrev(steps[currentStep - 1])}>Prev</Button>
-                {currentStep < steps.length - 1 && <Button variant="accent" type="button" mode="solid" size="M" onClick={() => onNext(steps[currentStep + 1])}>Next</Button>}
-                {currentStep >= steps.length - 1 && <Button variant="accent" type="button" mode="solid" size="M" onClick={onDone}>Done</Button>}
+                <Button variant="primary" shade="200" type="button" mode="solid" size="M" disabled={currentStep <= 1} onClick={() => onPrev(steps[currentStep - 1])}>Prev</Button>
+                {currentStep < steps.length && <Button variant="accent" type="button" mode="solid" size="M" onClick={() => onNext(steps[currentStep + 1])}>Next</Button>}
+                {currentStep >= steps.length && <Button variant="accent" type="button" mode="solid" size="M" onClick={onDone}>Done</Button>}
             </div>
         </nav>
     )

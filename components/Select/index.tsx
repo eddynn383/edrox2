@@ -16,8 +16,8 @@ const SelectValue = SelectPrimitive.Value
 const SelectTrigger = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Trigger>,
     SelectTriggerProps
->(({ className, children, mode = "solid", shade = "100", size = "M", ...props }, ref) => (
-    <SelectPrimitive.Trigger ref={ref} className={sx["select-trigger"]} data-mode={mode} data-shade={shade} data-size={size} {...props} >
+>(({ className, children, mode = "solid", shade = "100", size = "M", status="default", ...props }, ref) => (
+    <SelectPrimitive.Trigger ref={ref} className={sx["select-trigger"]} data-mode={mode} data-shade={shade} data-size={size} data-status={status} {...props} >
         {children}
         <SelectPrimitive.Icon asChild>
             <ChevronDown />

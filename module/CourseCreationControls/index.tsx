@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Stepper } from "@/components";
 import { Step } from "@/components/Stepper/interface";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,28 +12,28 @@ import { newCourse } from "@/actions/new-course";
 
 const CourseCreationSteps = [
     {
-        id: 0,
+        id: 1,
         name: "Course Details",
         status: "In progress",
         requiredFields: 2,
         url: "details"
     },
     {
-        id: 1,
+        id: 2,
         name: "Course Content",
         status: "Not started",
         requiredFields: 0,
         url: "content"
     },
     {
-        id: 2,
+        id: 3,
         name: "Course Rewards",
         status: "Not started",
         requiredFields: 0,
         url: "rewards"
     },
     {
-        id: 3,
+        id: 4,
         name: "Course Participants",
         status: "Not started",
         requiredFields: 0,
@@ -43,11 +43,17 @@ const CourseCreationSteps = [
 
 
 const CourseCreationControls = () => {
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const id = searchParams.get('id')
+    const step = searchParams.get('step')
+
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
-    const [currentStep, setCurrentStep] = useState(0)
-    const router = useRouter()
+    const [currentStep, setCurrentStep] = useState(parseInt(step ? step : "0"))
+    
 
     const form = useForm<z.infer<typeof NewCourseSchema>>({
         resolver: zodResolver(NewCourseSchema),
@@ -88,19 +94,20 @@ const CourseCreationControls = () => {
     }
 
     const nextHandler = (step: Step) => {
-        if (step.name === "Course Details") {
-            form.handleSubmit(submitHandler)
-        }
-        newCourse
-        setCurrentStep(currentStep + 1)
-        console.log(step)
-        router.push(step.url)
+        // if (step.name === "Course Details") {
+        //     form.handleSubmit(submitHandler)
+        // }
+        // newCourse
+        // setCurrentStep(currentStep + 1)
+        // console.log(step)
+        // router.push(step.url)
+        router.push(`${pathname}?id=${id}&step=${step}`)
     }
 
     const prevHandler = (step: Step) => {
-        if (currentStep > 0) {
-            setCurrentStep(currentStep - 1)
-            router.push(step.url)
+        if (currentStep > 1) {
+            // setCurrentStep(currentStep - 1)
+            router.push(`${pathname}?id=${id}&step=${step}`)
         }
     }
 

@@ -14,18 +14,6 @@ const CatalogToolbar = ({ pageTitle }: CatalogToolbarProps) => {
             }
             <div className={sx["catalog-toolbar-row"]}>
                 <div className={sx["catalog-toolbar-left"]}>
-                    {/* <Input
-                        type="text"
-                        shade="200"
-                        placeholder="Search..."
-                        iconBefore="search"
-                        style={{ "minWidth": "300px" }}
-                        onChange={(event) => onSearch(event.target.value)}
-                    // value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-                    // onChange={(event) =>
-                    //     table.getColumn("title")?.setFilterValue(event.target.value)
-                    // }
-                    /> */}
                     <Search />
                 </div>
                 <div className={sx["catalog-toolbar-right"]}>

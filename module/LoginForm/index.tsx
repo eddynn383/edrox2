@@ -34,6 +34,12 @@ export const LoginForm = () => {
             password: ""
         }
     });
+
+    const emailState = form.getFieldState("email")
+    const emailStatus = !emailState.invalid ? "default" : "fail";
+    const passwordState = form.getFieldState("password")
+    const passwordStatus = !passwordState.invalid ? "default" : "fail";
+
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         setError("");
         setSuccess("");
@@ -131,6 +137,7 @@ export const LoginForm = () => {
                                                                 placeholder="john.doe@example.com"
                                                                 type="email"
                                                                 disabled={isPending}
+                                                                status={emailStatus}
                                                             />
                                                         </FormControl>
                                                     </FormItem>
@@ -152,6 +159,7 @@ export const LoginForm = () => {
                                                                 placeholder="********"
                                                                 type="password"
                                                                 disabled={isPending}
+                                                                status={passwordStatus}
                                                             />
                                                         </FormControl>
                                                         <Link href="forgot-password" className="link link--primary">Forgot password?</Link>

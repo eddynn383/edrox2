@@ -8,6 +8,21 @@ type paramsType = {
     }
 }
 
+export async function GET(request: Request, { params }: paramsType) {
+    try {
+        const chapter = await db.chapter.findMany({
+            where: {
+                courseId: params.courseId
+            }
+        })
+
+        return Response.json(chapter)
+    } catch (error) {
+        console.log(error)
+        return new NextResponse("Internal Error", { status: 500 })
+    }
+}
+
 export async function POST(request: Request, { params }: paramsType) {
     try {
         const session = await auth()

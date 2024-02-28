@@ -30,6 +30,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScro
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./AlertDialog";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./Dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from "./Drawer";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./Form";
 
 export {
     Alert,
@@ -92,6 +93,13 @@ export {
     DropdownMenuSubContent,
     DropdownMenuSubTrigger,
     DropdownMenuRadioGroup,
+    Form,
+    FormItem,
+    FormLabel,
+    FormControl,
+    FormDescription,
+    FormMessage,
+    FormField,
     Icon,
     Input,
     Logo,

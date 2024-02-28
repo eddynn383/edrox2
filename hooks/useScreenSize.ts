@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 
 const useScreenSize = () => {
     const [screenSize, setScreenSize] = useState({
-        width: window?.innerWidth,
-        height: window?.innerHeight,
+        width: typeof window !== "undefined" ? window.innerWidth : undefined,
+        height: typeof window !== "undefined" ? window.innerHeight : undefined
     });
 
     useEffect(() => {

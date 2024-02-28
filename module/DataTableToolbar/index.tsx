@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react"
-import { Button, Input } from "@/components"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, Input } from "@/components"
 import { DataTableToolbarProps } from "./interface"
 import { PageTitle } from "../../components/PageTitle"
 import { DataTableViewOptions } from "../DataTableViewOptions"
 import { DataTableFilters } from "../DataTableFilters"
 import { Trash2 } from "lucide-react"
 import { deleteManyCourses } from "@/actions/delete-course"
-import sx from "@/styles/module.module.scss"
 import toast from "react-hot-toast"
-import { ConfirmModal } from "../ConfirmationModal"
+import sx from "@/styles/module.module.scss"
 
 export function DataTableToolbar<TData>({ table, pageTitle, toolbarExtraActions, showTableColumnsEdit, showFilterToggle }: DataTableToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0
@@ -22,8 +21,6 @@ export function DataTableToolbar<TData>({ table, pageTitle, toolbarExtraActions,
         const ids = rows.map((row: any) => row.original.id); // Extract IDs assuming they're in the 'id' property
         setSelectedRows(ids)
     }, [rows])
-    
-        console.log(selectedRows)
 
     const clickHandler = () => {
         try {
@@ -64,9 +61,27 @@ export function DataTableToolbar<TData>({ table, pageTitle, toolbarExtraActions,
                     toolbarExtraActions && 
                     <div className={sx["data-table-toolbar-right"]}>
                         { isAnyRowSelected && 
-                        <ConfirmModal onConfirm={clickHandler}>
-                            <Button variant="accent" status="fail" disabled={isLoading}><Trash2 /> Delete</Button>
-                        </ConfirmModal>
+                            (
+                                <AlertDialog>
+                                    <AlertDialogTrigger asChild>
+                                        <Button variant="accent" status="fail" disabled={isLoading} ><Trash2 /> Delete</Button>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                                This action cannot be undone.
+                                            </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <AlertDialogFooter>
+                                            <AlertDialogCancel className={sx["button"]} data-mode="solid" data-variant="primary" data-shade="200" data-status="default" data-size="M" data-content="text">Cancel</AlertDialogCancel>
+                                            <AlertDialogAction className={sx["button"]} data-mode="solid" data-variant="accent" data-status="fail" data-size="M" data-content="text" onClick={clickHandler}>
+                                                Delete
+                                            </AlertDialogAction>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                </AlertDialog>
+                            )
                         }
                         {toolbarExtraActions}
                         {showTableColumnsEdit && <DataTableViewOptions table={table} />}

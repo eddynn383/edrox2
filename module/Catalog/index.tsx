@@ -1,4 +1,4 @@
-import { CourseCard } from "@/components";
+import { CourseCard, SkeletonCard } from "@/components";
 import CatalogToolbar from "../CatalogToolbar";
 import Category from "../Category";
 import { CatalogProps } from "./interface";
@@ -12,7 +12,7 @@ const Catalog = ({ courses, categories, selectedCategory, pageTitle }: CatalogPr
         <div className={sx["catalog"]}>
             <CatalogToolbar pageTitle={pageTitle} />
             <div className={sx["catalog-content"]}>
-                <Suspense fallback={"loading suspense..."}>
+                <Suspense fallback={"loading categories..."}>
                     <Category data={categories} current={selectedCategory} />
                 </Suspense>
                 {

@@ -2,15 +2,28 @@
 
 import { Course } from "@/interfaces/course"
 import { ColumnDef } from "@tanstack/react-table"
-import { Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon } from "@/components"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon } from "@/components"
 import { FileBarChart, MoreHorizontal, Pencil, Trash2 } from "lucide-react"
-import sx from "@/styles/component.module.scss"
 import { deleteCourseById } from "@/data/courses"
 import { deleteCourse } from "@/actions/delete-course"
-import { ConfirmModal } from "@/module/ConfirmationModal"
 import { Switch } from "@/components/Switch"
 import { editCourse } from "@/actions/edit-course"
+import sx from "@/styles/component.module.scss"
 
+
+// const clickHandler = () => {
+//     try {
+//         setIsLoading(true)
+//         deleteManyCourses(selectedRows)
+//         table.toggleAllPageRowsSelected(false)
+//         toast.success("Course deleted");
+//     } catch (error) {
+//         toast.error("Something went wrong");
+        
+//     } finally {
+//         setIsLoading(false)
+//     }
+// }
 
 export const coursesCols: ColumnDef<Course>[] = [
     {
@@ -101,6 +114,10 @@ export const coursesCols: ColumnDef<Course>[] = [
         cell: ({ row }) => {
             const course = row.original
 
+            const deleteConf = () => {
+                console.log(course.id)
+                deleteCourse(course.id)
+            }
             // console.log("course details: ", course)
             return (
                 <DropdownMenu>
@@ -110,20 +127,42 @@ export const coursesCols: ColumnDef<Course>[] = [
                             <span className="sr-only">Open menu</span>
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent shade="100" align="end">
-                        <DropdownMenuItem>
-                            <Pencil /> Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <FileBarChart /> Report
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <ConfirmModal onConfirm={() => deleteCourse(course.id)}>
-                                <Button mode="text" variant="accent" status="fail"><Trash2 /> Delete</Button>
-                            </ConfirmModal>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
+                    <AlertDialog>
+                        {/* Start Dropdowon Definition */}
+                        <DropdownMenuContent shade="100" align="end">
+                            <DropdownMenuItem>
+                                <Pencil /> Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <FileBarChart /> Report
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <AlertDialogTrigger asChild>
+                                    <Button mode="text" variant="accent" status="fail"><Trash2 /> Delete</Button>
+                                </AlertDialogTrigger>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                        {/* End Dropdowon Definition */}
+                        {/* Start Dialog Definition */}
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    This action cannot be undone.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel asChild>
+                                    <Button shade="200">Cancel</Button>
+                                </AlertDialogCancel>
+                                <AlertDialogAction asChild onClick={deleteConf}>
+                                    <Button cn={"bla bla"} variant="accent" status="fail">Delete</Button>
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                        {/* End Dialog Definition */}
+                    </AlertDialog>
                 </DropdownMenu>
             )
         }

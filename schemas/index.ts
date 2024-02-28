@@ -34,12 +34,24 @@ export const NewPasswordSchema = z.object({
     }),
 });
 
+export const NewInitCourseSchema = z.object({
+    title: z.string().min(1, {
+        message: "Title is required"
+    }),
+    url: z.string(),
+    category: z.string().min(1, {
+        message: "Choose a category"
+    }),
+    // metadata: z.record(z.string(), z.string()).optional(),
+    // image: z.any().optional(),
+})
+
 export const NewCourseSchema = z.object({
     title: z.string().min(1, {
         message: "Title is required"
     }),
     description: z.string(),
-    categories: z.string().min(1, {
+    category: z.string().min(1, {
         message: "Choose a category"
     }),
     // metadata: z.record(z.string(), z.string()).optional(),

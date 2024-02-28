@@ -27,6 +27,15 @@ export const RegisterForm = () => {
             password: ""
         }
     });
+
+
+    const nameState = form.getFieldState("name")
+    const nameStatus = !nameState.invalid ? "default" : "fail";
+    const emailState = form.getFieldState("email")
+    const emailStatus = !emailState.invalid ? "default" : "fail";
+    const passwordState = form.getFieldState("password")
+    const passwordStatus = !passwordState.invalid ? "default" : "fail";
+
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         setError("");
         setSuccess("")
@@ -85,6 +94,7 @@ export const RegisterForm = () => {
                                                     placeholder="John Doe"
                                                     type="text"
                                                     disabled={isPending}
+                                                    status={nameStatus}
                                                 />
                                             </FormControl>
                                         </FormItem>
@@ -106,6 +116,7 @@ export const RegisterForm = () => {
                                                     placeholder="john.doe@example.com"
                                                     type="email"
                                                     disabled={isPending}
+                                                    status={emailStatus}
                                                 />
                                             </FormControl>
                                         </FormItem>
@@ -127,6 +138,7 @@ export const RegisterForm = () => {
                                                     placeholder="********"
                                                     type="password"
                                                     disabled={isPending}
+                                                    status={passwordStatus}
                                                 />
                                             </FormControl>
                                         </FormItem>

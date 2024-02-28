@@ -17,6 +17,7 @@ export async function POST(request: Request) {
         const course = await db.course.create({
             data: {
                 title: res.title,
+                url: res.url,
                 description: res.description,
                 image: res.image,
                 categoryId: res.categoryId,

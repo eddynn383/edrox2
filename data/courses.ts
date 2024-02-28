@@ -3,13 +3,44 @@ import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 type GetCourses = {
-    title?: string;
+    title: string;
     categoryId?: string;
 };
 
+export const setCourse = async (body: any) => {
+    try {
+
+        const session = await auth()
+        const user = session?.user
+        console.log({ body })
+
+        if (!user) {
+            return new NextResponse("Unauthorized", { status: 401 })
+        }
+
+        const course = await db.course.create({
+            data: {
+                title: body.title,
+                url: body.url,
+                categoryId: body.category,
+                createdById: user?.id as string
+            }
+        })
+
+        return Response.json(course)
+    } catch (error) {
+        console.log(error)
+        return new NextResponse("Internal Error", { status: 500 })
+    }
+}
+
 export const getAllCourses = async () => {
     try {        
-        const courses = await db.course.findMany()
+        const courses = await db.course.findMany({
+            orderBy: {
+                createdAt: 'asc',
+            }
+        })
     
         return courses
     } catch (error) {
@@ -42,7 +73,7 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
                 }
             },
             orderBy: {
-                createdAt: 'desc',
+                createdAt: 'asc',
             },
         })
         
@@ -55,15 +86,36 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
     }
 }
 
-export const getCoursesById = async (id: string) => {
+export const getCourseById = async (id: string) => {
     try {
-        const courses = await db.course.findUnique({
+        const course = await db.course.findUnique({
             where: {
                 id
+            },
+            include: {
+                category: true
             }
         })
 
-        return courses
+        return course
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+export const getCourseByUrl = async (url: string) => {
+    try {
+        const course = await db.course.findUnique({
+            where: {
+                url
+            },
+            include: {
+                category: true
+            }
+        })
+
+        return course
     } catch (error) {
         console.log(error)
         return null
