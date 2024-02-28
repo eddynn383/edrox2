@@ -8,7 +8,8 @@ import { useForm } from "react-hook-form";
 import { NewCourseSchema } from "@/schemas";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { newCourse } from "@/actions/new-course";
-import sx from "@/styles/component.module.scss"
+import sxc from "@/styles/component.module.scss"
+import sxm from "@/styles/module.module.scss"
 
 interface FormCourseDetailsProps {
     categories?: any;
@@ -64,82 +65,89 @@ const FormCourseDetails = ({ defaultValues, categories }: FormCourseDetailsProps
     }
 
     return (
-        <Form {...form}>
-            <form className="form" onSubmit={form.handleSubmit(submitHandler)}>
-                <FormField
-                    control={form.control}
-                    name="title"
-                    render={({ field }) => (
-                        <FormItem data-cols="2">
-                            <div className={sx["form-item-details"]}>
-                                <FormLabel>Title</FormLabel>
-                                {<FormDescription>Define the course title</FormDescription>}
-                                {<FormMessage icon="alert-triangle" />}
-                            </div>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    shade="200"
-                                    type="text"
-                                    name="title"
-                                    placeholder="Eg. Introduction in front-end technologies"
-                                // status={!success && !error ? "default" : success && !error ? "success" : !success && error ? "error" : "default"}
-                                />
+        <>
+            <div className={sxm["page-content-left"]}>
+                <Form {...form}>
+                    <form className="form" onSubmit={form.handleSubmit(submitHandler)}>
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem data-cols="2">
+                                    <div className={sxc["form-item-details"]}>
+                                        <FormLabel>Title</FormLabel>
+                                        {<FormDescription>Define the course title</FormDescription>}
+                                        {<FormMessage icon="alert-triangle" />}
+                                    </div>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            shade="200"
+                                            type="text"
+                                            name="title"
+                                            placeholder="Eg. Introduction in front-end technologies"
+                                        // status={!success && !error ? "default" : success && !error ? "success" : !success && error ? "error" : "default"}
+                                        />
 
-                            </FormControl>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem data-cols="2">
-                            <div className={sx["form-item-details"]}>
-                                <FormLabel>Description</FormLabel>
-                                {<FormDescription>Define the course description</FormDescription>}
-                                {<FormMessage icon="alert-triangle" />}
-                            </div>
-                            <FormControl>
-                                <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" />
-                            </FormControl>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="category"
-                    render={({ field }) => {
-                        console.log(field.value)
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                                <FormItem data-cols="2">
+                                    <div className={sxc["form-item-details"]}>
+                                        <FormLabel>Description</FormLabel>
+                                        {<FormDescription>Define the course description</FormDescription>}
+                                        {<FormMessage icon="alert-triangle" />}
+                                    </div>
+                                    <FormControl>
+                                        <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="category"
+                            render={({ field }) => {
+                                console.log(field.value)
 
-                        return (
-                        <FormItem data-cols="2">
-                            <div className={sx["form-item-details"]}>
-                                <FormLabel>Category</FormLabel>
-                                {<FormDescription>Choose one option from the list</FormDescription>}
-                                {<FormMessage icon="alert-triangle" />}
-                            </div>
-                            <FormControl>
-                                <div>
-                                    <Select name="category" value={field.value} onValueChange={field.onChange} >
-                                        <SelectTrigger mode="outline" size="M" shade="200">
-                                            <SelectValue placeholder="Select category" />
-                                        </SelectTrigger>
-                                        <SelectContent side="top" shade="200">
-                                            {categories.map((item: any) => (
-                                                <SelectItem key={item.id} value={item.name}>
-                                                    {item.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </FormControl>
-                        </FormItem>
-                    )}}
-                />
-            </form>
-        </Form>
+                                return (
+                                <FormItem data-cols="2">
+                                    <div className={sxc["form-item-details"]}>
+                                        <FormLabel>Category</FormLabel>
+                                        {<FormDescription>Choose one option from the list</FormDescription>}
+                                        {<FormMessage icon="alert-triangle" />}
+                                    </div>
+                                    <FormControl>
+                                        <div>
+                                            <Select name="category" value={field.value} onValueChange={field.onChange} >
+                                                <SelectTrigger mode="outline" size="M" shade="200">
+                                                    <SelectValue placeholder="Select category" />
+                                                </SelectTrigger>
+                                                <SelectContent side="top" shade="200">
+                                                    {categories.map((item: any) => (
+                                                        <SelectItem key={item.id} value={item.name}>
+                                                            {item.name}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                    </FormControl>
+                                </FormItem>
+                            )}}
+                        />
+                    </form>
+                </Form>
+            </div>
+            <div className={sxm["page-content-right"]}>
+                <p>Right Panels</p>
+            </div>
+        </>
     );
 }
  

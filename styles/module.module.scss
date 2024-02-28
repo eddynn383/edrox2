@@ -74,7 +74,7 @@
         grid-template-columns: min-content auto min-content;
         align-items: center;
         padding: var(--header-padding-y, var(--padding-200, 8px)) var(--header-padding-x, var(--padding-400, 16px));
-        border-bottom: 1px solid var(--header-border-bottom, var(--primary-background-300));
+        border-bottom: 1px solid var(--header-border-bottom, var(--primary-background-200));
         min-height: 64px;
 
         &-left,
@@ -110,7 +110,7 @@
         align-items: center;
         gap: var(--page-toolbar-gap, var(--gap-400, 16px));
         padding: var(--page-toolbar-padding, var(--padding-400, 16px));
-        // border-bottom: var(--page-title-border-bottom, 1px solid var(--primary-background-200));
+        border-bottom: var(--page-toolbar-border-bottom, 1px solid var(--primary-background-200));
 
         &-left {
             flex: 1 1 0%;
@@ -119,19 +119,26 @@
         &-right {
             display: flex;
             align-items: center;
-            gap: var(--page-title-left-gap, var(--gap-200, 8px));
+            gap: var(--page-toolbar-left-gap, var(--gap-200, 8px));
         }
     }
 
     &-content {
         display: flex;
-        flex-direction: column;
         max-width: 1920px;
         margin: 0 auto;
         width: 100%;
         height: 100%;
-        padding: var(--page-content-padding, var(--padding-400, 16px));
         overflow: hidden;
+        &-left {
+            flex: 1 1 0%;
+            padding: var(--page-content-left-padding-y, 0) var(--page-content-left-padding-x, var(--padding-400, 16px));
+        }
+        &-right {
+            min-width: 320px;
+            padding: var(--page-content-right-padding, var(--padding-400, 16px));
+            border-left: 1px solid var(--primary-background-200);
+        }
     }
 
     &-controls {

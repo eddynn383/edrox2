@@ -1767,10 +1767,22 @@
         align-items: flex-start;
 
         &[data-cols="2"] {
+            position: relative;
             padding-top: var(--form-item-padding-top, var(--padding-400, 16px));
             padding-bottom: var(--form-item-padding-bottom, var(--padding-400, 16px));
-            border-bottom: var(--form-item-border-bottom, 1px solid var(--primary-background-200));
+            // border-bottom: var(--form-item-border-bottom, 1px solid var(--primary-background-200));
             grid-template-columns: min-content minmax(260px, 380px);
+
+            &:after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: var(--form-item-separator-width, 100%);
+                max-width: var(--form-item-separator-max-width, 320px);
+                height: var(--form-item-separator-height, 1px);
+                background-color: var(--form-item-separator-background, var(--primary-background-200));
+            }
 
             .form-item-details {
                 display: grid;
