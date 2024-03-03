@@ -195,11 +195,52 @@ model Chapter {
 
     userProgress UserProgress[]
 
+    headings     Heading[] 
+    texts        Text[]
+    images       Image[]
+    videos       Video[]
+
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
     // @@map("Chapters")
 
     @@index([courseId])
+}
+
+model Heading {
+    id        String   @id @default(uuid())
+    position  Int
+    rank      Int      @default(1)
+    content   String 
+    chapterId String
+    chapter   Chapter  @relation(fields: [chapterId], references: [id])
+}
+
+model Text {
+    id        String   @id @default(uuid())
+    position  Int
+    size      Int      @default(1)
+    content   String
+    chapterId String
+    chapter   Chapter @relation(fields: [chapterId], references: [id]) 
+}
+
+model Image {
+    id        String   @id @default(uuid())
+    position  Int
+    size      Int      @default(1)
+    url       String
+    chapterId String
+    chapter   Chapter @relation(fields: [chapterId], references: [id]) 
+}
+
+model Video {
+    id           String   @id @default(uuid())
+    position     Int
+    aspectRatio  String   @default("16/9")
+    url          String
+    chapterId    String
+    chapter      Chapter  @relation(fields: [chapterId], references: [id]) 
 }
 
 model Review {

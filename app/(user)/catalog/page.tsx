@@ -1,9 +1,11 @@
-import { SkeletonCard } from "@/components";
+import { Suspense } from "react";
+import { ScrollArea, ScrollBar, SkeletonCard } from "@/components";
 import { getCategories } from "@/data/categories";
 import { getPublishdedCourses } from "@/data/courses";
 import Catalog from "@/module/Catalog";
-import sx from "@/styles/module.module.scss"
-import { Suspense } from "react";
+import CatalogToolbar from "@/module/CatalogToolbar";
+import Category from "@/module/Category";
+import psx from "@/styles/page.module.scss"
 
 interface CatalogPageProps {
     searchParams: {
@@ -17,11 +19,19 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
     const categories = await getCategories()
 
     return (
-        <div className={sx["page-body"]}>
-            <section className={sx["page-content"]}>
-                <Suspense fallback={<SkeletonCard />}>
-                    <Catalog courses={courses} categories={categories} selectedCategory={searchParams.categoryId} pageTitle="Catalog" />
-                </Suspense>
+        <div className={psx["body"]}>
+            <section className={psx["body-toolbar"]}>
+                <CatalogToolbar pageTitle="Catalog" />
+            </section>
+            <section className={psx["body-content"]}>
+                <div className={psx["body-content-left"]}>
+                    <Suspense fallback={"loading categories..."}>
+                        <Category data={categories} current={searchParams.categoryId} />
+                    </Suspense>
+                    <Suspense fallback={<SkeletonCard />}>
+                        <Catalog courses={courses} />
+                    </Suspense>
+                </div>
             </section>
         </div>
     );

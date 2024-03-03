@@ -4,4 +4,5 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
     shade?: Shade;
     sizes?: Size;
     status?: Status;
+    resize?: "vertical" | "horizontal" | "both"
 }

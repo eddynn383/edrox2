@@ -10,11 +10,20 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { newCourse } from "@/actions/new-course";
 import sxc from "@/styles/component.module.scss"
 import sxm from "@/styles/module.module.scss"
+import { FileUpload } from "../FileUpload";
+import toast from "react-hot-toast";
+import Metadata from "../Metadata";
 
 interface FormCourseDetailsProps {
     categories?: any;
     defaultValues?: any;
 }
+
+const formSchema = z.object({
+    imageUrl: z.string().min(1, {
+        message: "Image is required",
+    }),
+});
 
 const FormCourseDetails = ({ defaultValues, categories }: FormCourseDetailsProps) => {
     const [isPending, startTransition] = useTransition();
@@ -41,6 +50,7 @@ const FormCourseDetails = ({ defaultValues, categories }: FormCourseDetailsProps
         defaultValues
     });
 
+
     console.log(form.getValues())
     const submitHandler = (values: z.infer<typeof NewCourseSchema>) => {
         setError("");
@@ -63,6 +73,17 @@ const FormCourseDetails = ({ defaultValues, categories }: FormCourseDetailsProps
             }).catch(() => setError("Something went wrong!"))
         })
     }
+
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+        //   await axios.patch(`/api/courses/${courseId}`, values);
+          toast.success("Course updated");
+        //   toggleEdit();
+          router.refresh();
+        } catch {
+          toast.error("Something went wrong");
+        }
+      }
 
     return (
         <>
@@ -104,7 +125,7 @@ const FormCourseDetails = ({ defaultValues, categories }: FormCourseDetailsProps
                                         {<FormMessage icon="alert-triangle" />}
                                     </div>
                                     <FormControl>
-                                        <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" />
+                                        <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" resize="vertical" />
                                     </FormControl>
                                 </FormItem>
                             )}
@@ -145,10 +166,19 @@ const FormCourseDetails = ({ defaultValues, categories }: FormCourseDetailsProps
                 </Form>
             </div>
             <div className={sxm["page-content-right"]}>
-                <p>Right Panels</p>
+                <FileUpload endpoint="courseImage" onChange={
+                    (url) => {
+                        if (url) {
+                            onSubmit({ imageUrl: url });
+                        }
+                    }}
+                />
+                <Metadata />
             </div>
         </>
     );
 }
  
 export default FormCourseDetails;
+
+

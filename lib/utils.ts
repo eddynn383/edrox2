@@ -5,3 +5,7 @@ export function delayData(data: any, milliseconds: any) {
         }, milliseconds);
     });
 }
+
+export const convertToURL = (title: string) => {
+    return title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+};

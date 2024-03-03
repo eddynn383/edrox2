@@ -42,8 +42,14 @@ export const NewInitCourseSchema = z.object({
     category: z.string().min(1, {
         message: "Choose a category"
     }),
-    // metadata: z.record(z.string(), z.string()).optional(),
-    // image: z.any().optional(),
+})
+
+export const NewInitChapterSchema = z.object({
+    title: z.string().min(1, {
+        message: "Title is required"
+    }),
+    url: z.string(),
+    description: z.string()
 })
 
 export const NewCourseSchema = z.object({
@@ -57,3 +63,8 @@ export const NewCourseSchema = z.object({
     // metadata: z.record(z.string(), z.string()).optional(),
     // image: z.any().optional(),
 })
+
+export const MetadataSchema = z.object({
+    key: z.string().min(1),
+    value: z.string().min(1),
+});

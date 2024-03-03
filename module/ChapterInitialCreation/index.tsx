@@ -5,34 +5,36 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
+import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from "@/components";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/Form";
 import { newInitCourse } from "@/actions/new-course";
-import { NewInitCourseSchema } from "@/schemas";
+import { NewInitChapterSchema } from "@/schemas";
 import sx from "@/styles/component.module.scss"
+import { convertToURL } from "@/lib/utils";
+import { newInitChapter } from "@/actions/new-chapter";
 
-interface CourseInitialCreationProps {
-    categories?: any;
+interface ChapterInitialCreationProps {
     actions?: any;
+    courseId: string;
+    onOpen?: any
 }
 
-const convertToURL = (title: string) => {
-    return title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-};
 
-const CourseInitialCreation = ({categories, actions}: CourseInitialCreationProps) => { 
+
+const CourseInitialCreation = ({actions, courseId, onOpen}: ChapterInitialCreationProps) => { 
     const router = useRouter()
     const [title, setTitle] = useState<string>("") 
 
-    const form = useForm<z.infer<typeof NewInitCourseSchema>>({
-        resolver: zodResolver(NewInitCourseSchema),
+    const form = useForm<z.infer<typeof NewInitChapterSchema>>({
+        resolver: zodResolver(NewInitChapterSchema),
         defaultValues: {
             title: "",
             url: "",
-            category: ""
+            description: ""
         }
     });
+
 
     const titleState = form.getFieldState("title")
     const titleStatus = !titleState.invalid ? "default" : "fail";
@@ -40,29 +42,30 @@ const CourseInitialCreation = ({categories, actions}: CourseInitialCreationProps
     const urlState = form.getFieldState("url")
     const urlStatus = !urlState.invalid ? "default" : "fail";
     
-    const categoriesState = form.getFieldState("category")
-    const categoriesStatus = !categoriesState.invalid ? "default" : "fail";
+    const descriptionState = form.getFieldState("description")
+    const descriptionStatus = !descriptionState.invalid ? "default" : "fail";
 
     const url = convertToURL(title)
 
-    const submitHandler = (values: z.infer<typeof NewInitCourseSchema>) => {
+    const submitHandler = (values: z.infer<typeof NewInitChapterSchema>) => {
         const newValues = {
             ...values,
             url
         }
 
-        newInitCourse(newValues).then((data) => {
-            const course = data
-            const courseId = course.data.id
+        newInitChapter(newValues, courseId).then((data) => {
+            // const course = data
+            // const courseId = course.data.id
 
             if (data?.error) {
-                toast.error(data.error, { position: 'bottom-center'});
+                toast.error(data.error, { position: 'bottom-center'})
             }
 
             if (data?.success) {
                 form.reset();
-                router.push(`/admin/courses/new?id=${courseId}&step=2`);
-                toast.success(data.success, { position: 'bottom-center'});
+                onOpen(false)
+                // router.push(`/admin/courses/new?id=${courseId}&step=2`) 
+                toast.success(data.success, { position: 'bottom-center'})
             }
 
         }).catch(() => toast.error("Something went wrong!"))
@@ -94,12 +97,11 @@ const CourseInitialCreation = ({categories, actions}: CourseInitialCreationProps
                                                 placeholder="Eg. Introduction in front-end technologies"
                                                 status={titleStatus}
                                             />
-                                            <p style={{"color": `${urlStatus !== "default" ? "var(--accent-fail-400)" : "var(--primary-text-600)"}`}}>/courses/{url}</p>
+                                            <p style={{"color": `${urlStatus !== "default" ? "var(--accent-fail-400)" : "var(--primary-text-600)"}`}}>/chapters/{url ? url : "..."}</p>
                                         </>
                                     </FormControl>
                                 </FormItem>
-                            )
-                        }}
+                        )}}
                     />
                     <FormField
                         control={form.control}
@@ -119,26 +121,15 @@ const CourseInitialCreation = ({categories, actions}: CourseInitialCreationProps
                     />
                     <FormField
                         control={form.control}
-                        name="category"
+                        name="description"
                         render={({ field }) => (
                             <FormItem data-cols="1">
-                                <div className={sx["form-item-details"]} style={{"display": "flex", "gap": "8px", "justifyContent": "space-between"}}>
-                                    <FormLabel>Category</FormLabel>
-                                    <FormMessage icon="alert-triangle" />
+                                <div className={sx["form-item-details"]}>
+                                    <FormLabel>Description</FormLabel>
+                                    {<FormMessage icon="alert-triangle" />}
                                 </div>
                                 <FormControl>
-                                    <Select name="category" value={field.value} onValueChange={field.onChange} >
-                                        <SelectTrigger mode="outline" size="M" shade="200" status={categoriesStatus} {...field}>
-                                            <SelectValue placeholder="Select category" />
-                                        </SelectTrigger>
-                                        <SelectContent side="top" shade="200">
-                                            {categories.map((item: any) => (
-                                                <SelectItem key={item.id} value={item.id}>
-                                                    {item.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                    <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" resize="vertical" status={descriptionStatus} />
                                 </FormControl>
                             </FormItem>
                         )}

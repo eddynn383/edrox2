@@ -1,22 +1,15 @@
-import { CourseCard, SkeletonCard } from "@/components";
-import CatalogToolbar from "../CatalogToolbar";
-import Category from "../Category";
+import { CourseCard, ScrollArea } from "@/components";
 import { CatalogProps } from "./interface";
 import sx from "@/styles/module.module.scss"
-import { Suspense } from "react";
 
 
-const Catalog = ({ courses, categories, selectedCategory, pageTitle }: CatalogProps) => {
+const Catalog = ({ courses }: CatalogProps) => {
 
     return (
         <div className={sx["catalog"]}>
-            <CatalogToolbar pageTitle={pageTitle} />
-            <div className={sx["catalog-content"]}>
-                <Suspense fallback={"loading categories..."}>
-                    <Category data={categories} current={selectedCategory} />
-                </Suspense>
-                {
-                    courses && (
+            {
+                courses && (
+                    <ScrollArea>
                         <ul className={sx["catalog-list"]}>
                             {
                                 courses.map((item: any) => (
@@ -26,9 +19,9 @@ const Catalog = ({ courses, categories, selectedCategory, pageTitle }: CatalogPr
                                 ))
                             }
                         </ul>
-                    )
-                }
-            </div>
+                    </ScrollArea>
+                )
+            }
         </div>
     )
 }

@@ -19,6 +19,7 @@ import { PageTitle } from "./PageTitle";
 import { Profile } from "./Profile";
 import { Progress } from "./Progress";
 import { Rating } from "./Rating";
+import { ScrollArea, ScrollBar } from "./ScrollArea";
 import { Search } from "./Search";
 import { SkeletonCard, SkeletonMenu, SkeletonProfile } from "./Skeleton";
 import { Star } from "./Star";
@@ -31,6 +32,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./Dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from "./Drawer";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./Form";
+import { Label } from "./Label";
 
 export {
     Alert,
@@ -102,6 +104,7 @@ export {
     FormField,
     Icon,
     Input,
+    Label,
     Logo,
     LogOut,
     NavigationMenu,
@@ -111,6 +114,8 @@ export {
     Profile,
     Progress,
     Rating,
+    ScrollArea,
+    ScrollBar,
     Search,
     Select,
     SelectGroup,
