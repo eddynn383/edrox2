@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Avatar, Badge, Button, Cover, Rating } from "@/components";
 import { CardContentProps, CardDescriptionProps, CardFooterProps, CardHeaderProps, CardProps, CardTitleProps, CourseCardProps } from "./interface";
 import sx from "@/styles/component.module.scss";
+import Link from "next/link";
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className = sx["card"], size = "M", variant = "primary", shade = "100", effect = "normal", ...props }, ref) => (
     <div ref={ref} className={className} data-size={size} data-variant={variant} data-shade={shade} data-effect={effect} {...props} />
@@ -102,54 +103,57 @@ const CourseCard = ({ data, layout = "columns", variant = "primary", shade = "10
 
     // const avatarAlt = instructor?.name ? instructor.name : instructor?.email
 
-    function addToCart() {
+    function addToCart(e: React.MouseEvent<HTMLButtonElement>) {
+        e.preventDefault()
         console.log("added to cart!")
     }
 
     return (
-        <Card className={`${sx["card"]} ${sx["card--course"]}`} data-layout={layout} data-variant={variant} data-shade={shade} data-effect={effect} data-size={size} onClick={() => router.push(`/catalog/course/${data.id}`)}>
-            <CardHeader>
-                <Cover src={image} alt={data.title} width={250} height={100} />
-            </CardHeader>
-            <CardContent>
-                <div className={sx["card-content-top"]}>
-                    {data.category && <Badge>{data.category.name}</Badge>}
-                    <Rating score={4.5} />
-                </div>
-                <CardTitle rank={2}>{data?.title}</CardTitle>
-                <CardDescription truncated>{data?.description}</CardDescription>
-            </CardContent>
-            <CardFooter>
-                <Button type="button" onClick={addToCart}>Add to cart</Button>
-            </CardFooter>
-            {/* <div className={sx["card-bottom"]}>
-                <div className={sx["card-bottom-top"]}>
-                    <div className={sx["card-price-rating"]}>
+        <Card className={`${sx["card"]} ${sx["card--course"]}`} data-layout={layout} data-variant={variant} data-shade={shade} data-effect={effect} data-size={size}>
+            <Link href={`/catalog/course/${data.id}`} >
+                <CardHeader>
+                    <Cover src={image} alt={data.title} width={250} height={100} />
+                </CardHeader>
+                <CardContent>
+                    <div className={sx["card-content-top"]}>
+                        {data.category && <Badge>{data.category.name}</Badge>}
+                        <Rating score={4.5} />
+                    </div>
+                    <CardTitle rank={2}>{data?.title}</CardTitle>
+                    <CardDescription truncated>{data?.description}</CardDescription>
+                </CardContent>
+                <CardFooter>
+                    <Button type="button" onClick={addToCart}>Add to cart</Button>
+                </CardFooter>
+                {/* <div className={sx["card-bottom"]}>
+                    <div className={sx["card-bottom-top"]}>
+                        <div className={sx["card-price-rating"]}>
+                            {
+                                price &&
+                                <span className={sx["card-price"]}>
+                                    {price.discount && price.discount > 0 ? <span className={sx["card-price-discount"]}>{makeDiscount(price.value, price.discount, price.currency)}</span> : null}
+                                    <span className={sx["card-price-value"]}>{setValue(price.value, price.currency)}</span>
+                                </span>
+                            }
+                            {
+                                rating &&
+                                <span className={sx["card-rating"]}>
+                                    <Rating score={rating.value} reviews={rating.reviews} />
+                                </span>
+                            }
+                        </div>
+                    </div>
+                    <div className={sx["card-bottom-bottom"]}>
                         {
-                            price &&
-                            <span className={sx["card-price"]}>
-                                {price.discount && price.discount > 0 ? <span className={sx["card-price-discount"]}>{makeDiscount(price.value, price.discount, price.currency)}</span> : null}
-                                <span className={sx["card-price-value"]}>{setValue(price.value, price.currency)}</span>
-                            </span>
-                        }
-                        {
-                            rating &&
-                            <span className={sx["card-rating"]}>
-                                <Rating score={rating.value} reviews={rating.reviews} />
+                            instructor &&
+                            <span className={sx["card-instructor"]}>
+                                <Avatar src={instructor.image ? instructor.image : defaultAvatar} alt={avatarAlt ? avatarAlt : ""} size="S" type="circle" />
+                                {instructor.name ? <span className={sx["card-instructor-name"]}>{instructor.name}</span> : <span className={sx["card-instructor-email"]}>{instructor.email}</span>}
                             </span>
                         }
                     </div>
-                </div>
-                <div className={sx["card-bottom-bottom"]}>
-                    {
-                        instructor &&
-                        <span className={sx["card-instructor"]}>
-                            <Avatar src={instructor.image ? instructor.image : defaultAvatar} alt={avatarAlt ? avatarAlt : ""} size="S" type="circle" />
-                            {instructor.name ? <span className={sx["card-instructor-name"]}>{instructor.name}</span> : <span className={sx["card-instructor-email"]}>{instructor.email}</span>}
-                        </span>
-                    }
-                </div>
-            </div> */}
+                </div> */}
+            </Link>
         </Card>
     )
 }

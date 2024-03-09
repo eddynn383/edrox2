@@ -29,10 +29,11 @@ import { Text } from "./Text";
 import { Textarea } from "./Textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue } from "./Select";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./AlertDialog";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./Dialog";
+import { Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./Dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from "./Drawer";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./Form";
 import { Label } from "./Label";
+import { RadioGroup, RadioGroupItem } from "./RadioGroup";
 
 export {
     Alert,
@@ -67,6 +68,7 @@ export {
     DialogTrigger,
     DialogContent,
     DialogHeader,
+    DialogBody,
     DialogFooter,
     DialogTitle,
     DialogDescription,
@@ -113,6 +115,8 @@ export {
     PageTitle,
     Profile,
     Progress,
+    RadioGroup,
+    RadioGroupItem,
     Rating,
     ScrollArea,
     ScrollBar,

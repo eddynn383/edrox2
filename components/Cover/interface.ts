@@ -1,7 +1,5 @@
 
-
-export interface IPropsCover {
-    cn?: string;
+export interface CoverProps extends React.HTMLAttributes<HTMLDivElement> {
     src: any;
     alt: string;
     width?: any;

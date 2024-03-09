@@ -10,6 +10,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
+    Button,
 } from "@/components/";
 import sxc from "@/styles/component.module.scss"
 
@@ -32,9 +33,15 @@ export const ConfirmModal = ({ children, onConfirm }: ConfirmModalProps) => {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel className={sxc["button"]} data-mode="solid" data-variant="primary" data-shade="200" data-status="default" data-size="M" data-content="text">Cancel</AlertDialogCancel>
-                    <AlertDialogAction className={sxc["button"]} data-mode="solid" data-variant="accent" data-status="default" data-size="M" data-content="text" onClick={onConfirm}>
-                        Continue
+                    <AlertDialogCancel asChild>
+                        <div>
+                            <Button cn={sxc["button"]} shade="200">Cancel</Button>
+                        </div>
+                    </AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                        <div>
+                            <Button cn={sxc["button"]} variant="accent" status="fail" onClick={onConfirm}>Delete</Button>
+                        </div>
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

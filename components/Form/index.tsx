@@ -60,9 +60,9 @@ const useFormField = () => {
     return {
         id,
         name: fieldContext.name,
-        formItemId: `${id}-form-item`,
-        formDescriptionId: `${id}-form-item-description`,
-        formMessageId: `${id}-form-item-message`,
+        formItemId: `${id}-form-row`,
+        formDescriptionId: `${id}-form-row-description`,
+        formMessageId: `${id}-form-row-message`,
         ...fieldState,
     }
 }
@@ -78,7 +78,7 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 const FormItem = React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement>
->(({ className = `${sx["form-item"]}`, ...props }, ref) => {
+>(({ className = `${sx["form-row"]}`, ...props }, ref) => {
     const id = React.useId()
 
     return (

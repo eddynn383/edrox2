@@ -4,11 +4,17 @@ export interface DialogOverlayProps extends React.ComponentPropsWithoutRef<typeo
 
 }
 
+
+
+export interface DialogContentProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
+
+}
+
 export interface DialogHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 }
 
-export interface DialogContentProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
+export interface DialogBodyProps extends React.HTMLAttributes<HTMLDivElement> {
 
 }
 

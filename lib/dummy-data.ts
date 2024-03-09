@@ -1,49 +1,49 @@
 export const learnerMenu = [
-    {
-        id: 1,
-        title: "Dashboard",
-        icon: "layout-dashboard",
-        path: "/",
-    },
+    // {
+    //     id: 1,
+    //     title: "Dashboard",
+    //     icon: "layout-dashboard",
+    //     path: "/",
+    // },
     {
         id: 2,
         title: "Catalog",
         icon: "book-open-text",
         path: "/catalog",
     },
-    {
-        id: 3,
-        title: "Learning Area",
-        icon: "book-user",
-        path: "/learning-area",
-    },
-    {
-        id: 4,
-        title: "Skills",
-        icon: "list-todo",
-        path: "/skills",
-    },
-    {
-        id: 5,
-        title: "Achievements",
-        icon: "trophy",
-        path: "/achievements",
-    },
+    // {
+    //     id: 3,
+    //     title: "Learning Area",
+    //     icon: "book-user",
+    //     path: "/learning-area",
+    // },
+    // {
+    //     id: 4,
+    //     title: "Skills",
+    //     icon: "list-todo",
+    //     path: "/skills",
+    // },
+    // {
+    //     id: 5,
+    //     title: "Achievements",
+    //     icon: "trophy",
+    //     path: "/achievements",
+    // },
 ];
 
 export const adminMenu = [
-    {
-        id: 1,
-        title: "Pages",
-        icon: "gantt-chart-square",
-        path: "/admin/pages",
-    },
-    {
-        id: 2,
-        title: "Catalogs",
-        icon: "library-square",
-        path: "/admin/catalogs",
-    },
+    // {
+    //     id: 1,
+    //     title: "Pages",
+    //     icon: "gantt-chart-square",
+    //     path: "/admin/pages",
+    // },
+    // {
+    //     id: 2,
+    //     title: "Catalogs",
+    //     icon: "library-square",
+    //     path: "/admin/catalogs",
+    // },
     {
         id: 3,
         title: "Courses",

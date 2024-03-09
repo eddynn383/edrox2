@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { IPropsCover } from "./interface";
+import { CoverProps } from "./interface";
 import sx from "@/styles/component.module.scss";
 
-const Cover = ({ cn, src, alt, width, height }: IPropsCover) => {
+const Cover = ({ className=sx["cover"], src, alt, width, height }: CoverProps) => {
     return (
-        <div className={sx["cover"]}>
-            <Image className={cn} src={src} alt={alt} width={width} height={height} />
+        <div className={className} data-width={width} data-height={height}>
+            <Image src={src} alt={alt} width={width} height={height} />
         </div>
     )
 }

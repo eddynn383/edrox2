@@ -157,3 +157,18 @@ export const getAllChaptersByCourseId = async (courseId: string) => {
         return null
     }
 }
+
+export const getChapterById = async ( id: string ) => {
+    try {
+        const chapter = await db.chapter.findUnique({
+            where: {
+                id
+            }
+        })
+
+        return chapter;
+    } catch (error) {
+            console.log(error)
+            return null;
+    }
+}

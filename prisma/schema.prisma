@@ -39,6 +39,8 @@ model User {
     coursesPurchased Purchase[]
     courseProgress   UserProgress[]
     reviews          Review[]
+    tutor            Tutor?
+    superId          String?
 }
 
 model Account {
@@ -112,6 +114,14 @@ model TwoFactorConfirmation {
 //     @@map("Catalogs")
 // }
 
+model CourseCreationStep {
+    id            String       @id @default(cuid())
+    currentStep   String
+    previousStep  String
+    nextStep      String
+    @@map("CourseCreationSteps")
+}
+
 model Course {
     id            String       @id @default(cuid())
     title         String
@@ -134,6 +144,7 @@ model Course {
     updatedAt     DateTime     @updatedAt
     // catalogs    Catalog[]  
     metadata      Metadata[]
+    tutors        Tutor[]
     chapters      Chapter[]
     attachments   Attachment[]
     purchases     Purchase[]
@@ -160,6 +171,18 @@ model Metadata {
     type     String
     courseId String
     course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Tutor {
+    id          String   @id @default(uuid())
+    name        String  
+    image       String?
+    courseId    String  
+    course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+    userId      String   @unique
+    user        User     @relation(fields: [userId], references: [id])
+
+    @@map("Tutors")
 }
 
 model Attachment {

@@ -1,4 +1,4 @@
-export interface IPropsRating {
+export interface RatingProps {
     score: number;
     reviews?: number;
 }

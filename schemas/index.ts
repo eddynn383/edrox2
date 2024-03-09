@@ -1,5 +1,7 @@
 import * as z from "zod"
 
+/*=================USERS======================*/
+
 export const LoginSchema = z.object({
     email: z.string().email({
         message: "Email is required!"
@@ -34,37 +36,42 @@ export const NewPasswordSchema = z.object({
     }),
 });
 
-export const NewInitCourseSchema = z.object({
-    title: z.string().min(1, {
-        message: "Title is required"
-    }),
-    url: z.string(),
-    category: z.string().min(1, {
-        message: "Choose a category"
-    }),
-})
 
-export const NewInitChapterSchema = z.object({
-    title: z.string().min(1, {
-        message: "Title is required"
-    }),
-    url: z.string(),
-    description: z.string()
-})
+/*=================COURSES======================*/
 
 export const NewCourseSchema = z.object({
     title: z.string().min(1, {
         message: "Title is required"
     }),
-    description: z.string(),
+    url: z.string(),
     category: z.string().min(1, {
         message: "Choose a category"
-    }),
-    // metadata: z.record(z.string(), z.string()).optional(),
-    // image: z.any().optional(),
+    })
 })
+
+export const NewCourseDetailsSchema = z.object({
+    description: z.string(),
+    price: z.number(),
+    discountPrice: z.number()
+})
+
+
+/*=================METADATA======================*/
 
 export const MetadataSchema = z.object({
     key: z.string().min(1),
-    value: z.string().min(1),
+    value: z.string(),
 });
+
+
+/*=================CHAPTERS======================*/
+
+export const NewChapterSchema = z.object({
+    title: z.string().min(1, {
+        message: "Title is required"
+    }),
+    description: z.string()
+})
+
+
+

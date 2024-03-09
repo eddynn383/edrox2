@@ -1,23 +1,35 @@
-import sxm from "@/styles/module.module.scss"
-import sxc from "@/styles/component.module.scss"
+import msx from "@/styles/module.module.scss"
+import csx from "@/styles/component.module.scss"
 import { Switch } from "@/components/Switch";
 import { GripVertical } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 interface ChapterProps {
+    id: string;
     title: string;
     isPublished: boolean;
 }
 
-const Chapter = ({ title, isPublished }: ChapterProps) => {
+const Chapter = ({ id, title, isPublished }: ChapterProps) => {
+    const pathname = usePathname()
+    const router = useRouter()
+    // console.log(router)
+    console.log(pathname)
+
+    const isActive = pathname.includes(id)
+
+    console.log(isActive)
+
     return ( 
-        <div className={sxc["chapter"]}>
-            <GripVertical className={sxc["chapter-grip"]}/>
-            <div className={sxc["chapter-left"]}>
-                <h3 className={sxc["chapter-title"]}>
+        <Link href={id} className={csx["chapter"]} data-active={isActive}>
+            <GripVertical className={csx["chapter-grip"]}/>
+            <div className={csx["chapter-left"]}>
+                <h3 className={csx["chapter-title"]}>
                     {title}
                 </h3>
             </div>
-            <div className={sxc["chapter-right"]}>
+            <div className={csx["chapter-right"]}>
                 <Switch 
                     checked={isPublished}
                     onCheckedChange={() => false
@@ -26,7 +38,7 @@ const Chapter = ({ title, isPublished }: ChapterProps) => {
                     }
                 />
             </div>
-        </div>
+        </Link>
     );
 }
 
@@ -36,11 +48,11 @@ interface ChaptersListProps {
 
 const ChaptersList = ({ data }: ChaptersListProps) => {
     return ( 
-        <ul className={sxm["chapters-list"]}>
+        <ul className={msx["chapters-list"]}>
             {
                 data.map((item: any) => (
-                    <li className={sxm["chapters-list-item"]} key={item.id}>
-                        <Chapter title={item.title} isPublished={true} />
+                    <li className={msx["chapters-list-item"]} key={item.id}>
+                        <Chapter id={item.id} title={item.title} isPublished={true} />
                     </li>
                 ))
             }

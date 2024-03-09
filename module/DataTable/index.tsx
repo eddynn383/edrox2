@@ -1,93 +1,63 @@
 "use client"
 
-import { useState } from "react";
-import {
-    ColumnFiltersState,
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    useReactTable,
-} from "@tanstack/react-table";
+import { flexRender } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components";
-import { DataTableToolbar } from "../DataTableToolbar";
-import { DataTablePagination } from "../DataTablePagination";
 import { DataTableProps } from "./interaface";
 import sx from "@/styles/module.module.scss"
-import { deleteCourse } from "@/actions/delete-course";
 
 
 
-const DataTable = <TData, TValue>({ columns, data, pageTitle, toolbarButtons }: DataTableProps<TData, TValue>) => {
-    const [rowSelection, setRowSelection] = useState({})
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-    const table = useReactTable({
-        data,
-        columns,
-        onRowSelectionChange: setRowSelection,
-        onColumnFiltersChange: setColumnFilters,
-        getFilteredRowModel: getFilteredRowModel(),
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        state: {
-            rowSelection,
-            columnFilters
-        }
-    })
+const DataTable = <TData, TValue>({ columns, table }: DataTableProps<TData, TValue>) => {
 
     return (
         <div className={sx["data-table"]}>
-            <DataTableToolbar table={table} pageTitle={pageTitle} toolbarExtraActions={toolbarButtons} showTableColumnsEdit={true} showFilterToggle={true} />
-            <div className={sx["data-table-content"]}>
-                <Table>
-                    <TableHeader>
-                        {
-                            table.getHeaderGroups().map((headerGroup) => (
-                                <TableRow key={headerGroup.id} >
+            <Table>
+                <TableHeader>
+                    {
+                        table.getHeaderGroups().map((headerGroup) => (
+                            <TableRow key={headerGroup.id} >
+                                {
+                                    headerGroup.headers.map((header) => {
+                                        return (
+                                            <TableHead key={header.id}>
+                                                {
+                                                    header.isPlaceholder
+                                                        ? null
+                                                        : flexRender(
+                                                            header.column.columnDef.header,
+                                                            header.getContext()
+                                                        )
+                                                }
+                                            </TableHead>
+                                        )
+                                    })
+                                }
+                            </TableRow>
+                        ))
+                    }
+                </TableHeader>
+                <TableBody>
+                    {
+                        table.getRowModel().rows?.length ? (
+                            table.getRowModel().rows.map((row) => (
+                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} >
                                     {
-                                        headerGroup.headers.map((header) => {
-                                            return (
-                                                <TableHead key={header.id}>
-                                                    {
-                                                        header.isPlaceholder
-                                                            ? null
-                                                            : flexRender(
-                                                                header.column.columnDef.header,
-                                                                header.getContext()
-                                                            )
-                                                    }
-                                                </TableHead>
-                                            )
-                                        })
+                                        row.getVisibleCells().map((cell) => (
+                                            <TableCell key={cell.id}>
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </TableCell>
+                                        ))
                                     }
                                 </TableRow>
                             ))
-                        }
-                    </TableHeader>
-                    <TableBody>
-                        {
-                            table.getRowModel().rows?.length ? (
-                                table.getRowModel().rows.map((row) => (
-                                    <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} >
-                                        {
-                                            row.getVisibleCells().map((cell) => (
-                                                <TableCell key={cell.id}>
-                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                </TableCell>
-                                            ))
-                                        }
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={columns.length}>No results.</TableCell>
-                                </TableRow>
-                            )
-                        }
-                    </TableBody>
-                </Table>
-            </div>
-            <DataTablePagination table={table} />
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={columns.length}>No results.</TableCell>
+                            </TableRow>
+                        )
+                    }
+                </TableBody>
+            </Table>
         </div>
     );
 }

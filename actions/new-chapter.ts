@@ -1,13 +1,13 @@
 "use server";
 
 import * as z from "zod";
-import { NewInitChapterSchema } from "@/schemas";
+import { NewChapterSchema } from "@/schemas";
 import { setChapter } from "@/data/chapters";
 import { revalidateTag } from "next/cache";
 
 
-export const newInitChapter = async (values: z.infer<typeof NewInitChapterSchema>, courseId: string) => {
-    const validatedFields = NewInitChapterSchema.safeParse(values);
+export const newInitChapter = async (values: z.infer<typeof NewChapterSchema>, courseId: string) => {
+    const validatedFields = NewChapterSchema.safeParse(values);
     console.log("validatedFields: ", validatedFields)
     console.log("courseId: ", courseId)
 

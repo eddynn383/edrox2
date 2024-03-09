@@ -39,6 +39,10 @@ export const getAllCourses = async () => {
         const courses = await db.course.findMany({
             orderBy: {
                 createdAt: 'asc',
+            },
+            include: {
+                chapters: true,
+                tutors: true
             }
         })
     

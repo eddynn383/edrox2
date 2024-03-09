@@ -1,3 +1,4 @@
+"use client"
 import { ChangeEvent, useState } from "react";
 
 import { z } from "zod";
@@ -32,7 +33,7 @@ const Metadata = () => {
         // if (data.length === 1 || !MetadataSchema.safeParse(data[data.length - 1])) {
         //     return;
         // }
-        // const dataValidation = MetadataSchema.safeParse(data)
+        const dataValidation = MetadataSchema.safeParse(values)
         // console.log("data: ", data)
         // console.log(dataValidation)
         
@@ -43,9 +44,12 @@ const Metadata = () => {
         //     setError("Please fill the row before")
         // }
 
-        // if (!dataValidation.success) {
-        //     // return { error: "Invalid email!"}
-        // }
+        console.log("dataValidation: ", dataValidation)
+
+        if (!dataValidation.success) {
+            console.log("not works")
+            return { error: "Invalid email!"}
+        }
 
         setData([...data, { key: "", value: "" }]);
     }
@@ -53,6 +57,9 @@ const Metadata = () => {
     const changeHandler = (e: ChangeEvent<HTMLInputElement>, i: number) => {
 
         const { name, value } = e.target
+
+        console.log(name)
+        console.log(value)
 
         const onChangeVal = [...data];
         onChangeVal[i][name] = value;
@@ -74,66 +81,45 @@ const Metadata = () => {
 
     return ( 
         <div className={sxm["metadata"]}>
-            <Form {...form}>
-                <form className={sxm["metadata-form"]} onSubmit={form.handleSubmit(addRowHandler)}>
-                    <div className={sxm["metadata-title"]}>
-                        <Label>Metadata</Label>
-                        <Button variant="primary" shade="200" size="S" content="icon" type="submit" ><Plus /></Button>
-                    </div>
-                    <div className={sxm["metadata-content"]}>
-                        {
-                            data.map((row, i) => (                        
-                                <div className={sxm["metadata-row"]} key={i}>
-                                    {/* <Input sizes="S" shade="200" name="key" value={row.key} placeholder="Key" onChange={(e) => changeHandler(e, i)} />
-                                    <Input sizes="S" shade="200" name="value" value={row.value} placeholder="Value" onChange={(e) => changeHandler(e, i)} /> */}
-                                    <FormField
-                                        control={form.control}
-                                        name="key"
-                                        render={({ field }) => {
-                                            console.log(field)
-                                            return (
-                                                <FormItem data-cols="1">
-                                                    <FormLabel hidden>Key</FormLabel>
-                                                    <FormMessage icon="alert-triangle" />
-                                                    <FormControl>
-                                                        <Input {...field} value={row.key} sizes="S" shade="200" type="text" name="key" placeholder="Key" onChange={(e) => changeHandler(e, i)} />
-                                                        {/* <Input
-                                                            {...field}
-                                                            shade="200"
-                                                            type="text"
-                                                            name="title"
-                                                            placeholder="Eg. Introduction in front-end technologies"
-                                                        // status={!success && !error ? "default" : success && !error ? "success" : !success && error ? "error" : "default"}
-                                                        /> */}
-
-                                                    </FormControl>
-                                                </FormItem>
-                                            )
-                                        }}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="value"
-                                        render={({ field }) => {
-                                            return (
-                                                <FormItem data-cols="1">
-                                                    <FormLabel hidden>Value</FormLabel>
-                                                    {/* {<FormMessage icon="alert-triangle" />} */}
-                                                    <FormControl>
-                                                        <Input {...field} value={row.value} sizes="S" shade="200" name="value" placeholder="Value" onChange={(e) => changeHandler(e, i)} />
-                                                    </FormControl>
-                                                </FormItem>
-                                            )
-                                        }}
-                                    />
-                                    <Button size="S" variant="primary" shade="200" status="fail" content="icon" onClick={() => deleteHandler(i)}><Trash2 /></Button>
-                                </div>
-                            ))
-                        }
-                        <p>{JSON.stringify(data)}</p>
-                    </div>
-                </form>
-            </Form>
+            <div className={sxm["metadata-content"]}>
+                {
+                    data.map((row, i) => (                        
+                        <div className={sxm["metadata-row"]} key={i}>
+                            {/* <Input sizes="S" shade="200" name="key" value={row.key} placeholder="Key" onChange={(e) => changeHandler(e, i)} />
+                            <Input sizes="S" shade="200" name="value" value={row.value} placeholder="Value" onChange={(e) => changeHandler(e, i)} /> */}
+                            <FormField
+                                control={form.control}
+                                name="key"
+                                render={({ field }) => (
+                                    <FormItem data-cols="1">
+                                        {/* <FormLabel hidden>Key</FormLabel> */}
+                                        {/* <FormMessage icon="alert-triangle" /> */}
+                                        <FormControl>
+                                            <Input {...field} value={row.key} sizes="M" shade="200" type="text" name="key" placeholder="Key" onChange={(e) => changeHandler(e, i)} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="value"
+                                render={({ field }) => (
+                                    <FormItem data-cols="1">
+                                        {/* <FormLabel hidden>Value</FormLabel> */}
+                                        {/* {<FormMessage icon="alert-triangle" />} */}
+                                        <FormControl>
+                                            <Input {...field} value={row.value} sizes="M" shade="200" name="value" placeholder="Value" onChange={(e) => changeHandler(e, i)} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            {/* <Button type="button" size="S" variant="primary" shade="200" status="fail" content="icon" onClick={() => deleteHandler(i)}><Trash2 /></Button> */}
+                        </div>
+                    ))
+                }
+                <p>{JSON.stringify(data)}</p>
+            </div>
+            <Button variant="primary" shade="200" size="S" content="icon" type="submit" ><Plus /></Button>
         </div>
     );
 }

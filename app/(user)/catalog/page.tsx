@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { ScrollArea, ScrollBar, SkeletonCard } from "@/components";
-import { getCategories } from "@/data/categories";
+import { getAllCategories } from "@/data/categories";
 import { getPublishdedCourses } from "@/data/courses";
 import Catalog from "@/module/Catalog";
 import CatalogToolbar from "@/module/CatalogToolbar";
@@ -16,7 +16,7 @@ interface CatalogPageProps {
 
 const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
     const courses = await getPublishdedCourses({...searchParams});  
-    const categories = await getCategories()
+    const categories = await getAllCategories()
 
     return (
         <div className={psx["body"]}>

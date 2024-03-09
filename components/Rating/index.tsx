@@ -1,8 +1,8 @@
 import { Star } from "@/components/Star"
-import { IPropsRating } from "./interface"
+import { RatingProps } from "./interface"
 import sx from "@/styles/component.module.scss";
 
-const Rating = ({ score, reviews }: IPropsRating) => {
+const Rating = ({ score, reviews }: RatingProps) => {
     return (
         <div className={sx["rating"]}>
             <span className={sx["rating-score"]}>

@@ -2,13 +2,14 @@
 
 import { Course } from "@/interfaces/course"
 import { ColumnDef } from "@tanstack/react-table"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon } from "@/components"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, Checkbox, Cover, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon } from "@/components"
 import { FileBarChart, MoreHorizontal, Pencil, Trash2 } from "lucide-react"
 import { deleteCourseById } from "@/data/courses"
 import { deleteCourse } from "@/actions/delete-course"
 import { Switch } from "@/components/Switch"
 import { editCourse } from "@/actions/edit-course"
-import sx from "@/styles/component.module.scss"
+import csx from "@/styles/component.module.scss"
+import { formatDate } from "./utils"
 
 
 // const clickHandler = () => {
@@ -60,8 +61,23 @@ export const coursesCols: ColumnDef<Course>[] = [
         accessorKey: "title",
         header: () => <span>Title</span>,
         cell: ({ row }) => {
-
-            return <span>{row.getValue("title")}</span>
+            const image: React.ReactNode = row.original.image
+            const cover = image ? image : "https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            const title: string = row.getValue("title")
+            console.log(title)
+            const localStyle = {
+                "display": "grid", 
+                "gridTemplateColumns": "min-content auto", 
+                "gap": "var(--gap-200, 8px)"
+            }
+            // const cover = image.find((image) => image.value === row.original.image)
+            console.log(cover)
+            return (
+                <div style={localStyle}>  
+                    <Cover src={cover} alt={title} width={50} height={28} />
+                    <span>{title}</span>
+                </div> 
+            )
         }
     },
     {
@@ -110,6 +126,25 @@ export const coursesCols: ColumnDef<Course>[] = [
         header: "Tutor",
     },
     {
+        accessorKey: "createdAt",
+        header: "Created At",
+        cell: ({ row }) => {
+            const date = new Date(row.getValue("createdAt"))
+
+            const newDate = formatDate({dateValue: date, dateFormat: "dd/MMM/yyyy - HH:mm"})
+
+            return (
+                <>
+                    {newDate}
+                </>
+            )
+        }
+    },
+    {
+        accessorKey: "createdBy",
+        header: "Created By",
+    },
+    {
         id: "actions",
         cell: ({ row }) => {
             const course = row.original
@@ -123,7 +158,7 @@ export const coursesCols: ColumnDef<Course>[] = [
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="primary" shade="100" size="S" content="icon">
-                            <MoreHorizontal className={sx["icon"]} />
+                            <MoreHorizontal className={csx["icon"]} />
                             <span className="sr-only">Open menu</span>
                         </Button>
                     </DropdownMenuTrigger>
@@ -131,15 +166,19 @@ export const coursesCols: ColumnDef<Course>[] = [
                         {/* Start Dropdowon Definition */}
                         <DropdownMenuContent shade="100" align="end">
                             <DropdownMenuItem>
-                                <Pencil /> Edit
+                                <Button mode="text" variant="accent" status="default">
+                                    <Pencil /> Edit
+                                </Button>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
                                 <FileBarChart /> Report
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
-                                <AlertDialogTrigger asChild>
-                                    <Button mode="text" variant="accent" status="fail"><Trash2 /> Delete</Button>
+                                <AlertDialogTrigger asChild >
+                                    <Button mode="text" variant="accent" status="fail">
+                                        <Trash2 /> Delete
+                                    </Button>
                                 </AlertDialogTrigger>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -154,10 +193,14 @@ export const coursesCols: ColumnDef<Course>[] = [
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                                 <AlertDialogCancel asChild>
-                                    <Button shade="200">Cancel</Button>
+                                    <div>
+                                        <Button cn={csx["button"]} shade="200">Cancel</Button>
+                                    </div>
                                 </AlertDialogCancel>
-                                <AlertDialogAction asChild onClick={deleteConf}>
-                                    <Button cn={"bla bla"} variant="accent" status="fail">Delete</Button>
+                                <AlertDialogAction asChild>
+                                    <div>
+                                        <Button cn={csx["button"]} variant="accent" status="fail" onClick={deleteConf}>Delete</Button>
+                                    </div>
                                 </AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>

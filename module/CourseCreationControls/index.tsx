@@ -59,9 +59,6 @@ const CourseCreationControls = () => {
         resolver: zodResolver(NewCourseSchema),
         defaultValues: {
             title: "",
-            description: ""
-            // category: "",
-            // image: "",
         }
     });
 

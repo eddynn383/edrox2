@@ -53,7 +53,7 @@ export const {
     },
     callbacks: {
         async signIn({ user, account }) {
-            console.log("SIGNIN CB: ", {user})
+            // console.log("SIGNIN CB: ", {user})
             if (account?.provider !== "credentials") return true;
             
             if (!user.id) return false;
@@ -66,7 +66,7 @@ export const {
             if (existingUser.isTwoFactorEnabled) {
                 const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id)
 
-                console.log("TFC SIGNIN CB: ",twoFactorConfirmation)
+                // console.log("TFC SIGNIN CB: ",twoFactorConfirmation)
 
                 if (!twoFactorConfirmation) return false
 
@@ -80,10 +80,10 @@ export const {
             return true
         },
         async session({ session, token }: { session: Session, token?: JWT }) {
-            console.log("SESSION: ", { 
-                sessionToken: token,
-                session
-            })
+            // console.log("SESSION: ", { 
+            //     sessionToken: token,
+            //     session
+            // })
 
             if (session.user && token?.sub) {
                 session.user.id = token?.sub
