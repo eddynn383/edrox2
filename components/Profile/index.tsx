@@ -12,35 +12,34 @@ const Profile = ({ size, user }: ProfileProps) => {
 
     return (
         <>
-            <div className={sx["profile"]} data-size={size} >
-                <div className={sx["profile-left"]}>
-                    <span className={sx["profile-name"]}>{user?.name ? user?.name : user?.email}</span>
-                    {size !== "S" && <span className={sx["profile-role"]}>{role}</span>}
-                </div>
-                <div className={sx["profile-right"]}>
-                    <Avatar src={user?.image ? user.image : ProfileAvatar} alt={user?.email} size={size} type="circle" />
-                    <DropdownMenu >
-                        <DropdownMenuTrigger className={sx["button"]} data-mode="solid" data-variant="primary" data-shade="100" data-size="S" data-content="icon">
-                            <Icon name="chevron-down" />
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" shade="200">
-                            <DropdownMenuItem hasChild>
-                                <Link href="/profile">Profile</Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem hasChild>
-                                <Link href="/my-purchases">My Purchases</Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem hasChild>
-                                <Link href="/settings">Settings</Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <LogOut>Logout</LogOut>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </div>
-            </div>
+            <DropdownMenu >
+                <DropdownMenuTrigger asChild>
+                    <div className={sx["profile"]} data-size={size} >
+                        <div className={sx["profile-left"]}>
+                            <Avatar src={user?.image ? user.image : ProfileAvatar} alt={user?.email} size={size} type="circle" />
+                        </div>
+                        <div className={sx["profile-right"]}>
+                            <span className={sx["profile-name"]}>{user?.name ? user?.name : user?.email}</span>
+                            {size !== "S" && <span className={sx["profile-role"]}>{role}</span>}
+                        </div>
+                    </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" shade="200">
+                    <DropdownMenuItem hasChild>
+                        <Link href="/profile">Profile</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem hasChild>
+                        <Link href="/my-purchases">My Purchases</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem hasChild>
+                        <Link href="/settings">Settings</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                        <LogOut>Logout</LogOut>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </>
     )
 }

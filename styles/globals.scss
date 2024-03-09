@@ -114,7 +114,7 @@ h4,
     &_right {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: min-content calc(100% - 80px);
+        grid-template-rows: min-content calc(100% - 77px);
         flex-grow: 1;
         background-color: var(--layout-right-background, var(--primary-background-100));
         overflow: hidden;
