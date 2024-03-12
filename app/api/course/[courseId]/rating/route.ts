@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 
 type paramsType = {
@@ -12,41 +12,43 @@ export async function POST(request: Request, { params }: paramsType) {
     try {
         const session = await auth()
         const user = session?.user
-        const data = await request.json()
+        const body = await request.json()
         const { courseId } = params
+
+        // console.log("USER: ", user)
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const alreadyExists = await db.review.findFirst({
+        const alreadyExists = await prisma.rating.findFirst({
             where: {
                 courseId: courseId,
                 userId: session.user.id
             }
         })
 
-        console.log("metadata exists: ", alreadyExists)
+        // console.log("rating exists: ", alreadyExists)
 
         if (alreadyExists) {
             return new NextResponse("Review already exists!", { status: 502 })
         }
 
-        console.log({ data })
-        const review = await db.review.create({
+        // console.log("dataBeforeSave: ", body)
+        const rating = await prisma.rating.create({
             data: {
                 courseId: courseId,
-                userId: session.user.id as string,
-                rating: data.rating,
-                title: data.title,
-                comment: data.comment
+                userId: user.id as string,
+                rating: body.rating,
+                title: body.title,
+                comment: body.comment
             }
         })
 
-        console.log(review)
-        return Response.json(review)
+        // console.log("SAVED RATING: ", rating)
+        return Response.json(rating)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

@@ -11,7 +11,7 @@
     display: flex;
     gap: var(--header-gap, var(--gap-400, 16px));
     align-items: center;
-    padding: var(--header-padding-y, var(--padding-400, 16px)) var(--header-padding-x, var(--padding-400, 16px));
+    padding: var(--header-padding-y, var(--padding-400, 16px)) var(--header-padding-x, var(--padding-200, 8px));
     border-bottom: 1px solid var(--header-border-bottom, var(--primary-background-200));
     // min-height: 64px;
     &-left {
@@ -31,13 +31,7 @@
         gap: var(--header-right-gap, var(--gap-300, 12px));
     }
     @media only screen and (min-width: 1025px) {
-        padding: var(--header-padding-y, var(--padding-400, 16px)) var(--header-padding-x, var(--padding-400, 24px));
-    }
-    @media only screen and (min-width: 768px) {
-        // &-left,
-        // &-right {
-        //     min-width: 220px;
-        // }
+        padding: var(--header-padding-y, var(--padding-400, 16px)) var(--header-padding-x, var(--padding-600, 24px));
     }
 }
 
@@ -55,7 +49,7 @@
         display: flex;
         align-items: center;
         gap: var(--page-toolbar-gap, var(--gap-400, 16px));
-        padding: var(--page-toolbar-padding-y, var(--padding-400, 16px)) var(--page-toolbar-padding-x, var(--padding-600, 24px));
+        padding: var(--page-toolbar-padding-y, var(--padding-400, 16px)) var(--page-toolbar-padding-x, var(--padding-400, 16px));
         border-bottom: var(--page-toolbar-border-bottom, 1px solid var(--primary-background-200));
         z-index: 1;
     
@@ -79,6 +73,9 @@
         & > * {
             position: relative;
             z-index: 1;
+        }
+        @media only screen and (min-width: 1025px) {
+            padding: var(--page-toolbar-padding-y, var(--padding-400, 16px)) var(--page-toolbar-padding-x, var(--padding-600, 24px));
         }
     }
     

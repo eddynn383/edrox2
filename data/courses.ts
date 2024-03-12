@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 type GetCourses = {
@@ -12,35 +12,35 @@ export const setCourse = async (body: any) => {
 
         const session = await auth()
         const user = session?.user
-        console.log({ body })
+        // console.log({ body })
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const course = await db.course.create({
+        const course = await prisma.course.create({
             data: {
                 title: body.title,
-                url: body.url,
                 categoryId: body.category,
                 createdById: user?.id as string
             }
         })
 
-        return Response.json(course)
+        return NextResponse.json(course)
     } catch (error) {
         console.log(error)
-        return new NextResponse("Internal Error", { status: 500 })
+        return new NextResponse("Internal Error", { status: 500 });
     }
 }
 
 export const getAllCourses = async () => {
     try {        
-        const courses = await db.course.findMany({
+        const courses = await prisma.course.findMany({
             orderBy: {
                 createdAt: 'asc',
             },
             include: {
+                price: true,
                 chapters: true,
                 tutors: true
             }
@@ -56,7 +56,7 @@ export const getAllCourses = async () => {
 export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) => {
     try {
 
-        const courses = await db.course.findMany({
+        const courses = await prisma.course.findMany({
             where: {
                 isPublished: true,
                 title: {
@@ -66,6 +66,7 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
                 categoryId,
             },
             include: {
+                price: true,
                 category: true,
                 chapters: {
                     where: {
@@ -74,14 +75,15 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
                     select: {
                         id: true
                     }
-                }
+                },
+                tutors: true
             },
             orderBy: {
                 createdAt: 'asc',
             },
         })
         
-        console.log(courses)
+        // console.log(courses)
         // await new Promise((resolve) => setTimeout(resolve, 5000))
         return courses
     } catch (error) {
@@ -92,15 +94,30 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
 
 export const getCourseById = async (id: string) => {
     try {
-        const course = await db.course.findUnique({
+        const course = await prisma.course.findUnique({
             where: {
                 id
             },
             include: {
-                category: true
+                price: true,
+                category: true,
+                chapters: {
+                    where: {
+                        isPublished: true,
+                    },
+                    // select: {
+                    //     id: true
+                    // }
+                },
+                tutors: {
+                    include: {
+                        tutors: true
+                    }
+                }
             }
         })
 
+        // console.log("RETURNED COURSE: ", course)
         return course
     } catch (error) {
         console.log(error)
@@ -108,27 +125,27 @@ export const getCourseById = async (id: string) => {
     }
 }
 
-export const getCourseByUrl = async (url: string) => {
-    try {
-        const course = await db.course.findUnique({
-            where: {
-                url
-            },
-            include: {
-                category: true
-            }
-        })
+// export const getCourseByUrl = async (url: string) => {
+//     try {
+//         const course = await prisma.course.findUnique({
+//             where: {
+//                 url
+//             },
+//             include: {
+//                 category: true
+//             }
+//         })
 
-        return course
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
+//         return course
+//     } catch (error) {
+//         console.log(error)
+//         return null
+//     }
+// }
 
 export const getCoursesByTitle = async (title: string) => {
     try {
-        const courses = await db.course.findMany({
+        const courses = await prisma.course.findMany({
             where: {
                 title: {
                     contains: title
@@ -151,9 +168,9 @@ export const editCourseById = async (id: string, data: any) => {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        console.log("edit happened")
+        // console.log("edit happened")
 
-        const editedCourse = await db.course.update({
+        const editedCourse = await prisma.course.update({
             where: {
                 id
             },
@@ -161,10 +178,10 @@ export const editCourseById = async (id: string, data: any) => {
         })
 
 
-        return NextResponse.json(editedCourse)
+        return editedCourse
     } catch (error) {
         console.log(error)
-        return new NextResponse("Internal Error", { status: 500 })
+        return null;
     }
 }
 
@@ -176,19 +193,19 @@ export const deleteCourseById = async (id: string) => {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        console.log("the deletion is triggered")
+        // console.log("the deletion is triggered")
 
-        const deletedCourse = await db.course.delete({
+        const deletedCourse = await prisma.course.delete({
             where: {
                 id
             }
         })
 
 
-        return NextResponse.json(deletedCourse)
+        return deletedCourse
     } catch (error) {
         console.log(error)
-        return new NextResponse("Internal Error", { status: 500 })
+        return null;
     }
 }
 
@@ -200,9 +217,9 @@ export const deleteCoursesByIds = async (ids: string[]) => {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        console.log("the deletion is triggered")
+        // console.log("the deletion is triggered")
 
-        const deletedCourses = await db.course.deleteMany({
+        const deletedCourses = await prisma.course.deleteMany({
             where: {
                 id: {
                     in: ids
@@ -211,9 +228,9 @@ export const deleteCoursesByIds = async (ids: string[]) => {
         })
 
 
-        return NextResponse.json(deletedCourses)
+        return deletedCourses
     } catch (error) {
         console.log(error)
-        return new NextResponse("Internal Error", { status: 500 })
+        return null;
     }
 }

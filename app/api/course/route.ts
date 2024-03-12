@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import { revalidateTag } from "next/cache"
 import { NextResponse } from "next/server"
 
@@ -14,10 +14,9 @@ export async function POST(request: Request) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const course = await db.course.create({
+        const course = await prisma.course.create({
             data: {
                 title: res.title,
-                url: res.url,
                 description: res.description,
                 image: res.image,
                 categoryId: res.categoryId,
@@ -32,17 +31,17 @@ export async function POST(request: Request) {
         return Response.json(course)
     } catch (error) {
         console.log(error)
-        return new NextResponse("Internal Error", { status: 500 })
+        return new NextResponse(JSON.stringify(error), { status: 500 })
     }
 }
 
 export async function GET() {
     try {
-        const course = await db.course.findMany()
+        const course = await prisma.course.findMany()
 
         return Response.json(course)
     } catch (error) {
         console.log(error)
-        return new NextResponse("Internal Error", { status: 500 })
+        return new NextResponse(JSON.stringify(error), { status: 500 })
     }
 }

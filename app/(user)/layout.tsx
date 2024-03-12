@@ -12,7 +12,7 @@ const DashboardLayout = async ({
     const session = await auth()
     // const logOut = await signOut()
 
-    console.log("LAYOUT SESSION: ", session)
+    // console.log("LAYOUT SESSION: ", session)
 
     return (
         <div className="layout layout--two-cols">

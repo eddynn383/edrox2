@@ -1,7 +1,7 @@
 "use server"
 
 import * as z from "zod"
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import bcrypt from "bcrypt"
 import { RegisterSchema } from "@/schemas"
 
@@ -27,7 +27,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         return { error: "The email is taken!" }
     }
 
-    await db.user.create({
+    await prisma.user.create({
         data: {
             name,
             email,

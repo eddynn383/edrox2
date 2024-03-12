@@ -40,15 +40,15 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
     const descriptionState = form.getFieldState("description")
     const descriptionStatus = !descriptionState.invalid ? "default" : "fail";
 
-    const url = convertToURL(title)
+    // const url = convertToURL(title)
 
     const submitHandler = (values: z.infer<typeof NewChapterSchema>) => {
-        const newValues = {
-            ...values,
-            url
-        }
+        // const newValues = {
+        //     ...values,
+        //     url
+        // }
 
-        newInitChapter(newValues, courseId).then((data) => {
+        newInitChapter(values, courseId).then((data) => {
 
             if (data?.error) {
                 toast.error(data.error, { position: 'bottom-center'})

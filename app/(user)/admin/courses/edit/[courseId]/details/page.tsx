@@ -9,8 +9,8 @@ const Page = async ({ params }: { params: { courseId: string } }) => {
 
     const defaultValues = {
         description: course ? course.description : "",
-        price: course ? course.price : 0,
-        discountPrice: course ? course.discountPrice : 0,
+        // price: course ? course.price : 0,
+        // discountPrice: course ? course.discountPrice : 0,
     }
     
     return (

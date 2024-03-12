@@ -4,7 +4,7 @@ import NextAuth, { DefaultSession, Session, User } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
 import authConfig from "@/auth.config";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prismadb";
 import { JWT } from "next-auth/jwt";
 import { getUserById } from "@/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/data/twoFactorConfirmation";
@@ -41,7 +41,7 @@ export const {
     },
     events: {
         async linkAccount({ user }) {
-            await db.user.update({
+            await prisma.user.update({
                 where: {
                     id: user.id,
                 },
@@ -70,7 +70,7 @@ export const {
 
                 if (!twoFactorConfirmation) return false
 
-                await db.twoFactorConfirmation.delete({
+                await prisma.twoFactorConfirmation.delete({
                     where: {
                         id: twoFactorConfirmation.id
                     }
@@ -119,7 +119,8 @@ export const {
             return token;
         }
     },
-    adapter: PrismaAdapter(db),
+    //@ts-ignore
+    adapter: PrismaAdapter(prisma),
     session: {
         strategy: "jwt"
     },

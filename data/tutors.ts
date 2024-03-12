@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 type GetCourses = {
@@ -19,25 +19,33 @@ export const setTutor = async (body: any, courseId: string) => {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const tutor = await db.tutor.create({
+        const tutor = await prisma.tutor.create({
             data: {
                 name: body.name,   
                 image: body.image,   
                 userId: body.userId,
-                courseId
             }
         })
+
+        // const course = await prisma.course.update({
+        //     where: {
+        //         id: courseId
+        //     },
+        //     data: {
+        //         tutors: tutor
+        //     }
+        // })
 
         return tutor
     } catch (error) {
         console.log(error)
-        return new NextResponse("Internal Error", { status: 500 })
+        return null;
     }
 }
 
 export const getAllTutors = async () => {
     try {
-        const tutor = await db.tutor.findMany()
+        const tutor = await prisma.tutor.findMany()
 
         return tutor
     } catch (error) {
@@ -48,9 +56,24 @@ export const getAllTutors = async () => {
 
 export const getTutorByCourseId = async (courseId: string) => {
     try {
-        const tutor = await db.tutor.findMany({
+        const tutor = await prisma.tutorsOnCourses.findMany({
             where: {
                 courseId
+            }
+        })
+
+        return tutor
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+export const getTutorById = async (id: string) => {
+    try {
+        const tutor = await prisma.tutor.findMany({
+            where: {
+                id
             }
         })
 

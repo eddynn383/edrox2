@@ -4,14 +4,13 @@ import * as z from "zod"
 import { AuthError } from "next-auth"
 
 
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import { signIn } from "@/auth"
 import { LoginSchema } from "@/schemas"
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
 import { getUserByEmail } from "@/data/user"
 import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens"
 import { sendVerificationEmail, sendTwoFactorTokenEmail } from "@/lib/mail"
-import { userAgent } from "next/server"
 import { getTwoFactorTokenByEmail } from "@/data/twoFactorToken"
 import { getTwoFactorConfirmationByUserId } from "@/data/twoFactorConfirmation"
 
@@ -28,8 +27,8 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
 
 
     const existingUser = await getUserByEmail(email);
-    console.log("LOGIN ACTION EMAIL:", email.trim())
-    console.log("LOGIN ACTION: ", { existingUser })
+    // console.log("LOGIN ACTION EMAIL:", email.trim())
+    // console.log("LOGIN ACTION: ", { existingUser })
 
     if (!existingUser || !existingUser.email || !existingUser.password) {
         return { error: "Email does not exist!" }
@@ -38,7 +37,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
     if (!existingUser.emailVerified) {
 
         const verificationToken = await generateVerificationToken(existingUser.email)
-        console.log("VerToken LOGIN ACTION: ", verificationToken)
+        // console.log("VerToken LOGIN ACTION: ", verificationToken)
 
         await sendVerificationEmail(
             verificationToken.email,
@@ -68,7 +67,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
                 return { error: "Code is expired!" }
             }
 
-            await db.twoFactorToken.delete({
+            await prisma.twoFactorToken.delete({
                 where: { 
                     id: twoFactorToken.id 
                 }
@@ -77,14 +76,14 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
             const existingConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id)
 
             if (existingConfirmation) {
-                await db.twoFactorConfirmation.delete({
+                await prisma.twoFactorConfirmation.delete({
                     where: { 
                         id: existingConfirmation.id
                     }
                 })
             }
 
-            await db.twoFactorConfirmation.create({
+            await prisma.twoFactorConfirmation.create({
                 data: {
                     userId: existingUser.id
                 }

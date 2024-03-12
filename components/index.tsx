@@ -34,6 +34,7 @@ import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, Dr
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./Form";
 import { Label } from "./Label";
 import { RadioGroup, RadioGroupItem } from "./RadioGroup";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./Breadcrumb";
 
 export {
     Alert,
@@ -50,6 +51,12 @@ export {
     AlertDialogCancel,
     Avatar,
     Badge,
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
     Button,
     Card,
     CardHeader,

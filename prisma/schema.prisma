@@ -2,103 +2,103 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum UserRole {
-    ADMIN
-    USER
+  ADMIN
+  USER
 }
 
 model User {
-    id                    String                 @id @default(cuid())
-    name                  String?
-    email                 String?                @unique
-    password              String?
-    role                  UserRole               @default(USER)
-    emailVerified         DateTime?
-    image                 String?
-    accounts              Account[]
-    isTwoFactorEnabled    Boolean                @default(false)
-    twoFactorConfirmation TwoFactorConfirmation?
+  id                    String                 @id @default(uuid())
+  name                  String?
+  email                 String?                @unique
+  password              String?
+  role                  UserRole               @default(USER)
+  emailVerified         DateTime?
+  image                 String?
+  accounts              Account[]
+  isTwoFactorEnabled    Boolean                @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
 
-    // catalogCreated  Catalog[]    @relation("CreatedById")
-    // catalogUpdated  Catalog[]    @relation("UpdatedById")
-    courseCreated    Course[]       @relation("CreatedById")
-    courseUpdated    Course[]       @relation("UpdatedById")
-    // courseTutor      Course[] @relation("CourseTutors", references: [id])
-    // coursesInstructed Course[]         @relation("Instructor")
-    coursesEnrolled  Enrollment[]
-    coursesPurchased Purchase[]
-    courseProgress   UserProgress[]
-    reviews          Review[]
-    tutor            Tutor?
-    superId          String?
+  // catalogCreated  Catalog[]    @relation("CreatedById")
+  // catalogUpdated  Catalog[]    @relation("UpdatedById")
+  courseCreated    Course[]       @relation("CreatedById")
+  courseUpdated    Course[]       @relation("UpdatedById")
+  // courseTutor      Course[] @relation("CourseTutors", references: [id])
+  // coursesInstructed Course[]         @relation("Instructor")
+  coursesEnrolled  Enrollment[]
+  coursesPurchased Purchase[]
+  courseProgress   UserProgress[]
+  ratings          Rating[]
+  tutor            Tutor?
+  superId          String?
 }
 
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? @db.Text
-    access_token      String? @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? @db.Text
-    session_state     String?
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model VerificationToken {
-    id      String   @id @default(cuid())
-    email   String
-    token   String   @unique
-    expires DateTime
+  id      String   @id @default(uuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
-    @@unique([email, token])
+  @@unique([email, token])
 }
 
 model PasswordResetToken {
-    id      String   @id @default(cuid())
-    email   String
-    token   String   @unique
-    expires DateTime
+  id      String   @id @default(uuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
-    @@unique([email, token])
+  @@unique([email, token])
 }
 
 model TwoFactorToken {
-    id      String   @id @default(cuid())
-    email   String
-    token   String   @unique
-    expires DateTime
+  id      String   @id @default(uuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
-    @@unique([email, token])
+  @@unique([email, token])
 }
 
 model TwoFactorConfirmation {
-    id     String @id @default(cuid())
-    userId String
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([userId])
+  @@unique([userId])
 }
 
 // model Catalog {
-//     id          String @id @default(cuid())
+//     id          String @id @default(uuid())
 //     title       String
 //     description String @default("")
 
@@ -115,216 +115,240 @@ model TwoFactorConfirmation {
 // }
 
 model CourseCreationStep {
-    id            String       @id @default(cuid())
-    currentStep   String
-    previousStep  String
-    nextStep      String
-    @@map("CourseCreationSteps")
+  id           String @id @default(uuid())
+  currentStep  String
+  previousStep String
+  nextStep     String
+
+  @@map("CourseCreationSteps")
 }
 
 model Course {
-    id            String       @id @default(cuid())
-    title         String
-    url           String       @unique
-    description   String?      @default ("")
-    image         String?
-    categoryId    String
-    category      Category     @relation(fields: [categoryId], references: [id])
-    price         Float?       @default(0.0)
-    discountPrice Float?       @default(0.0)
-    level         Int?         @default(1)
-    isPublished   Boolean      @default(false)
-    // startDate   DateTime
-    // endDate     DateTime?
-    createdById   String
-    createdBy     User         @relation(name: "CreatedById", fields: [createdById], references: [id])
-    createdAt     DateTime     @default(now())
-    updatedBy     User?        @relation(name: "UpdatedById", fields: [updatedById], references: [id])
-    updatedById   String?
-    updatedAt     DateTime     @updatedAt
-    // catalogs    Catalog[]  
-    metadata      Metadata[]
-    tutors        Tutor[]
-    chapters      Chapter[]
-    attachments   Attachment[]
-    purchases     Purchase[]
-    enrollments   Enrollment[]
-    reviews       Review[]
+  id          String       @id @default(uuid())
+  title       String
+  description String?      @default("")
+  image       String?
+  categoryId  String
+  category    Category     @relation(fields: [categoryId], references: [id])
+  price       Price?
+  level       Int?         @default(1)
+  isPublished Boolean      @default(false)
+  // startDate   DateTime
+  // endDate     DateTime?
+  createdById String
+  createdBy   User         @relation(name: "CreatedById", fields: [createdById], references: [id])
+  createdAt   DateTime     @default(now())
+  updatedBy   User?        @relation(name: "UpdatedById", fields: [updatedById], references: [id])
+  updatedById String?
+  updatedAt   DateTime     @updatedAt
+  // catalogs    Catalog[]  
+  metadata    Metadata[]
+  tutors      TutorsOnCourses[]
+  chapters    Chapter[]
+  attachments Attachment[]
+  purchases   Purchase[]
+  enrollments Enrollment[]
+  ratings     Rating[]
 
-    @@index([categoryId])
-    @@map("Courses")
+  @@index([categoryId])
+  @@map("Courses")
 }
 
 model Category {
-    id      String @id @default(uuid())
-    name    String @unique
+  id   String @id @default(uuid())
+  name String @unique
 
-    courses Course[]
+  courses Course[]
 
-    @@map("Categories")
+  @@map("Categories")
+}
+
+model Price {
+  id                 String    @id @default(uuid())
+  currency           String    @default("USD")
+  fullPrice          Float     @default(0)
+  discountedPrice    Float?
+  discountExpireDate DateTime?
+  courseId           String    @unique
+  course             Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model Metadata {
-    id       String @id @default(uuid())
-    key      String
-    value    String
-    type     String
-    courseId String
-    course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  id       String @id @default(uuid())
+  key      String
+  value    String
+  type     String
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model Tutor {
-    id          String   @id @default(uuid())
-    name        String  
-    image       String?
-    courseId    String  
-    course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-    userId      String   @unique
-    user        User     @relation(fields: [userId], references: [id])
+  id       String  @id @default(uuid())
+  userId   String  @unique
+  user     User    @relation(fields: [userId], references: [id])
+  name     String
+  image    String?
+  course   TutorsOnCourses[]
+  ratings  Rating[]
 
-    @@map("Tutors")
+
+  @@map("Tutors")
+}
+
+model TutorsOnCourses {
+  courseId    String
+  courses     Course @relation(fields: [courseId], references: [id])
+  tutorId     String
+  tutors      Tutor @relation(fields: [tutorId], references: [id])
+  assignedAt  DateTime @default(now())
+  assignedBy  String
+
+  @@id([courseId, tutorId])
 }
 
 model Attachment {
-    id        String   @id @default(uuid())
-    name      String
-    url       String   @db.Text
+  id   String @id @default(uuid())
+  name String
+  url  String @db.Text
 
-    courseId  String
-    course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@index([courseId])
-    @@map("Attachments")
+  @@index([courseId])
+  @@map("Attachments")
 }
 
 model Chapter {
-    id           String   @id @default(uuid())
-    title        String  
-    description  String?  @db.Text
-    videoUrl     String?  @db.Text
-    status       String   @default("locked")
-    duration     Int      @default(0)
-    position     Int
-    isPublished  Boolean  @default(false)
-    isFree       Boolean  @default(false)
+  id          String  @id @default(uuid())
+  title       String
+  description String? @db.Text
+  videoUrl    String? @db.Text
+  status      String  @default("locked")
+  duration    Int     @default(0)
+  position    Int
+  isPublished Boolean @default(false)
+  isFree      Boolean @default(false)
 
-    muxData      MuxData?
+  muxData MuxData?
 
-    courseId     String
-    course       Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-    userProgress UserProgress[]
+  userProgress UserProgress[]
 
-    headings     Heading[] 
-    texts        Text[]
-    images       Image[]
-    videos       Video[]
+  headings Heading[]
+  texts    Text[]
+  images   Image[]
+  videos   Video[]
 
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    // @@map("Chapters")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // @@map("Chapters")
 
-    @@index([courseId])
+  @@index([courseId])
 }
 
 model Heading {
-    id        String   @id @default(uuid())
-    position  Int
-    rank      Int      @default(1)
-    content   String 
-    chapterId String
-    chapter   Chapter  @relation(fields: [chapterId], references: [id])
+  id        String  @id @default(uuid())
+  position  Int
+  rank      Int     @default(1)
+  content   String
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
 }
 
 model Text {
-    id        String   @id @default(uuid())
-    position  Int
-    size      Int      @default(1)
-    content   String
-    chapterId String
-    chapter   Chapter @relation(fields: [chapterId], references: [id]) 
+  id        String  @id @default(uuid())
+  position  Int
+  size      Int     @default(1)
+  content   String
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
 }
 
 model Image {
-    id        String   @id @default(uuid())
-    position  Int
-    size      Int      @default(1)
-    url       String
-    chapterId String
-    chapter   Chapter @relation(fields: [chapterId], references: [id]) 
+  id        String  @id @default(uuid())
+  position  Int
+  size      Int     @default(1)
+  url       String
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
 }
 
 model Video {
-    id           String   @id @default(uuid())
-    position     Int
-    aspectRatio  String   @default("16/9")
-    url          String
-    chapterId    String
-    chapter      Chapter  @relation(fields: [chapterId], references: [id]) 
+  id          String  @id @default(uuid())
+  position    Int
+  aspectRatio String  @default("16/9")
+  url         String
+  chapterId   String
+  chapter     Chapter @relation(fields: [chapterId], references: [id])
 }
 
-model Review {
-    id        String   @id @default(cuid())
-    courseId  String
-    course    Course   @relation(fields: [courseId], references: [id])
-    userId    String
-    user      User     @relation(fields: [userId], references: [id])
-    rating    Int      // Rating for the course (e.g., 1 to 5 stars)
-    title     String?
-    comment   String?  // Optional comment/review text
+model Rating {
+  id       String   @id @default(uuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+  courseId String?
+  course   Course?  @relation(fields: [courseId], references: [id])
+  tutorId  String?
+  tutor    Tutor?   @relation(fields: [tutorId], references: [id])
+  rating   Decimal
+  title    String?
+  comment  String?
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@map("Reviews")
+  @@map("Ratings")
+  @@unique([courseId, tutorId])
 }
 
 model MuxData {
-    id         String  @id @default(uuid())
-    assetId    String
-    playbackId String?
+  id         String  @id @default(uuid())
+  assetId    String
+  playbackId String?
 
-    chapterId  String  @unique
-    chapter    Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId  String  @unique
+  chapter    Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 }
 
 model UserProgress {
-    id          String   @id @default(uuid())
-    userId      String
-    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    chapterId   String
-    chapter     Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
-    isCompleted Boolean  @default(false)
+  isCompleted Boolean @default(false)
 
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@unique([userId, chapterId])
-    @@index([chapterId])
+  @@unique([userId, chapterId])
+  @@index([chapterId])
 }
 
 model Purchase {
-    id        String   @id @default(uuid())
-    userId    String
-    user      User     @relation(fields: [userId], references: [id])
-    courseId  String
-    course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  id       String @id @default(uuid())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
 
-    @@unique([userId, courseId])
-    @@index([courseId])
-    @@map("Purchases")
+  @@unique([userId, courseId])
+  @@index([courseId])
+  @@map("Purchases")
 }
 
 // model Content {
-//     id        String      @id @default(cuid())
+//     id        String      @id @default(uuid())
 //     title     String
 //     type      ContentType
 //     content   String
@@ -337,35 +361,35 @@ model Purchase {
 // }
 
 model Enrollment {
-    id             String           @id @default(cuid())
-    userId         String
-    user           User             @relation(fields: [userId], references: [id])
-    courseId       String
-    course         Course           @relation(fields: [courseId], references: [id])
-    grade          Int?
-    status         EnrollmentStatus
-    completionDate DateTime?
-    createdAt      DateTime         @default(now())
-    updatedAt      DateTime         @updatedAt
+  id             String           @id @default(uuid())
+  userId         String
+  user           User             @relation(fields: [userId], references: [id])
+  courseId       String
+  course         Course           @relation(fields: [courseId], references: [id])
+  grade          Int?
+  status         EnrollmentStatus
+  completionDate DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
 
-    @@unique([userId, courseId])
-    @@map("Enrollments")
+  @@unique([userId, courseId])
+  @@map("Enrollments")
 }
 
 enum ContentType {
-    TEXT
-    VIDEO
-    AUDIO
-    PDF
+  TEXT
+  VIDEO
+  AUDIO
+  PDF
 }
 
 enum EnrollmentStatus {
-    STARTED
-    COMPLETED
-    CANCELLED
+  STARTED
+  COMPLETED
+  CANCELLED
 }
 
 enum CourseStatus {
-    DRAFTED
-    PUBLISHED
+  DRAFTED
+  PUBLISHED
 }

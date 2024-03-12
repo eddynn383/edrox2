@@ -4,4 +4,5 @@ export interface CoverProps extends React.HTMLAttributes<HTMLDivElement> {
     alt: string;
     width?: any;
     height?: any;
+    defSize?: boolean;
 }

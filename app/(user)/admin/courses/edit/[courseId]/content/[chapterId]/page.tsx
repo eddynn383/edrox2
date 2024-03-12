@@ -28,8 +28,8 @@ const ChapterContentActions = () => {
 }
 
 const Page = async ({ params }: NewCoursePageProps) => {
-    console.log("COURSE ID: ", params.courseId)
-    console.log("CHAPTER ID: ", params.chapterId)
+    // console.log("COURSE ID: ", params.courseId)
+    // console.log("CHAPTER ID: ", params.chapterId)
     
     // const chapters = await getAllChaptersByCourseId(params.courseId)
     const chapter = await getChapterById(params.chapterId)
@@ -37,7 +37,7 @@ const Page = async ({ params }: NewCoursePageProps) => {
     return (
         <div className={msx["chapters-content"]}>
             <div className={msx["chapters-content-details"]}>
-                <h2>{chapter?.title}</h2>   
+                <h2>{chapter?.title}</h2>  
                 <p>{chapter?.description}</p>
             </div>
             <ChapterContentActions />

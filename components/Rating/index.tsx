@@ -3,6 +3,16 @@ import { RatingProps } from "./interface"
 import sx from "@/styles/component.module.scss";
 
 const Rating = ({ score, reviews }: RatingProps) => {
+    const reviewslabel = () => {
+        if(reviews === 1) {
+            return "review"
+        } else {
+            return "reviews"
+        }    
+    }
+    console.log("review", reviews)
+    console.log("reviewslabel: ", reviewslabel)
+
     return (
         <div className={sx["rating"]}>
             <span className={sx["rating-score"]}>
@@ -18,7 +28,7 @@ const Rating = ({ score, reviews }: RatingProps) => {
                     }
                 </span>
             </span>
-            {/* <span className={sx["rating-reviews"]}>({reviews} reviews)</span> */}
+            {reviews && <span className={sx["rating-reviews"]}>({reviews} {reviewslabel()})</span>}
         </div>
     )
 }

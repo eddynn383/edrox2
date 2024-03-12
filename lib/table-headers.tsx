@@ -68,13 +68,14 @@ export const coursesCols: ColumnDef<Course>[] = [
             const localStyle = {
                 "display": "grid", 
                 "gridTemplateColumns": "min-content auto", 
-                "gap": "var(--gap-200, 8px)"
+                "gap": "var(--gap-200, 8px)",
+                "alignItems": "center"
             }
             // const cover = image.find((image) => image.value === row.original.image)
             console.log(cover)
             return (
                 <div style={localStyle}>  
-                    <Cover src={cover} alt={title} width={50} height={28} />
+                    <Cover src={cover} alt={title} width={50} height={34} defSize />
                     <span>{title}</span>
                 </div> 
             )

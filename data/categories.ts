@@ -1,8 +1,8 @@
-import { db } from "@/lib/db";
+import { prisma } from "@/lib/prismadb";
 
 export const getAllCategories = async () => {
     try {
-        const categories = await db.category.findMany()
+        const categories = await prisma.category.findMany()
     
         console.log(categories)
     
@@ -16,7 +16,7 @@ export const getAllCategories = async () => {
 
 export const getCategoryById = async (id: string) => {
     try {
-        const category = await db.category.findUnique({
+        const category = await prisma.category.findUnique({
             where: {
                 id
             }

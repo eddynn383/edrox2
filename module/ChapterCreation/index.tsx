@@ -5,7 +5,7 @@ import { Button, Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader,
 import { ChapterCreationProps } from "./interface";
 import { ChapterCreationForm } from "@/module/ChapterCreationForm"
 import { Plus } from "lucide-react";
-import ChaptersList from "../ChaptersList";
+import ChaptersEditList from "../ChaptersEditList";
 import msx from "@/styles/module.module.scss"
 
 const ChapterCreation = ({ chapters, courseId }: ChapterCreationProps) => {
@@ -15,7 +15,7 @@ const ChapterCreation = ({ chapters, courseId }: ChapterCreationProps) => {
     return ( 
         <div className={msx["chapters"]}>
             <h2 className={msx["chapters-title"]}>Chapters</h2>
-            <ChaptersList data={chapters} />
+            <ChaptersEditList data={chapters} />
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <Button mode="solid" variant="primary" shade="200" status="default" size="M" >

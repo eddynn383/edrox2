@@ -22,14 +22,14 @@ const Chapter = ({ id, title, isPublished }: ChapterProps) => {
     console.log(isActive)
 
     return ( 
-        <Link href={id} className={csx["chapter"]} data-active={isActive}>
-            <GripVertical className={csx["chapter-grip"]}/>
-            <div className={csx["chapter-left"]}>
-                <h3 className={csx["chapter-title"]}>
+        <Link href={id} className={csx["chapter-edit"]} data-active={isActive}>
+            <GripVertical className={csx["chapter-edit-grip"]}/>
+            <div className={csx["chapter-edit-left"]}>
+                <h3 className={csx["chapter-edit-title"]}>
                     {title}
                 </h3>
             </div>
-            <div className={csx["chapter-right"]}>
+            <div className={csx["chapter-edit-right"]}>
                 <Switch 
                     checked={isPublished}
                     onCheckedChange={() => false
@@ -42,16 +42,16 @@ const Chapter = ({ id, title, isPublished }: ChapterProps) => {
     );
 }
 
-interface ChaptersListProps {
+interface ChaptersEditListProps {
     data: any;
 }
 
-const ChaptersList = ({ data }: ChaptersListProps) => {
+const ChaptersEditList = ({ data }: ChaptersEditListProps) => {
     return ( 
-        <ul className={msx["chapters-list"]}>
+        <ul className={msx["chapters-edit-list"]}>
             {
                 data.map((item: any) => (
-                    <li className={msx["chapters-list-item"]} key={item.id}>
+                    <li className={msx["chapters-edit-list-item"]} key={item.id}>
                         <Chapter id={item.id} title={item.title} isPublished={true} />
                     </li>
                 ))
@@ -60,4 +60,4 @@ const ChaptersList = ({ data }: ChaptersListProps) => {
     );
 }
  
-export default ChaptersList;
+export default ChaptersEditList;

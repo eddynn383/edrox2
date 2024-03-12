@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import { NextResponse } from "next/server";
 
 type ChapterBodyType = {
@@ -16,13 +16,13 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
 
         const session = await auth()
         const user = session?.user
-        console.log({ body })
+        // console.log({ body })
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const courseOwner = await db.course.findUnique({
+        const courseOwner = await prisma.course.findUnique({
             where: {
                 id: courseId,
                 createdById: session.user.id,
@@ -33,7 +33,7 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const lastChapter = await db.chapter.findFirst({
+        const lastChapter = await prisma.chapter.findFirst({
             where: {
                 courseId
             },
@@ -42,11 +42,11 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
             },
         });
 
-        console.log("lastChapter: ", lastChapter)
+        // console.log("lastChapter: ", lastChapter)
 
         const newPosition = lastChapter ? lastChapter.position + 1 : 1;
 
-        const chapter = await db.chapter.create({
+        const chapter = await prisma.chapter.create({
             data: {
                 title: body.title,
                 description: body.description,
@@ -61,24 +61,24 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
         return Response.json(chapter)
     } catch (error) {
         console.log(error)
-        return new NextResponse("Internal Error", { status: 500 })
+        return null
     }
 }
 
 export const getAllChapters = async () => {
     try {        
-        const chapters = await db.chapter.findMany()
+        const chapters = await prisma.chapter.findMany()
     
         return chapters
     } catch (error) {
         console.log(error)
-        return [];
+        return null;
     }
 }
 
 export const getPublishdedChapters = async () => {
     try {
-        const chapters = await db.chapter.findMany({
+        const chapters = await prisma.chapter.findMany({
             where: {
                 isPublished: true,
             },
@@ -87,18 +87,18 @@ export const getPublishdedChapters = async () => {
             },
         })
         
-        console.log(chapters)
+        // console.log(chapters)
 
         return chapters
     } catch (error) {
         console.log(error)
-        return null
+        return null;
     }
 }
 
 export const getPublishdedChaptersById = async (id: string) => {
     try {
-        const chapters = await db.chapter.findMany({
+        const chapters = await prisma.chapter.findMany({
             where: {
                 id,
                 isPublished: true,
@@ -108,18 +108,18 @@ export const getPublishdedChaptersById = async (id: string) => {
             },
         })
         
-        console.log(chapters)
+        // console.log(chapters)
 
         return chapters
     } catch (error) {
         console.log(error)
-        return null
+        return null;
     }
 }
 
 export const getPublishdedChaptersByCourseId = async (courseId: string) => {
     try {
-        const chapters = await db.chapter.findMany({
+        const chapters = await prisma.chapter.findMany({
             where: {
                 courseId,
                 isPublished: true,
@@ -129,18 +129,18 @@ export const getPublishdedChaptersByCourseId = async (courseId: string) => {
             },
         })
         
-        console.log(chapters)
+        // console.log(chapters)
 
         return chapters
     } catch (error) {
         console.log(error)
-        return null
+        return null;
     }
 }
 
 export const getAllChaptersByCourseId = async (courseId: string) => {
     try {
-        const chapters = await db.chapter.findMany({
+        const chapters = await prisma.chapter.findMany({
             where: {
                 courseId,
             },
@@ -149,18 +149,18 @@ export const getAllChaptersByCourseId = async (courseId: string) => {
             },
         })
         
-        console.log(chapters)
+        // console.log(chapters)
 
         return chapters
     } catch (error) {
         console.log(error)
-        return null
+        return null;
     }
 }
 
 export const getChapterById = async ( id: string ) => {
     try {
-        const chapter = await db.chapter.findUnique({
+        const chapter = await prisma.chapter.findUnique({
             where: {
                 id
             }
@@ -168,7 +168,7 @@ export const getChapterById = async ( id: string ) => {
 
         return chapter;
     } catch (error) {
-            console.log(error)
-            return null;
+        console.log(error)
+        return null;
     }
 }

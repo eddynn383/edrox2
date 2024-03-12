@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 
 type paramsType = {
@@ -10,7 +10,7 @@ type paramsType = {
 
 export async function GET(request: Request, { params }: paramsType) {
     try {
-        const chapter = await db.chapter.findMany({
+        const chapter = await prisma.chapter.findMany({
             where: {
                 courseId: params.courseId
             }
@@ -18,7 +18,7 @@ export async function GET(request: Request, { params }: paramsType) {
 
         return Response.json(chapter)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
@@ -33,7 +33,7 @@ export async function POST(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const courseOwner = await db.course.findUnique({
+        const courseOwner = await prisma.course.findUnique({
             where: {
                 id: courseId,
                 createdById: session.user.id,
@@ -44,7 +44,7 @@ export async function POST(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const lastChapter = await db.chapter.findFirst({
+        const lastChapter = await prisma.chapter.findFirst({
             where: {
                 courseId: params.courseId,
             },
@@ -55,8 +55,8 @@ export async function POST(request: Request, { params }: paramsType) {
 
         const newPosition = lastChapter ? lastChapter.position + 1 : 1;
 
-        console.log({ data })
-        const chapter = await db.chapter.create({
+        // console.log({ data })
+        const chapter = await prisma.chapter.create({
             data: {
                 title: data.title,
                 description: data.description,
@@ -68,10 +68,10 @@ export async function POST(request: Request, { params }: paramsType) {
             }
         })
 
-        console.log(chapter)
+        // console.log(chapter)
         return Response.json(chapter)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

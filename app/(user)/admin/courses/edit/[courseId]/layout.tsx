@@ -1,8 +1,8 @@
-import { Badge, Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, PageTitle, Progress } from "@/components";
+import { Badge, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, PageTitle, Progress } from "@/components";
 import CourseCreationControls from "@/module/CourseCreationControls";
 import { getCourseById } from "@/data/courses";
 import psx from "@/styles/page.module.scss"
-import { Eraser, Pen } from "lucide-react";
+import { Eraser, Home, Pen } from "lucide-react";
 import CourseCreationForm from "@/module/CourseCreationForm";
 import { getAllCategories, getCategoryById } from "@/data/categories";
 
@@ -16,7 +16,7 @@ interface NewCourseLayoutProps {
 }
 
 const NewCourseLayout = async ({ children, params }: NewCourseLayoutProps) => {
-    console.log("Params from Layout: ", params.courseId)
+    // console.log("Params from Layout: ", params.courseId)
     const categories = await getAllCategories();
     const course = await getCourseById(params.courseId)
 
@@ -29,7 +29,22 @@ const NewCourseLayout = async ({ children, params }: NewCourseLayoutProps) => {
         <div className={psx["body"]}>
             <section className={psx["body-toolbar"]}>
                 <div className={psx["body-toolbar-left"]}>
-                    <div style={{"display": "flex", "flexDirection": "column", "alignItems": "flex-start", "gap": "4px"}}>
+                    <div style={{"display": "flex", "flexDirection": "column", "alignItems": "flex-start", "gap": "12px"}}>
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/" title="Home"><Home /></BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink href="/admin/courses" title="Courses">Courses</BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>Course Creation</BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
                         <PageTitle title={course.title}/>
                         <Badge size="L">{course.category.name}</Badge>
                     </div>

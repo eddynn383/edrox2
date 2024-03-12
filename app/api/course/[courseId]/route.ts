@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 
 type paramsType = {
@@ -17,7 +17,7 @@ export async function DELETE(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const deletedCourse = await db.course.delete({
+        const deletedCourse = await prisma.course.delete({
             where: {
                 id: courseId,
             }
@@ -41,7 +41,7 @@ export async function PATCH(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        const updatedCourse = await db.course.update({
+        const updatedCourse = await prisma.course.update({
             where: {
                 id: courseId,
             },

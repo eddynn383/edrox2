@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 
 type paramsType = {
@@ -11,7 +11,7 @@ type paramsType = {
 export async function POST(request: Request, { params }: paramsType) {
     try {
         const session = await auth()
-        const data = await request.json()
+        const body = await request.json()
         const { courseId } = params
 
         console.log(courseId)
@@ -20,7 +20,7 @@ export async function POST(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        // const alreadyExists = await db.tutor.findFirst({
+        // const alreadyExists = await prisma.tutor.findFirst({
         //     where: {
         //         courseId: courseId,
         //         name: data.name,
@@ -33,13 +33,12 @@ export async function POST(request: Request, { params }: paramsType) {
         //     return new NextResponse("Tutor already exists!", { status: 502 })
         // }
 
-        console.log("TUTOR REQUEST: ", data)
-        const tutor = await db.tutor.create({
+        console.log("TUTOR REQUEST: ", body)
+        const tutor = await prisma.tutor.create({
             data: {
-                name: data.name,
-                image: data.image,
-                userId: data.userId,
-                courseId: courseId
+                name: body.name,
+                image: body.image,
+                userId: body.userId,
             }
         })
 

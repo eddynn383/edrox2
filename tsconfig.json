@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "lib/table-headers.tss"
+    "lib/table-headers.ts"
   ],
   "exclude": [
     "node_modules"

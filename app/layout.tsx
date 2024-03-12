@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@/providers/themeProvider";
-// import { ClerkProvider } from "@clerk/nextjs";
+
 import "@/styles/globals.scss";
 import "@/styles/theme.scss";
 import "@/styles/sizes.scss";
@@ -21,8 +21,6 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-
-
     return (
         <html lang="en">
             <body className={roboto.className}>

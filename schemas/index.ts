@@ -43,7 +43,7 @@ export const NewCourseSchema = z.object({
     title: z.string().min(1, {
         message: "Title is required"
     }),
-    url: z.string(),
+    // url: z.string(),
     category: z.string().min(1, {
         message: "Choose a category"
     })

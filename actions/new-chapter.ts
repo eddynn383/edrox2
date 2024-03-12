@@ -8,8 +8,8 @@ import { revalidateTag } from "next/cache";
 
 export const newInitChapter = async (values: z.infer<typeof NewChapterSchema>, courseId: string) => {
     const validatedFields = NewChapterSchema.safeParse(values);
-    console.log("validatedFields: ", validatedFields)
-    console.log("courseId: ", courseId)
+    // console.log("validatedFields: ", validatedFields)
+    // console.log("courseId: ", courseId)
 
     if (!values.title) {
         return { error: "Title is required" };

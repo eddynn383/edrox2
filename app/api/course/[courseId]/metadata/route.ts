@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-import { db } from "@/lib/db"
+import { prisma } from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 
 type paramsType = {
@@ -18,21 +18,21 @@ export async function POST(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const alreadyExists = await db.metadata.findFirst({
+        const alreadyExists = await prisma.metadata.findFirst({
             where: {
                 courseId: courseId,
                 key: data.key
             }
         })
 
-        console.log("metadata exists: ", alreadyExists)
+        // console.log("metadata exists: ", alreadyExists)
 
         if(alreadyExists) {
             return new NextResponse("Metadata already exists!", { status: 502 })
         }
 
-        console.log({ data })
-        const metadata = await db.metadata.create({
+        // console.log({ data })
+        const metadata = await prisma.metadata.create({
             data: {
                 key: data.key,
                 value: data.value,
@@ -41,7 +41,7 @@ export async function POST(request: Request, { params }: paramsType) {
             }
         })
 
-        console.log(metadata)
+        // console.log(metadata)
         return Response.json(metadata)
     } catch (error) {
         console.log(error)
