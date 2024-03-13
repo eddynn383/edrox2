@@ -1,9 +1,11 @@
+"use server"
+
 import { CourseCard, ScrollArea } from "@/components";
 import { CatalogProps } from "./interface";
 import sx from "@/styles/module.module.scss"
 
 
-const Catalog = ({ courses }: CatalogProps) => {
+const Catalog = async ({ courses }: CatalogProps) => {
 
     return (
         <div className={sx["catalog"]}>

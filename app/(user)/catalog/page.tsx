@@ -18,6 +18,8 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
     const courses = await getPublishdedCourses({...searchParams});  
     const categories = await getAllCategories()
 
+    console.log("CATALOG COURSES: ", courses)
+
     return (
         <div className={psx["body"]}>
             <section className={psx["body-toolbar"]}>

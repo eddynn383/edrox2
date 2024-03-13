@@ -32,6 +32,28 @@ export const setRating = async (body: RatingBody, courseId: string) => {
             }
         })
 
+        const avgRating = await prisma.rating.aggregate({
+            _avg: {
+                rating: true
+            },
+            where: {
+                courseId
+            }
+        })
+
+        const avgRatingData = avgRating._avg.rating
+
+        console.log("AVG Rating: ", avgRatingData)
+
+        await prisma.course.update({
+            where: {
+                id: courseId
+            },
+            data: {
+                avgRating: avgRatingData
+            }
+        })
+
         return rating
     } catch (error) {
         console.log(error)
@@ -78,11 +100,11 @@ export const getCourseRatingAvg = async (courseId: string) => {
             }
         })
 
-        const ratingAvgData = ratingAvg._avg
+        const ratingAvgData = ratingAvg._avg.rating
 
         console.log("AVG Rating: ", ratingAvgData)
 
-        return ratingAvgData.rating
+        return ratingAvgData
     } catch (error) {
         console.log(error)
         return null;
@@ -156,5 +178,45 @@ export const getTutorRatingCount = async (tutorId: string) => {
     } catch (error) {
         console.log(error)
         return null;
+    }
+}
+
+export const updateCourseRating = async ( userId: string, courseId: string, data: any) => {
+    try {
+
+        const rating = await prisma.rating.updateMany({
+            where: {
+                courseId,
+                userId,
+            },
+            data
+        })
+
+        const avgRating = await prisma.rating.aggregate({
+            _avg: {
+                rating: true
+            },
+            where: {
+                courseId
+            }
+        })
+
+        const avgRatingData = avgRating._avg.rating
+
+        console.log("AVG Rating: ", avgRatingData)
+
+        await prisma.course.update({
+            where: {
+                id: courseId
+            },
+            data: {
+                avgRating: avgRatingData
+            }
+        })
+
+        return rating
+
+    } catch (error) {
+        
     }
 }

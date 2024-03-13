@@ -71,13 +71,14 @@ export const getTutorByCourseId = async (courseId: string) => {
 
 export const getTutorById = async (id: string) => {
     try {
-        const tutor = await prisma.tutor.findMany({
+        const tutor = await prisma.tutor.findUnique({
             where: {
                 id
             }
         })
 
-        return tutor
+        // return NextResponse.json(tutor)
+        return tutor;
     } catch (error) {
         console.log(error)
         return null

@@ -434,7 +434,10 @@
             padding: var(--course-details-card-top-padding-y, var(--padding-400, 16px)) var(--course-details-card-top-padding-x, var(--padding-400, 16px));
         }
         &-middle {
-            padding: var(--course-details-card-top-padding-y, 0) var(--course-details-card-top-padding-x, var(--padding-400, 16px));
+            display: flex;
+            flex-direction: column;
+            gap: var(--course-details-card-middle-gap, var(--gap-400, 16px));
+            padding: var(--course-details-card-middle-padding-y, 0) var(--course-details-card-middle-padding-x, var(--padding-400, 16px));
         }
         &-bottom {
             display: flex;
@@ -461,6 +464,54 @@
                 line-height: var(--course-details-card-price-old-line-height, 1);
                 color: var(--course-details-card-price-old, var(--primary-background-400));
                 text-decoration: line-through;
+            }
+        }
+
+        &-metadata{
+            &-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: var(--course-details-card-metadata-list-gap, var(--gap-400, 16px));
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                &-item {
+                    display: flex;
+                    align-items: center;
+                    gap: var(--course-details-card-metadata-list-item-gap, var(--gap-300, 12px));
+                    padding: var(--course-details-card-metadata-list-item-padding-y, var(--padding-200, 8px)) var(--course-details-card-metadata-list-item-padding-x, var(--padding-400, 16px));
+                    border-width: var(--course-details-card-metadata-list-item-width, 1px);
+                    border-style: var(--course-details-card-metadata-list-item-style, solid);
+                    border-color: var(--course-details-card-metadata-list-item-color, var(--primary-background-300));
+                    border-radius: var(--course-details-card-metadata-list-item-radius, var(--radius-400, 8px));
+                }
+                
+                .card {
+                    border: none;
+                }
+            }
+            &-left {
+                display: flex;
+                align-self: center;
+                color: var(--course-details-card-metadata-left-icon-text-color, var(--accent-brand-400));
+            }
+            &-right {
+                display: flex;
+                flex-direction: column;
+            }
+            &-label {
+                color: var(--course-details-card-metadata-label-text-color, var(--primary-text-500));
+                font-size: var(--course-details-card-metadata-label-font-size, var(--size-400, 16px));
+                font-weight: var(--course-details-card-metadata-label-font-weight, 400);
+                line-height: var(--course-details-card-metadata-label-line-height, var(--size-500, 20px));
+                letter-spacing: var(--course-details-card-metadata-label-letter-spacing, 0.8px);
+            }
+            &-value {
+                color: var(--course-details-card-metadata-value-text-color, var(--primary-text-400));
+                font-size: var(--course-details-card-metadata-value-font-size, var(--size-400, 16px));
+                font-weight: var(--course-details-card-metadata-value-font-weight, 700);
+                line-height: var(--course-details-card-metadata-value-line-height, var(--size-500, 20px));
+                letter-spacing: var(--course-details-card-metadata-value-letter-spacing, 0.8px);
             }
         }
     }

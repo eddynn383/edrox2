@@ -52,3 +52,46 @@ export async function POST(request: Request, { params }: paramsType) {
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
+
+export async function PATCH(request: Request, { params }: paramsType) {
+    try {
+        const session = await auth()
+        const user = session?.user
+        const body = await request.json()
+        const { courseId } = params
+        
+        const rating = await prisma.rating.updateMany({
+            where: {
+                courseId,
+                userId: user?.id,
+            },
+            data: body
+        })
+
+        const avgRating = await prisma.rating.aggregate({
+            _avg: {
+                rating: true
+            },
+            where: {
+                courseId
+            }
+        })
+
+        const avgRatingData = avgRating._avg.rating
+
+        console.log("AVG Rating: ", avgRatingData)
+
+        await prisma.course.update({
+            where: {
+                id: courseId
+            },
+            data: {
+                avgRating: avgRatingData
+            }
+        })
+
+        return Response.json(rating)
+    } catch (error) {
+        return new NextResponse("Internal Error", { status: 500 })
+    }
+}

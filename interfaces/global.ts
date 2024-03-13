@@ -7,9 +7,10 @@ export type Content = "text" | "icon" | "icon-text-icon" | "icon-text" | "text-i
 
 export type Price = {
     id: string;
-    value: number;
     currency: string;
-    discount: number | null | undefined;
+    fullPrice: number;
+    discountedPrice: number | null;
+    discountExpireDate: Date | null;
 }
 
 export type Rating = {
@@ -26,4 +27,9 @@ export type Instructor = {
     imageLarge: string | null;
     createdAt: Date;
     updatedAt: Date;
+}
+
+export type Category = {
+    id: string;
+    name: string;
 }

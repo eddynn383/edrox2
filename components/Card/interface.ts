@@ -1,6 +1,6 @@
 // import { Roles } from "@prisma/client";
 
-import { Instructor, Price, Rating, Shade, Size, Variant } from "@/interfaces/global";
+import { Category, Instructor, Price, Rating, Shade, Size, Variant } from "@/interfaces/global";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     effect?: "normal" | "glass";
@@ -27,17 +27,5 @@ export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement>
 
 export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {
     truncated?: boolean
-}
-
-
-export interface CourseCardProps extends CardProps {
-    data: any;
-    // image: string;
-    // title: string;
-    // price: Price | null | undefined;
-    // rating: Rating | null | undefined;
-    // instructor: Instructor | null | undefined;
-    // chapters: string;
-    layout?: "columns" | "rows";
 }
 

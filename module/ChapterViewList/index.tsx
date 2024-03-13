@@ -1,9 +1,5 @@
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
-import { Switch } from "@/components/Switch";
-import { GripVertical } from "lucide-react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 
 interface ChapterProps {
     id: string;
@@ -11,17 +7,10 @@ interface ChapterProps {
 }
 
 const Chapter = ({ id, title }: ChapterProps) => {
-    const pathname = usePathname()
-    const router = useRouter()
-    // console.log(router)
-    console.log(pathname)
 
-    const isActive = pathname.includes(id)
-
-    console.log(isActive)
 
     return ( 
-        <Link href={id} className={csx["chapter-view"]} data-active={isActive}>
+        <div className={csx["chapter-view"]}>
             <div className={csx["chapter-view-left"]}>
                 <h3 className={csx["chapter-view-title"]}>
                     {title}
@@ -30,7 +19,7 @@ const Chapter = ({ id, title }: ChapterProps) => {
             <div className={csx["chapter-view-right"]}>
                 
             </div>
-        </Link>
+        </div>
     );
 }
 

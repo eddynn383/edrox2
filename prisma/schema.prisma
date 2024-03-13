@@ -133,6 +133,7 @@ model Course {
   price       Price?
   level       Int?         @default(1)
   isPublished Boolean      @default(false)
+  avgRating   Float?     
   // startDate   DateTime
   // endDate     DateTime?
   createdById String
@@ -190,7 +191,6 @@ model Tutor {
   image    String?
   course   TutorsOnCourses[]
   ratings  Rating[]
-
 
   @@map("Tutors")
 }
@@ -295,7 +295,7 @@ model Rating {
   course   Course?  @relation(fields: [courseId], references: [id])
   tutorId  String?
   tutor    Tutor?   @relation(fields: [tutorId], references: [id])
-  rating   Decimal
+  rating   Float
   title    String?
   comment  String?
 

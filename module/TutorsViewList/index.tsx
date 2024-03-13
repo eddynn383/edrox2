@@ -1,30 +1,44 @@
+"use server"
+
 import { usePathname, useRouter } from "next/navigation";
 import { Cover } from "@/components";
 import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
-import { getTutor } from "@/actions/tutor";
+import { getTutorById } from "@/data/tutors";
 
 interface TutorProps {
-    data?: any
+    id: string
+}
+
+type Tutor = {
+    image: string;
+    name: string;
 }
 
 
-const Tutor = ({ data }: TutorProps) => {
-    console.log(data)
-    // const tutor = getTutor(data.tutorId)
 
-    // console.log(tutor)
+const Tutor = async ({ id }: TutorProps) => {
+    console.log(id)
+    const tutor = await getTutorById(id)
+
+    const name = tutor?.name
+    const image = tutor?.image
+
+    if (!tutor) {
+        return null
+    }
+        // console.log(tutor)
     
     return ( 
         <div className={csx["tutor-view"]}>
-            {/* <div className={csx["tutor-view-left"]}>
-                <Cover src={image ? image : ProfileAvatar} alt={name} width={44} height={44} defSize />
+            <div className={csx["tutor-view-left"]}>
+                <Cover src={image ? image : ProfileAvatar} alt={name ? name : `tutor-${id}`} width={44} height={44} defSize />
             </div>
             <div className={csx["tutor-view-right"]}>
                 <span className={csx["tutor-view-name"]}>{name}</span>
-                <span className={csx["tutor-view-ratings"]}>{ratings}</span>
-            </div> */}
+                {/* <span className={csx["tutor-view-ratings"]}>{ratings}</span> */}
+            </div>
         </div>
     );
 }
@@ -35,13 +49,13 @@ interface TutorsViewListProps {
     tutors: any;
 }
 
-const TutorsViewList = ({ tutors }: TutorsViewListProps) => {
+const TutorsViewList = async ({ tutors }: TutorsViewListProps) => {
     return ( 
         <ul className={msx["tutors-view-list"]}>
             {
                 tutors.map((item: any) => (
-                    <li className={msx["tutors-view-list-item"]} key={item.id}>
-                        <Tutor data={item.tutors} />
+                    <li className={msx["tutors-view-list-item"]} key={item.tutorId}>
+                        <Tutor id={item.tutorId} />
                     </li>
                 ))
             }

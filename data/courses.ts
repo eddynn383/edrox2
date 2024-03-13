@@ -76,11 +76,12 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
                         id: true
                     }
                 },
-                tutors: true
+                tutors: true,
+                ratings: true,
             },
             orderBy: {
                 createdAt: 'asc',
-            },
+            }
         })
         
         // console.log(courses)
@@ -110,8 +111,8 @@ export const getCourseById = async (id: string) => {
                     // }
                 },
                 tutors: {
-                    include: {
-                        tutors: true
+                    select: {
+                        tutorId: true
                     }
                 }
             }

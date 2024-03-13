@@ -1222,31 +1222,31 @@
 
         &[data-status="success"] {
             background-color: var(--badge-text-success-background, var(--accent-success-100));
-            border: 1px solid var(--badge-text-success-border, var(--accent-success-400));
+            border: 1px solid var(--badge-text-success-border, var(--accent-success-100));
             color: var(--badge-text-success-text, var(--accent-success-400));
         }
 
         &[data-status="fail"] {
             background-color: var(--badge-text-fail-background, var(--accent-fail-100));
-            border: 1px solid var(--badge-text-fail-border, var(--accent-fail-400));
+            border: 1px solid var(--badge-text-fail-border, var(--accent-fail-100));
             color: var(--badge-text-fail-text, var(--accent-fail-400));
         }
 
         &[data-status="warning"] {
             background-color: var(--badge-text-warning-background, var(--accent-warning-100));
-            border: 1px solid var(--badge-text-warning-border, var(--accent-warning-400));
+            border: 1px solid var(--badge-text-warning-border, var(--accent-warning-100));
             color: var(--badge-text-warning-text, var(--accent-warning-400));
         }
 
         &[data-status="info"] {
-            background-color: var(--badge-text-info-background, var(--accent-warning-100));
-            border: 1px solid var(--badge-text-info-border, var(--accent-info-400));
+            background-color: var(--badge-text-info-background, var(--accent-info-100));
+            border: 1px solid var(--badge-text-info-border, var(--accent-info-100));
             color: var(--badge-text-info-text, var(--accent-info-400));
         }
 
         &[data-status="neutral"] {
-            background-color: var(--badge-text-neutral-background, var(--accent-warning-100));
-            border: 1px solid var(--badge-text-neutral-border, var(--accent-neutral-400));
+            background-color: var(--badge-text-neutral-background, var(--accent-neutral-100));
+            border: 1px solid var(--badge-text-neutral-border, var(--accent-neutral-100));
             color: var(--badge-text-neutral-text, var(--accent-neutral-400));
         }
     }

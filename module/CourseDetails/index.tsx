@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 
 import { Cover } from "@/components";
 import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
@@ -11,7 +11,6 @@ type Tutor = {
     tutorId: string;
     // name: string;
     // image: string | null;
-    tutors: any;
 }
 
 type Chapter = {

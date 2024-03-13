@@ -3,7 +3,7 @@ import { getPublishdedChaptersByCourseId } from "@/data/chapters";
 import { getCourseById } from "@/data/courses";
 import { getCourseRatingAvg, getCourseRatingCount } from "@/data/ratings";
 import { CourseDetails } from "@/module/CourseDetails";
-import { BarChart, Heart, Home, Share, ShoppingCart } from "lucide-react";
+import { BarChart, Clock, FileBadge, Heart, Home, ListChecks, Share, ShoppingCart } from "lucide-react";
 import psx from "@/styles/page.module.scss"
 import msx from "@/styles/module.module.scss"
 
@@ -79,21 +79,46 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                                         </span>
                                     </div>
                                     <div className={msx["course-details-card-price-right"]}>
-                                        <Badge size="L" status="fail">Weekly deals!</Badge>
+                                        <Badge size="M" mode="text" status="fail">Weekly deals!</Badge>
                                     </div>
                                 </div>
                                 <div className={msx["course-details-card-metadata"]}>
                                     <ul className={msx["course-details-card-metadata-list"]}>
                                         <li className={msx["course-details-card-metadata-list-item"]}>
-                                            <Card>
-                                                <div>
-                                                    <BarChart />
-                                                </div>
-                                                <div>
-                                                    <span>Skill</span>
-                                                    <span>Advanced</span>
-                                                </div>
-                                            </Card>
+                                            <div className={msx["course-details-card-metadata-left"]}>
+                                                <BarChart />
+                                            </div>
+                                            <div className={msx["course-details-card-metadata-right"]}>
+                                                <span className={msx["course-details-card-metadata-label"]}>Skill</span>
+                                                <span className={msx["course-details-card-metadata-value"]}>Advanced</span>
+                                            </div>
+                                        </li>
+                                        <li className={msx["course-details-card-metadata-list-item"]}>
+                                            <div className={msx["course-details-card-metadata-left"]}>
+                                                <Clock />
+                                            </div>
+                                            <div className={msx["course-details-card-metadata-right"]}>
+                                                <span className={msx["course-details-card-metadata-label"]}>Duration</span>
+                                                <span className={msx["course-details-card-metadata-value"]}>15 Hours</span>
+                                            </div>
+                                        </li>
+                                        <li className={msx["course-details-card-metadata-list-item"]}>
+                                            <div className={msx["course-details-card-metadata-left"]}>
+                                                <FileBadge />
+                                            </div>
+                                            <div className={msx["course-details-card-metadata-right"]}>
+                                                <span className={msx["course-details-card-metadata-label"]}>Certificate</span>
+                                                <span className={msx["course-details-card-metadata-value"]}>Digital</span>
+                                            </div>
+                                        </li>
+                                        <li className={msx["course-details-card-metadata-list-item"]}>
+                                            <div className={msx["course-details-card-metadata-left"]}>
+                                                <ListChecks />
+                                            </div>
+                                            <div className={msx["course-details-card-metadata-right"]}>
+                                                <span className={msx["course-details-card-metadata-label"]}>Prerequisites</span>
+                                                <span className={msx["course-details-card-metadata-value"]}>None</span>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
