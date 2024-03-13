@@ -1,6 +1,8 @@
+"use client"
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, MoreHorizontal } from "lucide-react"
+import { ChevronRight as ChevronRightLucide, MoreHorizontal as MoreHorizontalLucide } from "lucide-react"
 import csx from "@/styles/component.module.scss"
 
 const Breadcrumb = React.forwardRef<
@@ -97,7 +99,9 @@ const BreadcrumbSeparator = ({
         className={className}
         {...props}
     >
-        {children || <ChevronRight />}
+        {children 
+        || <ChevronRightLucide />
+        }
     </li>
 )
 
@@ -117,7 +121,7 @@ const BreadcrumbEllipsis = ({
         className={className}
         {...props}
     >
-        <MoreHorizontal className="h-4 w-4" />
+        <MoreHorizontalLucide />
         <span className="sr-only">More</span>
     </span>
 )

@@ -1,8 +1,11 @@
 import { EmailValidationForm } from "@/module/EmailValidationForm";
+import { Suspense } from "react";
 
 const EmailValidation = () => {
     return ( 
-        <EmailValidationForm />
+        <Suspense>
+            <EmailValidationForm />
+        </Suspense>
     );
 }
  
