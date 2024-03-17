@@ -41,7 +41,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                             <Breadcrumb>
                                 <BreadcrumbList>
                                     <BreadcrumbItem>
-                                    <BreadcrumbLink href="/" title="Home"><Home /></BreadcrumbLink>
+                                        <BreadcrumbLink href="/" title="Home"><Home /></BreadcrumbLink>
                                     </BreadcrumbItem>
                                     <BreadcrumbSeparator />
                                     <BreadcrumbItem>
@@ -55,7 +55,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                             </Breadcrumb>
                             <PageTitle title={course?.title}/>
                             <div className={msx["course-details-header-metadata"]}>
-                                <Badge size="L">{course.category.name}</Badge>
+                                <Badge size="M">{course.category.name}</Badge>
                                 <Rating score={parsedAvgRating} reviews={parsedCountRating} />
                             </div>
                             <div>

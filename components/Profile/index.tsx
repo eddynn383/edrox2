@@ -1,4 +1,4 @@
-import { Avatar, Icon, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Button, LogOut } from "@/components";
+import { Avatar, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Button, LogOut } from "@/components";
 import Link from "next/link";
 
 import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
@@ -26,7 +26,7 @@ const Profile = ({ size, user }: ProfileProps) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" shade="200">
                     <DropdownMenuItem hasChild>
-                        <Link href="/profile">Profile</Link>
+                        <Link href="/settings/profile">Profile</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem hasChild>
                         <Link href="/my-purchases">My Purchases</Link>

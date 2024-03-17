@@ -467,7 +467,7 @@
             }
         }
 
-        &-metadata{
+        &-metadata {
             &-list {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -568,6 +568,9 @@
             border: 1px solid var(--chapters-view-list-border-color, var(--primary-background-300));
             border-radius: var(--chapteprs-view-list-border-radius, var(--radius-400, 8px));
             overflow: hidden;
+            &-item:not(:last-child) {
+                border-bottom: 1px solid var(--chapters-view-list-item-border-color, var(--primary-background-300));
+            }
         }
     }
     &-edit {

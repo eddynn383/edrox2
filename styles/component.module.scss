@@ -3205,6 +3205,7 @@
 
 .star {
     position: relative;
+    line-height: 0;
 
     label,
     input {
@@ -3227,6 +3228,7 @@
         &-base {
             display: block;
             color: var(--star-default-color, var(--primary-background-300));
+            line-height: 0;
 
             .icon.icon {
                 color: inherit;
@@ -3683,6 +3685,11 @@
     &-view {
         display: flex;
         gap: var(--tutor-view-gap, var(--gap-200, 8px));
+        &-right {
+            display: flex;
+            flex-direction: column;
+            gap: var(--tutor-view-right-gap, var(--gap-100, 4px));
+        }
     }
 }
 

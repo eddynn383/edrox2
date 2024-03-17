@@ -14,6 +14,7 @@ type Tutor = {
 }
 
 type Chapter = {
+    id: string;
     title: string;
     description: string | null;
     isPublished: boolean;

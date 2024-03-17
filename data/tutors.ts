@@ -71,6 +71,24 @@ export const getTutorByCourseId = async (courseId: string) => {
 
 export const getTutorById = async (id: string) => {
     try {
+        const ratingAvg = await prisma.rating.aggregate({
+            _avg: {
+                rating: true
+            },
+            where: {
+                tutorId: id
+            }
+        })
+
+        const ratingCount = await prisma.rating.aggregate({
+            _count: {
+                rating: true
+            },
+            where: {
+                tutorId: id
+            }
+        })
+
         const tutor = await prisma.tutor.findUnique({
             where: {
                 id
@@ -78,7 +96,13 @@ export const getTutorById = async (id: string) => {
         })
 
         // return NextResponse.json(tutor)
-        return tutor;
+        return {
+            ...tutor,
+            rating: {
+                avg: ratingAvg._avg.rating === null ? 0 : ratingAvg._avg.rating,
+                count: ratingCount._count.rating
+            }
+        };
     } catch (error) {
         console.log(error)
         return null

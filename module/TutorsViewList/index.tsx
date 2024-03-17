@@ -1,7 +1,7 @@
 "use server"
 
 import { usePathname, useRouter } from "next/navigation";
-import { Cover } from "@/components";
+import { Cover, Rating } from "@/components";
 import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
@@ -24,11 +24,12 @@ const Tutor = async ({ id }: TutorProps) => {
 
     const name = tutor?.name
     const image = tutor?.image
+    let rating = tutor?.rating
 
     if (!tutor) {
         return null
     }
-        // console.log(tutor)
+        console.log(tutor)
     
     return ( 
         <div className={csx["tutor-view"]}>
@@ -37,7 +38,7 @@ const Tutor = async ({ id }: TutorProps) => {
             </div>
             <div className={csx["tutor-view-right"]}>
                 <span className={csx["tutor-view-name"]}>{name}</span>
-                {/* <span className={csx["tutor-view-ratings"]}>{ratings}</span> */}
+                {rating && <Rating score={rating?.avg} reviews={rating?.count} />}
             </div>
         </div>
     );

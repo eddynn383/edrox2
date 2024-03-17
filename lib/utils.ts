@@ -22,3 +22,14 @@ interface DateFormatOptions {
 export const formatDate = ({ dateValue, dateFormat }: DateFormatOptions): string => {
     return format(dateValue, dateFormat);
 };
+
+export const covertDuration = (durationInMiliseconds: number) => {
+    const seconds = durationInMiliseconds > 1000 ? Math.floor(durationInMiliseconds / 1000) : 0
+    const remainingSeconds = seconds % 60
+    const minutes = seconds > 60 ? Math.floor(seconds / 60) : 0
+    const remainingMinutes = minutes % 60
+    const hours = minutes > 60 ? minutes / 60 : 0
+    const duration = `${hours > 0 ? `${hours}h` : ``} ${remainingMinutes}m ${remainingSeconds}s`
+    
+    return duration;
+};
