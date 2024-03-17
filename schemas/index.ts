@@ -36,6 +36,15 @@ export const NewPasswordSchema = z.object({
     }),
 });
 
+export const ProfileSchema = z.object({
+    name: z.string().email({
+        message: "Name is required!"
+    }),
+    bio: z.string(),
+    image: z.string(),
+    birthday: z.date()
+})
+
 
 /*=================COURSES======================*/
 

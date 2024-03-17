@@ -2,31 +2,31 @@
 
 import * as z from "zod";
 import { Suspense, useEffect, useState, useTransition } from "react";
-import { 
-    Form, 
-    FormControl, 
-    FormDescription, 
-    FormField, 
-    FormItem, 
-    FormLabel, 
-    FormMessage, 
-    Input, 
-    Label, 
-    RadioGroup, 
-    RadioGroupItem, 
-    ScrollArea, 
-    Select, 
-    SelectContent, 
-    SelectItem, 
-    SelectTrigger, 
-    SelectValue, 
-    Textarea 
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+    Input,
+    Label,
+    RadioGroup,
+    RadioGroupItem,
+    ScrollArea,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+    Textarea
 } from "@/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { NewCourseDetailsSchema } from "@/schemas";
+import { ProfileSchema } from "@/schemas";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { newCourse, updateCourse } from "@/actions/new-course";
+import { updateProfile } from "@/actions/user";
 import psx from "@/styles/page.module.scss";
 import msx from "@/styles/module.module.scss";
 import csx from "@/styles/component.module.scss";
@@ -53,27 +53,29 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
 
     const router = useRouter()
     const pathname = usePathname()
-    const searchParams = useSearchParams() 
+    const searchParams = useSearchParams()
 
+
+    const userId = "test"
     // if (!step) {
     //     router.push(`${pathname}?id=${id}&step=1`) 
     // }
 
     console.log("defaultValues: ", defaultValues)
 
-    const form = useForm<z.infer<typeof NewCourseDetailsSchema>>({
-        resolver: zodResolver(NewCourseDetailsSchema),
+    const form = useForm<z.infer<typeof ProfileSchema>>({
+        resolver: zodResolver(ProfileSchema),
         defaultValues
     });
 
 
     console.log(form.getValues())
-    const submitHandler = (values: z.infer<typeof NewCourseDetailsSchema>) => {
+    const submitHandler = (values: z.infer<typeof ProfileSchema>) => {
         setError("");
         setSuccess("");
 
         startTransition(() => {
-            updateCourse(courseId, values).then((data) => {
+            updateProfile(userId, values).then((data) => {
                 console.log(data)
                 if (data?.error) {
                     setError(data.error)
@@ -91,14 +93,14 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-        //   await axios.patch(`/api/courses/${courseId}`, values);
-          toast.success("Course updated");
-        //   toggleEdit();
-          router.refresh();
+            //   await axios.patch(`/api/courses/${courseId}`, values);
+            toast.success("Course updated");
+            //   toggleEdit();
+            router.refresh();
         } catch {
-          toast.error("Something went wrong");
+            toast.error("Something went wrong");
         }
-      }
+    }
 
     return (
         <>
@@ -109,7 +111,7 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
                             <form className={csx["form"]} onSubmit={form.handleSubmit(submitHandler)}>
                                 <FormField
                                     control={form.control}
-                                    name="description"
+                                    name="name"
                                     render={({ field }) => (
                                         <FormItem data-cols="2">
                                             <div className={csx["form-row-details"]}>
@@ -121,9 +123,9 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
                                                     {...field}
                                                     shade="200"
                                                     type="text"
-                                                    name="title"
+                                                    name="name"
                                                     placeholder="Eg. Introduction in front-end technologies"
-                                                    // status={titleStatus}
+                                                // status={titleStatus}
                                                 />
                                             </FormControl>
                                         </FormItem>
@@ -144,7 +146,7 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
                                             }}
                                         />
                                     </FormControl>
-                                </FormItem>  
+                                </FormItem>
                             </form>
                         </Form>
                     </div>
@@ -156,7 +158,7 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
         </>
     );
 }
- 
+
 export default FormProfile;
 
 
