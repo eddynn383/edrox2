@@ -38,7 +38,7 @@ export const EmailValidationForm = () => {
     return (
         <div className={msx["auth"]}>
             <div className={msx["auth_inner"]} >
-                <Card effect="glass" size="2XL" style={{"display": "flex", "alignItems": "center", "flexDirection": "column"}}>
+                <Card variant="ghost" padding="0" radius="0" gap="600">
                     <CardTitle rank={2}>Email Validation</CardTitle>
                     <CardDescription>Wait until your email is validated!</CardDescription>
                     {

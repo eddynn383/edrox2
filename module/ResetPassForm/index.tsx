@@ -40,7 +40,7 @@ export const ResetPassForm = () => {
     return (
         <div className={msx["auth"]}>
             <div className={msx["auth_inner"]}>
-                <Card effect="glass" size="2XL">
+                <Card variant="ghost" padding="0" radius="0" gap="600">
                     <CardHeader style={{"display": "flex", "flexDirection": "column", "gap": "8px", "alignItems": "center"}}>                        
                         <CardTitle rank={1}>Forgot your password?</CardTitle>
                         <CardDescription>Reset your password using the input below.</CardDescription>
@@ -66,7 +66,7 @@ export const ResetPassForm = () => {
                     }
 
                     <Form {...form}>
-                        <form className={csx["form"]} onSubmit={form.handleSubmit(onSubmit)}>
+                        <form className={csx["form"]} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
                             <FormField 
                                 control={form.control} 
                                 name="email" 

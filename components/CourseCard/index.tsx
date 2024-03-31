@@ -10,7 +10,7 @@ import { Clock, Layers } from "lucide-react"
 import csx from "@/styles/component.module.scss" 
 import { convertDuration } from "@/lib/utils"
 
-const CourseCard = async ({ data, layout = "columns", variant = "primary", shade = "100", effect = "normal", size = "M" }: CourseCardProps) => {
+const CourseCard = async ({ data, layout = "columns", variant = "primary", shade = "100" }: CourseCardProps) => {
     const image = data.image ? data.image : "https://images.pexels.com/photos/2457284/pexels-photo-2457284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
     const avgRating = await getCourseRatingAvg(data.id)
@@ -23,7 +23,7 @@ const CourseCard = async ({ data, layout = "columns", variant = "primary", shade
     // console.log("Course data: ", data)
 
     return (
-        <Card className={`${csx["card"]} ${csx["card--course"]}`} data-layout={layout} data-variant={variant} data-shade={shade} data-effect={effect} data-size={size}>
+        <Card className={`${csx["card"]} ${csx["card--course"]}`} data-layout={layout} data-variant={variant} data-shade={shade}>
             <Link href={`/catalog/course/${data.id}`} >
                 <CardHeader>
                     <Cover src={image} alt={data.title} width={250} height={100} />
