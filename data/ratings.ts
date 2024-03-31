@@ -217,6 +217,6 @@ export const updateCourseRating = async ( userId: string, courseId: string, data
         return rating
 
     } catch (error) {
-        
+        return null
     }
 }

@@ -106,9 +106,6 @@ export const getCourseById = async (id: string) => {
                     where: {
                         isPublished: true,
                     },
-                    // select: {
-                    //     id: true
-                    // }
                 },
                 tutors: {
                     select: {

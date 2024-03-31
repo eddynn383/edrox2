@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prismadb"
 import bcrypt from "bcrypt"
 import { ProfileSchema } from "@/schemas"
 
-import { getUserByEmail } from "@/data/user"
+import { getUserByEmail, updateUserById } from "@/data/user"
 import { generateVerificationToken } from "@/lib/tokens"
 import { sendVerificationEmail } from "@/lib/mail"
 
@@ -18,7 +18,7 @@ export const updateProfile = async (userId: string, values: z.infer<typeof Profi
 
     const { name, bio, birthday } = validatedFields.data
 
-
+    await updateUserById(userId, validatedFields.data)
     // await prisma.user.create({
     //     data: {
     //         name,

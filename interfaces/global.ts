@@ -33,3 +33,12 @@ export type Category = {
     id: string;
     name: string;
 }
+
+export type User = {
+    email: string;
+    name: string | null;
+    bio: string | null;
+    image: string | null;
+    address: string | null;
+    phone: string | null;
+}

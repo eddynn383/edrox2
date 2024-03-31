@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Icon } from "../Icon";
 import { NavigationMenuItemProps } from "./interface";
 import sx from "@/styles/component.module.scss"
+import Link from "next/link";
 
 export const NavigationMenuItem = ({ icon, text, path, iconsOnly = false }: NavigationMenuItemProps) => {
     const pathname = usePathname();
@@ -28,14 +29,10 @@ export const NavigationMenuItem = ({ icon, text, path, iconsOnly = false }: Navi
         }
     }, [iconsOnly]);
 
-    const clickHanlder = () => {
-        router.push(path);
-    }
-
     return (
-        <button className={`${sx["menu_item"]} ${isActive ? sx["menu_item--active"] : ""}`} title={text} onClick={clickHanlder}>
+        <Link href={path} className={`${sx["menu_item"]} ${isActive ? sx["menu_item--active"] : ""}`} title={text} >
             <span className={sx["menu_icon"]}><Icon name={icon} /></span>
             {isCollapsed && <span className={sx["menu_text"]} data-visibility={iconsOnly ? "visible" : "hidden"}>{text}</span>}
-        </button>
+        </Link>
     )
 }

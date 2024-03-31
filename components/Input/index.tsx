@@ -6,11 +6,12 @@ import { Icon } from "@/components/Icon";
 import { InputProps } from "./interface";
 import sx from "@/styles/component.module.scss";
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({type, shade = "100", sizes = "M", status = "default", iconBefore, iconAfter, ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({type, mode="solid", shade = "100", sizes = "M", status = "default", iconBefore, iconAfter, ...props }, ref) => {
     const [isInputFocused, setIsInputFocused] = useState(false);
 
 
     const customAttrs = {
+        "data-mode": mode,
         "data-shade": shade,
         "data-size": sizes,
         "data-status": status,

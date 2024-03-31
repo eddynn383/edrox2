@@ -172,3 +172,37 @@ export const getChapterById = async ( id: string ) => {
         return null;
     }
 }
+
+export const getChaptersCountByCourseId = async ( courseId: string) => {
+    try {
+        const chapter = await prisma.chapter.aggregate({
+            where: {
+                courseId
+            },
+            _count: true
+        })
+
+        return chapter._count
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
+
+export const getChaptersSumDurationByCourseId = async ( courseId: string) => {
+    try {
+        const chapter = await prisma.chapter.aggregate({
+            where: {
+                courseId
+            },
+            _sum: {
+                duration: true
+            }
+        })
+
+        return chapter._sum.duration === null ? 0 : chapter._sum.duration
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}

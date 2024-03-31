@@ -2,9 +2,48 @@
     width: 100%;
     height: 100%;
     &--auth {
-        background-image: url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--layout-auth-background-color, var(--accent-brand-400));
+
+        .layout-left,
+        .layout-right {
+            display: flex;
+            flex-direction: column;
+            padding: var(--layout-auth-left-padding, var(--padding-600, 24px));
+        }
+        .layout-left {
+            gap: var(--layout-left-gap, var(--gap-400, 16px));
+            overflow-y: auto;
+        }
+        .layout-right {
+            flex-grow: 1;
+            background-color: var(--layout-auth-right-background-color, var(--primary-background-100));
+            border-radius: var(--layout-auth-right-border-radius, var(--radius-600, 12px)) var(--layout-auth-right-border-radius, var(--radius-600, 12px)) 0 0;
+            box-shadow: 0px -8px 12px 4px rgba(0, 0, 0, 0.10);
+            animation: slide-in-from-bottom .5s ease-in-out;
+        }
+
+        .logo {
+            img {
+                width: auto;
+            }
+        }
+
+        .layout-auth-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--layout-auth-details-gap, var(--gap-300, 12px));
+        }
+        .layout-auth-title {
+            color: var(--layout-auth-title-text-color, var(--accent-brand-100));
+            font-size: var(--layout-auth-title-font-size, var(--size-800, 32px));
+        }
+        .layout-auth-description {
+            color: var(--layout-auth-description-text-color, var(--accent-brand-200));
+        }
     }
+
 }
 
 .header {
@@ -128,4 +167,13 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
     }   
+}
+
+
+@keyframes slide-in-from-bottom {
+    from {
+        transform: translateY(100%);
+    } to {
+        transform: translateY(0);
+    }
 }

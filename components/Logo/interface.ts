@@ -1,4 +1,4 @@
-export interface LogoProps {
+export interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     cn?: string;
     src?: any;
     alt: string;

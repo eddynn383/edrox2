@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { LoginSchema } from "@/schemas"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/Form"
 import { Social } from "../Social"
-import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input } from "@/components"
+import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Icon, Input } from "@/components"
 import { login } from "@/actions/login"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
@@ -66,10 +66,10 @@ export const LoginForm = () => {
     return (
         <div className={msx["auth"]}>
             <div className={msx["auth_inner"]}>
-                <Card effect="glass" size="2XL">
-                    <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px", "alignItems": "center" }}>
-                        <CardTitle rank={1}>Welcome back!</CardTitle>
-                        <CardDescription>Use your credentials to login into the app</CardDescription>
+                <Card variant="ghost" padding="0" radius="0" gap="600">
+                    <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
+                        <CardTitle rank={2}>Welcome back!</CardTitle>
+                        <CardDescription>Don&apos;t have an account yet? <Link href="register" className="link link--accent">Sign up</Link></CardDescription>
                     </CardHeader>
                     <CardContent>
                         {
@@ -93,7 +93,7 @@ export const LoginForm = () => {
                         }
 
                         <Form {...form}>
-                            <form className={csx["form"]} onSubmit={form.handleSubmit(onSubmit)}>
+                            <form className={csx["form"]} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
                                 {
                                     showTwoFactor && (
                                         <FormField
@@ -108,7 +108,7 @@ export const LoginForm = () => {
                                                     <FormControl>
                                                         <Input
                                                             {...field}
-                                                            shade="200"
+                                                            mode="outline"
                                                             placeholder="123456"
                                                             disabled={isPending}
                                                         />
@@ -133,7 +133,7 @@ export const LoginForm = () => {
                                                         <FormControl>
                                                             <Input
                                                                 {...field}
-                                                                shade="200"
+                                                                mode="outline"
                                                                 placeholder="john.doe@example.com"
                                                                 type="email"
                                                                 disabled={isPending}
@@ -155,8 +155,8 @@ export const LoginForm = () => {
                                                         <FormControl>
                                                             <Input
                                                                 {...field}
-                                                                shade="200"
-                                                                placeholder="********"
+                                                                mode="outline"
+                                                                placeholder="••••••••"
                                                                 type="password"
                                                                 disabled={isPending}
                                                                 status={passwordStatus}
@@ -170,12 +170,13 @@ export const LoginForm = () => {
                                     )
                                 }
 
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">Login</Button>
+                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">Sign in</Button>
                             </form>
                         </Form>
-                        <Social />
-                        <p>Don&apos;t have an account yet? <Link href="register" className="link link--accent">Sign up</Link></p>
                     </CardContent>
+                    <CardFooter>
+                        <Social />
+                    </CardFooter>
                 </Card>
             </div>
         </div>

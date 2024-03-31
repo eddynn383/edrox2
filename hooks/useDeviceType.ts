@@ -1,30 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { DeviceContext } from '@/context/deviceContext';
 
-type DeviceType = 'desktop' | 'mobile';
-
-// Function to determine device type based on user agent
-function isMobileDevice(userAgent: string): boolean {
-    const regex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-    return regex.test(userAgent);
+interface DeviceContextType {
+    deviceType: string | null;
+    updateDeviceType: (newDeviceType: string) => void;
 }
 
-export function useDeviceType(serverUserAgent: string): DeviceType {
-    const initialDeviceType = isMobileDevice(serverUserAgent) ? 'mobile' : 'desktop';
-    const [deviceType, setDeviceType] = useState<DeviceType>(initialDeviceType);
+const useDeviceType = () => {
+    const { deviceType, updateDeviceType } = useContext(DeviceContext) as DeviceContextType;
 
-    useEffect(() => {
-        function handleResize() {
-            if (window.innerWidth <= 768) {
-                setDeviceType('mobile');
-            } else {
-                setDeviceType('desktop');
-            }
-        }
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    return { deviceType, updateDeviceType };
+};
 
-    return deviceType;
-}
+export default useDeviceType;

@@ -37,12 +37,17 @@ export const NewPasswordSchema = z.object({
 });
 
 export const ProfileSchema = z.object({
-    name: z.string().email({
+    name: z.string().min(1, {
         message: "Name is required!"
+    }),
+    email: z.string().email({
+        message: "Email is required!"
     }),
     bio: z.string(),
     image: z.string(),
-    birthday: z.date()
+    birthday: z.date(),
+    address: z.string(),
+    phone: z.string()
 })
 
 

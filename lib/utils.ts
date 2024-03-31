@@ -23,13 +23,29 @@ export const formatDate = ({ dateValue, dateFormat }: DateFormatOptions): string
     return format(dateValue, dateFormat);
 };
 
-export const covertDuration = (durationInMiliseconds: number) => {
+export const convertDuration = (durationInMiliseconds: number) => {
     const seconds = durationInMiliseconds > 1000 ? Math.floor(durationInMiliseconds / 1000) : 0
     const remainingSeconds = seconds % 60
     const minutes = seconds > 60 ? Math.floor(seconds / 60) : 0
     const remainingMinutes = minutes % 60
-    const hours = minutes > 60 ? minutes / 60 : 0
-    const duration = `${hours > 0 ? `${hours}h` : ``} ${remainingMinutes}m ${remainingSeconds}s`
+    const hours = minutes > 60 ? Math.floor(minutes / 60) : 0
+    const remainingHours = hours % 60
+
+    const s = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds
+    const m = remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes
+    const h = remainingHours < 10 ? `0${remainingHours}` : remainingHours
+
+    const duration = `${remainingHours > 0 ? `${h}h` : ``} ${m}m ${s}s`
     
     return duration;
 };
+
+export const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    const formattedSize = parseFloat((bytes / Math.pow(1024, i)).toFixed(2));
+
+    return `${formattedSize} ${sizes[i]}`;
+}

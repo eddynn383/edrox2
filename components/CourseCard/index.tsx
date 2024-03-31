@@ -2,17 +2,25 @@
 
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../Card"
-import { Badge, Button, Cover, Rating } from "@/components"
+import { getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters"
+import { Badge, Button, Cover, Rating, Text } from "@/components"
 import { getCourseRatingAvg } from "@/data/ratings"
 import { CourseCardProps } from "./interface"
-import csx from "@/styles/component.module.scss"
+import { Clock, Layers } from "lucide-react"
+import csx from "@/styles/component.module.scss" 
+import { convertDuration } from "@/lib/utils"
 
 const CourseCard = async ({ data, layout = "columns", variant = "primary", shade = "100", effect = "normal", size = "M" }: CourseCardProps) => {
     const image = data.image ? data.image : "https://images.pexels.com/photos/2457284/pexels-photo-2457284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
     const avgRating = await getCourseRatingAvg(data.id)
-
-    console.log("Course data: ", data)
+    const totalChapters = await getChaptersCountByCourseId(data.id)
+    const chaptersDuration = await getChaptersSumDurationByCourseId(data.id)
+    // const duration = chaptersDuration ? chaptersDuration.duration : 0
+    const totalDuration = convertDuration(chaptersDuration || 0) 
+    console.log("Duration: ", chaptersDuration)
+    console.log("Chapters: ", totalChapters)
+    // console.log("Course data: ", data)
 
     return (
         <Card className={`${csx["card"]} ${csx["card--course"]}`} data-layout={layout} data-variant={variant} data-shade={shade} data-effect={effect} data-size={size}>
@@ -23,10 +31,23 @@ const CourseCard = async ({ data, layout = "columns", variant = "primary", shade
                 <CardContent>
                     <div className={csx["card-content-top"]}>
                         {data.category && <Badge>{data.category.name}</Badge>}
-                        {avgRating && <Rating score={avgRating} />}
+                        <Rating score={avgRating || 0} showRatings={false} />
                     </div>
-                    <CardTitle rank={2}>{data?.title}</CardTitle>
-                    <CardDescription truncated>{data?.description}</CardDescription>
+                    <div className={csx["card-content-bottom"]}>
+                        <CardTitle rank={2}>{data?.title}</CardTitle>
+                        <CardDescription truncated>{data?.description}</CardDescription>
+                        <ul className={csx["card-metadata-list"]}>
+                            <li className={csx["card-metadata-list-item"]}>
+                                <Layers />
+                                <Text size="XS">{totalChapters} Chapters</Text>
+                            </li>
+                            <li className={csx["card-metadata-list-item"]}>
+                                <Clock />
+                                <Text size="XS">{totalDuration}</Text>
+                            </li>
+                        </ul>
+                    </div>
+                
                 </CardContent>
                 <CardFooter>
                     <Button type="button">Add to cart</Button>

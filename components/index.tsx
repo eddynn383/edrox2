@@ -1,16 +1,23 @@
 
 import { Alert, AlertTitle, AlertDescription } from "./Alert";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./AlertDialog";
 import { Avatar } from "./Avatar";
 import { Badge } from "./Badge";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./Breadcrumb";
 import { Button } from "./Button";
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "./Card";
 import { CourseCard } from "./CourseCard";
 import { ColorPicker } from "./ColorPicker";
 import { Cover } from "./Cover";
 import { Checkbox } from "./Checkbox";
+import { Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./Dialog";
+import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from "./Drawer";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./DropdownMenu";
+import { Dropzone } from "./Dropzone";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./Form";
 import { Icon } from "./Icon";
 import { Input } from "./Input";
+import { Label } from "./Label";
 import { Logo } from "./Logo";
 import { LogOut } from "./LogOut";
 import { NavigationMenu } from "./NavigationMenu";
@@ -19,6 +26,7 @@ import { NavigationToggle } from "./NavigationToggle";
 import { PageTitle } from "./PageTitle";
 import { Profile } from "./Profile";
 import { Progress } from "./Progress";
+import { RadioGroup, RadioGroupItem } from "./RadioGroup";
 import { Rating } from "./Rating";
 import { ScrollArea, ScrollBar } from "./ScrollArea";
 import { Search } from "./Search";
@@ -29,13 +37,6 @@ import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, Tabl
 import { Text } from "./Text";
 import { Textarea } from "./Textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue } from "./Select";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./AlertDialog";
-import { Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./Dialog";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from "./Drawer";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./Form";
-import { Label } from "./Label";
-import { RadioGroup, RadioGroupItem } from "./RadioGroup";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./Breadcrumb";
 
 export {
     Alert,
@@ -105,6 +106,7 @@ export {
     DropdownMenuSubContent,
     DropdownMenuSubTrigger,
     DropdownMenuRadioGroup,
+    Dropzone,
     Form,
     FormItem,
     FormLabel,

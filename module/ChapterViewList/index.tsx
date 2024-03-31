@@ -1,6 +1,6 @@
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
-import { covertDuration } from "@/lib/utils";
+import { convertDuration } from "@/lib/utils";
 
 interface ChapterProps {
     id: string;
@@ -11,7 +11,7 @@ interface ChapterProps {
 const Chapter = ({ id, title, duration }: ChapterProps) => {
 
 
-    const newDuration = covertDuration(duration)
+    const newDuration = convertDuration(duration)
 
     return ( 
         <div className={csx["chapter-view"]}>

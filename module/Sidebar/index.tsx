@@ -12,15 +12,16 @@ import useScreenSize from "@/hooks/useScreenSize"
 import { ToggleContext } from "@/context/toggleContext"
 
 interface SidebarProps {
-    user?: any
+    user?: any;
+    device: string | null;
 }
 
-export const Sidebar = ({user}: SidebarProps) => {
+export const Sidebar = ({user, device}: SidebarProps) => {
     const {state, handleState} = useContext(ToggleContext)
 
-    const screen = useScreenSize()
-    const w = screen.width
-    const mobile = w < 1025 ? true : false
+    // const screen = useScreenSize()
+    // const w = screen.width
+    // const mobile = w < 1025 ? true : false
 
     const customAttrs = {
         "data-state": state ? "expanded" : "collapsed",
@@ -29,7 +30,7 @@ export const Sidebar = ({user}: SidebarProps) => {
     return ( 
         <>        
             {
-                !mobile &&
+                device === "desktop" &&
                 <aside className={msx["sidebar"]} data-device="web" {...customAttrs}>
                     <div className={msx["sidebar-content"]}>
                         <div className={msx["sidebar-header"]}>
@@ -53,7 +54,7 @@ export const Sidebar = ({user}: SidebarProps) => {
                 </aside>
             }
             {
-                mobile &&    
+                device === "mobile" &&    
                     <>
                         <aside className={msx["sidebar"]} data-device="mobile" {...customAttrs}>
                             <div className={msx["sidebar-overlay"]} onClick={handleState}/>

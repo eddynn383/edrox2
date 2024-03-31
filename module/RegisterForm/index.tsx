@@ -50,10 +50,10 @@ export const RegisterForm = () => {
     return (
         <div className={msx["auth"]}>
             <div className={msx["auth_inner"]}>
-                <Card effect="glass" size="2XL">
-                    <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px", "alignItems": "center" }}>
+                <Card variant="ghost" padding="0" radius="0" gap="600">
+                    <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={1}>Welcome!</CardTitle>
-                        <CardDescription>Create an account to get started</CardDescription>
+                        <CardDescription>Have already an account? <Link href="login" className="link link--accent">Sign In</Link></CardDescription>
                     </CardHeader>
                     <CardContent>
 
@@ -77,20 +77,20 @@ export const RegisterForm = () => {
                         }
 
                         <Form {...form}>
-                            <form className={csx["form"]} onSubmit={form.handleSubmit(onSubmit)}>
+                            <form className={csx["form"]} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
                                 <FormField
                                     control={form.control}
                                     name="name"
                                     render={({ field }) => (
                                         <FormItem>
                                             <div className="flex gap-4 justify-content-between">
-                                                <FormLabel>Name</FormLabel>
+                                                <FormLabel>Full name</FormLabel>
                                                 <FormMessage icon="alert-triangle" />
                                             </div>
                                             <FormControl>
                                                 <Input
                                                     {...field}
-                                                    shade="200"
+                                                    mode="outline"
                                                     placeholder="John Doe"
                                                     type="text"
                                                     disabled={isPending}
@@ -112,7 +112,7 @@ export const RegisterForm = () => {
                                             <FormControl>
                                                 <Input
                                                     {...field}
-                                                    shade="200"
+                                                    mode="outline"
                                                     placeholder="john.doe@example.com"
                                                     type="email"
                                                     disabled={isPending}
@@ -134,7 +134,7 @@ export const RegisterForm = () => {
                                             <FormControl>
                                                 <Input
                                                     {...field}
-                                                    shade="200"
+                                                    mode="outline"
                                                     placeholder="********"
                                                     type="password"
                                                     disabled={isPending}
@@ -147,8 +147,6 @@ export const RegisterForm = () => {
                                 <Button variant="accent" status="default" mode="solid" size="M" type="submit">Create an account</Button>
                             </form>
                         </Form>
-                        <Social />
-                        <p>Have already an account? <Link href="login" className="link link--accent">Sign In</Link></p>
                     </CardContent>
                 </Card>
             </div>

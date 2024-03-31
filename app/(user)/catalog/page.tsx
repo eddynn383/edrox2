@@ -11,13 +11,14 @@ interface CatalogPageProps {
     searchParams: {
         title: string;
         categoryId: string;
+        viewport: string;
     }
 };
 
 const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
     const courses = await getPublishdedCourses({...searchParams});  
     const categories = await getAllCategories()
-
+    console.log(searchParams.viewport)
     console.log("CATALOG COURSES: ", courses)
 
     return (

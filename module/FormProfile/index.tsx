@@ -3,6 +3,8 @@
 import * as z from "zod";
 import { Suspense, useEffect, useState, useTransition } from "react";
 import {
+    Button,
+    Dropzone,
     Form,
     FormControl,
     FormDescription,
@@ -35,8 +37,7 @@ import toast from "react-hot-toast";
 import Metadata from "../Metadata";
 
 interface FormProfileProps {
-    courseId: string;
-    categories?: any;
+    userId: string;
     defaultValues?: any;
 }
 
@@ -46,7 +47,7 @@ const formSchema = z.object({
     }),
 });
 
-const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) => {
+const FormProfile = ({ userId, defaultValues }: FormProfileProps) => {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
@@ -54,12 +55,6 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
-
-
-    const userId = "test"
-    // if (!step) {
-    //     router.push(`${pathname}?id=${id}&step=1`) 
-    // }
 
     console.log("defaultValues: ", defaultValues)
 
@@ -94,7 +89,7 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             //   await axios.patch(`/api/courses/${courseId}`, values);
-            toast.success("Course updated");
+            // toast.success("Course updated");
             //   toggleEdit();
             router.refresh();
         } catch {
@@ -115,7 +110,7 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
                                     render={({ field }) => (
                                         <FormItem data-cols="2">
                                             <div className={csx["form-row-details"]}>
-                                                <FormLabel>Username</FormLabel>
+                                                <FormLabel>Full name</FormLabel>
                                                 {<FormMessage icon="alert-triangle" />}
                                             </div>
                                             <FormControl>
@@ -124,7 +119,51 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
                                                     shade="200"
                                                     type="text"
                                                     name="name"
-                                                    placeholder="Eg. Introduction in front-end technologies"
+                                                    placeholder="Zack Affron"
+                                                // status={titleStatus}
+                                                />
+                                            </FormControl>
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="email"
+                                    render={({ field }) => (
+                                        <FormItem data-cols="2">
+                                            <div className={csx["form-row-details"]}>
+                                                <FormLabel>Email</FormLabel>
+                                                {<FormMessage icon="alert-triangle" />}
+                                            </div>
+                                            <FormControl>
+                                                <Input
+                                                    {...field}
+                                                    shade="200"
+                                                    type="email"
+                                                    name="email"
+                                                    placeholder="user@example.com"
+                                                // status={titleStatus}
+                                                />
+                                            </FormControl>
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="bio"
+                                    render={({ field }) => (
+                                        <FormItem data-cols="2">
+                                            <div className={csx["form-row-details"]}>
+                                                <FormLabel>Bio</FormLabel>
+                                                {<FormMessage icon="alert-triangle" />}
+                                            </div>
+                                            <FormControl>
+                                                <Textarea
+                                                    {...field}
+                                                    shade="200"
+                                                    name="bio"
+                                                    placeholder="Type here..."
+                                                    resize="vertical"
                                                 // status={titleStatus}
                                                 />
                                             </FormControl>
@@ -138,15 +177,32 @@ const FormProfile = ({ courseId, defaultValues, categories }: FormProfileProps) 
                                         {<FormMessage icon="alert-triangle" />}
                                     </div>
                                     <FormControl>
-                                        <FileUpload endpoint="courseImage" onChange={
+                                        <>
+                                        {/* <FileUpload endpoint="profilePicture" onChange={
                                             (url) => {
                                                 if (url) {
                                                     onSubmit({ imageUrl: url });
                                                 }
                                             }}
+                                        /> */}
+                                        <Dropzone 
+                                            endpoint="profilePicture"
+                                            onChange={
+                                                (url) => {
+                                                    if (url) {
+                                                        // onSubmit({ imageUrl: url });
+                                                        console.log("this is profile image url: ", url)
+                                                    }
+                                                }
+                                            }
                                         />
+                                        </>
                                     </FormControl>
                                 </FormItem>
+                                <div >
+                                    <Button type="submit" variant="accent">Save</Button>
+                                    <Button type="submit" variant="primary" shade="100">Reset</Button>
+                                </div>
                             </form>
                         </Form>
                     </div>
