@@ -18,8 +18,8 @@ export const Social = () => {
 
     return (
         <div className={sx["social"]}>
-            <Button size="M" shade="200" onClick={() => loginHandler("google")}>Sign in with Google <FcGoogle /></Button>
-            <Button size="M" shade="200" onClick={() => loginHandler("github")}>Sign in with Github <FaGithub /></Button>
+            <Button size="M" mode="outline" onClick={() => loginHandler("google")}><FcGoogle /> Sign in with Google</Button>
+            <Button size="M" mode="outline" onClick={() => loginHandler("github")}><FaGithub /> Sign in with Github</Button>
         </div>
     )
 }

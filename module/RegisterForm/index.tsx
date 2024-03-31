@@ -49,7 +49,7 @@ export const RegisterForm = () => {
     }
     return (
         <div className={msx["auth"]}>
-            <div className={msx["auth_inner"]}>
+            <div className={msx["auth-inner"]}>
                 <Card variant="ghost" padding="0" radius="0" gap="600">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={1}>Welcome!</CardTitle>

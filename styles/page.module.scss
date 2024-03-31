@@ -42,6 +42,25 @@
         .layout-auth-description {
             color: var(--layout-auth-description-text-color, var(--accent-brand-200));
         }
+        @media only screen and (min-width: 768px) {
+            flex-direction: row;
+            padding: var(--layout-auth-padding, var(--padding-400, 16px));
+            background-color: var(--layout-auth-background-color, var(--primary-background-100));
+            .layout-left {
+                max-width: 380px;
+                background-color: var(--layout-auth-left-background-color, var(--accent-brand-400));
+                border-radius: var(--layout-auth-right-border-radius, var(--radius-800, 16px));
+                justify-content: space-between;
+            }
+            .layout-right {
+                box-shadow: none;
+            }
+        }
+        @media only screen and (min-width: 1025px) {
+            .layout-left {
+                max-width: 640px;
+            }
+        }
     }
 
 }

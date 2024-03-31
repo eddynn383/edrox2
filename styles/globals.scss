@@ -129,6 +129,8 @@ h4,
 .link {
     display: inline-block;
     width: fit-content;
+    font-size: var(--link-font-size, calc(var(--size-400, 16px) - var(--size-100, 4px) / 2));
+    line-height: var(--link-line-height, 1);
 
     &--primary {
         color: var(--link-primary-text-default, var(--primary-text-400));

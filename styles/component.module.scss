@@ -783,6 +783,237 @@
         }
     }
 
+    &[data-mode="outline"] {
+        &[data-size="S"] {
+            font-size: var(--button-s-font-size, var(--size-300, 12px));
+            font-weight: var(--button-s-font-weight, var(--font-weight-400, 400));
+            letter-spacing: var(--button-s-letter-spacing, var(--letter-spacing-500, 0.5px));
+            border-width: var(--button-s-border-width, var(--button-border-width, 1px));
+            border-style: var(--button-s-border-style, solid);
+            border-radius: var(--button-s-border-radius, var(--radius-400, 8px));
+    
+            &>svg {
+                width: var(--button-s-icon-width, var(--size-300, 12px));
+                height: var(--button-s-icon-height, var(--size-300, 12px));
+            }
+    
+            &[data-content="text"] {
+                padding-top: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--button-s-padding-x, var(--button-s-padding, var(--padding-400, 16px)));
+                padding-right: var(--button-s-padding-x, var(--button-s-padding, var(--padding-400, 16px)));
+            }
+    
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-right: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
+            }
+    
+            &[data-content="icon-text"] {
+                padding-top: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-right: var(--button-s-padding-x, var(--button-s-padding, var(--padding-400, 16px)));
+            }
+    
+            &[data-content="text-icon"] {
+                padding-top: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--button-s-padding-x, var(--button-s-padding, var(--padding-400, 16px)));
+                padding-right: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
+            }
+    
+            &[data-content="icon"] {
+                padding-top: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
+                padding-right: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
+                width: 36px;
+                height: 36px;
+            }
+    
+            &:focus:before {
+                border-radius: calc(var(--button-s-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
+    
+        &[data-size="M"] {
+            font-size: var(--button-m-font-size, var(--size-400, 16px));
+            font-weight: var(--button-m-font-weight, var(--font-weight-400, 400));
+            border-width: var(--button-m-border-width, var(--button-border-width, 1px));
+            border-style: var(--button-m-border-style, solid);
+            border-radius: var(--button-m-border-radius, var(--radius-400, 8px));
+    
+            &>svg {
+                width: var(--button-m-icon-width, var(--size-400, 16px));
+                height: var(--button-m-icon-height, var(--size-400, 16px));
+            }
+    
+            &[data-content="text"] {
+                padding-top: var(--button-m-padding-y, var(--button-m-padding, calc(var(--padding-300, 12px) - var(--button-border-width))));
+                padding-bottom: var(--button-m-padding-y, var(--button-m-padding, calc(var(--padding-300, 12px) - var(--button-border-width))));
+                padding-left: var(--button-m-padding-x, var(--button-m-padding, var(--padding-400, 16px)));
+                padding-right: var(--button-m-padding-x, var(--button-m-padding, var(--padding-400, 16px)));
+            }
+    
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--button-m-padding-y, var(--button-m-padding, calc(var(--padding-300, 12px) - var(--button-border-width))));
+                padding-bottom: var(--button-m-padding-y, var(--button-m-padding, calc(var(--padding-300, 12px) - var(--button-border-width))));
+                padding-left: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
+                padding-right: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
+            }
+    
+            &[data-content="icon-text"] {
+                padding-top: var(--button-m-padding-y, var(--button-m-padding, calc(var(--padding-300, 12px) - var(--button-border-width))));
+                padding-bottom: var(--button-m-padding-y, var(--button-m-padding, calc(var(--padding-300, 12px) - var(--button-border-width))));
+                padding-left: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
+                padding-right: var(--button-m-padding-x, var(--button-m-padding, var(--padding-400, 16px)));
+            }
+    
+            &[data-content="text-icon"] {
+                padding-top: var(--button-m-padding-y, var(--button-m-padding, calc(var(--padding-300, 12px) - var(--button-border-width))));
+                padding-bottom: var(--button-m-padding-y, var(--button-m-padding, calc(var(--padding-300, 12px) - var(--button-border-width))));
+                padding-left: var(--button-m-padding-x, var(--button-m-padding, var(--padding-400, 16px)));
+                padding-right: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
+            }
+    
+            &[data-content="icon"] {
+                padding-top: var(--button-m-padding-y, var(--button-m-padding, var(--padding-300, 12px)));
+                padding-bottom: var(--button-m-padding-y, var(--button-m-padding, var(--padding-300, 12px)));
+                padding-left: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
+                padding-right: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
+                width: 44px;
+                height: 44px;
+            }
+    
+            &:focus:before {
+                border-radius: calc(var(--button-m-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
+    
+        &[data-size="L"] {
+            font-size: var(--button-l-font-size, var(--size-400, 16px));
+            font-weight: var(--button-l-font-weight, var(--font-weight-600, 600));
+            border-width: var(--button-l-border-width, var(--button-border-width, 1px));
+            border-style: var(--button-l-border-style, solid);
+            border-radius: var(--button-l-border-radius, var(--radius-400, 8px));
+    
+            &>svg {
+                width: var(--button-l-icon-width, var(--size-400, 16px));
+                height: var(--button-l-icon-height, var(--size-400, 16px));
+            }
+    
+            &[data-content="text"] {
+                padding-top: var(--button-l-padding-y, var(--button-l-padding, calc(var(--padding-400, 16px) - 1px)));
+                padding-bottom: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--button-l-padding-x, var(--button-l-padding, var(--padding-500, 20px)));
+                padding-right: var(--button-l-padding-x, var(--button-l-padding, var(--padding-500, 20px)));
+            }
+    
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-right: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
+            }
+    
+            &[data-content="icon-text"] {
+                padding-top: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-right: var(--button-l-padding-x, var(--button-l-padding, var(--padding-500, 20px)));
+            }
+    
+            &[data-content="text-icon"] {
+                padding-top: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--button-l-padding-x, var(--button-l-padding, var(--padding-500, 20px)));
+                padding-right: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
+            }
+    
+            &[data-content="icon"] {
+                padding-top: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
+                padding-right: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
+                width: 52px;
+                height: 52px;
+            }
+    
+            &:focus:before {
+                border-radius: calc(var(--button-l-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
+    
+        &[data-variant="primary"] {
+            background-color: var(--button-primary-background-default, transparent);
+            border-color: var(--button-primary-border-default, var(--primary-background-300));
+            color: var(--button-primary-text-default, var(--primary-text-400));
+
+            &:not(:disabled):hover {
+                background-color: var(--button-primary-background-hover, var(--primary-background-300));
+                border-color: var(--button-primary-border-hover, var(--primary-background-300));
+                color: var(--button-primary-text-hover, var(--primary-text-400));
+            }
+
+            &:not(:disabled):focus {
+                background-color: var(--button-primary-background-focus, transparent);
+                border-color: var(--button-primary-border-focus, var(--accent-brand-400));
+                color: var(--button-primary-text-focus, var(--primary-text-400));
+            }
+
+            &[data-selected="true"],
+            &[data-state="open"] {
+                background-color: var(--button-primary-background-selected, var(--primary-background-400));
+                border-color: var(--button-primary-border-selected, var(--primary-background-400));
+                color: var(--button-primary-text-selected, var(--primary-text-400));
+            }
+
+            &:disabled {
+                background-color: var(--button-primary-background-disabled, transparent);
+                border-color: var(--button-primary-border-disabled, var(--primary-background-300));
+                color: var(--button-primary-text-disabled, var(--primary-text-400));
+                opacity: var(--button-primary-opacity, 0.5);
+                cursor: default;
+            }
+        }
+    
+        &[data-variant="secondary"] {
+            background-color: var(--button-secondary-background-default, transparent);
+            border-color: var(--button-secondary-border-default, var(--secondary-background-300));
+            color: var(--button-secondary-text-default, var(--secondary-text-400));
+    
+            &:not(:disabled):hover {
+                background-color: var(--button-secondary-background-hover, var(--secondary-background-300));
+                border-color: var(--button-secondary-border-hover, var(--secondary-background-300));
+                color: var(--button-secondary-text-hover, var(--secondary-text-400));
+            }
+    
+            &:not(:disabled):focus {
+                background-color: var(--button-secondary-background-focus, transparent);
+                border-color: var(--button-secondary-border-focus, var(--accent-brand-400));
+                color: var(--button-secondary-text-focus, var(--secondary-text-400));
+            }
+    
+            &[data-selected="true"],
+            &[data-state="open"] {
+                background-color: var(--button-secondary-background-selected, var(--secondary-background-400));
+                border-color: var(--button-secondary-border-selected, var(--secondary-background-400));
+                color: var(--button-secondary-text-selected, var(--secondary-text-400));
+            }
+    
+            &:disabled {
+                background-color: var(--button-secondary-background-disabled, transparent);
+                border-color: var(--button-secondary-border-disabled, var(--secondary-background-300));
+                color: var(--button-secondary-text-disabled, var(--secondary-text-400));
+                opacity: var(--button-secondary-opacity, 0.5);
+                cursor: default;
+            }
+        }
+    }
+
     &[data-mode="text"] {
         background-color: transparent;
         border: none;
@@ -2277,7 +2508,7 @@
             }
         }
         @media only screen and (min-width: 768px) {
-            gap: var(--form-row-gap, var(--gap-400, 16px));
+            // gap: var(--form-row-gap, var(--gap-400, 16px));
             &[data-cols="2"] {
                 grid-template-columns: min-content minmax(260px, 480px);
                 padding-top: var(--form-row-padding-top, var(--padding-600, 24px));
