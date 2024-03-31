@@ -11,13 +11,14 @@
             display: flex;
             flex-direction: column;
             padding: var(--layout-auth-left-padding, var(--padding-600, 24px));
+            overflow-y: auto;
         }
         .layout-left {
             gap: var(--layout-left-gap, var(--gap-400, 16px));
             overflow-y: auto;
         }
         .layout-right {
-            flex-grow: 1;
+            flex: 1 1 0%;
             background-color: var(--layout-auth-right-background-color, var(--primary-background-100));
             border-radius: var(--layout-auth-right-border-radius, var(--radius-600, 12px)) var(--layout-auth-right-border-radius, var(--radius-600, 12px)) 0 0;
             box-shadow: 0px -8px 12px 4px rgba(0, 0, 0, 0.10);
