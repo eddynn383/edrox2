@@ -12,7 +12,12 @@ const DashboardLayout = async ({
 }) => {
     const session = await auth()
     const headersList = headers()
+
+    
     const viewport = headersList.get('x-viewport')
+    const device = headersList.get('x-device')
+    console.log("viewport: ", viewport)
+    console.log("device: ", device)
 
     return (
         <div className="layout layout--two-cols">

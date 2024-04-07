@@ -14,14 +14,20 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     padding?: Size;
+    radius?: Size;
+    gap?: Size;
 }
 
 export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
     padding?: Size;
+    radius?: Size;
+    gap?: Size;
 }
 
 export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
     padding?: Size;
+    radius?: Size;
+    gap?: Size;
 }
 
 export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {

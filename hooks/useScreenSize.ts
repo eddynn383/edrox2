@@ -1,6 +1,5 @@
 "use client"
 
-import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const useScreenSize = () => {
@@ -19,11 +18,11 @@ const useScreenSize = () => {
             console.log("After Load: ", screenSize)
         };
 
-        window.addEventListener("load resize", handleResize);
+        window.addEventListener("resize", handleResize);
         
         // Clean up the event listener when the component unmounts
         return () => {
-            window.removeEventListener("load resize", handleResize);
+            window.removeEventListener("resize", handleResize);
         };
         
     }, []);

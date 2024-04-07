@@ -45,7 +45,7 @@ export const NewPasswordForm = () => {
             <div className={msx["auth-inner"]}>
                 <Card variant="ghost" padding="0" radius="0" gap="600">
                     <CardHeader style={{"display": "flex", "flexDirection": "column", "gap": "8px"}}>                        
-                        <CardTitle rank={1}>Enter a new password</CardTitle>
+                        <CardTitle rank={2}>Enter a new password</CardTitle>
                         <CardDescription>Enter your new password below.</CardDescription>
                     </CardHeader>
                     {

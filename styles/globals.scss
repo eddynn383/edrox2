@@ -48,6 +48,7 @@ body {
 body {
     font-size: var(--body-font-size, var(--size-400, 16px));
     line-height: var(--body-line-height, 1.4);
+    color: var(--body-text-color, var(--primary-text-500));
 }
 
 button {
@@ -60,6 +61,7 @@ h1,
     font-weight: var(--h1-font-weight, 700);
     line-height: var(--h1-line-height, 1.2);
     letter-spacing: var(--h1-letter-spacing, 1px);
+    color: var(--h1-text-color, var(--primary-text-100));
 }
 
 h2,
@@ -68,6 +70,7 @@ h2,
     font-weight: var(--h2-font-weight, 700);
     line-height: var(--h2-line-height, 1.2);
     letter-spacing: var(--h2-letter-spacing, 1px);
+    color: var(--h2-text-color, var(--primary-text-100));
 }
 
 h3,
@@ -76,6 +79,7 @@ h3,
     font-weight: var(--h3-font-weight, 700);
     line-height: var(--h3-line-height, 1.2);
     letter-spacing: var(--h3-letter-spacing, 1px);
+    color: var(--h3-text-color, var(--primary-text-100));
 }
 
 h4,
@@ -84,6 +88,7 @@ h4,
     font-weight: var(--h4-font-weight, 700);
     line-height: var(--h4-line-height, 1.2);
     letter-spacing: var(--h4-letter-spacing, 1px);
+    color: var(--h4-text-color, var(--primary-text-100));
 }
 
 .flex {

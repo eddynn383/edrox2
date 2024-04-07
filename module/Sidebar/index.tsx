@@ -19,9 +19,11 @@ interface SidebarProps {
 export const Sidebar = ({user, device}: SidebarProps) => {
     const {state, handleState} = useContext(ToggleContext)
 
-    // const screen = useScreenSize()
-    // const w = screen.width
-    // const mobile = w < 1025 ? true : false
+    const deviceScreen = useScreenSize()
+    const deviceWidth = deviceScreen.width
+
+    const mobile = deviceWidth === 0 && device === "mobile" ? true : deviceWidth > 0 && deviceWidth < 768 ? true : false
+    const tablet = deviceWidth === 0 && device === "mobile" ? true : deviceWidth > 767 && deviceWidth < 1025 ? true : false
 
     const customAttrs = {
         "data-state": state ? "expanded" : "collapsed",
@@ -30,7 +32,7 @@ export const Sidebar = ({user, device}: SidebarProps) => {
     return ( 
         <>        
             {
-                device === "desktop" &&
+                !mobile && 
                 <aside className={msx["sidebar"]} data-device="web" {...customAttrs}>
                     <div className={msx["sidebar-content"]}>
                         <div className={msx["sidebar-header"]}>
@@ -54,7 +56,7 @@ export const Sidebar = ({user, device}: SidebarProps) => {
                 </aside>
             }
             {
-                device === "mobile" &&    
+                mobile &&    
                     <>
                         <aside className={msx["sidebar"]} data-device="mobile" {...customAttrs}>
                             <div className={msx["sidebar-overlay"]} onClick={handleState}/>

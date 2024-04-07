@@ -4,13 +4,13 @@ import { CardContentProps, CardDescriptionProps, CardFooterProps, CardHeaderProp
 import csx from "@/styles/component.module.scss";
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className=csx["card"], variant="primary", shade="100", padding="200", radius="200", gap="0", ...props }, ref) => (
-    <div ref={ref} className={className} data-variant={variant} data-shade={shade} data-padding={padding} data-radius={padding} data-gap={gap} {...props} />
+    <div ref={ref} className={className} data-variant={variant} data-shade={shade} data-padding={padding} data-radius={radius} data-gap={gap} {...props} />
 ))
 
 Card.displayName = "Card"
 
-const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(({ className = csx["card-header"], padding="0", ...props }, ref) => (
-    <div ref={ref} className={className} data-padding={padding} {...props} />
+const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(({ className = csx["card-header"], padding="0", radius="0", gap="0", ...props }, ref) => (
+    <div ref={ref} className={className} data-padding={padding} data-radius={radius} data-gap={gap} {...props} />
 ))
 
 CardHeader.displayName = "CardHeader"
@@ -43,15 +43,15 @@ const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionPr
 CardDescription.displayName = "CardDescription"
 
 
-const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(({ className = csx["card-content"], padding="0", ...props }, ref) => (
-    <div ref={ref} className={className} data-padding={padding} {...props} />
+const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(({ className = csx["card-content"], padding="0", radius="0", gap="0", ...props }, ref) => (
+    <div ref={ref} className={className} data-padding={padding} data-radius={radius} data-gap={gap} {...props} />
 ))
 
 CardContent.displayName = "CardContent"
 
 
-const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(({ className = csx["card-footer"], padding="0", ...props }, ref) => (
-    <div ref={ref} className={className} data-padding={padding} {...props} />
+const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(({ className = csx["card-footer"], padding="0", radius="0", gap="0", ...props }, ref) => (
+    <div ref={ref} className={className} data-padding={padding} data-radius={radius} data-gap={gap} {...props} />
 ))
 
 CardFooter.displayName = "CardFooter"

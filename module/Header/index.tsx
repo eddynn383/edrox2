@@ -19,35 +19,35 @@ const Header = ({ user, device, onLogout }: HeaderProps) => {
     const { state, handleState } = useContext(ToggleContext)
     // const params = useSearchParams()
 
-    // console.log(params.get("viewport"))
-    // const screen = useScreenSize()
-    // const w = screen.width
-    // const tablet = w < 1025 ? true : false
-    // const mobile = w < 769 ? true : false
+    const deviceScreen = useScreenSize()
+    const deviceWidth = deviceScreen.width
+
+    const mobile = deviceWidth === 0 && device === "mobile" ? true : deviceWidth > 0 && deviceWidth < 768 ? true : false
+    const tablet = deviceWidth === 0 && device === "mobile" ? true : deviceWidth > 767 && deviceWidth < 1025 ? true : false
 
     return (
         <div className={psx["header"]}>
             <div className={psx["header-left"]}>
                 {
-                    device === "mobile" &&
+                    mobile &&
                     <Button cn="toggle" type="button" size="M" content="icon" shade="100" name="Toggle Menu" title={state ? "Click to collapse" : "Click to expand"} onClick={handleState}>
                         <NavigationToggle state={state} />
                     </Button>
                 }
                 {
-                    device === "desktop" &&
+                    !mobile &&
                     <Logo src="/logo.svg" alt="logo" width={200} height={42} />
                 }
             </div>
             <div className={psx["header-center"]}>
                 {
-                    device === "mobile" &&
+                    mobile &&
                     <Logo src="/logo.svg" alt="logo" width={200} height={42} />
                 }
             </div>
             <div className={psx["header-right"]}>
                 {
-                    device === "desktop" && 
+                    !mobile && 
                     <>
                         <Button cn="toggle" type="button" size="M" content="icon" shade="100">
                             <ShoppingCart />

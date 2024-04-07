@@ -23,12 +23,12 @@ const CourseCard = async ({ data, layout = "columns", variant = "primary", shade
     // console.log("Course data: ", data)
 
     return (
-        <Card className={`${csx["card"]} ${csx["card--course"]}`} data-layout={layout} data-variant={variant} data-shade={shade}>
+        <Card className={`${csx["card"]} ${csx["card--course"]}`} variant={variant} shade={shade} padding="0" radius="200">
             <Link href={`/catalog/course/${data.id}`} >
                 <CardHeader>
                     <Cover src={image} alt={data.title} width={250} height={100} />
                 </CardHeader>
-                <CardContent>
+                <CardContent padding="300" gap="200">
                     <div className={csx["card-content-top"]}>
                         {data.category && <Badge>{data.category.name}</Badge>}
                         <Rating score={avgRating || 0} showRatings={false} />
@@ -49,7 +49,7 @@ const CourseCard = async ({ data, layout = "columns", variant = "primary", shade
                     </div>
                 
                 </CardContent>
-                <CardFooter>
+                <CardFooter padding="300">
                     <Button type="button">Add to cart</Button>
                 </CardFooter>
                 {/* <div className={csx["card-bottom"]}>

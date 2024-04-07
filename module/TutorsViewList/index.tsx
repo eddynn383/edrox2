@@ -1,6 +1,5 @@
 "use server"
 
-import { usePathname, useRouter } from "next/navigation";
 import { Cover, Rating } from "@/components";
 import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
 import msx from "@/styles/module.module.scss"
