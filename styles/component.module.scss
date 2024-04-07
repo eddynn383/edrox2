@@ -1842,7 +1842,7 @@
     &-view {
         position: relative;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: var(--chapter-view-gap, var(--gap-200, 8px));
         padding: var(--chapter-view-padding-y, var(--padding-400, 16px)) var(--chapter-view-padding-x, var(--padding-400, 16px));
         // border-style: var(--chapter-view-border-style, solid);
@@ -3698,7 +3698,7 @@
             position: absolute;
             top: 0;
             overflow: hidden;
-            z-index: 1;
+            // z-index: 1;
 
             .icon.icon {
                 justify-content: flex-start;

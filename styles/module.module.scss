@@ -607,14 +607,27 @@
 
         &-card {
             width: 100%;
+            position: relative;
+            z-index: 2;
             &-top {
                 display: flex;
                 flex-direction: column;
                 gap: var(--gap-400, 16px);
             }
             &-bottom {
-                display: none;
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 16px;
+                background-color: var(--primary-background-100);
+                border-top: 1px solid var(--primary-background-300);
+                z-index: 2;
             }
+        }
+
+        &-body {
+            padding-bottom: 92px !important;
         }
     }
 } 
