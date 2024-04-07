@@ -173,3 +173,14 @@ h4,
     white-space: nowrap;
     border-width: 0;
 }
+
+.loading-spinner {
+    animation: Rotate 1000ms linear infinite;
+}
+
+
+@keyframes Rotate {
+	to {
+		transform: rotate(360deg);
+	}
+}

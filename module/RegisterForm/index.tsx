@@ -135,7 +135,7 @@ export const RegisterForm = () => {
                                                 <Input
                                                     {...field}
                                                     mode="outline"
-                                                    placeholder="********"
+                                                    placeholder="••••••••"
                                                     type="password"
                                                     disabled={isPending}
                                                     status={passwordStatus}

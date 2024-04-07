@@ -14,11 +14,13 @@
             overflow-y: auto;
         }
         .layout-left {
+            flex: 1 1 auto;
             gap: var(--layout-left-gap, var(--gap-400, 16px));
             overflow-y: auto;
         }
         .layout-right {
-            flex: 1 1 0%;
+            flex-grow: 1;
+            justify-content: center;
             background-color: var(--layout-auth-right-background-color, var(--primary-background-100));
             border-radius: var(--layout-auth-right-border-radius, var(--radius-600, 12px)) var(--layout-auth-right-border-radius, var(--radius-600, 12px)) 0 0;
             box-shadow: 0px -8px 12px 4px rgba(0, 0, 0, 0.10);
@@ -49,6 +51,24 @@
             background-color: var(--layout-auth-background-color, var(--primary-background-100));
             .layout-left {
                 max-width: 380px;
+                background-color: var(--layout-auth-left-background-color, var(--accent-brand-400));
+                border-radius: var(--layout-auth-right-border-radius, var(--radius-800, 16px));
+                justify-content: space-between;
+            }
+            .layout-right {
+                box-shadow: none;
+            }
+        }
+        @media only screen and (max-width: 768px) and (orientation: landscape) {
+            flex-direction: row;
+            padding: var(--layout-auth-padding, var(--padding-400, 16px));
+            background-color: var(--layout-auth-background-color, var(--primary-background-100));
+
+            .layout-left,
+            .layout-right {
+                width: 50%;
+            }
+            .layout-left {
                 background-color: var(--layout-auth-left-background-color, var(--accent-brand-400));
                 border-radius: var(--layout-auth-right-border-radius, var(--radius-800, 16px));
                 justify-content: space-between;
