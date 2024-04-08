@@ -44,7 +44,7 @@ export const Sidebar = ({user, device}: SidebarProps) => {
                             <NavigationMenu data={learnerMenu} state={state} />
                             {user?.role === "ADMIN" && 
                                 <>
-                                    <span className={msx["sidebar_separator"]}></span>
+                                    <span className={msx["sidebar-separator"]}></span>
                                     <NavigationMenu data={adminMenu} state={state} />
                                 </>
                             }

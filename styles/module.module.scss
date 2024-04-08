@@ -3,8 +3,8 @@
     --sidebar-header-padding: var(--padding-400, 16px);
     --sidebar-body-padding: var(--padding-400, 16px);
     --sidebar-footer-padding: var(--padding-400, 16px);
-    height: 100%;
-    transition: width .3s ease-in-out;
+    height: 100dvh;
+    transition: width .3s ease-in-out, height .3s ease-in-out;
     overflow: hidden;
 
     &-content {
@@ -42,8 +42,6 @@
     &[data-state="expanded"] {
         width: 224px;
     }
-
-
 
     @media only screen and (min-width: 1920px) {
         &[data-state="expanded"] {
