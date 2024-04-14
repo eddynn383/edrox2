@@ -279,7 +279,7 @@ export const coursesColsMobile: ColumnDef<Course>[] = [
         header: () => <span>Title</span>,
         cell: ({ row }) => {
             const title: string = row.getValue("title")
-            return <span>{title}</span>
+            return <span className={csx["course-title"]}>{title}</span>
         }
     },
     {

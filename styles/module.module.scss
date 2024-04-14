@@ -282,6 +282,15 @@
         height: 100%;
         padding: var(--data-table-padding-y, 0) var(--data-table-padding-x, var(--padding-600, 24px));
         overflow: hidden;
+        
+        &-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--data-table-list-gap, var(--gap-300, 12px));
+            list-style: none;
+            padding: 0;
+        }   
+        
     }
 
     &-pagination {

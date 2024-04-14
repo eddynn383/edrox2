@@ -8,23 +8,22 @@ import {
     getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { DataTable } from "../DataTable";
+import { DataTable, DataTableMobile } from "../DataTable";
 import { DataToolbar } from "../DataToolbar";
 import { coursesColsDesktop, coursesColsMobile } from "@/lib/table-headers";
 import { CoursesManagerProps } from "./interface";
 import { DataPagination } from "../DataPagination";
-import { Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components";
+import { Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, ScrollArea } from "@/components";
 import { Plus } from "lucide-react";
 import CourseCreationForm from "../CourseCreationForm";
 import useScreenSize from "@/hooks/useScreenSize";
+import msx from "@/styles/module.module.scss"
 
 const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
     const [open, setOpen] = useState(false)
 
     const deviceScreen = useScreenSize()
     const deviceWidth = deviceScreen.width
-
-    console.log("Device Screen: ", deviceScreen)
 
     const desktop = deviceWidth >= 1024 ? true : false
 
@@ -149,7 +148,11 @@ const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
                     // </>                       
                 }    
             />
-            <DataTable table={table} columns={device !== "mobile" ? coursesColsDesktop : coursesColsMobile} />
+            {desktop && <DataTable table={table} columns={device !== "mobile" ? coursesColsDesktop : coursesColsMobile} />}
+            {
+                !desktop && <DataTableMobile table={table} columns={coursesColsMobile}/>
+                
+            }
             <DataPagination table={table} />
         </>
     );

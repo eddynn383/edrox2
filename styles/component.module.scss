@@ -2031,6 +2031,16 @@
 
 
 
+/* ==============COURSE=============== */
+
+.course {
+    &-title {
+        white-space: nowrap;
+    }
+}
+
+ 
+
 /* ==============COVER=============== */
 
 .cover {
@@ -3355,7 +3365,7 @@
         display: flex;
         border-width: var(--select-trigger-border-width, 1px);
         border-style: var(--select-trigger-border-style, solid);
-        min-width: 160px;
+        min-width: 60px;
         &:focus {
             outline: none;
         }
@@ -3381,7 +3391,7 @@
             line-height: var(--select-trigger-s-line-height, 20px);
             border-width: var(--select-trigger-s-border-width, var(--select-trigger-border-width, 1px));
             border-style: var(--select-trigger-s-border-style, solid);
-            border-radius: var(--select-trigger-s-border-radius, var(--radius-200, 4px));
+            border-radius: var(--select-trigger-s-border-radius, var(--radius-400, 8px));
             padding-top: var(--select-trigger-s-padding-top, calc(var(--padding-200, 8px) - var(--select-trigger-border-width)));
             padding-bottom: var(--select-trigger-s-padding-bottom, calc(var(--padding-200, 8px) - var(--select-trigger-border-width)));
             padding-left: var(--select-trigger-s-padding-left, var(--padding-200, 8px));

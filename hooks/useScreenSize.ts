@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { undefined } from "zod";
 
 const useScreenSize = () => {
     const [screenSize, setScreenSize] = useState({
-        width: 0,
-        height: 0
+        width: window.innerWidth,
+        height: window.innerHeight
     });
 
     useEffect(() => {
