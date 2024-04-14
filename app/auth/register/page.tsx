@@ -1,8 +1,11 @@
 import { RegisterForm } from "@/module/RegisterForm";
+import { Suspense } from "react";
 
 const RegisterPage = () => {
     return (
-        <RegisterForm />
+        <Suspense fallback="loading register form...">
+            <RegisterForm />
+        </Suspense>
     );
 }
 

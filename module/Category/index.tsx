@@ -2,7 +2,7 @@ import { Badge, ScrollArea, ScrollBar } from "@/components";
 import { CategoryProps, Category } from "./interface";
 import sx from "@/styles/module.module.scss"
 
-const Category = ({ data, current }: CategoryProps) => {
+const Categories = ({ data, current }: CategoryProps) => {
 
     return ( 
         <div className={sx["category-filter"]}>
@@ -29,4 +29,4 @@ const Category = ({ data, current }: CategoryProps) => {
     );
 }
  
-export default Category;
+export default Categories;

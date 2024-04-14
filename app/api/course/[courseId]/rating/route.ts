@@ -21,10 +21,10 @@ export async function POST(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const alreadyExists = await prisma.rating.findFirst({
+        const alreadyExists = await prisma.ratingsOnCourses.findFirst({
             where: {
-                courseId: courseId,
-                userId: session.user.id
+                courseId,
+                userId: user.id
             }
         })
 
@@ -35,9 +35,9 @@ export async function POST(request: Request, { params }: paramsType) {
         }
 
         // console.log("dataBeforeSave: ", body)
-        const rating = await prisma.rating.create({
+        const rating = await prisma.ratingsOnCourses.create({
             data: {
-                courseId: courseId,
+                courseId,
                 userId: user.id as string,
                 rating: body.rating,
                 title: body.title,
@@ -48,7 +48,7 @@ export async function POST(request: Request, { params }: paramsType) {
         // console.log("SAVED RATING: ", rating)
         return Response.json(rating)
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
@@ -60,7 +60,7 @@ export async function PATCH(request: Request, { params }: paramsType) {
         const body = await request.json()
         const { courseId } = params
         
-        const rating = await prisma.rating.updateMany({
+        const rating = await prisma.ratingsOnCourses.updateMany({
             where: {
                 courseId,
                 userId: user?.id,
@@ -68,7 +68,7 @@ export async function PATCH(request: Request, { params }: paramsType) {
             data: body
         })
 
-        const avgRating = await prisma.rating.aggregate({
+        const avgRating = await prisma.ratingsOnCourses.aggregate({
             _avg: {
                 rating: true
             },

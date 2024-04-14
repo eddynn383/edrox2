@@ -20,8 +20,8 @@ export async function POST(request: Request) {
                 description: res.description,
                 image: res.image,
                 categoryId: res.categoryId,
-                price: res.price,
                 level: res.level,
+                isPublished: res.isPublished,
                 createdById: user.id as string,
             }
         })

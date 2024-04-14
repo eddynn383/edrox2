@@ -433,7 +433,7 @@
         display: flex;
         flex-direction: column;
         gap: var(--course-details-body-gap, var(--gap-400, 16px));
-        padding: var(--course-details-body-padding-y, var(--padding-400, 16px)) var(--course-details-body-padding-x, var(--padding-400, 16px));
+        padding: var(--course-details-body-padding-y, var(--padding-400, 16px)) var(--course-details-body-padding-x, var(--padding-600, 24px));
     }
 
     &-card {
@@ -574,6 +574,7 @@
 
     @media only screen and (max-width: 1024px) {
         &-body {
+            padding: var(--course-details-body-padding-y, var(--padding-400, 16px)) var(--course-details-body-padding-x, var(--padding-400, 16px));
             .course-details-card-metadata {
                 display: block;
                 &-list {
@@ -660,6 +661,22 @@
         display: flex;
         flex-direction: column;
         gap: var(--metadata-content-gap, var(--gap-300, 12px));
+    }
+}
+
+.chapter {
+    &-details {
+        &-header {
+            display: flex;
+            flex-direction: column;
+            gap: var(--chapter-details-header-gap, var(--300, 12px));
+        }
+        &-body {
+            display: flex;
+            flex-direction: column;
+            gap: var(--chapter-details-body-gap, var(--300, 12px));
+            padding: var(--chapter-details-body-padding-y, var(--padding-400, 16px)) var(--chapter-details-body-padding-x, var(--padding-600, 24px));
+        }
     }
 }
 

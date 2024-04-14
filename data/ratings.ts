@@ -10,7 +10,7 @@ type RatingBody = {
     comment?: string;
 };
 
-export const setRating = async (body: RatingBody, courseId: string) => {
+export const setRatingOnCourse = async (body: RatingBody, courseId: string) => {
     try {
 
         const session = await auth()
@@ -22,9 +22,9 @@ export const setRating = async (body: RatingBody, courseId: string) => {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const rating = await prisma.rating.create({
+        const rating = await prisma.ratingsOnCourses.create({
             data: {
-                courseId: courseId,
+                courseId,
                 userId: user.id as string,
                 rating: body.rating,
                 title: body.title,
@@ -32,25 +32,54 @@ export const setRating = async (body: RatingBody, courseId: string) => {
             }
         })
 
-        const avgRating = await prisma.rating.aggregate({
-            _avg: {
-                rating: true
-            },
-            where: {
-                courseId
-            }
-        })
+        // const avgRating = await prisma.ratingsOnCourses.aggregate({
+        //     _avg: {
+        //         rating: true
+        //     },
+        //     where: {
+        //         courseId
+        //     }
+        // })
 
-        const avgRatingData = avgRating._avg.rating
+        // const avgRatingData = avgRating._avg.rating
 
-        console.log("AVG Rating: ", avgRatingData)
+        // console.log("AVG Rating: ", avgRatingData)
 
-        await prisma.course.update({
-            where: {
-                id: courseId
-            },
+        // await prisma.course.update({
+        //     where: {
+        //         id: courseId
+        //     },
+        //     data: {
+        //         avgRating: avgRatingData
+        //     }
+        // })
+
+        return rating
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
+
+export const setRatingOnTutor = async (body: RatingBody, tutorId: string) => {
+    try {
+
+        const session = await auth()
+        const user = session?.user
+        console.log({ body })
+        console.log(tutorId)
+
+        if (!user) {
+            return new NextResponse("Unauthorized", { status: 401 })
+        }
+
+        const rating = await prisma.ratingsOnTutors.create({
             data: {
-                avgRating: avgRatingData
+                tutorId,
+                userId: user.id as string,
+                rating: body.rating,
+                title: body.title,
+                comment: body.comment
             }
         })
 
@@ -61,11 +90,22 @@ export const setRating = async (body: RatingBody, courseId: string) => {
     }
 }
 
-export const getAllRatings = async () => {
+export const getAllCoursesRatings = async () => {
     try {
-        const rating = await prisma.rating.findMany()
+        const ratings = await prisma.ratingsOnCourses.findMany()
 
-        return rating
+        return ratings
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
+
+export const getAllTutorsRatings = async () => {
+    try {
+        const ratings = await prisma.ratingsOnTutors.findMany()
+
+        return ratings
     } catch (error) {
         console.log(error)
         return null;
@@ -74,9 +114,24 @@ export const getAllRatings = async () => {
 
 export const getRatingByCourseId = async (courseId: string) => {
     try {
-        const rating = await prisma.rating.findMany({
+        const rating = await prisma.ratingsOnCourses.findMany({
             where: {
                 courseId
+            }
+        })
+
+        return rating
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
+
+export const getRatingByTutorId = async (tutorId: string) => {
+    try {
+        const rating = await prisma.ratingsOnTutors.findMany({
+            where: {
+                tutorId
             }
         })
 
@@ -91,7 +146,7 @@ export const getCourseRatingAvg = async (courseId: string) => {
     try {
 
 
-        const ratingAvg = await prisma.rating.aggregate({
+        const ratingAvg = await prisma.ratingsOnCourses.aggregate({
             _avg: {
                 rating: true
             },
@@ -114,7 +169,7 @@ export const getCourseRatingAvg = async (courseId: string) => {
 export const getTutorRatingAvg = async (tutorId: string) => {
     try {
 
-        const ratingAvg = await prisma.rating.aggregate({
+        const ratingAvg = await prisma.ratingsOnTutors.aggregate({
             _avg: {
                 rating: true
             },
@@ -138,7 +193,7 @@ export const getCourseRatingCount = async (courseId: string) => {
     try {
 
 
-        const ratingAvg = await prisma.rating.aggregate({
+        const ratingAvg = await prisma.ratingsOnCourses.aggregate({
             _count: {
                 rating: true
             },
@@ -161,7 +216,7 @@ export const getCourseRatingCount = async (courseId: string) => {
 export const getTutorRatingCount = async (tutorId: string) => {
     try {
 
-        const ratingAvg = await prisma.rating.aggregate({
+        const ratingAvg = await prisma.ratingsOnTutors.aggregate({
             _count: {
                 rating: true
             },
@@ -184,7 +239,7 @@ export const getTutorRatingCount = async (tutorId: string) => {
 export const updateCourseRating = async ( userId: string, courseId: string, data: any) => {
     try {
 
-        const rating = await prisma.rating.updateMany({
+        const rating = await prisma.ratingsOnCourses.updateMany({
             where: {
                 courseId,
                 userId,
@@ -192,7 +247,7 @@ export const updateCourseRating = async ( userId: string, courseId: string, data
             data
         })
 
-        const avgRating = await prisma.rating.aggregate({
+        const avgRating = await prisma.ratingsOnCourses.aggregate({
             _avg: {
                 rating: true
             },
@@ -208,6 +263,46 @@ export const updateCourseRating = async ( userId: string, courseId: string, data
         await prisma.course.update({
             where: {
                 id: courseId
+            },
+            data: {
+                avgRating: avgRatingData
+            }
+        })
+
+        return rating
+
+    } catch (error) {
+        return null
+    }
+}
+
+export const updateTutorRating = async ( userId: string, tutorId: string, data: any) => {
+    try {
+
+        const rating = await prisma.ratingsOnTutors.updateMany({
+            where: {
+                tutorId,
+                userId,
+            },
+            data
+        })
+
+        const avgRating = await prisma.ratingsOnTutors.aggregate({
+            _avg: {
+                rating: true
+            },
+            where: {
+                tutorId
+            }
+        })
+
+        const avgRatingData = avgRating._avg.rating
+
+        console.log("AVG Rating: ", avgRatingData)
+
+        await prisma.tutor.update({
+            where: {
+                id: tutorId
             },
             data: {
                 avgRating: avgRatingData

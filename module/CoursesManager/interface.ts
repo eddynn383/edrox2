@@ -1,6 +1,7 @@
 export interface CoursesManagerProps {
     courses: any;
     categories: any;
+    device: string;
 }
 
 // import { ColumnDef } from "@tanstack/react-table";

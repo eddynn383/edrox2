@@ -42,7 +42,11 @@ export const getAllCourses = async () => {
             include: {
                 price: true,
                 chapters: true,
-                tutors: true
+                tutors: {
+                    include: {
+                        tutors: true
+                    }
+                }
             }
         })
     
@@ -77,7 +81,7 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
                     }
                 },
                 tutors: true,
-                ratings: true,
+                ratings: true
             },
             orderBy: {
                 createdAt: 'asc',
@@ -106,10 +110,14 @@ export const getCourseById = async (id: string) => {
                     where: {
                         isPublished: true,
                     },
+                    orderBy: {
+                        position: "asc",
+                    },
                 },
                 tutors: {
                     select: {
-                        tutorId: true
+                        tutorId: true,
+                        tutors: true
                     }
                 }
             }

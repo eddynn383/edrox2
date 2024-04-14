@@ -8,6 +8,7 @@ import { RegisterSchema } from "@/schemas"
 import { getUserByEmail } from "@/data/user"
 import { generateVerificationToken } from "@/lib/tokens"
 import { sendVerificationEmail } from "@/lib/mail"
+import { setTutor } from "@/data/tutors"
 
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
@@ -15,7 +16,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
     if (!validatedFields.success) return { error: "Invalid fields!" }
 
-    const {name, email, password} = validatedFields.data
+    const {role, name, email, password} = validatedFields.data
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -27,13 +28,19 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         return { error: "The email is taken!" }
     }
 
-    await prisma.user.create({
+    const user = await prisma.user.create({
         data: {
+            role,
             name,
             email,
             password: hashedPassword
         }
     })
+
+    if (user.role === "ADMIN" || user.role === "TUTOR") {
+        console.log("start tutor Creation")
+        await setTutor(user)
+    }
 
     const verificationToken = await generateVerificationToken(email)
 

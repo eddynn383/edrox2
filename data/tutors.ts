@@ -7,34 +7,45 @@ type GetCourses = {
     categoryId?: string;
 };
 
-export const setTutor = async (body: any, courseId: string) => {
+export const setTutor = async (body: any) => {
     try {
-
-        const session = await auth()
-        const user = session?.user
-        console.log({ body })
-        console.log(courseId)
-
-        if (!user) {
-            return new NextResponse("Unauthorized", { status: 401 })
-        }
 
         const tutor = await prisma.tutor.create({
             data: {
                 name: body.name,   
                 image: body.image,   
-                userId: body.userId,
+                userId: body.id,
             }
         })
 
-        // const course = await prisma.course.update({
-        //     where: {
-        //         id: courseId
-        //     },
-        //     data: {
-        //         tutors: tutor
-        //     }
-        // })
+        console.log("NEW TUTOR: ", tutor)
+
+        return tutor
+    } catch (error) {
+        console.log(error)
+        return null;
+    }
+}
+
+export const setTutorOnCourse = async (tutorId: any, courseId: string) => {
+    try {
+
+        const session = await auth()
+        const user = session?.user
+
+        if (!user) {
+            return new NextResponse("Unauthorized", { status: 401 })
+        }
+
+        const tutor = await prisma.tutorsOnCourses.create({
+            data: {
+                tutorId,
+                courseId,
+                assignedBy: user.id as string
+            }
+        })
+
+        console.log("NEW TUTOR ON COURSE: ", tutor)
 
         return tutor
     } catch (error) {
@@ -54,24 +65,9 @@ export const getAllTutors = async () => {
     }
 }
 
-export const getTutorByCourseId = async (courseId: string) => {
-    try {
-        const tutor = await prisma.tutorsOnCourses.findMany({
-            where: {
-                courseId
-            }
-        })
-
-        return tutor
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
-
 export const getTutorById = async (id: string) => {
     try {
-        const ratingAvg = await prisma.rating.aggregate({
+        const ratingAvg = await prisma.ratingsOnTutors.aggregate({
             _avg: {
                 rating: true
             },
@@ -80,7 +76,7 @@ export const getTutorById = async (id: string) => {
             }
         })
 
-        const ratingCount = await prisma.rating.aggregate({
+        const ratingCount = await prisma.ratingsOnTutors.aggregate({
             _count: {
                 rating: true
             },

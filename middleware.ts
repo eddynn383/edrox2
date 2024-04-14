@@ -9,18 +9,16 @@ import { DeviceContext } from './providers/deviceProvider';
 
 const { auth: middleware } = NextAuth(authConfig);
 
-
 export default middleware((req) => {
     const { nextUrl } = req;
     const { device } = userAgent(req)
+    const isMobile = device.type === 'mobile' 
     const viewport = device.type === 'mobile' ? 'mobile' : 'desktop'
-    const newHeaders = new Headers(req.headers)
-
-    newHeaders.set('x-viewport', viewport)
+    nextUrl.searchParams.set('viewport', viewport)
 
     const isLoggedIn = !!req.auth;
 
-    // console.log("Is Logged In: ", isLoggedIn)
+    console.log("IS MOBILE: ", isMobile)
     // console.log("Next URL: ", nextUrl)
 
 
@@ -55,11 +53,14 @@ export default middleware((req) => {
         return NextResponse.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl))
     }
 
-    return NextResponse.next({
-        request: {
-            headers: newHeaders,
-        },
-    })
+    // return NextResponse.next({
+    //     request: {
+    //         headers: newHeaders,
+    //     },
+    // })
+    if (isMobile) {
+        return NextResponse.rewrite(nextUrl)
+    }
 });
 
 // Optionally, don't invoke Middleware on some paths

@@ -37,6 +37,8 @@ import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, Tabl
 import { Text } from "./Text";
 import { Textarea } from "./Textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue } from "./Select";
+import { Playlist } from "./Playlist";
+import { PlaylistToggle } from "./PlaylistToggle";
 
 export {
     Alert,
@@ -123,6 +125,8 @@ export {
     NavigationMenuItem,
     NavigationToggle,
     PageTitle,
+    Playlist,
+    PlaylistToggle,
     Profile,
     Progress,
     RadioGroup,

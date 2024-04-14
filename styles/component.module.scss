@@ -271,6 +271,10 @@
                 color: var(--breadcrumb-page-text-default, var(--primary-text-600));
                 text-decoration: none;
                 transition: color .3s ease-in-out;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+                display: -webkit-box;
                 &:hover {
                     color: var(--breadcrumb-page-text-hover, var(--primary-text-100));
                 }
@@ -281,6 +285,7 @@
             }
             .breadcrumb-page {
                 color: var(--breadcrumb-page-text-color, var(--primary-text-100));
+                white-space: nowrap;
             }
             &-separator {
                 display: flex;
@@ -2398,9 +2403,20 @@
             &>a,
             &>span,
             &>.button[data-variant="link"] {
+                display: flex;
+                align-items: center;
+                gap: var(--dropdown-menu-item-gap, var(--gap-200, 8px));
                 padding: var(--dropdown-menu-item-padding-y, var(--padding-300)) var(--dropdown-menu-item-padding-x, var(--padding-400));
-                color: var(--dropdown-menu-item-color, var(--primary-text-400));
+                color: var(--dropdown-menu-item-color, var(--primary-text-500));
                 text-decoration: none;
+                &>svg {
+                    width: var(--dropdown-menu-item-icon-width, var(--size-400, 16px));
+                    height: var(--dropdown-menu-item-icon-height, var(--size-400, 16px));
+                }
+                &:hover {
+                    color: var(--dropdown-menu-item-color, var(--primary-text-100));
+                    transition: color .3s ease-in-out;
+                }
             }
 
             &>svg {
@@ -2517,6 +2533,49 @@
         display: grid;
         gap: var(--form-row-gap, var(--gap-200, 8px));
         align-items: flex-start;
+
+        &--radiobox {
+            display: flex;
+            align-items: center;
+            gap: var(--form-radiobox-gap, var(--gap-300, 12px));
+            padding: var(--form-radiobox-padding, var(--padding-600, 24px));
+            border-width: var(--form-radiobox-border-width, 1px);
+            border-style: var(--form-radiobox-border-style, solid);
+            border-color: var(--form-radiobox-border-default, var(--primary-background-300));
+            border-radius: var(--form-radiobox-border-radius, var(--radius-600, 12px));
+            width: 100%;
+            .radiobox {
+                &[data-mode=outline] {
+                    &[data-shade="200"] {
+                        border-color: var(--form-radiobox-input-border-default, var(--primary-background-300));
+                        background-color: var(--form-radiobox-input-background-default, var(--primary-background-100));
+                    }
+                }
+            }
+            &[data-selected="true"] {
+                border-color: var(--form-radiobox-border-selected, var(--accent-brand-400));
+                color: var(--form-radiobox-text-selected, var(--accent-brand-400));
+                position: relative;
+                overflow: hidden;
+                z-index: 1;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    background-color: var(--form-radiobox-background-selected, var(--accent-brand-400));
+                    opacity: 0.1;
+                    z-index: -1;
+                }
+                .radiobox {
+                    &[data-mode=outline] {
+                        &[data-shade="200"] {
+                            border-color: var(--form-radiobox-input-border-selected, var(--accent-brand-400));
+                            background-color: var(--form-radiobox-input-background-selected, var(--primary-background-100));
+                        }
+                    }
+                }
+            }
+        }
 
         &-items {
             display: flex;
@@ -3053,22 +3112,47 @@
         &-item {
             border-bottom: 1px solid var(--playlist-list-item-border-color, var(--primary-background-200));
             padding: var(--playlist-list-item-padding, var(--padding-400, 16px));
+            cursor: pointer;
+            &:hover {
+                // border-color: var(--playlist-list-item-border-hover, var(--primary-background-300));
+                background-color: var(--playlist-list-item-background-hover, var(--primary-background-200));
+                color: var(--playlist-list-item-text-hover, var(--primary-text-400));
+            }
         }
     }
 
-    .playlist-chapter {
+    &-chapter {
         display: flex;
         gap: var(--playlist-chapter-gap, var(--gap-200, 8px));
-    }
-
-    .chapter-status {
-        & > svg {
-            width: var(--chapter-status-width, var(--size-400, 16px));
-            height: var(--chapter-status-height, var(--size-400, 16px));
+        text-decoration: none;
+        color: var(--playlist-chapter-text-default, var(--primary-text-400));
+        &-status {
+            display: flex;
+            padding: var(--playlist-chapter-status-padding, var(--padding-100, 4px));
+            &[data-status="completed"] {
+                color: var(--playlist-chapter-status-completed, var(--accent-success-400));
+            }
+            &[data-status="in-progress"] {
+                color: var(--playlist-chapter-status-progress, var(--accent-warning-400));
+            }
+            &[data-status="not-started"] {
+                color: var(--playlist-chapter-status-not-started, var(--primary-text-600));
+            }
+            & > svg {
+                width: var(--chapter-status-width, var(--size-400, 16px));
+                height: var(--chapter-status-height, var(--size-400, 16px));
+            }
+        }
+        &-title {
+            flex-grow: 1;
+        }
+        &-duration {
+            flex-shrink: 0;
         }
     }
 
-    .chapter-title {
+
+    &-title {
         flex: 1 1 0%;
     }
 }
@@ -3100,6 +3184,7 @@
     border-radius: var(--radiobox-border-radius, var(--radius-500, 10px));
     border-width: var(--radiobox-border-width, 1px);
     border-style: var(--radiobox-border-style, solid);
+    cursor: pointer;
 
     &[data-mode="solid"] {
         &[data-shade="100"] {

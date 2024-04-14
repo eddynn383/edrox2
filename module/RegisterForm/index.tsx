@@ -8,20 +8,23 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterSchema } from "@/schemas"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/Form"
 import { Social } from "../Social"
-import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input } from "@/components"
+import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input, Label, RadioGroup, RadioGroupItem } from "@/components"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
 import { register } from "@/actions/register"
 import Link from "next/link"
+import { Loader2Icon } from "lucide-react"
 
 export const RegisterForm = () => {
     const [isPending, startTransition] = useTransition();
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
 
     const form = useForm<z.infer<typeof RegisterSchema>>({
         resolver: zodResolver(RegisterSchema),
         defaultValues: {
+            role: "LEARNER",
             name: "",
             email: "",
             password: ""
@@ -39,13 +42,15 @@ export const RegisterForm = () => {
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         setError("");
         setSuccess("")
-
+        setLoading(true)
+        console.log("values:: ", values)
         startTransition(() => {
             register(values).then((data) => {
                 setError(data.error)
                 setSuccess(data.success)
             })
         })
+        setLoading(false)
     }
     return (
         <div className={msx["auth"]}>
@@ -78,6 +83,34 @@ export const RegisterForm = () => {
 
                         <Form {...form}>
                             <form className={csx["form"]} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
+                                <FormField
+                                    control={form.control}
+                                    name="role"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <div className="flex gap-4 justify-content-between">
+                                                <FormLabel className="sr-only">Role</FormLabel>
+                                                <FormMessage icon="alert-triangle" />
+                                            </div>
+                                            <FormControl>
+                                                <RadioGroup orientation="horizontal" onValueChange={field.onChange} defaultValue={field.value}>
+                                                    <FormItem className={csx["form-row--radiobox"]} data-selected={field.value === "LEARNER"}>
+                                                        <FormControl>
+                                                            <RadioGroupItem value="LEARNER" mode="outline" shade="200"/>
+                                                        </FormControl>
+                                                        <FormLabel>Learner</FormLabel>
+                                                    </FormItem>
+                                                    <FormItem className={csx["form-row--radiobox"]} data-selected={field.value === "TUTOR"}>
+                                                        <FormControl>
+                                                            <RadioGroupItem value="TUTOR" mode="outline" shade="200"/>
+                                                        </FormControl>
+                                                        <FormLabel>Tutor</FormLabel>
+                                                    </FormItem>
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </FormItem>
+                                    )}
+                                />
                                 <FormField
                                     control={form.control}
                                     name="name"
@@ -144,7 +177,10 @@ export const RegisterForm = () => {
                                         </FormItem>
                                     )}
                                 />
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">Create an account</Button>
+                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">
+                                    {loading && <Loader2Icon className="loading-spinner"/>} 
+                                    Create an account
+                                </Button>
                             </form>
                         </Form>
                     </CardContent>

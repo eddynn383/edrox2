@@ -21,7 +21,7 @@ export async function POST(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const alreadyExists = await prisma.rating.findFirst({
+        const alreadyExists = await prisma.ratingsOnTutors.findFirst({
             where: {
                 tutorId,
                 userId: session.user.id
@@ -35,7 +35,7 @@ export async function POST(request: Request, { params }: paramsType) {
         }
 
         console.log("dataBeforeSave: ", body)
-        const rating = await prisma.rating.create({
+        const rating = await prisma.ratingsOnTutors.create({
             data: {
                 tutorId,
                 userId: user.id as string,
@@ -49,6 +49,49 @@ export async function POST(request: Request, { params }: paramsType) {
         return Response.json(rating)
     } catch (error) {
         console.log(error)
+        return new NextResponse("Internal Error", { status: 500 })
+    }
+}
+
+export async function PATCH(request: Request, { params }: paramsType) {
+    try {
+        const session = await auth()
+        const user = session?.user
+        const body = await request.json()
+        const { tutorId } = params
+        
+        const rating = await prisma.ratingsOnTutors.updateMany({
+            where: {
+                tutorId,
+                userId: user?.id,
+            },
+            data: body
+        })
+
+        const avgRating = await prisma.ratingsOnTutors.aggregate({
+            _avg: {
+                rating: true
+            },
+            where: {
+                tutorId
+            }
+        })
+
+        const avgRatingData = avgRating._avg.rating
+
+        console.log("AVG Rating: ", avgRatingData)
+
+        await prisma.tutor.update({
+            where: {
+                id: tutorId
+            },
+            data: {
+                avgRating: avgRatingData
+            }
+        })
+
+        return Response.json(rating)
+    } catch (error) {
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

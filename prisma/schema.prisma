@@ -14,7 +14,8 @@ datasource db {
 
 enum UserRole {
   ADMIN
-  USER
+  TUTOR
+  LEARNER
 }
 
 model User {
@@ -30,7 +31,7 @@ model User {
   //Interests           Interests[]
   //Hobbies             Hobbies[]
 
-  role                  UserRole               @default(USER)
+  role                  UserRole               @default(LEARNER)
   emailVerified         DateTime?
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
@@ -45,8 +46,11 @@ model User {
   coursesEnrolled  Enrollment[]
   coursesPurchased Purchase[]
   courseProgress   UserProgress[]
-  ratings          Rating[]
+  // ratings          Rating[]
+  ratingsOnCourses RatingsOnCourses[]
+  ratingsOnTutors  RatingsOnTutors[]
   tutor            Tutor?
+  // tutor2           Tutor2[]
   superId          String?
 }
 
@@ -152,11 +156,13 @@ model Course {
   // catalogs    Catalog[]  
   metadata    Metadata[]
   tutors      TutorsOnCourses[]
+  // tutors      Tutor[]
   chapters    Chapter[]
   attachments Attachment[]
   purchases   Purchase[]
   enrollments Enrollment[]
-  ratings     Rating[]
+  // ratings     Rating[]
+  ratings      RatingsOnCourses[]
 
   @@index([categoryId])
   @@map("Courses")
@@ -191,16 +197,24 @@ model Metadata {
 }
 
 model Tutor {
-  id       String  @id @default(uuid())
-  userId   String  @unique
-  user     User    @relation(fields: [userId], references: [id])
-  name     String
-  image    String?
-  course   TutorsOnCourses[]
-  ratings  Rating[]
+  id        String  @id @default(uuid())
+  userId    String  @unique
+  user      User    @relation(fields: [userId], references: [id])
+  name      String
+  image     String?
+  // course   TutorsOnCourses[]
+  avgRating Float?
+  courses   TutorsOnCourses[]
+  ratings   RatingsOnTutors[]
 
   @@map("Tutors")
 }
+
+// model Tutor2 {
+//   id                String @id @default(uuid())
+//   userId            String @unique
+//   user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
 
 model TutorsOnCourses {
   courseId    String
@@ -294,13 +308,11 @@ model Video {
   chapter     Chapter @relation(fields: [chapterId], references: [id])
 }
 
-model Rating {
-  id       String   @id @default(uuid())
+model RatingsOnTutors {
+  id       String   @id @default(uuid()) @unique
   userId   String
   user     User     @relation(fields: [userId], references: [id])
-  courseId String?
-  course   Course?  @relation(fields: [courseId], references: [id])
-  tutorId  String?
+  tutorId  String?  
   tutor    Tutor?   @relation(fields: [tutorId], references: [id])
   rating   Float
   title    String?
@@ -308,9 +320,20 @@ model Rating {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
 
-  @@map("Ratings")
-  @@unique([courseId, tutorId])
+model RatingsOnCourses {
+  id       String   @id @default(uuid()) @unique
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+  courseId String?  
+  course   Course?  @relation(fields: [courseId], references: [id])
+  rating   Float
+  title    String?
+  comment  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model MuxData {

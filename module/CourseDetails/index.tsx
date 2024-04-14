@@ -1,6 +1,6 @@
 // "use client"
 
-import { Cover } from "@/components";
+import { Cover, Playlist } from "@/components";
 import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
 import msx from "@/styles/module.module.scss";
 import ChaptersViewList from "../ChapterViewList";
@@ -33,11 +33,12 @@ type ChapterData = {
 }
 
 interface CourseDetailsProps {
+    courseId: string;
     tutors?: Tutor[];
     chaptersData: ChapterData;
 }
 
-const CourseDetails = ({ tutors, chaptersData }: CourseDetailsProps) => {
+const CourseDetails = ({ courseId, tutors, chaptersData }: CourseDetailsProps) => {
     console.log("TUTORS: ", tutors);
     console.log("CHAPTERS: ", chaptersData)
 
@@ -98,9 +99,16 @@ const CourseDetails = ({ tutors, chaptersData }: CourseDetailsProps) => {
                     </span>
                 </div>
                 <div className={msx["chapters-view-bottom"]}>
-                    { 
-                        chaptersData && <ChaptersViewList chapters={chapters} />
+                    {
+                        chaptersData && 
+                            <div className={msx["chapters-view-list"]}>
+                                <Playlist data={chapters} target={`${courseId}/chapter`}/>
+                            </div>
                     }
+                    
+                    {/* { 
+                        chaptersData && <ChaptersViewList chapters={chapters} />
+                    } */}
                 </div>
             </section>
             <section className={msx["tutors-view"]}>

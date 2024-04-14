@@ -42,3 +42,15 @@ export type User = {
     address: string | null;
     phone: string | null;
 }
+
+export type Tutor = {
+    id: string;
+    image: string;
+    name: string;
+}
+
+export type TutorsOnCourses = {
+    tutorId: string;
+    courseId: string;
+    tutors: Tutor;
+}

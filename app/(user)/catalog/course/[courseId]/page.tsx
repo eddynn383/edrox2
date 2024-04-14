@@ -37,14 +37,6 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
         sumOfChaptersDuration: sumOfChaptersDuration || 0
     }
 
-    // const deviceScreen = useScreenSize()
-    // const deviceWidth = deviceScreen.width
-
-    // const mobile = deviceWidth === 0 && device === "mobile" ? true : deviceWidth > 0 && deviceWidth < 768 ? true : false
-    // const tablet = deviceWidth === 0 && device === "mobile" ? true : deviceWidth > 767 && deviceWidth < 1025 ? true : false
-
-    console.log("chapters: ", chaptersData)
-
     if (!course) {
         console.log("Course not exists")
         return null
@@ -167,7 +159,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                 </section>
                 <section className={psx["body-content"]}>
                     <div className={psx["body-content-left"]}>
-                        <CourseDetails tutors={course?.tutors} chaptersData={chaptersData} />
+                        <CourseDetails courseId={courseId} tutors={course?.tutors} chaptersData={chaptersData} />
                     </div>
                 </section>
             </ScrollArea>

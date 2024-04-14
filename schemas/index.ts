@@ -13,6 +13,7 @@ export const LoginSchema = z.object({
 })
 
 export const RegisterSchema = z.object({
+    role: z.enum(["LEARNER", "TUTOR"]),
     name: z.string().min(1, {
         message: "Name is required!"
     }),

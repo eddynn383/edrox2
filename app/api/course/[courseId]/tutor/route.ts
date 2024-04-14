@@ -11,6 +11,8 @@ type paramsType = {
 export async function POST(request: Request, { params }: paramsType) {
     try {
         const session = await auth()
+        const user = session?.user
+
         const body = await request.json()
         const { courseId } = params
 
@@ -20,25 +22,25 @@ export async function POST(request: Request, { params }: paramsType) {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        // const alreadyExists = await prisma.tutor.findFirst({
-        //     where: {
-        //         courseId: courseId,
-        //         name: data.name,
-        //     }
-        // })
+        const alreadyExists = await prisma.tutorsOnCourses.findFirst({
+            where: {
+                courseId,
+                tutorId: body.tutorId
+            }
+        })
 
-        // console.log("tutor exists: ", alreadyExists)
+        console.log("tutor exists: ", alreadyExists)
 
-        // if(alreadyExists) {
-        //     return new NextResponse("Tutor already exists!", { status: 502 })
-        // }
+        if(alreadyExists) {
+            return new NextResponse("This tutor is already assigned to the course!", { status: 502 })
+        }
 
         console.log("TUTOR REQUEST: ", body)
-        const tutor = await prisma.tutor.create({
+        const tutor = await prisma.tutorsOnCourses.create({
             data: {
-                name: body.name,
-                image: body.image,
-                userId: body.userId,
+                courseId,
+                tutorId: body.tutorId,
+                assignedBy: user?.id as string
             }
         })
 

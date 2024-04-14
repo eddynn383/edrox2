@@ -37,7 +37,7 @@ const Tutor = async ({ id }: TutorProps) => {
             </div>
             <div className={csx["tutor-view-right"]}>
                 <span className={csx["tutor-view-name"]}>{name}</span>
-                {rating && <Rating score={rating?.avg} reviews={rating?.count} />}
+                {rating && <Rating score={rating?.avg} reviews={rating?.count} minified={true} />}
             </div>
         </div>
     );
@@ -50,6 +50,7 @@ interface TutorsViewListProps {
 }
 
 const TutorsViewList = async ({ tutors }: TutorsViewListProps) => {
+    console.log(tutors)
     return ( 
         <ul className={msx["tutors-view-list"]}>
             {
