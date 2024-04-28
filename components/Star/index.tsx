@@ -3,7 +3,7 @@ import { IPropsStar } from "./interface"
 import { FaStar } from "react-icons/fa6";
 import sx from "@/styles/component.module.scss"
 
-const Star = ({ value, idx }: IPropsStar) => {
+const Star = ({ value, containerId, idx }: IPropsStar) => {
     const integer = Math.floor(value);
     const decimal = value - integer;
 
@@ -13,8 +13,8 @@ const Star = ({ value, idx }: IPropsStar) => {
 
     return (
         <span className={sx["star"]} data-progress={progress}>
-            <label htmlFor={`star-${idx}`}>{idx + 1}</label>
-            <input id={`star-${idx}`} type="radio" defaultChecked={idx <= value ? true : false} />
+            <label htmlFor={`${containerId}-star-${idx}`}>{idx + 1}</label>
+            <input id={`${containerId}-star-${idx}`} type="radio" defaultChecked={idx <= value ? true : false} />
             <span className={sx["star-icon"]}>
                 <span className={sx["star-icon-fill"]} style={{ width: `${progress}%` }}>
                     <FaStar />

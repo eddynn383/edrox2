@@ -134,11 +134,17 @@
     &-toolbar {
         position: relative;
         display: flex;
-        align-items: center;
-        gap: var(--page-toolbar-gap, var(--gap-400, 16px));
+        flex-direction: column;
+        gap: var(--page-toolbar-gap, var(--gap-300, 12px));
         padding: var(--page-toolbar-padding-y, var(--padding-400, 16px)) var(--page-toolbar-padding-x, var(--padding-400, 16px));
         border-bottom: var(--page-toolbar-border-bottom, 1px solid var(--primary-background-200));
         z-index: 0;
+
+        &-row {
+            display: flex;
+            align-items: center;
+            gap: var(--page-toolbar-gap, var(--gap-400, 16px));
+        }
     
         &-left {
             flex: 1 1 0%;
@@ -212,6 +218,9 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
+        &-outer {
+            width: 100%;
+        }
         &-left {
             display: flex;
             flex-direction: column;

@@ -23,7 +23,7 @@ export const formatDate = ({ dateValue, dateFormat }: DateFormatOptions): string
     return format(dateValue, dateFormat);
 };
 
-export const convertDuration = (durationInMiliseconds: number) => {
+export const convertDuration = (durationInMiliseconds: number, shortFormat=true) => {
     const seconds = durationInMiliseconds > 1000 ? Math.floor(durationInMiliseconds / 1000) : 0
     const remainingSeconds = seconds % 60
     const minutes = seconds > 60 ? Math.floor(seconds / 60) : 0
@@ -35,7 +35,7 @@ export const convertDuration = (durationInMiliseconds: number) => {
     const m = remainingMinutes < 10 ? `0${remainingMinutes}` : remainingMinutes
     const h = remainingHours < 10 ? `0${remainingHours}` : remainingHours
 
-    const duration = `${remainingHours > 0 ? `${h}h` : ``} ${m}m ${s}s`
+    const duration = shortFormat ? `${remainingHours > 0 ? `${h}h` : ``} ${m}m ${s}s` : `${remainingHours > 0 ? `${h} h<span className="sr-only">ours -</span>` : ``} ${m} m<span className="sr-only">inutes -</span> ${s} s<span className="sr-only">econds</span>`
     
     return duration;
 };

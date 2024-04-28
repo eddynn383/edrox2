@@ -3,12 +3,12 @@
 import qs from "query-string";
 import React, { useEffect, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { Input } from "@/components"
+import { Input, Label } from "@/components"
 import { useDebounce } from "@/hooks/useDebounce"
 import { SearchProps } from "./interface"
 import sx from "@/styles/component.module.scss"
 
-const Search = React.forwardRef<HTMLInputElement, SearchProps>(({ ...props }, ref) => {
+const Search = React.forwardRef<HTMLInputElement, SearchProps>(({ containerId="search", ...props }, ref) => {
     const [value, setValue] = useState("")
     const debouncedValue = useDebounce(value);
 
@@ -32,7 +32,8 @@ const Search = React.forwardRef<HTMLInputElement, SearchProps>(({ ...props }, re
 
     return (
         <div className={sx["search"]}>
-            <Input type="search" placeholder="Search..." shade="200" iconBefore="search" onChange={(e) => setValue(e.target.value)} value={value} {...props} ref={ref} />
+            <Label htmlFor={containerId} className="sr-only">Search</Label>
+            <Input id={containerId} type="search" placeholder="Search..." mode="outline" shade="200" iconBefore="search" onChange={(e) => setValue(e.target.value)} value={value} {...props} ref={ref} />
         </div>
     )
 })

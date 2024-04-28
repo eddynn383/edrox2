@@ -106,7 +106,7 @@ export const {
             if (!token.sub) return token;
 
             const existingUser = await getUserById(token.sub)
-            console.log("JWT: ", existingUser)
+            // console.log("JWT: ", existingUser)
             if(!existingUser) return token;
 
             const existingAccount = await getAccountByUserId(existingUser.id);

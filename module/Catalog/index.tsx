@@ -16,7 +16,7 @@ const Catalog = async ({ courses }: CatalogProps) => {
                             {
                                 courses.map((item: any) => (
                                     <li key={item.id}>
-                                        <CourseCard data={item} variant="primary" shade="200" />
+                                        <CourseCard cardId={item?.id} data={item} variant="primary" shade="200" />
                                     </li>
                                 ))
                             }

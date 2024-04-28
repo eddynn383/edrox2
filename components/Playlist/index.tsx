@@ -16,17 +16,24 @@ const Playlist = ({ data, target }: PlaylistProps) => {
                             {
                                 item.status !== "locked" ?
                                 <Link href={target ? `${target}/${item.id}` : item.id} className={csx["playlist-chapter"]}>
-                                    <span className={csx["playlist-chapter-status"]} data-status={item.status}>
+                                    <span className={csx["playlist-chapter-status"]} data-status={item.status} title="Status">
+                                        <span className="sr-only">Status {item.status};</span>
                                         {item.status === "locked" && <Lock />}
                                         {item.status === "not-started" && <PlayCircle />}
                                         {item.status === "in-progress" && <PauseCircle />}
                                         {item.status === "completed" && <CheckCircle2 />}
                                     </span>
-                                    <span className={csx["playlist-chapter-title"]}>
-                                        {item.title}
+                                    <span className={csx["playlist-chapter-title"]} title="Title">
+                                        <span className="sr-only">Title</span>
+                                        <span>{item.title}</span>
+                                        <span className="sr-only">;</span>
                                     </span>
-                                    <span className={csx["playlist-chapter-duration"]}>
-                                        {convertDuration(item.duration)}
+                                    <span className={csx["playlist-chapter-duration"]} title="Duration">
+                                        <span className="sr-only">Duration</span>
+                                        <span>
+                                            {convertDuration(item.duration)}
+                                        </span>
+                                        <span className="sr-only">;</span>
                                     </span>
                                 </Link>
                                 :
@@ -39,16 +46,23 @@ const Playlist = ({ data, target }: PlaylistProps) => {
                                     <AlertDialogTrigger asChild>
                                         <div className={csx["playlist-chapter"]}>
                                             <span className={csx["playlist-chapter-status"]} data-status={item.status}>
+                                                <span className="sr-only">Status {item.status};</span>
                                                 {item.status === "locked" && <Lock />}
                                                 {item.status === "not-started" && <PlayCircle />}
                                                 {item.status === "in-progress" && <PauseCircle />}
                                                 {item.status === "completed" && <CheckCircle2 />}
                                             </span>
                                             <span className={csx["playlist-chapter-title"]}>
-                                                {item.title}
+                                                <span className="sr-only">Title</span>
+                                                <span>
+                                                    {item.title}
+                                                </span>
                                             </span>
                                             <span className={csx["playlist-chapter-duration"]}>
-                                                {convertDuration(item.duration)}
+                                                <span className="sr-only">Duration</span>
+                                                <span>
+                                                    {convertDuration(item.duration)}
+                                                </span>
                                             </span>
                                         </div>
                                     </AlertDialogTrigger>

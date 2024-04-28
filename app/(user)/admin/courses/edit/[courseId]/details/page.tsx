@@ -9,12 +9,14 @@ const Page = async ({ params }: { params: { courseId: string } }) => {
 
     const defaultValues = {
         description: course ? course.description : "",
+        image: course ? course.image : ""
         // price: course ? course.price : 0,
         // discountPrice: course ? course.discountPrice : 0,
     }
     
     return (
-        <FormCourseDetails courseId={params.courseId} categories={categories} defaultValues={defaultValues} />
+        // <FormCourseDetails courseId={params.courseId} categories={categories} defaultValues={defaultValues} />
+        <h1>details</h1>
     );
 }
 

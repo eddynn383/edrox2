@@ -7,15 +7,11 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
-import { newCourse } from "@/actions/new-course";
+import { newCourse, updateCourse } from "@/actions/new-course";
 import { NewCourseSchema } from "@/schemas";
 import csx from "@/styles/component.module.scss"
 
-const convertToURL = (title: string) => {
-    return title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-};
-
-const CourseCreationForm = ({course, categories, actions, onOpen}: CourseCreationFormProps) => { 
+export const CourseCreationForm = ({course, categories, actions, onOpen}: CourseCreationFormProps) => { 
     const router = useRouter()
     const [title, setTitle] = useState<string>("") 
 
@@ -23,44 +19,50 @@ const CourseCreationForm = ({course, categories, actions, onOpen}: CourseCreatio
         resolver: zodResolver(NewCourseSchema),
         defaultValues: {
             title: course ? course.title : "",
-            // url: course ? course.url : "",
             category: course ? course.categoryId : ""
         }
     });
 
     const titleState = form.getFieldState("title")
     const titleStatus = !titleState.invalid ? "default" : "fail";
-    
-    // const urlState = form.getFieldState("url")
-    // const urlStatus = !urlState.invalid ? "default" : "fail";
+
     
     const categoriesState = form.getFieldState("category")
     const categoriesStatus = !categoriesState.invalid ? "default" : "fail";
 
-    const url = convertToURL(title)
-
     const submitHandler = (values: z.infer<typeof NewCourseSchema>) => {
-        // const newValues = {
-        //     ...values,
-        //     // url
-        // }
+        if (course) {
+            updateCourse(course.id, values).then((data) => {
+    
+                if (data?.error) {
+                    toast.error(data.error, { position: 'bottom-center'});
+                }
+    
+                if (data?.success) {
+                    form.reset();
+                    // onOpen(false);
+                    toast.success(data.success, { position: 'bottom-center'});
+                }
+    
+            }).catch((error) => toast.error(error.message))
+        }
+        if (!course) {
+            newCourse(values).then((data) => {
+                const course = data
+                const courseId = course.data.id
 
-        newCourse(values).then((data) => {
-            const course = data
-            const courseId = course.data.id
+                if (data?.error) {
+                    toast.error(data.error, { position: 'bottom-center'});
+                }
 
-            if (data?.error) {
-                toast.error(data.error, { position: 'bottom-center'});
-            }
+                if (data?.success) {
+                    form.reset();
+                    router.push(`/admin/courses/edit/${courseId}/details`);
+                    toast.success(data.success, { position: 'bottom-center'});
+                }
 
-            if (data?.success) {
-                form.reset();
-                onOpen(false)
-                router.push(`/admin/courses/edit/${courseId}/details`);
-                toast.success(data.success, { position: 'bottom-center'});
-            }
-
-        }).catch((error) => toast.error(error.message))
+            }).catch((error) => toast.error(error.message))
+        }
     }
 
     return (
@@ -90,7 +92,6 @@ const CourseCreationForm = ({course, categories, actions, onOpen}: CourseCreatio
                                                     placeholder="Eg. Introduction in front-end technologies"
                                                     status={titleStatus}
                                                 />
-                                                {/* <p style={{"color": `${urlStatus !== "default" ? "var(--accent-fail-400)" : "var(--primary-text-600)"}`}}>/courses/{url}</p> */}
                                                 <FormMessage icon="alert-triangle" />
                                             </div>
                                         </FormControl>
@@ -98,22 +99,6 @@ const CourseCreationForm = ({course, categories, actions, onOpen}: CourseCreatio
                                 )
                             }}
                         />
-                        {/* <FormField
-                            control={form.control}
-                            name="url"
-                            render={({ field }) => (
-                                <FormItem data-cols="1">
-                                    <FormControl>
-                                        <input 
-                                            {...field}
-                                            type="text"
-                                            name="url"
-                                            hidden
-                                        />
-                                    </FormControl>
-                                </FormItem>
-                            )}
-                        /> */}
                         <FormField
                             control={form.control}
                             name="category"
@@ -149,5 +134,3 @@ const CourseCreationForm = ({course, categories, actions, onOpen}: CourseCreatio
         </>
     );
 }
-
-export default CourseCreationForm;

@@ -69,45 +69,50 @@ const DataTableMobile = <TData, TValue>({ columns, table }: DataTableProps<TData
 
     return (
         <div className={msx["data-table"]} data-device="mobile">
-            <div className={msx["data-table-selection-label"]}>
-                {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
+            <div className={msx["data-toolbar"]}>
+                <div className={msx["data-toolbar-row"]}>
+                    <div className={msx["data-toolbar-left"]}>
+                        {
+                            table.getHeaderGroups().map((headerGroup) => (
+                                <div key={headerGroup.id} >
+                                    {
+                                        headerGroup.headers.map((header) => {
+                                            if (header.id === "select") {                                     
+                                                return (
+                                                    <div key={header.id}>
+                                                        {
+                                                            header.isPlaceholder
+                                                                ? null
+                                                                : flexRender(
+                                                                    header.column.columnDef.header,
+                                                                    header.getContext()
+                                                                )
+                                                        }
+                                                    </div>
+                                                )
+                                            }
+                                        })
+                                    }
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div className={msx["data-toolbar-right"]}>
+                        {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                        {table.getFilteredRowModel().rows.length} row(s) selected.
+                    </div>
+                </div>
             </div>
             <ScrollArea>
                 <ul className={msx["data-table-list"]}>
-                    {/* <TableHeader>
-                        {
-                            table.getHeaderGroups().map((headerGroup) => (
-                                <TableRow key={headerGroup.id} >
-                                    {
-                                        headerGroup.headers.map((header) => {
-                                            return (
-                                                <TableHead key={header.id}>
-                                                    {
-                                                        header.isPlaceholder
-                                                            ? null
-                                                            : flexRender(
-                                                                header.column.columnDef.header,
-                                                                header.getContext()
-                                                            )
-                                                    }
-                                                </TableHead>
-                                            )
-                                        })
-                                    }
-                                </TableRow>
-                            ))
-                        }
-                    </TableHeader> */}
-
                     {
                         table.getRowModel().rows?.length && (
                             table.getRowModel().rows.map((row) => (
                                 <li key={row.id}>
-                                    <Card data-state={row.getIsSelected() && "selected"} >
+                                    <Card padding="400" gap="200" data-state={row.getIsSelected() && "selected"} >
                                         {
                                             row.getVisibleCells().map((cell) => {
-
+                                                console.log("cell:: ", cell)
                                                 return (
                                                     <div key={cell.id}>
                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

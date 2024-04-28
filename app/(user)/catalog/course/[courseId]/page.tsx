@@ -6,6 +6,7 @@ import { CourseDetails } from "@/module/CourseDetails";
 import { BarChart, Clock, FileBadge, Heart, Home, ListChecks, Share, ShoppingCart } from "lucide-react";
 import psx from "@/styles/page.module.scss"
 import msx from "@/styles/module.module.scss"
+import { CourseHeader } from "@/module/CourseHeader";
 // import useScreenSize from "@/hooks/useScreenSize";
 
 interface PageCourseIdProps {
@@ -30,6 +31,11 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
 
     const parsedAvgRating = avgRating ? parseFloat(avgRating.toString()) : 0
     const parsedCountRating = countRating ? parseFloat(countRating.toString()) : 0
+
+    const rating = {
+        score: parsedAvgRating,
+        reviews: parsedCountRating
+    }
 
     const chaptersData = {
         chapters: course?.chapters || [],
@@ -122,9 +128,9 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                                 </div>
                             </div>
                             <div className={msx["course-details-card-bottom"]}>
-                                <Button variant="accent" status="default" content="icon-text" style={{"flex": "1 1 0%"}}><ShoppingCart /> Add to cart</Button>
-                                <Button variant="primary" shade="200" content="icon"><Heart /></Button>
-                                <Button variant="primary" shade="200" content="icon"><Share /></Button>
+                                <Button variant="accent" status="default" content="icon-text" style={{"flex": "1 1 0%"}} aria-label="Add to cart"><ShoppingCart /> Add to cart</Button>
+                                <Button variant="primary" shade="200" content="icon" aria-label="Add to favorites"><Heart /></Button>
+                                <Button variant="primary" shade="200" content="icon" aria-label="Share"><Share /></Button>
                             </div>
                         </div>
                     </div>
@@ -145,14 +151,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                                     </BreadcrumbItem>
                                 </BreadcrumbList>
                             </Breadcrumb>
-                            <PageTitle title={course?.title}/>
-                            <div className={msx["course-details-header-metadata"]}>
-                                <Badge size="M">{course.category.name}</Badge>
-                                <Rating score={parsedAvgRating} reviews={parsedCountRating} minified={true} />
-                            </div>
-                            <div>
-                                <p>{course.description}</p>
-                            </div>
+                            <CourseHeader course={course} rating={rating} />
                         </div>
 
                     </div>

@@ -199,9 +199,9 @@ const FormProfile = ({ userId, defaultValues }: FormProfileProps) => {
                                         </>
                                     </FormControl>
                                 </FormItem>
-                                <div >
-                                    <Button type="submit" variant="accent">Save</Button>
+                                <div className={csx["form-actions"]}>
                                     <Button type="submit" variant="primary" shade="100">Reset</Button>
+                                    <Button type="submit" variant="accent">Save</Button>
                                 </div>
                             </form>
                         </Form>

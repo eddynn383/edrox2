@@ -37,7 +37,7 @@ const Tutor = async ({ id }: TutorProps) => {
             </div>
             <div className={csx["tutor-view-right"]}>
                 <span className={csx["tutor-view-name"]}>{name}</span>
-                {rating && <Rating score={rating?.avg} reviews={rating?.count} minified={true} />}
+                {rating && <Rating containerId={id} score={rating?.avg} reviews={rating?.count} minified={true} />}
             </div>
         </div>
     );

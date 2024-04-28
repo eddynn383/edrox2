@@ -170,7 +170,7 @@ export const LoginForm = () => {
                                     )
                                 }
 
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">Sign in</Button>
+                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">Sign In</Button>
                             </form>
                         </Form>
                     </CardContent>

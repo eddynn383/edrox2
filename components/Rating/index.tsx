@@ -2,7 +2,7 @@ import { Star } from "@/components/Star"
 import { RatingProps } from "./interface"
 import sx from "@/styles/component.module.scss";
 
-const Rating = ({ score, reviews, showRatings=true, minified=false }: RatingProps) => {
+const Rating = ({ score, reviews, containerId, showRatings=true, minified=false }: RatingProps) => {
     const reviewslabel = () => {
         if(reviews === 1) {
             console.log("is true")
@@ -27,7 +27,7 @@ const Rating = ({ score, reviews, showRatings=true, minified=false }: RatingProp
                             [...Array(5)].map((item, idx) => {
                                 const i = idx + 1
                                 return (
-                                    <Star key={idx} idx={Number(i)} value={Number(score)} />
+                                    <Star key={idx} containerId={containerId} idx={Number(i)} value={Number(score)} />
                                 )
                             })
                         }
@@ -36,7 +36,7 @@ const Rating = ({ score, reviews, showRatings=true, minified=false }: RatingProp
                 {
                     minified && 
                     <span className={sx["rating-score-stars"]}>
-                        <Star key={1} idx={1} value={1} />
+                        <Star key={1} containerId={containerId} idx={1} value={1} />
                     </span>
                 }
             </span>

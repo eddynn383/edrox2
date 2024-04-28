@@ -13,6 +13,7 @@ export type Course = {
 
 
 export interface CourseCardProps extends CardProps {
+    cardId: string;
     data: Course;
     layout?: "columns" | "rows";
 }

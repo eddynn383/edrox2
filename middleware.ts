@@ -18,7 +18,7 @@ export default middleware((req) => {
 
     const isLoggedIn = !!req.auth;
 
-    console.log("IS MOBILE: ", isMobile)
+    // console.log("IS MOBILE: ", isMobile)
     // console.log("Next URL: ", nextUrl)
 
 

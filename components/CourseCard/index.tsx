@@ -10,7 +10,7 @@ import { Clock, Layers } from "lucide-react"
 import csx from "@/styles/component.module.scss" 
 import { convertDuration } from "@/lib/utils"
 
-const CourseCard = async ({ data, layout = "columns", variant = "primary", shade = "100" }: CourseCardProps) => {
+const CourseCard = async ({ cardId, data, layout = "columns", variant = "primary", shade = "100" }: CourseCardProps) => {
     const image = data.image ? data.image : "https://images.pexels.com/photos/2457284/pexels-photo-2457284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
     const avgRating = await getCourseRatingAvg(data.id)
@@ -31,7 +31,7 @@ const CourseCard = async ({ data, layout = "columns", variant = "primary", shade
                 <CardContent padding="300" gap="200">
                     <div className={csx["card-content-top"]}>
                         {data.category && <Badge>{data.category.name}</Badge>}
-                        <Rating score={avgRating || 0} showRatings={false} />
+                        <Rating containerId={cardId} score={avgRating || 0} showRatings={false} />
                     </div>
                     <div className={csx["card-content-bottom"]}>
                         <CardTitle rank={2}>{data?.title}</CardTitle>

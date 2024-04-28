@@ -1,27 +1,20 @@
 "use server";
 
 import * as z from "zod";
-import { NewCourseSchema, NewCourseDetailsSchema } from "@/schemas";
+import { NewCourseSchema, CourseDescriptionSchema, CoverImageSchema } from "@/schemas";
 import { auth } from "@/auth";
-import { editCourseById, setCourse } from "@/data/courses";
+import { editCourseById, getCourseById, setCourse } from "@/data/courses";
 import { setTutor } from "@/data/tutors";
 import { setPrice } from "@/data/prices";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 
 export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
     const validatedFields = NewCourseSchema.safeParse(values);
-    // const courseExists = await getCourseByUrl(values.url)
-    const session = await auth()
-    // console.log("validatedFields: ", validatedFields)
 
     if (!values.title) {
         return { error: "Title is required" };
     }
-
-    // if (courseExists) {
-    //     return { error: "Course already exists!" }
-    // }
 
     if (!values.category) {
         return { error: "Category is required" };
@@ -32,19 +25,6 @@ export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
     const courseData = await setCourse(validatedFields.data)
     const data = await courseData.json()
 
-    // console.log("Course Data Json", data)
-
-    const currentUser = {
-        name: session?.user.name,
-        image: session?.user.image,
-        userId: session?.user.id
-    }
-
-    // const tutor = await setTutor(currentUser, courseData.id)
-    // const price = await setPrice(null, "") 
-
-    // console.log("Tutor Data Json", tutor)
-
     revalidateTag('courses')
 
     return { 
@@ -53,17 +33,58 @@ export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
     };
 };
 
-export const updateCourse = async (courseId: string, values: z.infer<typeof NewCourseDetailsSchema>) => {
-    const validatedFields = NewCourseDetailsSchema.safeParse(values);
-    const session = await auth()
+export const updateCourse = async (courseId: string, values: z.infer<typeof NewCourseSchema>) => {
+    const validatedFields = NewCourseSchema.safeParse(values);
+
+    if (!values.title) {
+        return { error: "Title is required" };
+    }
+
+    if (!values.category) {
+        return { error: "Category is required" };
+    }
 
     if (!validatedFields.success) return { error: "Invalid fields!" };
 
-    const course = await editCourseById(courseId, validatedFields.data)
+    await editCourseById(courseId, validatedFields.data)
+
+    revalidatePath(`/admin/courses/edit/${courseId}/details`)
+
+    return { 
+        success: "The course was successfully updated!" 
+    };
+};
+
+export const updateCourseDescription = async (courseId: string, values: z.infer<typeof CourseDescriptionSchema>) => {
+    const validatedFields = CourseDescriptionSchema.safeParse(values);
+
+    if (!validatedFields.success) return { error: "Invalid fields!" };
+
+    console.log("validatedFields: ", validatedFields)
+    
+    await editCourseById(courseId, validatedFields.data)
+
+    revalidatePath(`/admin/courses/edit/${courseId}/details`)
+
+    return {
+        success: "The course was successfully updated!" 
+    };
+};
+
+
+
+export const updateCourseCover = async (courseId: string, values: z.infer<typeof CoverImageSchema>) => {
+    const validatedFields = CoverImageSchema.safeParse(values);
+
+    if (!validatedFields.success) return { error: "Invalid fields!" };
+
+    console.log("validatedFields: ", validatedFields)
+
+    await editCourseById(courseId, validatedFields.data)
 
     revalidateTag('courses')
 
     return {
         success: "The course was successfully updated!" 
     };
-};
+}

@@ -36,23 +36,23 @@ const Header = ({ user, device, onLogout }: HeaderProps) => {
                 }
                 {
                     !mobile &&
-                    <Logo src="/logo.svg" alt="logo" width={200} height={42} />
+                    <Logo src="/logo.svg" alt="Edrox Logo" width={200} height={42} />
                 }
             </div>
             <div className={psx["header-center"]}>
                 {
                     mobile &&
-                    <Logo src="/logo.svg" alt="logo" width={200} height={42} />
+                    <Logo src="/logo.svg" alt="Edrox Logo" width={200} height={42} />
                 }
             </div>
             <div className={psx["header-right"]}>
                 {
                     !mobile && 
                     <>
-                        <Button cn="toggle" type="button" size="M" content="icon" shade="100">
+                        <Button cn="toggle" type="button" size="M" content="icon" shade="100" aria-label="Shopping Cart">
                             <ShoppingCart />
                         </Button>
-                        <Button cn="toggle" type="button" size="M" content="icon" shade="100">
+                        <Button cn="toggle" type="button" size="M" content="icon" shade="100" aria-label="Notifications">
                             <Bell />
                         </Button>
                     </>

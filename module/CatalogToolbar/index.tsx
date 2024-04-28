@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Icon, PageTitle, Search } from "@/components";
+import { Button, Icon, PageTitle, Search, Text } from "@/components";
 import { CatalogToolbarProps } from "./interaface";
 import useScreenSize from "@/hooks/useScreenSize";
 import sx from "@/styles/module.module.scss"
@@ -22,7 +22,7 @@ const CatalogToolbar = ({ pageTitle }: CatalogToolbarProps) => {
             }
             <div className={sx["catalog-toolbar-row"]}>
                 <div className={sx["catalog-toolbar-left"]}>
-                    <Search />
+                    <Search containerId="catalog-search" />
                     {
                         mobile && <Button variant="primary" shade="200" size="M" content="icon"><Icon name="filter" /></Button>
                     }
@@ -33,8 +33,8 @@ const CatalogToolbar = ({ pageTitle }: CatalogToolbarProps) => {
                 {
                     !mobile &&
                     <div className={sx["catalog-toolbar-right"]}>    
-                        <Button variant="primary" shade="200" size="M" content="icon"><Icon name="columns-3" /></Button>
-                        <Button variant="primary" shade="200" size="M" content="icon"><Icon name="filter" /></Button>
+                        <Button variant="primary" shade="200" size="M" content="icon" aria-label="Change Layout"><Icon name="columns-3" /></Button>
+                        <Button variant="primary" shade="200" size="M" content="icon" aria-label="Filters Toggle"><Icon name="filter" /></Button>
                     </div>
                 }
             </div>

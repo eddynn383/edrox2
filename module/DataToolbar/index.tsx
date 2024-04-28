@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, Input } from "@/components"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Button, Input, Search } from "@/components"
 import { DataToolbarProps } from "./interface"
 import { PageTitle } from "../../components/PageTitle"
 import { DataViewOptions } from "../DataViewOptions"
@@ -48,7 +48,7 @@ export function DataToolbar<TData>({ table, pageTitle, toolbarExtraActions, show
                 <div className={csx["data-toolbar-left"]}>
                     <Input
                         type="text"
-                        shade="200"
+                        mode="outline"
                         placeholder="Search..."
                         iconBefore="search"
                         value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}

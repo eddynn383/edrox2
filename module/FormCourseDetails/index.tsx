@@ -3,6 +3,9 @@
 import * as z from "zod";
 import { Suspense, useEffect, useState, useTransition } from "react";
 import { 
+    Button,
+    Cover,
+    Dropzone,
     Form, 
     FormControl, 
     FormDescription, 
@@ -20,19 +23,21 @@ import {
     SelectItem, 
     SelectTrigger, 
     SelectValue, 
-    Textarea 
+    Textarea,
+    UploadImage
 } from "@/components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { NewCourseDetailsSchema } from "@/schemas";
+import { CourseDescriptionSchema, CoverImageSchema } from "@/schemas";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { newCourse, updateCourse } from "@/actions/new-course";
+import { newCourse, updateCourse, updateCourseCover } from "@/actions/new-course";
 import psx from "@/styles/page.module.scss";
 import msx from "@/styles/module.module.scss";
 import csx from "@/styles/component.module.scss";
 import { FileUpload } from "../FileUpload";
 import toast from "react-hot-toast";
 import Metadata from "../Metadata";
+import { UploadButton } from "@/lib/uploadthing";
 
 interface FormCourseDetailsProps {
     courseId: string;
@@ -40,17 +45,14 @@ interface FormCourseDetailsProps {
     defaultValues?: any;
 }
 
-const formSchema = z.object({
-    imageUrl: z.string().min(1, {
-        message: "Image is required",
-    }),
-});
-
 const FormCourseDetails = ({ courseId, defaultValues, categories }: FormCourseDetailsProps) => {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
+    const [desc, setDesc] = useState<string>(defaultValues.description)
+    const [cover, setCover] = useState<string>(defaultValues.image);
     const [priceType, setPriceType] = useState<"fixed" | "discount">("fixed");
+
 
     const router = useRouter()
     const pathname = usePathname()
@@ -62,52 +64,70 @@ const FormCourseDetails = ({ courseId, defaultValues, categories }: FormCourseDe
 
     console.log("defaultValues: ", defaultValues)
 
-    const form = useForm<z.infer<typeof NewCourseDetailsSchema>>({
-        resolver: zodResolver(NewCourseDetailsSchema),
+    const form = useForm<z.infer<typeof CourseDescriptionSchema>>({
+        resolver: zodResolver(CourseDescriptionSchema),
         defaultValues
     });
 
 
-    console.log(form.getValues())
-    const submitHandler = (values: z.infer<typeof NewCourseDetailsSchema>) => {
-        setError("");
-        setSuccess("");
+    // console.log(form.getValues())
+    const submitHandler = async (values: z.infer<typeof CourseDescriptionSchema>) => {
+        try {
+            setError("");
+            setSuccess("");
+    
+            console.log("VALUES IN SUBMIT: ", values)
+    
+            startTransition(() => {
+                updateCourse(courseId, values).then((data) => {
+                    console.log(data)
+                    if (data?.error) {
+                        setError(data.error)
+                    }
+    
+                    if (data?.success) {
+                        form.reset();
+                        setSuccess(data.success)
+                    }
+                    console.log("error", error)
+                    console.log("success", success)
+                }).catch(() => setError("Something went wrong!"))
+            })
 
-        startTransition(() => {
-            updateCourse(courseId, values).then((data) => {
-                console.log(data)
-                if (data?.error) {
-                    setError(data.error)
-                }
-
-                if (data?.success) {
-                    form.reset();
-                    setSuccess(data.success)
-                }
-                console.log("error", error)
-                console.log("success", success)
-            }).catch(() => setError("Something went wrong!"))
-        })
+            toast.success("Course was updated!");
+        } catch {
+            toast.error("Something went wrong");
+        }
     }
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        try {
-        //   await axios.patch(`/api/courses/${courseId}`, values);
-          toast.success("Course updated");
-        //   toggleEdit();
-          router.refresh();
-        } catch {
-          toast.error("Something went wrong");
-        }
-      }
+
 
     return (
         <>
             <div className={psx["body-content-left"]}>
                 <ScrollArea>
                     <div className={msx["course-details-form"]}>
+                            {/* <div className={csx["form-row-details"]}>
+                                <FormLabel>Cover</FormLabel>
+                                <FormDescription>Upload the course image here</FormDescription>
+                                <FormMessage icon="alert-triangle" />
+                            </div>
+                                <div>
+                                    
+                                </div> */}
+                        {/* <FormItem data-cols="2">
+                            <FormControl>
+                            </FormControl>
+                        </FormItem>   */}
                         <Form {...form}>
                             <form className={csx["form"]} onSubmit={form.handleSubmit(submitHandler)}>
+                                {/* <FormField
+                                    control={form.control}
+                                    // name="image"
+                                    render={() => (
+                                        
+                                    )}
+                                /> */}
                                 <FormField
                                     control={form.control}
                                     name="description"
@@ -124,49 +144,50 @@ const FormCourseDetails = ({ courseId, defaultValues, categories }: FormCourseDe
                                         </FormItem>
                                     )}
                                 />
-                                <FormItem data-cols="2">
+
+                                {/* <FormItem data-cols="2">
                                     <div className={csx["form-row-details"]}>
-                                        <FormLabel>Image</FormLabel>
-                                        {<FormDescription>Use the drag&drop area to upload your image</FormDescription>}
+                                        <FormLabel>Price</FormLabel>
+                                        {<FormDescription>Set up your course price</FormDescription>}
                                         {<FormMessage icon="alert-triangle" />}
                                     </div>
-                                    <FormControl>
-                                        <FileUpload endpoint="courseImage" onChange={
-                                            (url) => {
-                                                if (url) {
-                                                    onSubmit({ imageUrl: url });
-                                                }
-                                            }}
-                                        />
-                                    </FormControl>
-                                </FormItem>  
-                                
-                                <FormField
-                                    control={form.control}
-                                    name="price"
-                                    render={({ field }) => {
-                                        
-                                        return (
-                                            <FormItem data-cols="2">
-                                                <div className={csx["form-row-details"]}>
-                                                    <FormLabel>Price</FormLabel>
-                                                    {<FormDescription>Set up your course price</FormDescription>}
-                                                    {<FormMessage icon="alert-triangle" />}
-                                                </div>
-                                                <div className={csx["form-row-items"]}>
-                                                    <RadioGroup orientation="horizontal" defaultValue="fixed">
-                                                        <div className={csx["radiogroup-item"]}>
-                                                            <RadioGroupItem value="fixed" id="r1" mode="outline" shade="200" onChange={() => setPriceType("fixed")} />
-                                                            <Label className={csx["radiobox-label"]} htmlFor="r1">Fixed price</Label>
-                                                        </div>
-                                                        <div className={csx["radiogroup-item"]}>
-                                                            <RadioGroupItem value="discount" id="r2" mode="outline" shade="200" onChange={() => setPriceType("discount")} />
-                                                            <Label className={csx["radiobox-label"]} htmlFor="r2">Discounted price</Label>
-                                                        </div>
-                                                    </RadioGroup>
-                                                    {
-                                                        priceType === "fixed" && 
-                                                        <FormControl>
+                                    <div className={csx["form-row-items"]}>
+                                        <RadioGroup orientation="horizontal" defaultValue="fixed">
+                                            <div className={csx["radiogroup-item"]}>
+                                                <RadioGroupItem value="fixed" id="r1" mode="outline" shade="200" onClick={() => setPriceType("fixed")} />
+                                                <Label className={csx["radiobox-label"]} htmlFor="r1">Fixed price</Label>
+                                            </div>
+                                            <div className={csx["radiogroup-item"]}>
+                                                <RadioGroupItem value="discount" id="r2" mode="outline" shade="200" onClick={() => setPriceType("discount")} />
+                                                <Label className={csx["radiobox-label"]} htmlFor="r2">Discounted price</Label>
+                                            </div>
+                                        </RadioGroup>
+                                        {
+                                            priceType === "fixed" && 
+                                            <FormField
+                                                control={form.control}
+                                                name="price"
+                                                render={({ field }) => (
+                                                    <FormControl>
+                                                        <Input
+                                                            {...field}
+                                                            shade="200"
+                                                            type="text"
+                                                            name="price"
+                                                            placeholder="0"
+                                                        />
+                                                    </FormControl>       
+                                                )}  
+                                            />                 
+                                        }
+                                        {
+                                            priceType === "discount" && 
+                                            <FormField
+                                                control={form.control}
+                                                name="price"
+                                                render={({ field }) => (
+                                                    <FormControl>
+                                                        <>
                                                             <Input
                                                                 {...field}
                                                                 shade="200"
@@ -174,34 +195,20 @@ const FormCourseDetails = ({ courseId, defaultValues, categories }: FormCourseDe
                                                                 name="price"
                                                                 placeholder="0"
                                                             />
-                                                        </FormControl>                          
-                                                    }
-                                                    {
-                                                        priceType === "discount" && 
-                                                        <FormControl>
-                                                            <>
-                                                                <Input
-                                                                    {...field}
-                                                                    shade="200"
-                                                                    type="text"
-                                                                    name="price"
-                                                                    placeholder="0"
-                                                                />
-                                                                <Input
-                                                                    {...field}
-                                                                    shade="200"
-                                                                    type="text"
-                                                                    name="discount"
-                                                                    placeholder="0"
-                                                                />
-                                                            </>
-                                                        </FormControl>                          
-                                                    }
-                                                </div>
-                                            </FormItem>
-                                        )
-                                    }}
-                                />
+                                                            <Input
+                                                                {...field}
+                                                                shade="200"
+                                                                type="text"
+                                                                name="discount"
+                                                                placeholder="0"
+                                                            />
+                                                        </>
+                                                    </FormControl>               
+                                                )}  
+                                            />                             
+                                        }
+                                    </div>
+                                </FormItem> */}
                                 {/* {
                                     hasDiscount &&
                                     <FormField
@@ -239,7 +246,12 @@ const FormCourseDetails = ({ courseId, defaultValues, categories }: FormCourseDe
                                         {<FormMessage icon="alert-triangle" />}
                                     </div>
                                     <Metadata />
-                                </FormItem>              
+                                </FormItem>     
+                                <div className={csx["form-actions"]}>
+                                    <Button variant="primary">Prev</Button>
+                                    <Button variant="accent" type="submit">Next</Button>
+                                    {/* <Button variant="primary" type="button">Revert changes</Button> */}
+                                </div>         
                             </form>
                         </Form>
                     </div>

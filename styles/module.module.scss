@@ -272,8 +272,11 @@
             justify-content: flex-end;
             align-items: center;
         }
+        @media only screen and (max-width: 1024px) {
+            padding: var(--data-table-toolbar-padding-y, var(--padding-400, 16px)) var(--data-table-toolbar-padding-x, var(--padding-400, 16px));
+        }
     }
-
+ 
     &-table {
         display: flex;
         flex-direction: column;
@@ -282,6 +285,10 @@
         height: 100%;
         padding: var(--data-table-padding-y, 0) var(--data-table-padding-x, var(--padding-600, 24px));
         overflow: hidden;
+
+        &[data-device="mobile"] {
+            gap: var(--data-table-mobile-gap, var(--gap-200, 8px));
+        }
         
         &-list {
             display: flex;
@@ -290,7 +297,10 @@
             list-style: none;
             padding: 0;
         }   
-        
+
+        @media only screen and (max-width: 1024px) {
+            padding: var(--data-table-padding-y, 0) var(--data-table-padding-x, var(--padding-400, 16px));
+        }
     }
 
     &-pagination {
@@ -422,6 +432,33 @@
     }
 }
 
+.course-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--course-header-gap, var(--gap-300, 12px));
+    &-title {
+        display: flex;
+        align-items: center;
+        gap: var(--course-header-title-gap, var(--gap-200, 8px));
+        &-edit {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        &:hover {
+            .course-header-title-edit {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+    &-metadata {
+        display: flex;
+        align-items: center;
+        gap: var(--course-header-metadata-gap, var(--gap-300, 12px));
+    }
+}
+
 .course-details {
     display: flex;
     flex-direction: column;
@@ -429,12 +466,12 @@
     &-header { 
         display: flex;
         flex-direction: column;
-        gap: var(--course-details-header-gap, var(--300, 12px));
+        gap: var(--course-details-header-gap, var(--gap-300, 12px));
         
         &-metadata {
             display: flex;
             align-items: center;
-            gap: var(--course-details-header-metadata-gap, var(--300, 12px));
+            gap: var(--course-details-header-metadata-gap, var(--gap-300, 12px));
         }
     }
 
@@ -590,6 +627,9 @@
                     grid-template-columns: repeat(4, 1fr);
                 }
             }
+        }
+        &-form {
+            padding: var(--course-details-form-padding-y, var(--padding-400, 16px)) var(--course-details-form-padding-x, var(--padding-400, 16px));
         }
     }
 

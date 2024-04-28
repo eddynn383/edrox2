@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react";
+import { Plus } from "lucide-react";
 import {
     ColumnFiltersState,
     getCoreRowModel,
@@ -10,12 +11,11 @@ import {
 } from "@tanstack/react-table";
 import { DataTable, DataTableMobile } from "../DataTable";
 import { DataToolbar } from "../DataToolbar";
-import { coursesColsDesktop, coursesColsMobile } from "@/lib/table-headers";
+import { coursesColsDesktop, coursesColsDesktopSmall, coursesColsMobile, coursesColsTablet } from "@/lib/table-headers";
 import { CoursesManagerProps } from "./interface";
-import { DataPagination } from "../DataPagination";
+import { DataPaginationDesktop } from "../DataPagination";
 import { Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, ScrollArea } from "@/components";
-import { Plus } from "lucide-react";
-import CourseCreationForm from "../CourseCreationForm";
+import { CourseCreationForm } from "../CourseCreationForm";
 import useScreenSize from "@/hooks/useScreenSize";
 import msx from "@/styles/module.module.scss"
 
@@ -30,6 +30,21 @@ const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
     console.log("IS DESKTOP: ", desktop)
 
     console.log(courses)
+
+    let tableContent;
+
+    switch (true) {
+        case deviceWidth <= 1440 : tableContent = coursesColsDesktopSmall
+            break;
+        case deviceWidth <= 1024 : tableContent = coursesColsTablet
+            break;
+        case deviceWidth <= 768 : tableContent = coursesColsMobile
+            break;
+        default: tableContent = coursesColsDesktop
+            break; 
+    }
+
+    console.log(tableContent)
 
     const [rowSelection, setRowSelection] = useState({})
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -148,12 +163,9 @@ const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
                     // </>                       
                 }    
             />
-            {desktop && <DataTable table={table} columns={device !== "mobile" ? coursesColsDesktop : coursesColsMobile} />}
-            {
-                !desktop && <DataTableMobile table={table} columns={coursesColsMobile}/>
-                
-            }
-            <DataPagination table={table} />
+            {desktop && <DataTable table={table} columns={tableContent} />}
+            {!desktop && <DataTableMobile table={table} columns={coursesColsMobile}/>}
+            {desktop && <DataPaginationDesktop table={table} />}
         </>
     );
 }

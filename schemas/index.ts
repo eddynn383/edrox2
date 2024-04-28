@@ -64,11 +64,18 @@ export const NewCourseSchema = z.object({
     })
 })
 
-export const NewCourseDetailsSchema = z.object({
+export const CourseDescriptionSchema = z.object({
     description: z.string(),
-    price: z.number(),
-    discountPrice: z.number()
 })
+
+
+/*=================COVER IMAGE======================*/
+
+export const CoverImageSchema = z.object({
+    image: z.string().min(1, {
+        message: "Image is required",
+    }),
+});
 
 
 /*=================METADATA======================*/

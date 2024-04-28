@@ -92,16 +92,22 @@ export const Dropzone = ({ onChange, endpoint }: FileUploadProps) => {
                 //     void startUpload(files);
                 // }}
             />
-            <div className={csx["dropzone-icon"]}>
-                <Upload />
-            </div>
-            <div className={csx["dropzone-message"]}>
-                Drop your image here, or <span>browse</span>
-            </div>
-            <div className={csx["dropzone-support"]}>
-                {/* {fileTypes && fileTypes} */}
-                Supports PNG, JPG, JPEG, WEBP
-            </div>
+            {
+                (!fileUrl && !uploadComplete) && (
+                    <>
+                        <div className={csx["dropzone-icon"]}>
+                            <Upload />
+                        </div>
+                        <div className={csx["dropzone-message"]}>
+                            Drop your image here, or <span>browse</span>
+                        </div>
+                        <div className={csx["dropzone-support"]}>
+                            {/* {fileTypes && fileTypes} */}
+                            Supports PNG, JPG, JPEG, WEBP
+                        </div>
+                    </>
+                )
+            }
             {(files.length > 0 && !uploadComplete) && (
                 <div>
                     <Button variant="accent" size="S" onClick={(e) => {
@@ -122,17 +128,18 @@ export const Dropzone = ({ onChange, endpoint }: FileUploadProps) => {
                     uploadedFiles.map((item: any) => {
                         console.log("files item: ", item)   
                         return (
-                        <div key={item.key} className={csx["dropzone-preview-file"]}>        
-                            <div className={csx["dropzone-preview-file-left"]}>
-                                <Cover src={item.url} alt={item.name} width={100} height={50}/>
+                            <div key={item.key} className={csx["dropzone-preview-file"]}>        
+                                <div className={csx["dropzone-preview-file-left"]}>
+                                    <Cover src={item.url} alt={item.name} width={100} height={50}/>
+                                    <Button variant="accent" status="fail" size="S" content="icon" onClick={(e) => deleteFileHandler(e, item.key)}><Trash2 /></Button>
+                                </div>
+                                <div className={csx["dropzone-preview-file-right"]}>
+                                    <h4 className={csx["dropzone-preview-file-name"]}>{item.name}</h4>
+                                    <span>{formatFileSize(item.size)}</span>
+                                </div>
                             </div>
-                            <div className={csx["dropzone-preview-file-right"]}>
-                                <h4 className={csx["dropzone-preview-file-name"]}>{item.name}</h4>
-                                <span>{formatFileSize(item.size)}</span>
-                                <Button variant="accent" status="fail" size="S" content="icon" onClick={(e) => deleteFileHandler(e, item.key)}><Trash2 /></Button>
-                            </div>
-                        </div>
-                    )})
+                        )
+                    })
                 )
             }
             {
