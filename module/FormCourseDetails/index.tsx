@@ -30,7 +30,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { CourseDescriptionSchema, CoverImageSchema } from "@/schemas";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { newCourse, updateCourse, updateCourseCover } from "@/actions/new-course";
+import { newCourse, updateCourseDescription, updateCourseCover } from "@/actions/new-course";
 import psx from "@/styles/page.module.scss";
 import msx from "@/styles/module.module.scss";
 import csx from "@/styles/component.module.scss";
@@ -79,7 +79,7 @@ const FormCourseDetails = ({ courseId, defaultValues, categories }: FormCourseDe
             console.log("VALUES IN SUBMIT: ", values)
     
             startTransition(() => {
-                updateCourse(courseId, values).then((data) => {
+                updateCourseDescription(courseId, values).then((data) => {
                     console.log(data)
                     if (data?.error) {
                         setError(data.error)

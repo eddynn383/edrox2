@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { NewCourseDetailsSchema } from '@/schemas'
+import { CourseDescriptionSchema } from '@/schemas'
 import { Button, Dropzone, Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Input, Label, Progress, RadioGroup, RadioGroupItem, ScrollArea, Textarea } from '@/components'
 import Metadata from '../Metadata'
 
@@ -39,7 +39,7 @@ interface FormCourseDetailsProps {
     defaultValues?: any;
 }
 
-type Form = z.infer<typeof NewCourseDetailsSchema>
+type Form = z.infer<typeof CourseDescriptionSchema>
 
 export default function EditCourseForm({courseId, defaultValues, categories}: FormCourseDetailsProps) {
     const [previousStep, setPreviousStep] = useState(0)
@@ -49,7 +49,7 @@ export default function EditCourseForm({courseId, defaultValues, categories}: Fo
     const delta = currentStep - previousStep
 
     const form = useForm<Form>({
-        resolver: zodResolver(NewCourseDetailsSchema),
+        resolver: zodResolver(CourseDescriptionSchema),
         defaultValues
     })
 
@@ -148,7 +148,7 @@ export default function EditCourseForm({courseId, defaultValues, categories}: Fo
                                                     </FormControl>
                                                 </FormItem>  
                                                 
-                                                <FormField
+                                                {/* <FormField
                                                     control={form.control}
                                                     name="price"
                                                     render={({ field }) => {
@@ -208,7 +208,7 @@ export default function EditCourseForm({courseId, defaultValues, categories}: Fo
                                                             </FormItem>
                                                         )
                                                     }}
-                                                />
+                                                /> */}
                                                 
                                                 <FormItem data-cols="2">
                                                     <div className={csx["form-row-details"]}>
