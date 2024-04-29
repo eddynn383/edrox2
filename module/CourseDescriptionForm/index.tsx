@@ -2,19 +2,18 @@
 
 import * as z from "zod";
 import toast from "react-hot-toast";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Textarea } from "@/components";
 import { updateCourseDescription } from "@/actions/new-course";
 import { CourseDescriptionSchema } from "@/schemas";
 import csx from "@/styles/component.module.scss"
-import { revalidateTag } from "next/cache";
-import router from "next/router";
 
 export const CourseDescriptionForm = ({courseId, description, actions, onOpen}: CourseDescriptionFormProps) => { 
-    const router = useRouter()
-
+    // const router = useRouter()
+    const [isPending, startTransition] = useTransition();
     const form = useForm<z.infer<typeof CourseDescriptionSchema>>({
         resolver: zodResolver(CourseDescriptionSchema),
         defaultValues: {
@@ -27,19 +26,21 @@ export const CourseDescriptionForm = ({courseId, description, actions, onOpen}: 
 
 
     const submitHandler = (values: z.infer<typeof CourseDescriptionSchema>) => {
-        updateCourseDescription(courseId, values).then((data) => {
+        startTransition(() => {
+            updateCourseDescription(courseId, values).then((data) => {
 
-            if (data?.error) {
-                toast.error(data.error, { position: 'bottom-center'});
-            }
+                if (data?.error) {
+                    toast.error(data.error, { position: 'bottom-center'});
+                }
 
-            if (data?.success) {
-                form.reset();
-                // onOpen(false)
-                toast.success(data.success, { position: 'bottom-center'});
-            }
+                if (data?.success) {
+                    form.reset();
+                    // onOpen(false)
+                    toast.success(data.success, { position: 'bottom-center'});
+                }
 
-        }).catch((error) => toast.error(error.message))
+            }).catch((error) => toast.error(error.message))
+        })
     }
 
     return (

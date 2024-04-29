@@ -8,5 +8,6 @@ export interface AvatarProps {
     style?: React.CSSProperties;
     size: Size;
     type: "square" | "circle";
+    title?: string;
     onClick?: any;
 }

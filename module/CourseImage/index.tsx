@@ -2,17 +2,18 @@
 
 import * as z from "zod";
 import { useState, useTransition } from "react";
-import { UploadImage } from "@/components"
+import { Cover, UploadImage } from "@/components"
 import { CoverImageSchema } from "@/schemas"
 import toast from "react-hot-toast"
 import { updateCourseCover } from "@/actions/new-course";
 
 interface CourseImageProps {
-    cover?: string;
-    courseId: string
+    cover: string | null;
+    courseId: string;
+    edit?: boolean;
 }
 
-export const CourseImage = ({cover, courseId}: CourseImageProps) => {
+export const CourseImage = ({cover, courseId, edit=false}: CourseImageProps) => {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
@@ -41,16 +42,25 @@ export const CourseImage = ({cover, courseId}: CourseImageProps) => {
         }
     }
 
-    return ( 
-        <UploadImage currentImage={cover} endpoint="courseImage" onChange={
-            (url) => {
-                if (url) {
-                    console.log("URL uploaded: ", url)
-                    uploadCoverImage({
-                        image: url
-                    })
-                }
+    return (
+        <>
+            {
+                !edit && 
+                <Cover src={cover} alt="cover-image" width={400} height={200} style={{"width": "100%"}} />
             }
-        } />
+            {
+                edit &&
+                <UploadImage currentImage={cover} endpoint="courseImage" onChange={
+                    (url) => {
+                        if (url) {
+                            console.log("URL uploaded: ", url)
+                            uploadCoverImage({
+                                image: url
+                            })
+                        }
+                    }
+                } />
+            }
+        </>
     );
 }

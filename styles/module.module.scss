@@ -436,17 +436,26 @@
     display: flex;
     flex-direction: column;
     gap: var(--course-header-gap, var(--gap-300, 12px));
-    &-title {
-        display: flex;
-        align-items: center;
-        gap: var(--course-header-title-gap, var(--gap-200, 8px));
+    &-title,
+    &-description {
+        // display: flex;
+        // align-items: center;
+        // gap: var(--course-header-title-gap, var(--gap-200, 8px));
+        & > h1,
+        & > p {
+            display: inline;
+        }
+
         &-edit {
+            display: inline-flex;
+            margin-left: var(--course-header-edit-margin-left, var(--size-200, 8px));
             visibility: hidden;
             opacity: 0;
             transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
         &:hover {
-            .course-header-title-edit {
+            .course-header-title-edit,
+            .course-header-description-edit {
                 visibility: visible;
                 opacity: 1;
             }
@@ -496,7 +505,7 @@
             gap: var(--course-details-card-middle-gap, var(--gap-400, 16px));
             
         }
-        &-bottom {
+        &-actions {
             display: flex;
             gap: var(--course-details-card-bottom-gap, var(--gap-300, 12px));
         }
@@ -609,21 +618,22 @@
                     display: block;
                 }
             }
-            &-bottom {
-                padding: var(--course-details-card-bottom-padding-y, var(--padding-400, 16px)) var(--course-details-card-bottom-padding-x, var(--padding-400, 16px));
+            &-actions {
+                padding: var(--course-details-card-bottom-padding-y, var(--padding-400, 16px)) var(--course-details-card-bottom-padding-x, var(--padding-400, 16px));  
             }
-        }
+        }  
+
         @media (prefers-color-scheme: dark) {
             background-color: var(--course-details-card-background-color, var(--primary-background-200));
         }
-    }
+    } 
 
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 1024px) { 
         &-body {
-            padding: var(--course-details-body-padding-y, var(--padding-400, 16px)) var(--course-details-body-padding-x, var(--padding-400, 16px));
-            .course-details-card-metadata {
-                display: block;
-                &-list {
+            padding: var(--course-details-body-padding-y, var(--padding-400, 16px)) var(--course-details-body-padding-x, var(--padding-400, 16px));  
+            .course-details-card-metadata { 
+                display: block; 
+                &-list { 
                     grid-template-columns: repeat(4, 1fr);
                 }
             }
@@ -663,6 +673,10 @@
                 gap: var(--gap-400, 16px);
             }
             &-bottom {
+                position: relative;
+                z-index: 10;
+            }
+            &-actions {
                 position: fixed;
                 left: 0;
                 right: 0;
@@ -670,7 +684,6 @@
                 padding: 16px;
                 background-color: var(--primary-background-100);
                 border-top: 1px solid var(--primary-background-300);
-                z-index: 2;
             }
         }
 

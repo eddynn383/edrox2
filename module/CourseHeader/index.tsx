@@ -2,6 +2,7 @@ import { Pen, PlusCircle } from "lucide-react";
 import { Badge, Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, PageTitle, Rating } from "@/components";
 import { CourseCreationForm } from "../CourseCreationForm";
 import { CourseDescriptionForm } from "../CourseDescriptionForm";
+import { Category, Course } from "@/interfaces/global";
 import msx from "@/styles/module.module.scss"
 
 type Rating = {
@@ -12,8 +13,8 @@ type Rating = {
 type RatingType = "Overall" | "User"
 
 interface CourseHeaderProps {
-    course: any;
-    categories?: any;
+    course: Course;
+    categories?: Category[] | null;
     allowRating?: boolean;
     ratingType?: RatingType;
     rating?: Rating;

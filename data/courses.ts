@@ -46,7 +46,8 @@ export const getAllCourses = async () => {
                     include: {
                         tutors: true
                     }
-                }
+                },
+                createdBy: true
             }
         })
     

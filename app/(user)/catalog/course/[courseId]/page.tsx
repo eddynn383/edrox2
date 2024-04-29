@@ -7,6 +7,7 @@ import { BarChart, Clock, FileBadge, Heart, Home, ListChecks, Share, ShoppingCar
 import psx from "@/styles/page.module.scss"
 import msx from "@/styles/module.module.scss"
 import { CourseHeader } from "@/module/CourseHeader";
+import { CourseSummary } from "@/module/CourseSummary";
 // import useScreenSize from "@/hooks/useScreenSize";
 
 interface PageCourseIdProps {
@@ -53,7 +54,8 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
             <ScrollArea>
                 <section className={psx["body-toolbar"]} data-page="course-details">
                     <div className={psx["body-toolbar-left"]}>
-                        <div className={msx["course-details-card"]}>
+                        <CourseSummary course={course} /> 
+                        {/* <div className={msx["course-details-card"]}>
                             <div className={msx["course-details-card-top"]}>
                                 <Breadcrumb className={msx["course-details-breadcrumb-mobile"]}>
                                     <BreadcrumbList>
@@ -132,7 +134,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                                 <Button variant="primary" shade="200" content="icon" aria-label="Add to favorites"><Heart /></Button>
                                 <Button variant="primary" shade="200" content="icon" aria-label="Share"><Share /></Button>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={psx["body-toolbar-right"]}>
                         <div className={msx["course-details-header"]}>

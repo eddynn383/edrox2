@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { ColumnDef } from "@tanstack/react-table"
 import { FileBarChart, MoreHorizontal, MoreVertical, Pencil, Trash2 } from "lucide-react"
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Avatar, Badge, Button, Checkbox, Cover, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon, Label } from "@/components"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Avatar, Badge, Button, Checkbox, Cover, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon, Label, Text } from "@/components"
 import { deleteCourse } from "@/actions/delete-course"
 import { formatDate } from "./utils"
 import { Course } from "@/interfaces/course"
@@ -142,7 +142,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
                         tutors?.map((item) => {
                             const tutor = item?.tutors
                             return (
-                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} type="circle" size="S"/>
+                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} type="circle" size="S" title={tutor.name} />
                             )
                         })
                     }
@@ -168,6 +168,22 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
     {
         accessorKey: "createdBy",
         header: "Created By",
+        cell: ({ row }) => {
+            type User = {
+                image: string;
+                name: string;
+            }
+            const user: User = row.getValue("createdBy")
+
+            console.log(user)
+
+            return (
+                <div style={{"display": "flex", "gap": "var(--gap-200, 8px)", "alignItems": "center"}}>
+                    <Avatar src={user?.image ? user?.image : defaultAvatar} type="circle" size="S" title={user.name} />
+                    <Text size="S">{user?.name}</Text>
+                </div>
+            )
+        }
     },
     {
         id: "actions",
@@ -347,7 +363,7 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
                         tutors?.map((item) => {
                             const tutor = item?.tutors
                             return (
-                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} type="circle" size="S"/>
+                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} type="circle" size="S" title={tutor.name}/>
                             )
                         })
                     }
@@ -521,7 +537,7 @@ export const coursesColsTablet: ColumnDef<Course>[] = [
                         tutors?.map((item) => {
                             const tutor = item?.tutors
                             return (
-                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} type="circle" size="S"/>
+                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} type="circle" size="S" title={tutor.name}/>
                             )
                         })
                     }

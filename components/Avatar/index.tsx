@@ -5,7 +5,7 @@ import { AvatarProps } from "./interface";
 import sx from "@/styles/component.module.scss"
 
 
-const Avatar = ({ src, alt, id, style, size = "M", type = "square" }: AvatarProps) => {
+const Avatar = ({ src, alt, id, style, size = "M", type = "square", ...props }: AvatarProps) => {
     let imageSize;
 
     switch (size) {
@@ -24,7 +24,7 @@ const Avatar = ({ src, alt, id, style, size = "M", type = "square" }: AvatarProp
     }
 
     return (
-        <div className={sx["avatar"]} id={id} style={style} data-size={size} data-type={type}>
+        <div className={sx["avatar"]} id={id} style={style} data-size={size} data-type={type} {...props}>
             <Image className="profile" width={imageSize} height={imageSize} src={src} alt={alt ? alt : ''} />
         </div>
     )

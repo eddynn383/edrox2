@@ -21,7 +21,7 @@ export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
     }
 
     if (!validatedFields.success) return { error: "Invalid fields!" };
-
+    console.log("This function 'newCourse' is called!")
     const courseData = await setCourse(validatedFields.data)
     const data = await courseData.json()
 
@@ -45,10 +45,16 @@ export const updateCourse = async (courseId: string, values: z.infer<typeof NewC
     }
 
     if (!validatedFields.success) return { error: "Invalid fields!" };
+    console.log("This function 'updateCourse' is called!")
+    const newCourse = {
+        title: validatedFields.data.title,
+        categoryId: validatedFields.data.category
+    }
 
-    await editCourseById(courseId, validatedFields.data)
+    console.log("newCourse: ", newCourse)
+    await editCourseById(courseId, newCourse)
 
-    revalidatePath(`/admin/courses/edit/${courseId}/details`)
+    revalidatePath(`/admin/courses/edit/${courseId}`)
 
     return { 
         success: "The course was successfully updated!" 
@@ -64,7 +70,7 @@ export const updateCourseDescription = async (courseId: string, values: z.infer<
     
     await editCourseById(courseId, validatedFields.data)
 
-    revalidatePath(`/admin/courses/edit/${courseId}/details`)
+    revalidatePath(`/admin/courses/edit/${courseId}`)
 
     return {
         success: "The course was successfully updated!" 

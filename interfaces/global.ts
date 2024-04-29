@@ -54,3 +54,45 @@ export type TutorsOnCourses = {
     courseId: string;
     tutors: Tutor;
 }
+
+export type Course = {
+    id: string;
+    title: string;
+    description: string | null;
+    image: string | null;
+    categoryId: string;
+    category: Category;
+    price: Price | null;
+    level: number | null;
+    isPublished: boolean;
+}
+
+
+// id          String       @id @default(uuid())
+// title       String
+// description String?      @default("")
+// image       String?
+// categoryId  String
+// category    Category     @relation(fields: [categoryId], references: [id])
+// price       Price?
+// level       Int?         @default(1)
+// isPublished Boolean      @default(false)
+// avgRating   Float?     
+// // startDate   DateTime
+// // endDate     DateTime?
+// createdById String
+// createdBy   User         @relation(name: "CreatedById", fields: [createdById], references: [id])
+// createdAt   DateTime     @default(now())
+// updatedBy   User?        @relation(name: "UpdatedById", fields: [updatedById], references: [id])
+// updatedById String?
+// updatedAt   DateTime     @updatedAt
+// // catalogs    Catalog[]  
+// metadata    Metadata[]
+// tutors      TutorsOnCourses[]
+// // tutors      Tutor[]
+// chapters    Chapter[]
+// attachments Attachment[]
+// purchases   Purchase[]
+// enrollments Enrollment[]
+// // ratings     Rating[]
+// ratings      RatingsOnCourses[]

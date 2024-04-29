@@ -26,7 +26,7 @@ export default function RootLayout({
         viewport: string
     }
 }>) {
-    console.log("My params: ", params)
+    // console.log("My params: ", params)
     return (
         <html lang="en">
             <body className={roboto.className}>

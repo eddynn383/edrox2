@@ -32,6 +32,7 @@ export const CourseCreationForm = ({course, categories, actions, onOpen}: Course
 
     const submitHandler = (values: z.infer<typeof NewCourseSchema>) => {
         if (course) {
+            console.log("Course ID: ", course.id)
             updateCourse(course.id, values).then((data) => {
     
                 if (data?.error) {
@@ -39,8 +40,6 @@ export const CourseCreationForm = ({course, categories, actions, onOpen}: Course
                 }
     
                 if (data?.success) {
-                    form.reset();
-                    // onOpen(false);
                     toast.success(data.success, { position: 'bottom-center'});
                 }
     
@@ -57,8 +56,8 @@ export const CourseCreationForm = ({course, categories, actions, onOpen}: Course
 
                 if (data?.success) {
                     form.reset();
-                    router.push(`/admin/courses/edit/${courseId}/details`);
                     toast.success(data.success, { position: 'bottom-center'});
+                    router.push(`/admin/courses/edit/${courseId}`);
                 }
 
             }).catch((error) => toast.error(error.message))

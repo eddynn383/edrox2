@@ -13,7 +13,7 @@ import csx from "@/styles/component.module.scss"
 import { formatFileSize } from "@/lib/utils";
 
 interface UploadImageProps {
-    currentImage?: string;
+    currentImage: string | null;
     onChange: (url?: string) => void;
     endpoint: keyof typeof ourFileRouter;
 };
@@ -68,11 +68,11 @@ export const UploadImage = ({ currentImage, onChange, endpoint }: UploadImagePro
     });
 
     return (
-        <div className={csx["upload-image"]} {...getRootProps()}>
-            <Cover src={currentImage} alt="cover-image" width={400} height={200} style={{"width": "280px"}} />
+        <div className={csx["upload-image"]} {...getRootProps()} style={{"width": "100%"}}>
+            <Cover src={currentImage} alt="cover-image" width={400} height={200} style={{"width": "100%"}} />
             {
                 uploadProgress === 0 &&
-                <label className={csx["upload-image-label"]} ref={labelRef} >
+                <label className={csx["upload-image-label"]} ref={labelRef} data-image="empty" >
                     <input 
                         {...getInputProps()} 
                         className="sr-only"
