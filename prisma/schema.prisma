@@ -28,30 +28,23 @@ model User {
   birthdate             DateTime?
   address               String?
   phone                 String?
-  //Interests           Interests[]
-  //Hobbies             Hobbies[]
+  //interests           Interests[]
+  //hobbies             Hobbies[]
 
   role                  UserRole               @default(LEARNER)
   emailVerified         DateTime?
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
-
-  // catalogCreated  Catalog[]    @relation("CreatedById")
-  // catalogUpdated  Catalog[]    @relation("UpdatedById")
-  courseCreated    Course[]       @relation("CreatedById")
-  courseUpdated    Course[]       @relation("UpdatedById")
-  // courseTutor      Course[] @relation("CourseTutors", references: [id])
-  // coursesInstructed Course[]         @relation("Instructor")
-  coursesEnrolled  Enrollment[]
-  coursesPurchased Purchase[]
-  courseProgress   UserProgress[]
-  // ratings          Rating[]
-  ratingsOnCourses RatingsOnCourses[]
-  ratingsOnTutors  RatingsOnTutors[]
-  tutor            Tutor?
-  // tutor2           Tutor2[]
-  superId          String?
+  courseCreated         Course[]               @relation("CreatedById")
+  courseUpdated         Course[]               @relation("UpdatedById")
+  coursesEnrolled       Enrollment[]
+  coursesPurchased      Purchase[]
+  courseProgress        UserProgress[]
+  tutor                 Tutor?
+  courses               UsersOnCourses[]
+  ratingsOnCourses      RatingsOnCourses[]
+  ratingsOnTutors       RatingsOnTutors[]
 }
 
 model Account {
@@ -108,61 +101,32 @@ model TwoFactorConfirmation {
   @@unique([userId])
 }
 
-// model Catalog {
-//     id          String @id @default(uuid())
-//     title       String
-//     description String @default("")
-
-//     createdBy   User?    @relation(name: "CreatedById", fields: [createdById], references: [id])
-//     createdById String
-//     createdAt   DateTime @default(now())
-//     updatedBy   User?    @relation(name: "UpdatedById", fields: [updatedById], references: [id])
-//     updatedById String?
-//     updatedAt   DateTime @updatedAt
-
-//     courses Course[]
-
-//     @@map("Catalogs")
-// }
-
-model CourseCreationStep {
-  id           String @id @default(uuid())
-  currentStep  String
-  previousStep String
-  nextStep     String
-
-  @@map("CourseCreationSteps")
-}
-
 model Course {
-  id          String       @id @default(uuid())
-  title       String
-  description String?      @default("")
-  image       String?
-  categoryId  String
-  category    Category     @relation(fields: [categoryId], references: [id])
-  price       Price?
-  level       Int?         @default(1)
-  isPublished Boolean      @default(false)
-  avgRating   Float?     
+  id             String       @id @default(uuid())
+  title          String
+  description    String?      @default("")
+  image          String?
+  categoryId     String
+  category       Category     @relation(fields: [categoryId], references: [id])
+  price          Price?
+  level          Int?         @default(1)
+  isPublished    Boolean      @default(false)
+  avgRating      Float?     
   // startDate   DateTime
   // endDate     DateTime?
-  createdById String
-  createdBy   User         @relation(name: "CreatedById", fields: [createdById], references: [id])
-  createdAt   DateTime     @default(now())
-  updatedBy   User?        @relation(name: "UpdatedById", fields: [updatedById], references: [id])
-  updatedById String?
-  updatedAt   DateTime     @updatedAt
-  // catalogs    Catalog[]  
-  metadata    Metadata[]
-  tutors      TutorsOnCourses[]
-  // tutors      Tutor[]
-  chapters    Chapter[]
-  attachments Attachment[]
-  purchases   Purchase[]
-  enrollments Enrollment[]
-  // ratings     Rating[]
-  ratings      RatingsOnCourses[]
+  createdById    String
+  createdBy      User         @relation(name: "CreatedById", fields: [createdById], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedBy      User?        @relation(name: "UpdatedById", fields: [updatedById], references: [id])
+  updatedById    String?
+  updatedAt      DateTime     @updatedAt 
+  metadata       Metadata[]
+  tutors         TutorsOnCourses[]
+  participants   UsersOnCourses[]
+  chapters       Chapter[]
+  purchases      Purchase[]
+  enrollments    Enrollment[]
+  ratings        RatingsOnCourses[]
 
   @@index([categoryId])
   @@map("Courses")
@@ -202,19 +166,12 @@ model Tutor {
   user      User    @relation(fields: [userId], references: [id])
   name      String
   image     String?
-  // course   TutorsOnCourses[]
   avgRating Float?
   courses   TutorsOnCourses[]
   ratings   RatingsOnTutors[]
 
   @@map("Tutors")
 }
-
-// model Tutor2 {
-//   id                String @id @default(uuid())
-//   userId            String @unique
-//   user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
-// }
 
 model TutorsOnCourses {
   courseId    String
@@ -227,85 +184,36 @@ model TutorsOnCourses {
   @@id([courseId, tutorId])
 }
 
-model Attachment {
-  id   String @id @default(uuid())
-  name String
-  url  String @db.Text
+model UsersOnCourses {
+  courseId    String
+  courses     Course @relation(fields: [courseId], references: [id])
+  userId      String
+  users       User   @relation(fields: [userId], references: [id])
+  assignedAt  DateTime @default(now())
+  assignedBy  String
 
-  courseId String
-  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([courseId])
-  @@map("Attachments")
+  @@id([courseId, userId])
 }
 
 model Chapter {
   id          String  @id @default(uuid())
   title       String
   description String? @db.Text
-  videoUrl    String? @db.Text
   status      String  @default("locked")
   duration    Int     @default(0)
   position    Int
   isPublished Boolean @default(false)
   isFree      Boolean @default(false)
 
-  muxData MuxData?
-
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   userProgress UserProgress[]
 
-  headings Heading[]
-  texts    Text[]
-  images   Image[]
-  videos   Video[]
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // @@map("Chapters")
 
   @@index([courseId])
-}
-
-model Heading {
-  id        String  @id @default(uuid())
-  position  Int
-  rank      Int     @default(1)
-  content   String
-  chapterId String
-  chapter   Chapter @relation(fields: [chapterId], references: [id])
-}
-
-model Text {
-  id        String  @id @default(uuid())
-  position  Int
-  size      Int     @default(1)
-  content   String
-  chapterId String
-  chapter   Chapter @relation(fields: [chapterId], references: [id])
-}
-
-model Image {
-  id        String  @id @default(uuid())
-  position  Int
-  size      Int     @default(1)
-  url       String
-  chapterId String
-  chapter   Chapter @relation(fields: [chapterId], references: [id])
-}
-
-model Video {
-  id          String  @id @default(uuid())
-  position    Int
-  aspectRatio String  @default("16/9")
-  url         String
-  chapterId   String
-  chapter     Chapter @relation(fields: [chapterId], references: [id])
 }
 
 model RatingsOnTutors {
@@ -334,15 +242,6 @@ model RatingsOnCourses {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model MuxData {
-  id         String  @id @default(uuid())
-  assetId    String
-  playbackId String?
-
-  chapterId  String  @unique
-  chapter    Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 }
 
 model UserProgress {
@@ -376,19 +275,6 @@ model Purchase {
   @@index([courseId])
   @@map("Purchases")
 }
-
-// model Content {
-//     id        String      @id @default(uuid())
-//     title     String
-//     type      ContentType
-//     content   String
-//     courseId  String
-//     course    Course      @relation(fields: [courseId], references: [id])
-//     createdAt DateTime    @default(now())
-//     updatedAt DateTime    @updatedAt
-
-//     @@map("Contents")
-// }
 
 model Enrollment {
   id             String           @id @default(uuid())

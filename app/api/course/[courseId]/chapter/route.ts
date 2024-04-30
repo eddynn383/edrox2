@@ -60,7 +60,7 @@ export async function POST(request: Request, { params }: paramsType) {
             data: {
                 title: data.title,
                 description: data.description,
-                videoUrl: data.videoUrl,
+                // videoUrl: data.videoUrl,
                 position: newPosition,
                 isPublished: data.isPublished,
                 isFree: data.isFree,

@@ -37,9 +37,19 @@ export const CourseHeader = async ({course, categories, allowRating=true, rating
                         <PageTitle title={title}/>
                     </div>
                     <div className={msx["course-header-metadata"]}>
-                        <Badge size="M">{category.name}</Badge>
-
-                        {ratingType === "Overall" && <Rating containerId={id} score={ratingScore} reviews={rating?.reviews} minified={true} />}
+                        {
+                            category &&
+                            <Badge size="M">{category.name}</Badge>
+                        }
+                        {
+                            rating &&
+                            <>
+                                {
+                                    ratingType === "Overall" && 
+                                    <Rating containerId={id} score={ratingScore} reviews={rating?.reviews} minified={true} />
+                                }
+                            </>
+                        }
                     </div>
                     {
                         description &&

@@ -50,7 +50,6 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
             data: {
                 title: body.title,
                 description: body.description,
-                videoUrl: body.videoUrl,
                 position: newPosition,
                 isPublished: body.isPublished,
                 isFree: body.isFree,

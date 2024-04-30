@@ -13,7 +13,6 @@ import csx from "@/styles/component.module.scss"
 
 export const CourseCreationForm = ({course, categories, actions, onOpen}: CourseCreationFormProps) => { 
     const router = useRouter()
-    const [title, setTitle] = useState<string>("") 
 
     const form = useForm<z.infer<typeof NewCourseSchema>>({
         resolver: zodResolver(NewCourseSchema),
@@ -74,8 +73,6 @@ export const CourseCreationForm = ({course, categories, actions, onOpen}: Course
                             control={form.control}
                             name="title"
                             render={({ field }) => {
-                                setTitle(field.value)
-                                
                                 return (
                                     <FormItem data-cols="1">
                                         <div className={csx["form-row-details"]} style={{"display": "flex", "gap": "8px", "justifyContent": "space-between"}}>

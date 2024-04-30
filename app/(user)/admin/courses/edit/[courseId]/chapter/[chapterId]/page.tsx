@@ -1,40 +1,41 @@
-import { Home, Plus } from "lucide-react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Button, Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Playlist } from "@/components";
-import { getCourseById } from "@/data/courses";
-import { getAllCategories } from "@/data/categories";
-import { CourseImage } from "@/module/CourseImage";
+import { getChapterById } from "@/data/chapters";
+import msx from "@/styles/module.module.scss"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Button } from "@/components";
+import { Heading, Type, Image as ImageIcon, Film, Home } from "lucide-react";
 import { CourseHeader } from "@/module/CourseHeader";
-import { CourseSummary } from "@/module/CourseSummary";
-import psx from "@/styles/page.module.scss";
-import msx from "@/styles/module.module.scss";
-import { ChapterCreationForm } from "@/module/ChapterCreationForm";
-import { CourseDetails } from "@/module/CourseDetails";
-import { getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters";
+import psx from "@/styles/page.module.scss"
+
 
 interface NewCoursePageProps {
     params: {
         courseId: string;
+        chapterId: string;
     }
 }
 
+// const renderInput = () => {
+//     return <input type="file" />
+// }
+
+const ChapterContentActions = () => {
+    return (
+        <div className={msx["chapters-content-actions"]}> 
+            <Button content="icon"><Heading /></Button>
+            <Button content="icon"><Type /></Button>
+            <Button content="icon">
+                <ImageIcon />
+            </Button>
+            <Button content="icon"><Film /></Button>
+        </div>
+    )
+}
+
 const Page = async ({ params }: NewCoursePageProps) => {
-    const categories = await getAllCategories();
-    const course = await getCourseById(params.courseId)
-    const countChapters = await getChaptersCountByCourseId(params.courseId)
-    const sumOfChaptersDuration = await getChaptersSumDurationByCourseId(params.courseId)
-
-    if (!course) {
-        console.log("The course does not exist")
-        return false
-    }
-
-    const chapters = {
-        chaptersData: course?.chapters || [],
-        countChapters: countChapters || 0,
-        sumOfChaptersDuration: sumOfChaptersDuration || 0
-    }
-
-    const cover = course.image ? course.image : ""
+    // console.log("COURSE ID: ", params.courseId)
+    // console.log("CHAPTER ID: ", params.chapterId)
+    
+    // const chapters = await getAllChaptersByCourseId(params.courseId)
+    const chapter = await getChapterById(params.chapterId)
 
     return (
         <div className={psx["body"]}>
@@ -61,21 +62,29 @@ const Page = async ({ params }: NewCoursePageProps) => {
                 <div className={psx["body-toolbar-row"]}>
                     <div className={psx["body-toolbar-left"]}>
                         <div style={{"display": "flex", "alignItems": "center", "gap": "12px"}}>
-                            <CourseHeader course={course} categories={categories} edit={true} />
+                            {/* <CourseHeader course={course} categories={categories} edit={true} /> */}
                         </div>
                     </div>
                     <div className={psx["body-toolbar-right"]}>
-                        <CourseSummary course={course} edit={true} /> 
+                        {/* <CourseSummary course={course} edit={true} />  */}
                     </div>
                 </div>
             </section>
             <section className={psx["body-content"]}>
                 <div className={psx["body-content-left"]}>
-                    <CourseDetails courseId={params.courseId} tutors={course?.tutors} chapters={chapters} edit={true} />
+                    {/* <CourseDetails courseId={params.courseId} tutors={course?.tutors} chapters={chapters} edit={true} /> */}
                 </div>
             </section>
         </div>
-    )
+        // <div className={msx["chapters-content"]}>
+        //     <div className={msx["chapters-content-details"]}>
+        //         <h2>{chapter?.title}</h2>  
+        //         <p>{chapter?.description}</p>
+        //     </div>
+        //     <ChapterContentActions />
+        // </div>
+
+    );
 }
 
 export default Page;

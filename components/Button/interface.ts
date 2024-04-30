@@ -13,3 +13,4 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     value?: string;
     children?: React.ReactNode | React.ReactNode[] | string;
 }
+// type Primary = "primary"

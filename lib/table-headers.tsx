@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { ColumnDef } from "@tanstack/react-table"
-import { FileBarChart, MoreHorizontal, MoreVertical, Pencil, Trash2 } from "lucide-react"
+import { FileBarChart, FilePenLine, MoreHorizontal, MoreVertical, Pencil, Trash2 } from "lucide-react"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Avatar, Badge, Button, Checkbox, Cover, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon, Label, Text } from "@/components"
 import { deleteCourse } from "@/actions/delete-course"
 import { formatDate } from "./utils"
@@ -26,6 +26,60 @@ import csx from "@/styles/component.module.scss"
 //     }
 // }
 
+const TableActions = ({data, onDelete}: any) => {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="primary" shade="100" size="S" content="icon">
+                    <MoreVertical className={csx["icon"]} />
+                    <span className="sr-only">Open menu</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <AlertDialog>
+                {/* Start Dropdowon Definition */}
+                <DropdownMenuContent shade="100" align="end">
+                    <DropdownMenuItem hasChild>
+                        <Link href={`/admin/courses/edit/${data.id}`}>
+                            <FilePenLine /> Edit
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                        <AlertDialogTrigger asChild >
+                            <Button mode="text" variant="accent" status="fail">
+                                <Trash2 /> Delete
+                            </Button>
+                        </AlertDialogTrigger>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+                {/* End Dropdowon Definition */}
+                {/* Start Dialog Definition */}
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel asChild>
+                            <div>
+                                <Button cn={csx["button"]} shade="200">Cancel</Button>
+                            </div>
+                        </AlertDialogCancel>
+                        <AlertDialogAction asChild>
+                            <div>
+                                <Button cn={csx["button"]} variant="accent" status="fail" onClick={onDelete}>Delete</Button>
+                            </div>
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+                {/* End Dialog Definition */}
+            </AlertDialog>
+        </DropdownMenu>
+    )
+}
+
 export const coursesColsDesktop: ColumnDef<Course>[] = [
     {
         id: "select",
@@ -36,7 +90,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
                     (table.getIsSomePageRowsSelected() && "indeterminate")
                 }
                 mode="outline"
-                shade="200"
+                shade="100"
                 onCheckedChange={(value) => {
                     table.toggleAllPageRowsSelected(!!value)
                 }}
@@ -48,7 +102,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
                 <Checkbox
                     checked={row.getIsSelected()}
                     mode="outline"
-                    shade="200"
+                    shade="100"
                     onCheckedChange={(value) => {
                         row.toggleSelected(!!value)
                     }}
@@ -71,7 +125,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
             console.log(image)
             return (
                 <div className={csx["table-body-title"]}>  
-                    <Cover src={image} alt={title} width={50} height={34} size="S" defSize />
+                    <Cover src={image} alt={title} width={72} height={44} size="S" defSize />
                     <span>{title}</span>
                 </div> 
             )
@@ -196,58 +250,9 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
                 deleteCourse(course.id)
             }
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="primary" shade="100" size="S" content="icon">
-                            <MoreHorizontal className={csx["icon"]} />
-                            <span className="sr-only">Open menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <AlertDialog>
-                        {/* Start Dropdowon Definition */}
-                        <DropdownMenuContent shade="100" align="end">
-                            <DropdownMenuItem hasChild>
-                                <Link href={`/admin/courses/edit/${course.id}`}>
-                                    <Pencil /> Edit
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem >
-                                <FileBarChart /> Report
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <AlertDialogTrigger asChild >
-                                    <Button mode="text" variant="accent" status="fail">
-                                        <Trash2 /> Delete
-                                    </Button>
-                                </AlertDialogTrigger>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                        {/* End Dropdowon Definition */}
-                        {/* Start Dialog Definition */}
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    This action cannot be undone.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel asChild>
-                                    <div>
-                                        <Button cn={csx["button"]} shade="200">Cancel</Button>
-                                    </div>
-                                </AlertDialogCancel>
-                                <AlertDialogAction asChild>
-                                    <div>
-                                        <Button cn={csx["button"]} variant="accent" status="fail" onClick={deleteConf}>Delete</Button>
-                                    </div>
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                        {/* End Dialog Definition */}
-                    </AlertDialog>
-                </DropdownMenu>
+                <div className={csx["table-body-actions"]}>
+                    <TableActions data={course} onDelete={deleteConf} />
+                </div>
             )
         }
     }
@@ -382,58 +387,10 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
                 deleteCourse(course.id)
             }
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="primary" shade="100" size="S" content="icon">
-                            <MoreHorizontal className={csx["icon"]} />
-                            <span className="sr-only">Open menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <AlertDialog>
-                        {/* Start Dropdowon Definition */}
-                        <DropdownMenuContent shade="100" align="end">
-                            <DropdownMenuItem hasChild>
-                                <Link href={`/admin/courses/edit/${course.id}`}>
-                                    <Pencil /> Edit
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem >
-                                <FileBarChart /> Report
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <AlertDialogTrigger asChild >
-                                    <Button mode="text" variant="accent" status="fail">
-                                        <Trash2 /> Delete
-                                    </Button>
-                                </AlertDialogTrigger>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                        {/* End Dropdowon Definition */}
-                        {/* Start Dialog Definition */}
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    This action cannot be undone.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel asChild>
-                                    <div>
-                                        <Button cn={csx["button"]} shade="200">Cancel</Button>
-                                    </div>
-                                </AlertDialogCancel>
-                                <AlertDialogAction asChild>
-                                    <div>
-                                        <Button cn={csx["button"]} variant="accent" status="fail" onClick={deleteConf}>Delete</Button>
-                                    </div>
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                        {/* End Dialog Definition */}
-                    </AlertDialog>
-                </DropdownMenu>
+                <div className={csx["table-body-actions"]}>
+                    <TableActions data={course} onDelete={deleteConf} />
+                </div>
+
             )
         }
     }
@@ -556,58 +513,9 @@ export const coursesColsTablet: ColumnDef<Course>[] = [
                 deleteCourse(course.id)
             }
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="primary" shade="100" size="S" content="icon">
-                            <MoreHorizontal className={csx["icon"]} />
-                            <span className="sr-only">Open menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <AlertDialog>
-                        {/* Start Dropdowon Definition */}
-                        <DropdownMenuContent shade="100" align="end">
-                            <DropdownMenuItem hasChild>
-                                <Link href={`/admin/courses/edit/${course.id}`}>
-                                    <Pencil /> Edit
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem >
-                                <FileBarChart /> Report
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <AlertDialogTrigger asChild >
-                                    <Button mode="text" variant="accent" status="fail">
-                                        <Trash2 /> Delete
-                                    </Button>
-                                </AlertDialogTrigger>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                        {/* End Dropdowon Definition */}
-                        {/* Start Dialog Definition */}
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    This action cannot be undone.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel asChild>
-                                    <div>
-                                        <Button cn={csx["button"]} shade="200">Cancel</Button>
-                                    </div>
-                                </AlertDialogCancel>
-                                <AlertDialogAction asChild>
-                                    <div>
-                                        <Button cn={csx["button"]} variant="accent" status="fail" onClick={deleteConf}>Delete</Button>
-                                    </div>
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                        {/* End Dialog Definition */}
-                    </AlertDialog>
-                </DropdownMenu>
+                <div className={csx["table-body-actions"]}>
+                    <TableActions data={course} onDelete={deleteConf} />
+                </div>
             )
         }
     }
@@ -700,58 +608,9 @@ export const coursesColsMobile: ColumnDef<Course>[] = [
                 deleteCourse(course.id)
             }
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="primary" shade="100" size="S" content="icon">
-                            <MoreVertical className={csx["icon"]} />
-                            <span className="sr-only">Open menu</span>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <AlertDialog>
-                        {/* Start Dropdowon Definition */}
-                        <DropdownMenuContent shade="100" align="end">
-                            <DropdownMenuItem hasChild>
-                                <Link href={`/admin/courses/edit/${course.id}`}>
-                                    <Pencil /> Edit
-                                </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem >
-                                <FileBarChart /> Report
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                                <AlertDialogTrigger asChild >
-                                    <Button mode="text" variant="accent" status="fail">
-                                        <Trash2 /> Delete
-                                    </Button>
-                                </AlertDialogTrigger>
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                        {/* End Dropdowon Definition */}
-                        {/* Start Dialog Definition */}
-                        <AlertDialogContent>
-                            <AlertDialogHeader>
-                                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                    This action cannot be undone.
-                                </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel asChild>
-                                    <div>
-                                        <Button cn={csx["button"]} shade="200">Cancel</Button>
-                                    </div>
-                                </AlertDialogCancel>
-                                <AlertDialogAction asChild>
-                                    <div>
-                                        <Button cn={csx["button"]} variant="accent" status="fail" onClick={deleteConf}>Delete</Button>
-                                    </div>
-                                </AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                        {/* End Dialog Definition */}
-                    </AlertDialog>
-                </DropdownMenu>
+                <div className={csx["table-body-actions"]}>
+                    <TableActions data={course} onDelete={deleteConf} />
+                </div>
             )
         }
     }

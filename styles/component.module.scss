@@ -326,8 +326,62 @@
     --button-border-width: 1px;
 
     &[data-mode="solid"] {
+        &[data-size="XS"] {
+            font-size: var(--button-xs-font-size, var(--size-300, 12px));
+            font-weight: var(--button-xs-font-weight, var(--font-weight-400, 400));
+            letter-spacing: var(--button-xs-letter-spacing, var(--letter-spacing-500, 0.5px));
+            border-width: var(--button-xs-border-width, var(--button-border-width, 1px));
+            border-style: var(--button-xs-border-style, solid);
+            border-radius: var(--button-xs-border-radius, var(--radius-200, 4px));
+    
+            &>svg {
+                width: var(--button-xs-icon-width, var(--size-300, 12px));
+                height: var(--button-xs-icon-height, var(--size-300, 12px));
+            }
+    
+            &[data-content="text"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-200, 8px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-200, 8px)));
+            }
+    
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+            }
+    
+            &[data-content="icon-text"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-200, 8px)));
+            }
+    
+            &[data-content="text-icon"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-200, 8px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+            }
+    
+            &[data-content="icon"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+                width: var(--button-xs-width, var(--size-600, 24px));
+                height: var(--button-xs-height, var(--size-600, 24px));
+            }
+    
+            &:focus:before {
+                border-radius: calc(var(--button-s-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
         &[data-size="S"] {
-            font-size: var(--button-s-font-size, var(--size-300, 12px));
+            font-size: var(--button-s-font-size, var(--size-400, 16px));
             font-weight: var(--button-s-font-weight, var(--font-weight-400, 400));
             letter-spacing: var(--button-s-letter-spacing, var(--letter-spacing-500, 0.5px));
             border-width: var(--button-s-border-width, var(--button-border-width, 1px));
@@ -335,8 +389,8 @@
             border-radius: var(--button-s-border-radius, var(--radius-400, 8px));
     
             &>svg {
-                width: var(--button-s-icon-width, var(--size-300, 12px));
-                height: var(--button-s-icon-height, var(--size-300, 12px));
+                width: var(--button-s-icon-width, var(--size-400, 16px));
+                height: var(--button-s-icon-height, var(--size-400, 16px));
             }
     
             &[data-content="text"] {
@@ -372,15 +426,14 @@
                 padding-bottom: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
                 padding-left: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
                 padding-right: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
-                width: 36px;
-                height: 36px;
+                width: var(--button-s-width, var(--size-900, 36px));
+                height: var(--button-s-height, var(--size-900, 36px));
             }
     
             &:focus:before {
                 border-radius: calc(var(--button-s-border-radius, var(--radius-400, 8px)) + 2px);
             }
         }
-    
         &[data-size="M"] {
             font-size: var(--button-m-font-size, var(--size-400, 16px));
             font-weight: var(--button-m-font-weight, var(--font-weight-400, 400));
@@ -426,8 +479,8 @@
                 padding-bottom: var(--button-m-padding-y, var(--button-m-padding, var(--padding-300, 12px)));
                 padding-left: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
                 padding-right: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
-                width: 44px;
-                height: 44px;
+                width: var(--button-m-width, var(--size-1100, 44px));
+                height: var(--button-m-height, var(--size-1100, 44px));
             }
     
             &:focus:before {
@@ -480,8 +533,8 @@
                 padding-bottom: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
                 padding-left: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
                 padding-right: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
-                width: 52px;
-                height: 52px;
+                width: var(--button-l-width, var(--size-1300, 52px));
+                height: var(--button-l-height, var(--size-1300, 52px));
             }
     
             &:focus:before {
@@ -789,8 +842,62 @@
     }
 
     &[data-mode="outline"] {
+        &[data-size="XS"] {
+            font-size: var(--button-xs-font-size, var(--size-300, 12px));
+            font-weight: var(--button-xs-font-weight, var(--font-weight-400, 400));
+            letter-spacing: var(--button-xs-letter-spacing, var(--letter-spacing-500, 0.5px));
+            border-width: var(--button-xs-border-width, var(--button-border-width, 1px));
+            border-style: var(--button-xs-border-style, solid);
+            border-radius: var(--button-xs-border-radius, var(--radius-200, 4px));
+    
+            &>svg {
+                width: var(--button-xs-icon-width, var(--size-400, 12px));
+                height: var(--button-xs-icon-height, var(--size-400, 12px));
+            }
+    
+            &[data-content="text"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-200, 8px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-200, 8px)));
+            }
+    
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+            }
+    
+            &[data-content="icon-text"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-200, 8px)));
+            }
+    
+            &[data-content="text-icon"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-200, 8px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+            }
+    
+            &[data-content="icon"] {
+                padding-top: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--button-xs-padding-y, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--button-xs-padding-x, var(--button-xs-padding, var(--padding-100, 4px)));
+                width: var(--button-xs-width, var(--size-600, 24px));
+                height: var(--button-xs-height, var(--size-600, 24px));
+            }
+    
+            &:focus:before {
+                border-radius: calc(var(--button-s-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
         &[data-size="S"] {
-            font-size: var(--button-s-font-size, var(--size-300, 12px));
+            font-size: var(--button-s-font-size, var(--size-400, 16px));
             font-weight: var(--button-s-font-weight, var(--font-weight-400, 400));
             letter-spacing: var(--button-s-letter-spacing, var(--letter-spacing-500, 0.5px));
             border-width: var(--button-s-border-width, var(--button-border-width, 1px));
@@ -798,8 +905,8 @@
             border-radius: var(--button-s-border-radius, var(--radius-400, 8px));
     
             &>svg {
-                width: var(--button-s-icon-width, var(--size-300, 12px));
-                height: var(--button-s-icon-height, var(--size-300, 12px));
+                width: var(--button-s-icon-width, var(--size-400, 16px));
+                height: var(--button-s-icon-height, var(--size-400, 16px));
             }
     
             &[data-content="text"] {
@@ -835,8 +942,8 @@
                 padding-bottom: var(--button-s-padding-y, var(--button-s-padding, var(--padding-200, 8px)));
                 padding-left: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
                 padding-right: var(--button-s-padding-x, var(--button-s-padding, var(--padding-200, 8px)));
-                width: 36px;
-                height: 36px;
+                width: var(--button-s-width, var(--size-900, 36px));
+                height: var(--button-s-height, var(--size-900, 36px));
             }
     
             &:focus:before {
@@ -889,8 +996,8 @@
                 padding-bottom: var(--button-m-padding-y, var(--button-m-padding, var(--padding-300, 12px)));
                 padding-left: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
                 padding-right: var(--button-m-padding-x, var(--button-m-padding, var(--padding-300, 12px)));
-                width: 44px;
-                height: 44px;
+                width: var(--button-m-width, var(--size-1100, 44px));
+                height: var(--button-m-height, var(--size-1100, 44px));
             }
     
             &:focus:before {
@@ -943,8 +1050,8 @@
                 padding-bottom: var(--button-l-padding-y, var(--button-l-padding, var(--padding-400, 16px)));
                 padding-left: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
                 padding-right: var(--button-l-padding-x, var(--button-l-padding, var(--padding-400, 16px)));
-                width: 52px;
-                height: 52px;
+                width: var(--button-l-width, var(--size-1300, 52px));
+                height: var(--button-l-height, var(--size-1300, 52px));
             }
     
             &:focus:before {
@@ -3174,24 +3281,33 @@
         
         &-item {
             border-bottom: 1px solid var(--playlist-list-item-border-color, var(--primary-background-200));
-            padding: var(--playlist-list-item-padding, var(--padding-400, 16px));
+            padding: var(--playlist-list-item-padding-y, var(--padding-300, 12px)) var(--playlist-list-item-padding-x, var(--padding-400, 16px));
             cursor: pointer;
             &:hover {
                 // border-color: var(--playlist-list-item-border-hover, var(--primary-background-300));
                 background-color: var(--playlist-list-item-background-hover, var(--primary-background-200));
                 color: var(--playlist-list-item-text-hover, var(--primary-text-400));
             }
+
+            &-container {
+                display: flex;
+                gap: var(--playlist-chapter-gap, var(--gap-200, 8px));
+                text-decoration: none;
+                color: var(--playlist-chapter-text-default, var(--primary-text-400));
+            }
         }
     }
 
-    &-chapter {
+    &-item {
         display: flex;
-        gap: var(--playlist-chapter-gap, var(--gap-200, 8px));
+        align-items: center;
+        gap: var(--playlist-chapter-gap, var(--gap-400, 16px));
         text-decoration: none;
         color: var(--playlist-chapter-text-default, var(--primary-text-400));
-        &-status {
+        width: 100%;
+        &-status { 
             display: flex;
-            padding: var(--playlist-chapter-status-padding, var(--padding-100, 4px));
+            padding: var(--playlist-chapter-status-padding, var(--padding-100, 4px)); 
             &[data-status="completed"] {
                 color: var(--playlist-chapter-status-completed, var(--accent-success-400));
             }
@@ -3208,9 +3324,20 @@
         }
         &-title {
             flex-grow: 1;
+            align-self: center;
         }
         &-duration {
             flex-shrink: 0;
+            align-self: center;
+        }
+        &-state {
+            display: flex;
+            align-items: center;
+        }
+        &-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--playlist-item-actions-gap, var(--gap-200, 8px));
         }
     }
 
@@ -4092,6 +4219,11 @@
         &-tutors {
             display: flex;
             gap: var(--gap-100, 4px);
+        }
+        &-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
         }
     }
 }

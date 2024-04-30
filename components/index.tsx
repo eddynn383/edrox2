@@ -33,11 +33,13 @@ import { Search } from "./Search";
 import { SkeletonCard, SkeletonMenu, SkeletonProfile } from "./Skeleton";
 import { Star } from "./Star";
 import { Stepper } from "./Stepper";
+import { Switch } from "./Switch";
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "./Table";
 import { Text } from "./Text";
 import { Textarea } from "./Textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue } from "./Select";
 import { Playlist } from "./Playlist";
+import { PlaylistItem } from "./PlaylistItem";
 import { PlaylistToggle } from "./PlaylistToggle";
 import { UploadImage } from "./UploadImage"
  
@@ -127,6 +129,7 @@ export {
     NavigationToggle,
     PageTitle,
     Playlist,
+    PlaylistItem,
     PlaylistToggle,
     Profile,
     Progress,
@@ -151,6 +154,7 @@ export {
     SkeletonProfile,
     Star,
     Stepper,
+    Switch,
     Table,
     TableHeader,
     TableBody,

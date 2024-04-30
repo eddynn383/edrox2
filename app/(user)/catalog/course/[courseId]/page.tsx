@@ -1,18 +1,18 @@
-import { Badge, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Button, Card, Cover, PageTitle, Rating, ScrollArea } from "@/components";
-import { getChaptersCountByCourseId, getChaptersSumDurationByCourseId, getPublishdedChaptersByCourseId } from "@/data/chapters";
+import { Home } from "lucide-react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, ScrollArea } from "@/components";
+import { getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters";
 import { getCourseById } from "@/data/courses";
 import { getCourseRatingAvg, getCourseRatingCount } from "@/data/ratings";
 import { CourseDetails } from "@/module/CourseDetails";
-import { BarChart, Clock, FileBadge, Heart, Home, ListChecks, Share, ShoppingCart } from "lucide-react";
-import psx from "@/styles/page.module.scss"
-import msx from "@/styles/module.module.scss"
 import { CourseHeader } from "@/module/CourseHeader";
 import { CourseSummary } from "@/module/CourseSummary";
-// import useScreenSize from "@/hooks/useScreenSize";
+import psx from "@/styles/page.module.scss";
+import msx from "@/styles/module.module.scss";
+
 
 interface PageCourseIdProps {
     params: { 
-        courseId: string,
+        courseId: string
     }
 }
 
@@ -38,8 +38,8 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
         reviews: parsedCountRating
     }
 
-    const chaptersData = {
-        chapters: course?.chapters || [],
+    const chapters = {
+        chaptersData: course?.chapters || [],
         countChapters: countChapters || 0,
         sumOfChaptersDuration: sumOfChaptersDuration || 0
     }
@@ -55,86 +55,6 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                 <section className={psx["body-toolbar"]} data-page="course-details">
                     <div className={psx["body-toolbar-left"]}>
                         <CourseSummary course={course} /> 
-                        {/* <div className={msx["course-details-card"]}>
-                            <div className={msx["course-details-card-top"]}>
-                                <Breadcrumb className={msx["course-details-breadcrumb-mobile"]}>
-                                    <BreadcrumbList>
-                                        <BreadcrumbItem>
-                                            <BreadcrumbLink href="/" title="Home"><Home /></BreadcrumbLink>
-                                        </BreadcrumbItem>
-                                        <BreadcrumbSeparator />
-                                        <BreadcrumbItem>
-                                            <BreadcrumbLink href="/catalog" title="Catalog">Catalog</BreadcrumbLink>
-                                        </BreadcrumbItem>
-                                        <BreadcrumbSeparator />
-                                        <BreadcrumbItem>
-                                            <BreadcrumbPage>Course details</BreadcrumbPage>
-                                        </BreadcrumbItem>
-                                    </BreadcrumbList>
-                                </Breadcrumb>
-                                <Cover src={course.image} alt={course.title} width={388} height={236} />
-                            </div>
-                            <div className={msx["course-details-card-middle"]}>
-                                <div className={msx["course-details-card-price"]}>
-                                    <div className={msx["course-details-card-price-left"]}>
-                                        <h4 className={msx["course-details-card-price-new"]}>
-                                            {course.price?.currency} {course.price?.discountedPrice}
-                                        </h4>
-                                        <span className={msx["course-details-card-price-old"]}>
-                                            {course.price?.currency} {course.price?.fullPrice}
-                                        </span>
-                                    </div>
-                                    <div className={msx["course-details-card-price-right"]}>
-                                        <Badge size="M" mode="text" status="fail">Weekly deals!</Badge>
-                                    </div>
-                                </div>
-                                <div className={msx["course-details-card-metadata"]}>
-                                    <ul className={msx["course-details-card-metadata-list"]}>
-                                        <li className={msx["course-details-card-metadata-list-item"]}>
-                                            <div className={msx["course-details-card-metadata-left"]}>
-                                                <BarChart />
-                                            </div>
-                                            <div className={msx["course-details-card-metadata-right"]}>
-                                                <span className={msx["course-details-card-metadata-label"]}>Skill</span>
-                                                <span className={msx["course-details-card-metadata-value"]}>Advanced</span>
-                                            </div>
-                                        </li>
-                                        <li className={msx["course-details-card-metadata-list-item"]}>
-                                            <div className={msx["course-details-card-metadata-left"]}>
-                                                <Clock />
-                                            </div>
-                                            <div className={msx["course-details-card-metadata-right"]}>
-                                                <span className={msx["course-details-card-metadata-label"]}>Duration</span>
-                                                <span className={msx["course-details-card-metadata-value"]}>15 Hours</span>
-                                            </div>
-                                        </li>
-                                        <li className={msx["course-details-card-metadata-list-item"]}>
-                                            <div className={msx["course-details-card-metadata-left"]}>
-                                                <FileBadge />
-                                            </div>
-                                            <div className={msx["course-details-card-metadata-right"]}>
-                                                <span className={msx["course-details-card-metadata-label"]}>Certificate</span>
-                                                <span className={msx["course-details-card-metadata-value"]}>Digital</span>
-                                            </div>
-                                        </li>
-                                        <li className={msx["course-details-card-metadata-list-item"]}>
-                                            <div className={msx["course-details-card-metadata-left"]}>
-                                                <ListChecks />
-                                            </div>
-                                            <div className={msx["course-details-card-metadata-right"]}>
-                                                <span className={msx["course-details-card-metadata-label"]}>Prerequisites</span>
-                                                <span className={msx["course-details-card-metadata-value"]}>None</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className={msx["course-details-card-bottom"]}>
-                                <Button variant="accent" status="default" content="icon-text" style={{"flex": "1 1 0%"}} aria-label="Add to cart"><ShoppingCart /> Add to cart</Button>
-                                <Button variant="primary" shade="200" content="icon" aria-label="Add to favorites"><Heart /></Button>
-                                <Button variant="primary" shade="200" content="icon" aria-label="Share"><Share /></Button>
-                            </div>
-                        </div> */}
                     </div>
                     <div className={psx["body-toolbar-right"]}>
                         <div className={msx["course-details-header"]}>
@@ -160,7 +80,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                 </section>
                 <section className={psx["body-content"]}>
                     <div className={psx["body-content-left"]}>
-                        <CourseDetails courseId={courseId} tutors={course?.tutors} chaptersData={chaptersData} />
+                        <CourseDetails courseId={courseId} tutors={course?.tutors} chapters={chapters} />
                     </div>
                 </section>
             </ScrollArea>

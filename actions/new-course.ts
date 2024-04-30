@@ -7,6 +7,7 @@ import { editCourseById, getCourseById, setCourse } from "@/data/courses";
 import { setTutor } from "@/data/tutors";
 import { setPrice } from "@/data/prices";
 import { revalidatePath, revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 
 
 export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
@@ -55,6 +56,7 @@ export const updateCourse = async (courseId: string, values: z.infer<typeof NewC
     await editCourseById(courseId, newCourse)
 
     revalidatePath(`/admin/courses/edit/${courseId}`)
+    redirect(`/admin/courses/edit/${courseId}`)
 
     return { 
         success: "The course was successfully updated!" 
