@@ -2,5 +2,6 @@ interface CourseDescriptionFormProps {
     courseId: string;
     description?: string | null;
     actions?: any;
-    onOpen?: any;
+    onOpen: (state: boolean) => void;
+    onPending?: () => void;
 }

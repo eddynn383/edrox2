@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { NewChapterSchema } from "@/schemas";
 import { setChapter } from "@/data/chapters";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 
 export const newInitChapter = async (values: z.infer<typeof NewChapterSchema>, courseId: string) => {
@@ -22,7 +22,8 @@ export const newInitChapter = async (values: z.infer<typeof NewChapterSchema>, c
     // const chapterData =  
     await setChapter(validatedFields.data, courseId)
     // const data = await chapterData.json()
-    revalidateTag('chapters')
+    // revalidateTag('chapters')
+    revalidatePath(`/admin/courses/edit/${courseId}`)
     // console.log("COurse Data Json", data)
 
     return { 

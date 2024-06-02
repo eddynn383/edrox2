@@ -9,17 +9,10 @@ import { Loader2, Lock } from "lucide-react";
 
 import { useConfettiStore } from "@/hooks/useConfettiStore";
 
+import { VideoPlayerProps } from "./interface";
 import sx from "@/styles/component.module.scss"
 
-interface VideoPlayerProps {
-    playbackId: string;
-    courseId: string;
-    chapterId: string;
-    nextChapterId?: string;
-    isLocked: boolean;
-    completeOnEnd: boolean;
-    title: string;
-};
+
 
 export const VideoPlayer = ({
     playbackId,

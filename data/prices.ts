@@ -15,8 +15,8 @@ export const setPrice = async (body: PriceBody, courseId: string) => {
 
         const session = await auth()
         const user = session?.user
-        console.log({ body })
-        console.log(courseId)
+        // console.log({ body })
+        // console.log(courseId)
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 })
@@ -34,7 +34,7 @@ export const setPrice = async (body: PriceBody, courseId: string) => {
 
         return price;
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -45,7 +45,7 @@ export const getAllPrices = async () => {
 
         return price
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }
@@ -60,7 +60,7 @@ export const getPriceByCourseId = async (courseId: string) => {
 
         return price;
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }

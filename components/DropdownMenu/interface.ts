@@ -6,7 +6,7 @@ export interface DropdownMenuContentProps extends React.ComponentPropsWithoutRef
 }
 
 export interface DropdownMenuSubContentProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent> {
-
+    shade: Shade
 }
 
 export interface DropdownMenuSubTriggerProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> {

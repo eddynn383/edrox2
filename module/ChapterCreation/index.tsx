@@ -11,7 +11,7 @@ import msx from "@/styles/module.module.scss"
 const ChapterCreation = ({ chapters, courseId }: ChapterCreationProps) => {
     const [open, setOpen] = useState(false)
 
-    console.log(open)
+    // console.log(open)
     return ( 
         <div className={msx["chapters"]}>
             <h2 className={msx["chapters-title"]}>Chapters</h2>

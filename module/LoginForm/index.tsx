@@ -8,12 +8,15 @@ import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LoginSchema } from "@/schemas"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/Form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
 import { Social } from "../Social"
 import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Icon, Input } from "@/components"
 import { login } from "@/actions/login"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
+import formStyle from "@/components/Form/form.module.css"
+import iconStyle from "@/components/Icon/icon.module.css"
+import { CircleAlert, CircleCheck, Eye, EyeOff, Lock, Mail, RectangleEllipsis } from "lucide-react"
 
 export const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -26,6 +29,8 @@ export const LoginForm = () => {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<any>();
     const [success, setSuccess] = useState<any>();
+
+    const [passType, setPassType] = useState("password");
 
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
@@ -46,7 +51,7 @@ export const LoginForm = () => {
 
         startTransition(() => {
             login(values, callbackUrl).then((data) => {
-                console.log(data)
+                // console.log(data)
                 if (data?.error) {
                     form.reset();
                     setError(data.error);
@@ -76,7 +81,7 @@ export const LoginForm = () => {
                             (error || urlError) &&
                             <Alert mode="text" status="fail">
                                 <AlertDescription>
-                                    <Icon name="alert-circle" size={20} />
+                                    <CircleAlert className={iconStyle.container} data-size="L" />
                                     <span>{error || urlError}</span>
                                 </AlertDescription>
                             </Alert>
@@ -86,90 +91,106 @@ export const LoginForm = () => {
                             success &&
                             <Alert mode="text" status="success">
                                 <AlertDescription>
-                                    <Icon name="check-circle" size={20} />
+                                    <CircleCheck className={iconStyle.container} data-size="L" />
                                     <span>{success}</span>
                                 </AlertDescription>
                             </Alert>
                         }
 
                         <Form {...form}>
-                            <form className={csx["form"]} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
-                                {
-                                    showTwoFactor && (
-                                        <FormField
-                                            control={form.control}
-                                            name="code"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <div className="flex gap-4 justify-content-between">
-                                                        <FormLabel>Code</FormLabel>
-                                                        <FormMessage icon="alert-triangle" />
-                                                    </div>
-                                                    <FormControl>
-                                                        <Input
-                                                            {...field}
-                                                            mode="outline"
-                                                            placeholder="123456"
-                                                            disabled={isPending}
-                                                        />
-                                                    </FormControl>
-                                                </FormItem>
-                                            )}
-                                        />
-                                    )
-                                }
-                                {
-                                    !showTwoFactor && (
-                                        <>
+                            <form id="login-form" className={formStyle.container} onSubmit={form.handleSubmit(onSubmit)}>
+                                <FormRows>
+                                    {
+                                        showTwoFactor && (
                                             <FormField
                                                 control={form.control}
-                                                name="email"
+                                                name="code"
                                                 render={({ field }) => (
                                                     <FormItem>
-                                                        <div className="flex gap-4 justify-content-between">
-                                                            <FormLabel>Email</FormLabel>
-                                                            <FormMessage icon="alert-triangle" />
-                                                        </div>
-                                                        <FormControl>
-                                                            <Input
-                                                                {...field}
-                                                                mode="outline"
-                                                                placeholder="john.doe@example.com"
-                                                                type="email"
-                                                                disabled={isPending}
-                                                                status={emailStatus}
-                                                            />
-                                                        </FormControl>
+                                                        <FormRowDetails>
+                                                            <FormLabel>Code</FormLabel>
+                                                            <FormMessage />
+                                                        </FormRowDetails>
+                                                        <FormRowFields>
+                                                            <FormControl>
+                                                                <Input
+                                                                    {...field}
+                                                                    mode="outline"
+                                                                    placeholder="123456"
+                                                                    disabled={isPending}
+                                                                    iconBefore={<RectangleEllipsis />}
+                                                                />
+                                                            </FormControl>
+                                                        </FormRowFields>
                                                     </FormItem>
                                                 )}
                                             />
-                                            <FormField
-                                                control={form.control}
-                                                name="password"
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <div className="flex gap-4 justify-content-between">
-                                                            <FormLabel>Password</FormLabel>
-                                                            <FormMessage icon="alert-triangle" />
-                                                        </div>
-                                                        <FormControl>
-                                                            <Input
-                                                                {...field}
-                                                                mode="outline"
-                                                                placeholder="••••••••"
-                                                                type="password"
-                                                                disabled={isPending}
-                                                                status={passwordStatus}
-                                                            />
-                                                        </FormControl>
-                                                        <Link href="forgot-password" className="link link--primary">Forgot password?</Link>
-                                                    </FormItem>
-                                                )}
-                                            />
-                                        </>
-                                    )
-                                }
-
+                                        )
+                                    }
+                                    {
+                                        !showTwoFactor && (
+                                            <>
+                                                <FormField
+                                                    control={form.control}
+                                                    name="email"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormRowDetails>
+                                                                <FormLabel>Email</FormLabel>
+                                                                <FormMessage />
+                                                            </FormRowDetails>
+                                                            <FormRowFields>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        {...field}
+                                                                        mode="outline"
+                                                                        placeholder="john.doe@example.com"
+                                                                        type="email"
+                                                                        disabled={isPending}
+                                                                        status={emailStatus}
+                                                                        iconBefore={<Mail className={iconStyle.container} data-size="M" />}
+                                                                    />
+                                                                </FormControl>
+                                                            </FormRowFields>
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                                <FormField
+                                                    control={form.control}
+                                                    name="password"
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormRowDetails>
+                                                                <FormLabel>Password</FormLabel>
+                                                                <FormMessage />
+                                                            </FormRowDetails>
+                                                            <FormRowFields>
+                                                                <FormControl>
+                                                                    <Input
+                                                                        {...field}
+                                                                        mode="outline"
+                                                                        placeholder="••••••••"
+                                                                        type={passType}
+                                                                        disabled={isPending}
+                                                                        status={passwordStatus}
+                                                                        iconBefore={<Lock className={iconStyle.container} data-size="M" />}
+                                                                        iconAfter={
+                                                                            <Button type="button" mode="text" onClick={() => setPassType(passType === "password" ? "text" : "password")}>
+                                                                                {passType === "password" && <EyeOff className={iconStyle.container} data-size="M" />}
+                                                                                {passType === "text" && <Eye className={iconStyle.container} data-size="M" />}
+                                                                            </Button>
+                                                                        }
+                                                                    />
+                                                                </FormControl>
+                                                            </FormRowFields>
+                                                            <Link href="forgot-password" className="link link--primary">Forgot password?</Link>
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </>
+                                        )
+                                    }
+                                </FormRows>
                                 <Button variant="accent" status="default" mode="solid" size="M" type="submit">Sign In</Button>
                             </form>
                         </Form>

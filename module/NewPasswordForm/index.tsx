@@ -2,17 +2,18 @@
 
 import * as z from "zod"
 
-import Link from "next/link"
+import { CircleAlert, CircleCheck } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { NewPasswordSchema } from "@/schemas"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/Form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows} from "@/components/Form"
 import { Alert, AlertDescription, Button, Card, CardDescription, CardHeader, CardTitle, Icon, Input } from "@/components"
-import msx from "@/styles/module.module.scss"
-import csx from "@/styles/component.module.scss"
 import { newPassword } from "@/actions/new-password"
+import msx from "@/styles/module.module.scss"
+import formStyle from "@/components/Form/form.module.css"
+import iconStyle from "@/components/Icon/icon.module.css"
  
 export const NewPasswordForm = () => {
     const searchParams = useSearchParams();
@@ -52,7 +53,7 @@ export const NewPasswordForm = () => {
                         (error) &&
                         <Alert mode="text" status="fail">
                             <AlertDescription>
-                                <Icon name="alert-circle" size={20}/>
+                                <CircleAlert className={iconStyle.container} data-size="L" />
                                 <span>{ error }</span>
                             </AlertDescription>
                         </Alert>
@@ -62,35 +63,39 @@ export const NewPasswordForm = () => {
                         success &&
                         <Alert mode="text" status="success">
                             <AlertDescription>
-                                <Icon name="check-circle" size={20}/>
+                                <CircleCheck className={iconStyle.container} data-size="L" />
                                 <span>{success}</span>
                             </AlertDescription>
                         </Alert>
                     }
 
                     <Form {...form}>
-                        <form className={csx["form"]} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
-                            <FormField 
-                                control={form.control} 
-                                name="password" 
-                                disabled={isPending}
-                                render={({field}) => (
-                                    <FormItem>
-                                        <div className="flex gap-4 justify-content-between">
-                                            <FormLabel>Password</FormLabel>
-                                            <FormMessage icon="alert-triangle" />
-                                        </div>
-                                        <FormControl>
-                                        <Input 
-                                                {...field}  
-                                                mode="outline"
-                                                placeholder="••••••••"
-                                                type="password"
-                                            />
-                                        </FormControl>
-                                    </FormItem>
-                                )}  
-                            />
+                        <form id="new-password-form" className={formStyle.container} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
+                            <FormRows>
+                                <FormField 
+                                    control={form.control} 
+                                    name="password" 
+                                    disabled={isPending}
+                                    render={({field}) => (
+                                        <FormItem>
+                                            <FormRowDetails>
+                                                <FormLabel>Password</FormLabel>
+                                                <FormMessage />
+                                            </FormRowDetails>
+                                            <FormRowFields>
+                                                <FormControl>
+                                                    <Input 
+                                                        {...field}  
+                                                        mode="outline"
+                                                        placeholder="••••••••"
+                                                        type="password"
+                                                    />
+                                                </FormControl>
+                                            </FormRowFields>
+                                        </FormItem>
+                                    )}  
+                                />
+                            </FormRows>
                             <Button variant="accent" status="default" mode="solid" size="M" type="submit">Reset password</Button>
                         </form>
                     </Form>

@@ -4,14 +4,14 @@ import React from "react";
 import { Button, Progress } from "@/components";
 import { StepperProps } from "./interface";
 import sx from "@/styles/component.module.scss"
-
+import stepper from "./stepper.module.css"
 
 
 
 const Stepper = ({ steps, currentStep, onPrev, onNext, onClick, onDone }: StepperProps) => {
-    console.log(currentStep)
+    // console.log(currentStep)
     return (
-        <nav className={sx["stepper"]}>
+        <nav className={stepper.container}>
             {/* <ul className={sx["stepper-steps"]}>
                 {
                     steps.map((item) => (
@@ -24,7 +24,7 @@ const Stepper = ({ steps, currentStep, onPrev, onNext, onClick, onDone }: Steppe
                     ))
                 }
             </ul> */}
-            <div className={sx["stepper-controls"]}>
+            <div className={stepper.controls}>
                 <Button variant="primary" shade="200" type="button" mode="solid" size="M" disabled={currentStep <= 1} onClick={() => onPrev(steps[currentStep - 1])}>Prev</Button>
                 {currentStep < steps.length && <Button variant="accent" type="button" mode="solid" size="M" onClick={() => onNext(steps[currentStep + 1])}>Next</Button>}
                 {currentStep >= steps.length && <Button variant="accent" type="button" mode="solid" size="M" onClick={onDone}>Done</Button>}

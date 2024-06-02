@@ -1,6 +1,4 @@
-import { Size, Status, Mode } from "@/interfaces/global";
-
-type Shape = "square" | "rounded"
+import { Size, Status, Mode, Shape } from "@/interfaces/global";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     mode?: Mode;

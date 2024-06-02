@@ -1,0 +1,54 @@
+.container {
+    position: relative;
+    width: 100%;
+    min-width: 22px;
+    height: 100%;
+
+    .bar {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: var(--toggle-background, var(--primary-text-400));
+        position: absolute;
+        left: 0;
+        transition: .3s ease-in-out;
+    }
+
+    &[data-state="close"] {
+        .bar {
+            &[data-position="top"] {
+                top: 2px;
+            }
+    
+            &[data-position="middle"] {
+                top: 8px;
+            }
+    
+            &[data-position="bottom"] {
+                top: 14px
+            }
+        }
+    }
+
+    &[data-state="open"] {
+        .bar {
+            &[data-position="top"] {
+                top: 8px;
+                transform: rotate(45deg);
+            }
+    
+            &[data-position="middle"] {
+                opacity: 0;
+                width: 0;
+                top: 8px;
+                transform: translateY(50%);
+            }
+    
+            &[data-position="bottom"] {
+                top: 8px;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}
+

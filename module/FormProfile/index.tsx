@@ -35,6 +35,7 @@ import csx from "@/styles/component.module.scss";
 import { FileUpload } from "../FileUpload";
 import toast from "react-hot-toast";
 import Metadata from "../Metadata";
+import { FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 
 interface FormProfileProps {
     userId: string;
@@ -56,7 +57,7 @@ const FormProfile = ({ userId, defaultValues }: FormProfileProps) => {
     const pathname = usePathname()
     const searchParams = useSearchParams()
 
-    console.log("defaultValues: ", defaultValues)
+    // console.log("defaultValues: ", defaultValues)
 
     const form = useForm<z.infer<typeof ProfileSchema>>({
         resolver: zodResolver(ProfileSchema),
@@ -64,14 +65,14 @@ const FormProfile = ({ userId, defaultValues }: FormProfileProps) => {
     });
 
 
-    console.log(form.getValues())
+    // console.log(form.getValues())
     const submitHandler = (values: z.infer<typeof ProfileSchema>) => {
         setError("");
         setSuccess("");
 
         startTransition(() => {
             updateProfile(userId, values).then((data) => {
-                console.log(data)
+                // console.log(data)
                 if (data?.error) {
                     setError(data.error)
                 }
@@ -80,8 +81,8 @@ const FormProfile = ({ userId, defaultValues }: FormProfileProps) => {
                     form.reset();
                     setSuccess(data.success)
                 }
-                console.log("error", error)
-                console.log("success", success)
+                // console.log("error", error)
+                // console.log("success", success)
             }).catch(() => setError("Something went wrong!"))
         })
     }
@@ -104,101 +105,111 @@ const FormProfile = ({ userId, defaultValues }: FormProfileProps) => {
                     <div className={msx["course-details-form"]}>
                         <Form {...form}>
                             <form className={csx["form"]} onSubmit={form.handleSubmit(submitHandler)}>
-                                <FormField
-                                    control={form.control}
-                                    name="name"
-                                    render={({ field }) => (
-                                        <FormItem data-cols="2">
-                                            <div className={csx["form-row-details"]}>
-                                                <FormLabel>Full name</FormLabel>
-                                                {<FormMessage icon="alert-triangle" />}
-                                            </div>
+                                <FormRows>
+                                    <FormField
+                                        control={form.control}
+                                        name="name"
+                                        render={({ field }) => (
+                                            <FormItem data-cols="2">
+                                                <FormRowDetails>
+                                                    <FormLabel>Full name</FormLabel>
+                                                    {<FormMessage />}
+                                                </FormRowDetails>
+                                                <FormRowFields>
+                                                    <FormControl>
+                                                        <Input
+                                                            {...field}
+                                                            shade="200"
+                                                            type="text"
+                                                            name="name"
+                                                            placeholder="Zack Affron"
+                                                        // status={titleStatus}
+                                                        />
+                                                    </FormControl>
+                                                </FormRowFields>
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="email"
+                                        render={({ field }) => (
+                                            <FormItem data-cols="2">
+                                                <FormRowDetails>
+                                                    <FormLabel>Email</FormLabel>
+                                                    {<FormMessage />}
+                                                </FormRowDetails>
+                                                <FormRowFields>
+                                                    <FormControl>
+                                                        <Input
+                                                            {...field}
+                                                            shade="200"
+                                                            type="email"
+                                                            name="email"
+                                                            placeholder="user@example.com"
+                                                        // status={titleStatus}
+                                                        />
+                                                    </FormControl>
+                                                </FormRowFields>
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="bio"
+                                        render={({ field }) => (
+                                            <FormItem data-cols="2">
+                                                <FormRowDetails>
+                                                    <FormLabel>Bio</FormLabel>
+                                                    {<FormMessage />}
+                                                </FormRowDetails>
+                                                <FormRowFields>
+                                                    <FormControl>
+                                                        <Textarea
+                                                            {...field}
+                                                            shade="200"
+                                                            name="bio"
+                                                            placeholder="Type here..."
+                                                            resize="vertical"
+                                                        // status={titleStatus}
+                                                        />
+                                                    </FormControl>
+                                                </FormRowFields>
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormItem data-cols="2">
+                                        <FormRowDetails>
+                                            <FormLabel>Image</FormLabel>
+                                            {<FormDescription>Use the drag&drop area to upload your image</FormDescription>}
+                                            {<FormMessage />}
+                                        </FormRowDetails>
+                                        <FormRowFields>
                                             <FormControl>
-                                                <Input
-                                                    {...field}
-                                                    shade="200"
-                                                    type="text"
-                                                    name="name"
-                                                    placeholder="Zack Affron"
-                                                // status={titleStatus}
-                                                />
-                                            </FormControl>
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="email"
-                                    render={({ field }) => (
-                                        <FormItem data-cols="2">
-                                            <div className={csx["form-row-details"]}>
-                                                <FormLabel>Email</FormLabel>
-                                                {<FormMessage icon="alert-triangle" />}
-                                            </div>
-                                            <FormControl>
-                                                <Input
-                                                    {...field}
-                                                    shade="200"
-                                                    type="email"
-                                                    name="email"
-                                                    placeholder="user@example.com"
-                                                // status={titleStatus}
-                                                />
-                                            </FormControl>
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={form.control}
-                                    name="bio"
-                                    render={({ field }) => (
-                                        <FormItem data-cols="2">
-                                            <div className={csx["form-row-details"]}>
-                                                <FormLabel>Bio</FormLabel>
-                                                {<FormMessage icon="alert-triangle" />}
-                                            </div>
-                                            <FormControl>
-                                                <Textarea
-                                                    {...field}
-                                                    shade="200"
-                                                    name="bio"
-                                                    placeholder="Type here..."
-                                                    resize="vertical"
-                                                // status={titleStatus}
-                                                />
-                                            </FormControl>
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormItem data-cols="2">
-                                    <div className={csx["form-row-details"]}>
-                                        <FormLabel>Image</FormLabel>
-                                        {<FormDescription>Use the drag&drop area to upload your image</FormDescription>}
-                                        {<FormMessage icon="alert-triangle" />}
-                                    </div>
-                                    <FormControl>
-                                        <>
-                                        {/* <FileUpload endpoint="profilePicture" onChange={
-                                            (url) => {
-                                                if (url) {
-                                                    onSubmit({ imageUrl: url });
-                                                }
-                                            }}
-                                        /> */}
-                                        <Dropzone 
-                                            endpoint="profilePicture"
-                                            onChange={
-                                                (url) => {
-                                                    if (url) {
-                                                        // onSubmit({ imageUrl: url });
-                                                        console.log("this is profile image url: ", url)
+                                                <>
+                                                {/* <FileUpload endpoint="profilePicture" onChange={
+                                                    (url) => {
+                                                        if (url) {
+                                                            onSubmit({ imageUrl: url });
+                                                        }
+                                                    }}
+                                                /> */}
+                                                <Dropzone 
+                                                    endpoint="profilePicture"
+                                                    onChange={
+                                                        (url) => {
+                                                            if (url) {
+                                                                // onSubmit({ imageUrl: url });
+                                                                // console.log("this is profile image url: ", url)
+                                                            }
+                                                        }
                                                     }
-                                                }
-                                            }
-                                        />
-                                        </>
-                                    </FormControl>
-                                </FormItem>
+                                                />
+                                                </>
+                                            </FormControl>
+                                        </FormRowFields>
+                                    </FormItem>
+                                </FormRows>
                                 <div className={csx["form-actions"]}>
                                     <Button type="submit" variant="primary" shade="100">Reset</Button>
                                     <Button type="submit" variant="accent">Save</Button>

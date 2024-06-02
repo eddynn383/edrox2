@@ -1,4 +1,4 @@
-export interface IPropsSkeleton {
+export interface IPropsSkeleton extends React.ComponentProps<"span"> {
     background?: string;
     foreground?: string;
     width: string;
@@ -6,4 +6,5 @@ export interface IPropsSkeleton {
     radius: string;
     animationType: string;
     animationDuration: number;
+    extraStyle?: any;
 }

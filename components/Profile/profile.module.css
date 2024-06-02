@@ -1,0 +1,48 @@
+.container {
+    position: relative;
+    display: flex;
+    
+    gap: var(--profile-gap, var(--gap-200, 8px));
+    align-items: center;
+    padding: var(--profile-padding, var(--padding-100, 4px));
+    border-radius: var(--profile-border-radius, var(--radius-400, 8px));
+    background-color: var(--profile-100-background-default, var(--primary-background-100));
+    color: var(--profile-100-text-default, var(--primary-text-400));
+    cursor: pointer;
+
+    &:hover,
+    &[data-state="open"] {
+        background-color: var(--profile-100-background-hover, var(--primary-background-300));
+        color: var(--profile-100-text-hover, var(--primary-text-400));
+    }
+
+    .left {
+        display: flex;
+    }
+
+    .right {
+        display: none;
+    }
+
+    .name {
+        color: var(--profile-name-color, var(--primary-text-200));
+        font-size: var(--profile-name-font-size, var(--size-400, 16px));
+        font-weight: var(--profile-name-font-weight, 400);
+        line-height: var(--profile-name-line-height, 1.2);
+        white-space: nowrap;
+    }
+
+    .role {
+        color: var(--profile-role-color, var(--primary-text-500));
+        font-size: var(--profile-role-font-size, var(--size-300, 12px));
+        font-weight: var(--profile-role-font-weight, 400);
+        line-height: var(--profile-role-line-height, 1.2);
+    }
+
+    @media only screen and (min-width: 1025px) {
+        .right {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

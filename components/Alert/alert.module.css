@@ -1,0 +1,105 @@
+.container {
+    display: flex;
+    padding: var(--alert-padding, var(--padding-300, 12px));
+    border-width: var(--alert-border-width, 2px);
+    border-style: var(--alert-border-style, solid);
+    border-radius: var(--alert-border-radius, var(--radius-400, 8px));
+    gap: var(--alert-gap, var(--gap-200, 8px));
+
+    &[data-mode="solid"][data-status="success"] {
+        background-color: var(--alert-solid-success-background, var(--accent-success-400));
+        border-color: var(--alert-solid-success-border, var(--accent-success-400));
+        color: var(--alert-solid-success-text, var(--accent-success-100));
+    }
+
+    &[data-mode="solid"][data-status="fail"] {
+        background-color: var(--alert-solid-fail-background, var(--accent-fail-400));
+        border-color: var(--alert-solid-fail-border, var(--accent-fail-400));
+        color: var(--alert-solid-fail-text, var(--accent-fail-100));
+    }
+
+    &[data-mode="solid"][data-status="warning"] {
+        background-color: var(--alert-solid-warning-background, var(--accent-warning-400));
+        border-color: var(--alert-solid-fail-border, var(--accent-warning-400));
+        color: var(--alert-solid-warning-text, var(--accent-warning-100));
+    }
+
+    &[data-mode="solid"][data-status="info"] {
+        background-color: var(--alert-solid-info-background, var(--accent-info-400));
+        border-color: var(--alert-solid-info-border, var(--accent-info-400));
+        color: var(--alert-solid-fail-text, var(--accent-info-100))
+    }
+
+    &[data-mode="outline"][data-status="success"] {
+        background-color: var(--alert-outline-success-background, var(--accent-success-100));
+        border-color: var(--alert-outline-success-border, var(--accent-success-400));
+        color: var(--alert-outline-success-text, var(--accent-success-400));
+    }
+
+    &[data-mode="outline"][data-status="fail"] {
+        background-color: var(--alert-outline-fail-background, var(--accent-fail-100));
+        border-color: var(--alert-outline-fail-border, var(--accent-fail-400));
+        color: var(--alert-outline-fail-text, var(--accent-fail-400));
+    }
+
+    &[data-mode="outline"][data-status="warning"] {
+        background-color: var(--alert-outline-warning-background, var(--accent-warning-100));
+        border-color: var(--alert-outline-fail-border, var(--accent-warning-400));
+        color: var(--alert-outline-warning-text, var(--accent-warning-400));
+    }
+
+    &[data-mode="outline"][data-status="info"] {
+        background-color: var(--alert-outline-info-background, var(--accent-info-100));
+        border-color: var(--alert-outline-info-border, var(--accent-info-400));
+        color: var(--alert-outline-fail-text, var(--accent-info-400)) 
+    }
+
+    &[data-mode="text"][data-status="success"] {
+        background-color: var(--alert-text-success-background, var(--accent-success-200));
+        border-color: var(--alert-text-success-border, var(--accent-success-200));
+        color: var(--alert-text-success-text, var(--accent-success-500));
+    }
+
+    &[data-mode="text"][data-status="fail"] {
+        background-color: var(--alert-text-fail-background, var(--accent-fail-200));
+        border-color: var(--alert-text-fail-border, var(--accent-fail-200));
+        color: var(--alert-text-fail-text, var(--accent-fail-500));
+    }
+
+    &[data-mode="text"][data-status="warning"] {
+        background-color: var(--alert-text-warning-background, var(--accent-warning-200));
+        border-color: var(--alert-text-fail-border, var(--accent-warning-200));
+        color: var(--alert-text-warning-text, var(--accent-warning-500));
+    }
+
+    &[data-mode="text"][data-status="info"] {
+        background-color: var(--alert-text-info-background, var(--accent-info-200));
+        border-color: var(--alert-text-info-border, var(--accent-info-200));
+        color: var(--alert-text-fail-text, var(--accent-info-500))
+    }
+}
+
+.title {
+    font-weight: 700;
+}
+
+.description {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--alert-description-gap, var(--gap-200));
+}
+
+/* .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--alert-text-gap, var(--gap-100, 4px));
+    width: 100%;
+} */

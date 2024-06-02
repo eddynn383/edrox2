@@ -1,0 +1,88 @@
+.container {
+    position: relative;      
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--alert-dialog-overlay-background, rgba(0, 0, 0, 0.8)); /* Replace with your background color variable and desired opacity */
+    backdrop-filter: blur(var(--alert-dialog-overlay-blur, 4px));
+    z-index: 10;
+
+    &[data-state="open"] {
+        animation-name: animate-in;
+    }
+    
+    &[data-state="closed"] {
+        animation-name: animate-out;
+    }
+}
+
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--alert-dialog-header-gap, var(--gap-400, 16px));
+}
+
+.content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    display: grid;
+    width: 100%;
+    max-width: var(--alert-dialog-content-max-width, 480px); 
+    gap: var(--alert-dialog-content-gap, var(--gap-600, 24px));
+    padding: var(--alert-dialog-content-padding, var(--padding-600, 24px));
+    background-color: var(--alert-dialog-content-background, var(--primary-background-200));
+    border-width: var(--alert-dialog-content-border-width, 1px);
+    border-style: var(--alert-dialog-content-border-style, solid);
+    border-color: var(--alert-dialog-content-border-color, var(--primary-background-300));
+    border-radius: var(--alert-dialog-content-border-radius, var(--radius-800, 16px));
+    transform: translate(-50%, -50%);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Equivalent to shadow-lg */
+    transition-duration: 0.2s;
+    &[data-state="open"] {
+        animation-name: animate-in;
+    }
+    
+    &[data-state="closed"] {
+        animation-name: animate-out;
+    }
+}
+
+
+.footer {
+    display: flex;
+    gap: var(--alert-dialog-footer-gap, var(--gap-400, 16px));
+    justify-content: flex-end;
+}
+
+.cancel {
+    display: block;
+}
+
+@keyframes animate-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes animate-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}

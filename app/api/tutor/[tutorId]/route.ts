@@ -26,7 +26,7 @@ export async function DELETE(request: Request, { params }: paramsType) {
 
         return NextResponse.json(deletedTutor)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse(JSON.stringify(error), { status: 500 })
     }
 }
@@ -52,7 +52,7 @@ export async function PATCH(request: Request, { params }: paramsType) {
 
         return NextResponse.json(updatedTutor)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse(JSON.stringify(error), { status: 500 })
     }
 }

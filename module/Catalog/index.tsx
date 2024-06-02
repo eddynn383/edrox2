@@ -6,7 +6,8 @@ import sx from "@/styles/module.module.scss"
 
 
 const Catalog = async ({ courses }: CatalogProps) => {
-
+    console.log("Courses in Catalog: ", courses)
+    
     return (
         <div className={sx["catalog"]}>
             {
@@ -16,7 +17,7 @@ const Catalog = async ({ courses }: CatalogProps) => {
                             {
                                 courses.map((item: any) => (
                                     <li key={item.id}>
-                                        <CourseCard cardId={item?.id} data={item} variant="primary" shade="200" />
+                                        <CourseCard cardId={item?.id} data={item} variant="primary" shade="100" />
                                     </li>
                                 ))
                             }

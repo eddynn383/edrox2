@@ -21,10 +21,10 @@ export const CourseImage = ({cover, courseId, edit=false}: CourseImageProps) => 
 
     const uploadCoverImage = async (values: z.infer<typeof CoverImageSchema>) => {
         try {
-            console.log("UPLOAD COVER VALUES: ", values)
+            // console.log("UPLOAD COVER VALUES: ", values)
             startTransition(() => {
                 updateCourseCover(courseId, values).then((data) => {
-                    console.log(data)
+                    // console.log(data)
                     if (data?.error) {
                         setError(data.error)
                     }
@@ -32,8 +32,8 @@ export const CourseImage = ({cover, courseId, edit=false}: CourseImageProps) => 
                     if (data?.success) {
                         setSuccess(data.success)
                     }
-                    console.log("error", error)
-                    console.log("success", success)
+                    // console.log("error", error)
+                    // console.log("success", success)
                 }).catch(() => setError("Something went wrong!"))
             })
             toast.success("Cover updated");
@@ -53,7 +53,7 @@ export const CourseImage = ({cover, courseId, edit=false}: CourseImageProps) => 
                 <UploadImage currentImage={cover} endpoint="courseImage" onChange={
                     (url) => {
                         if (url) {
-                            console.log("URL uploaded: ", url)
+                            // console.log("URL uploaded: ", url)
                             uploadCoverImage({
                                 image: url
                             })

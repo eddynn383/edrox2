@@ -1,10 +1,18 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-    enabled: process.env.ANALYZE === 'true',
-})
- 
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+    experimental: {
+    
+        // css: {
+        //     modules: {
+        //         localIdentName: '[name]__[local]__[hash:base64:5]',
+        //         // Customize the CSS Modules localIdentName
+        //     }
+        // }
+        // turbo: {    
+            
+        // },
+    },
     images: {
         remotePatterns: [
             {
@@ -35,4 +43,4 @@ const nextConfig = {
     }
 }
    
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = nextConfig

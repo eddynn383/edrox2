@@ -1,6 +1,8 @@
+import { Chapter } from "@/interfaces/global";
+
 export interface PlaylistProps {
     courseId?: string;
-    data: any;
+    data: Chapter[];
     target?: string;
     edit?: boolean;
 }

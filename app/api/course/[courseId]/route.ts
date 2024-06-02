@@ -26,7 +26,7 @@ export async function DELETE(request: Request, { params }: paramsType) {
 
         return NextResponse.json(deletedCourse)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
@@ -52,7 +52,7 @@ export async function PATCH(request: Request, { params }: paramsType) {
 
         return NextResponse.json(updatedCourse)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

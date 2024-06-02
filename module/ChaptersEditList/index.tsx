@@ -15,11 +15,11 @@ const Chapter = ({ id, title, isPublished }: ChapterProps) => {
     const pathname = usePathname()
     const router = useRouter()
     // console.log(router)
-    console.log(pathname)
+    // console.log(pathname)
 
     const isActive = pathname.includes(id)
 
-    console.log(isActive)
+    // console.log(isActive)
 
     return ( 
         <Link href={id} className={csx["chapter-edit"]} data-active={isActive}>

@@ -1,7 +1,7 @@
 "use client"
 
 import { flexRender } from "@tanstack/react-table";
-import { Card, CardContent, CardDescription, ScrollArea, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components";
+import { Card, CardContent, CardDescription, ScrollArea, Table, TableBody, TableTd, TableTh, TableHeader, TableTr } from "@/components";
 import { DataTableProps } from "./interaface";
 import msx from "@/styles/module.module.scss"
 
@@ -15,11 +15,11 @@ const DataTable = <TData, TValue>({ columns, table }: DataTableProps<TData, TVal
                 <TableHeader>
                     {
                         table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id} >
+                            <TableTr key={headerGroup.id} >
                                 {
                                     headerGroup.headers.map((header) => {
                                         return (
-                                            <TableHead key={header.id}>
+                                            <TableTh key={header.id}>
                                                 {
                                                     header.isPlaceholder
                                                         ? null
@@ -28,11 +28,11 @@ const DataTable = <TData, TValue>({ columns, table }: DataTableProps<TData, TVal
                                                             header.getContext()
                                                         )
                                                 }
-                                            </TableHead>
+                                            </TableTh>
                                         )
                                     })
                                 }
-                            </TableRow>
+                            </TableTr>
                         ))
                     }
                 </TableHeader>
@@ -40,23 +40,23 @@ const DataTable = <TData, TValue>({ columns, table }: DataTableProps<TData, TVal
                     {
                         table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} >
+                                <TableTr key={row.id} data-state={row.getIsSelected() && "selected"} >
                                     {
                                         row.getVisibleCells().map((cell) => {
 
                                             return (
-                                                <TableCell key={cell.id}>
+                                                <TableTd key={cell.id}>
                                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                </TableCell>
+                                                </TableTd>
                                             )
                                         })
                                     }
-                                </TableRow>
+                                </TableTr>
                             ))
                         ) : (
-                            <TableRow>
-                                <TableCell colSpan={columns.length}>No results.</TableCell>
-                            </TableRow>
+                            <TableTr>
+                                <TableTd colSpan={columns.length}>No results.</TableTd>
+                            </TableTr>
                         )
                     }
                 </TableBody>
@@ -112,7 +112,7 @@ const DataTableMobile = <TData, TValue>({ columns, table }: DataTableProps<TData
                                     <Card padding="400" gap="200" data-state={row.getIsSelected() && "selected"} >
                                         {
                                             row.getVisibleCells().map((cell) => {
-                                                console.log("cell:: ", cell)
+                                                // console.log("cell:: ", cell)
                                                 return (
                                                     <div key={cell.id}>
                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -1,13 +1,13 @@
-import sx from "@/styles/component.module.scss"
 import { NavigationToggleProps } from "./interface"
+import toggle from "./toggle.module.css"
 
-export const NavigationToggle = ({state}: NavigationToggleProps) => {
+export const NavigationToggle = ({ className = toggle.container, state }: NavigationToggleProps) => {
 
-  return (
-    <div className={`${sx["toggle"]} ${state ? sx["open"] : sx["close"]}`}>
-        <span className={`${sx["bar"]} ${sx["bar--top"]}`}></span>
-        <span className={`${sx["bar"]} ${sx["bar--middle"]}`}></span>
-        <span className={`${sx["bar"]} ${sx["bar--bottom"]}`}></span>
-    </div>
-  )
+    return (
+        <div className={className} data-state={state ? 'open' : "close"}>
+            <span className={toggle.bar} data-position="top"></span>
+            <span className={toggle.bar} data-position="middle"></span>
+            <span className={toggle.bar} data-position="bottom"></span>
+        </div>
+    )
 }

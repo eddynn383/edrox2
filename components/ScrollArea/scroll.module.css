@@ -1,0 +1,39 @@
+.area {
+    position: relative;
+    overflow: hidden;
+}
+
+.viewport {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.bar {
+    display: flex;
+    touch-action: none;
+    user-select: none;
+    transition-property: color;
+    transition-duration: 0.3s;
+    
+    &[data-orientation="vertical"] {
+        width: var(--scroll-area-vertical-bar-width, var(--size-200, 8px));
+        height: var(--scroll-area-vertical-bar-height, 100%);
+        border-left: 1px solid transparent;
+        padding: 1px;
+    }
+    &[data-orientation="horizontal"] {
+        width: var(--scroll-area-horizontal-bar-width, 100%);
+        height: var(--scroll-area-horizontal-bar-height, var(--size-200, 8px));
+        flex-direction: column;
+        border-top: 1px solid transparent;
+        padding: 1px;
+    }
+}
+
+.thumb {
+    position: relative;
+    flex: 1;
+    border-radius: 99999px;
+    background-color: var(--primary-background-400);
+}

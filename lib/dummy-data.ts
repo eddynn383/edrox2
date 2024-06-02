@@ -32,26 +32,26 @@ export const learnerMenu = [
 ];
 
 export const adminMenu = [
+    // {
+    //     id: 1,
+    //     title: "Pages",
+    //     icon: "gantt-chart-square",
+    //     path: "/admin/pages",
+    // },
+    // {
+    //     id: 2,
+    //     title: "Catalogs",
+    //     icon: "library-square",
+    //     path: "/admin/catalogs",
+    // },
     {
         id: 1,
-        title: "Pages",
-        icon: "gantt-chart-square",
-        path: "/admin/pages",
-    },
-    {
-        id: 2,
-        title: "Catalogs",
-        icon: "library-square",
-        path: "/admin/catalogs",
-    },
-    {
-        id: 3,
         title: "Courses",
         icon: "book-text",
         path: "/admin/courses",
     },
     {
-        id: 4,
+        id: 2,
         title: "Users",
         icon: "users",
         path: "/admin/users",
@@ -68,7 +68,7 @@ export const userTools = [
     {
         id: 2,
         title: "Help",
-        icon: "help-circle",
+        icon: "circle-help",
         path: "/help",
     },
 ];

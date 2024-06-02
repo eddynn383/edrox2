@@ -10,7 +10,7 @@ export const getTwoFactorConfirmationByUserId = async (userId: string) => {
 
         return twoFactorConfrimation;
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }

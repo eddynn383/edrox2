@@ -1,0 +1,38 @@
+.container {
+    position: relative;
+    line-height: 0;
+
+    .label,
+    .input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+    }
+
+    .icon--star {
+        font-size: 14px;
+    }
+
+}
+
+.icon {
+    display: inline-block;
+    position: relative;
+}
+
+.icon-base {
+    display: block;
+    color: var(--star-default-color, var(--primary-background-300));
+    line-height: 0;
+}
+
+.icon-fill {
+    display: block;
+    color: var(--star-fill-color, var(--accent-warning-400));
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+}

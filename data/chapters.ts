@@ -29,9 +29,10 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
             }
         })
 
-        if (!courseOwner) {
-            return new NextResponse("Unauthorized", { status: 401 });
-        }
+        // if (!courseOwner) {
+        //     console.log("You are not allowed to create a chapter for this course")
+        //     return new NextResponse("Unauthorized", { status: 401 });
+        // }
 
         const lastChapter = await prisma.chapter.findFirst({
             where: {
@@ -59,7 +60,7 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
 
         return Response.json(chapter)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }
@@ -70,7 +71,7 @@ export const getAllChapters = async () => {
     
         return chapters
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -90,7 +91,7 @@ export const getPublishdedChapters = async () => {
 
         return chapters
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -111,7 +112,7 @@ export const getPublishdedChaptersById = async (id: string) => {
 
         return chapters
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -132,8 +133,8 @@ export const getPublishdedChaptersByCourseId = async (courseId: string) => {
 
         return chapters
     } catch (error) {
-        console.log(error)
-        return null;
+        // console.log(error)
+        return [];
     }
 }
 
@@ -152,8 +153,8 @@ export const getAllChaptersByCourseId = async (courseId: string) => {
 
         return chapters
     } catch (error) {
-        console.log(error)
-        return null;
+        // console.log(error)
+        return [];
     }
 }
 
@@ -167,7 +168,7 @@ export const getChapterById = async ( id: string ) => {
 
         return chapter;
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -183,7 +184,7 @@ export const getChaptersCountByCourseId = async ( courseId: string) => {
 
         return chapter._count
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -201,7 +202,7 @@ export const getChaptersSumDurationByCourseId = async ( courseId: string) => {
 
         return chapter._sum.duration === null ? 0 : chapter._sum.duration
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }

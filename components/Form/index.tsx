@@ -15,8 +15,11 @@ import {
 import { Label } from "@/components/Label"
 import { Icon } from "@/components/Icon"
 
-import { FormMessageProps } from "./interface"
+import { FormMessageProps, FormRowDetailsProps, FormRowFieldsProps, FormRowsProps } from "./interface"
 import sx from "@/styles/component.module.scss"
+import { TriangleAlert } from "lucide-react"
+import form from "./form.module.css"
+import iconStyle from "@/components/Icon/icon.module.css"
 
 const Form = FormProvider
 
@@ -78,7 +81,7 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 const FormItem = React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement>
->(({ className = `${sx["form-row"]}`, ...props }, ref) => {
+>(({ className = form.row, ...props }, ref) => {
     const id = React.useId()
 
     return (
@@ -95,7 +98,7 @@ FormItem.displayName = "FormItem"
 const FormLabel = React.forwardRef<
     React.ElementRef<typeof LabelPrimitive.Root>,
     React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className = sx["form-label"], ...props }, ref) => {
+>(({ className = form.label, ...props }, ref) => {
     const { error, formItemId } = useFormField()
 
     return (
@@ -140,7 +143,7 @@ FormControl.displayName = "FormControl"
 const FormDescription = React.forwardRef<
     HTMLParagraphElement,
     React.HTMLAttributes<HTMLParagraphElement>
->(({ className = sx["form-description"], ...props }, ref) => {
+>(({ className = form.description, ...props }, ref) => {
     const { formDescriptionId } = useFormField()
 
     return (
@@ -155,7 +158,7 @@ FormDescription.displayName = "FormDescription"
 const FormMessage = React.forwardRef<
     HTMLParagraphElement,
     FormMessageProps
->(({ className, icon, children, ...props }, ref) => {
+>(({ className, icon=<TriangleAlert className={iconStyle.container} data-size="M" />, children, ...props }, ref) => {
     const { error, formMessageId } = useFormField()
     const body = error ? String(error?.message) : children
 
@@ -164,8 +167,8 @@ const FormMessage = React.forwardRef<
     }
 
     return (
-        <div className={`${sx["form-message"]} ${error && sx["form-message--error"]}`}>
-            {icon && <Icon name="alert-triangle" className={sx["form-message-icon"]} />}
+        <div className={`${form.message} ${error && form.error}`}>
+            {icon}
             <p ref={ref} id={formMessageId} className={sx["form-message-text"]} {...props}>
                 {body}
             </p>
@@ -177,6 +180,48 @@ FormMessage.displayName = "FormMessage"
 
 
 
+const FormRows = React.forwardRef<
+    HTMLDivElement,
+    FormRowsProps
+>(({ className=form.rows, children, ...props }, ref) => {
+    return (
+        <div className={className} {...props} ref={ref}>
+            {children}
+        </div>
+    )
+})
+
+FormRows.displayName = "FormRows"
+
+
+
+const FormRowDetails = React.forwardRef<
+    HTMLDivElement,
+    FormRowDetailsProps
+>(({ className=form["row-details"], children, ...props }, ref) => {
+    return (
+        <div className={className} {...props} ref={ref}>
+            {children}
+        </div>
+    )
+})
+
+FormRowDetails.displayName = "FormRowDetails"
+
+
+const FormRowFields = React.forwardRef<
+    HTMLDivElement,
+    FormRowFieldsProps
+>(({ className=form["row-fields"], children, ...props }, ref) => {
+    return (
+        <div className={className} {...props} ref={ref}>
+            {children}
+        </div>
+    )
+})
+
+FormRowFields.displayName = "FormRowFields"
+
 export {
     useFormField,
     Form,
@@ -186,4 +231,7 @@ export {
     FormDescription,
     FormMessage,
     FormField,
+    FormRows,
+    FormRowDetails,
+    FormRowFields
 }

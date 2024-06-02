@@ -1,28 +1,28 @@
 import { Star } from "@/components/Star"
 import { RatingProps } from "./interface"
-import sx from "@/styles/component.module.scss";
+import rating from "./rating.module.css"
 
 const Rating = ({ score, reviews, containerId, showRatings=true, minified=false }: RatingProps) => {
     const reviewslabel = () => {
         if(reviews === 1) {
-            console.log("is true")
+            // console.log("is true")
             return "review"
         } else {
-            console.log("is false")
+            // console.log("is false")
             return "reviews"
         }    
     }
-    console.log("review", reviews)
-    console.log("reviewslabel: ", reviewslabel())
+    // console.log("review", reviews)
+    // console.log("reviewslabel: ", reviewslabel())
 
     return (
     
-        <div className={sx["rating"]}>            
-            <span className={sx["rating-score"]}>
-                <span className={sx["rating-score-value"]}>{score}</span>
+        <div className={rating.container}>            
+            <span className={rating.score}>
+                <span className={rating.value}>{score}</span>
                 {
                     !minified &&
-                    <span className={sx["rating-score-stars"]}>
+                    <span className={rating.stars}>
                         {
                             [...Array(5)].map((item, idx) => {
                                 const i = idx + 1
@@ -35,12 +35,12 @@ const Rating = ({ score, reviews, containerId, showRatings=true, minified=false 
                 }
                 {
                     minified && 
-                    <span className={sx["rating-score-stars"]}>
+                    <span className={rating.stars}>
                         <Star key={1} containerId={containerId} idx={1} value={1} />
                     </span>
                 }
             </span>
-            { showRatings && <span className={sx["rating-reviews"]}>({reviews} {reviewslabel()})</span>}
+            { showRatings && <span className={rating.reviews}>({reviews} {reviewslabel()})</span>}
         </div>
     )
 }

@@ -1,38 +1,48 @@
-import sx from "@/styles/component.module.scss"
 import { IPropsSkeleton } from "./interface"
+import skeleton from "./skeleton.module.css"
 
-const Bone = ({ background="var(--primary-background-200)", foreground="var(--primary-background-300)", width, height, radius, animationType, animationDuration }: IPropsSkeleton) => {
+const Bone = ({className=skeleton.bone, background="var(--primary-background-200)", foreground="var(--primary-background-300)", width, height, radius, animationType, animationDuration, extraStyle, ...props }: IPropsSkeleton) => {
     return (
-        <span className={sx["skeleton-bone"]} data-animation-type={animationType} data-animation-duration={animationDuration} style={{width: width, height: height, borderRadius: radius, backgroundColor: background}}>
-            <span className={sx["skeleton-marker"]} style={{backgroundImage: `linear-gradient(to right, transparent, ${foreground}, transparent)`}}></span>
+        <span className={className} data-animation-type={animationType} data-animation-duration={animationDuration} style={{width: width, height: height, borderRadius: radius, backgroundColor: background, ...extraStyle}} {...props}>
+            <span className={skeleton.marker} style={{backgroundImage: `linear-gradient(to right, transparent, ${foreground}, transparent)`}}></span>
         </span >
     )
 }
 
 const SkeletonCard = () => {
     return (
-        <div className={sx["skeleton-card"]}>
-            <div className={sx["skeleton-card-top"]}>
-                <Bone width="376px" height="210px" radius="8px" animationType="" animationDuration={300} />
+        <div className={skeleton.card}>
+            <div className={skeleton.cover}>
+                <Bone width="100%" height="100%" radius="8px 8px 0 0" animationType="" animationDuration={300} extraStyle={{"aspect-ratio": "16 / 9"}} />
             </div>
-            <div className={sx["skeleton-card-bottom"]}>
-                <div className={sx["skeleton-card-bottom-top"]}>
-                    <div className={sx["skeleton-card-price-rating"]}>
-                        <Bone width="38px" height="24px" radius="8px" animationType="" animationDuration={300} />
-                        <Bone width="98px" height="24px" radius="8px" animationType="" animationDuration={300} />
+            <div className={skeleton.content}>
+                <div className={skeleton.top}>
+                    <div className={skeleton["price-rating"]}>
+                        <Bone width="100px" height="24px" radius="4px" animationType="" animationDuration={300} />
+                        <Bone width="100px" height="24px" radius="4px" animationType="" animationDuration={300} />
                     </div>
-                    <div className={sx["skeleton-card-title"]}>
-                        <Bone width="100%" height="24px" radius="8px" animationType="" animationDuration={300} />
-                        <Bone width="160px" height="24px" radius="8px" animationType="" animationDuration={300} />
+                    <div className={skeleton.info}>
+                        <div className={skeleton.title}>
+                            <Bone width="100%" height="28px" radius="4px" animationType="" animationDuration={300} />
+                            {/* <Bone width="160px" height="24px" radius="8px" animationType="" animationDuration={300} /> */}
+                        </div>
+                        <div className={skeleton.description}>
+                            <Bone width="100%" height="16px" radius="4px" animationType="" animationDuration={300} />
+                            <Bone width="50%" height="16px" radius="4px" animationType="" animationDuration={300} />
+                        </div>
+                        <div className={skeleton.metadata}>
+                            <Bone width="100px" height="16px" radius="4px" animationType="" animationDuration={300} />
+                            <Bone width="100px" height="16px" radius="4px" animationType="" animationDuration={300} />
+                        </div>
                     </div>
                 </div>
-                <div className={sx["skeleton-card-bottom-bottom"]}>
-                    <span className={sx["skeleton-card-instructor"]}>
+                {/* <div className={skeleton.bottom}>
+                    <span className={skeleton.instructor}>
                         <Bone width="24px" height="24px" radius="12px" animationType="" animationDuration={300} />
                         <Bone width="80px" height="16px" radius="8px" animationType="" animationDuration={300} />
                     </span>
                     <Bone width="120px" height="16px" radius="8px" animationType="" animationDuration={300} />
-                </div>
+                </div> */}
             </div>
         </div>
     )
@@ -40,20 +50,20 @@ const SkeletonCard = () => {
 
 const SkeletonMenu = () => {
     return (
-        <div className={sx["skeleton-menu"]}>
-            <div className={sx["skeleton-menu-item"]}>
+        <div className={skeleton.menu}>
+            <div className={skeleton.item}>
                 <Bone width="100px" height="16px" radius="4px" animationType="" animationDuration={300} />
             </div>
-            <div className={sx["skeleton-menu-item"]}>
+            <div className={skeleton.item}>
                 <Bone width="140px" height="16px" radius="4px" animationType="" animationDuration={300} />
             </div>
-            <div className={sx["skeleton-menu-item"]}>
+            <div className={skeleton.item}>
                 <Bone width="135px" height="16px" radius="4px" animationType="" animationDuration={300} />
             </div>
-            <div className={sx["skeleton-menu-item"]}>
+            <div className={skeleton.item}>
                 <Bone width="160px" height="16px" radius="4px" animationType="" animationDuration={300} />
             </div>
-            <div className={sx["skeleton-menu-item"]}>
+            <div className={skeleton.item}>
                 <Bone width="80px" height="16px" radius="4px" animationType="" animationDuration={300} />
             </div>
         </div>
@@ -62,17 +72,17 @@ const SkeletonMenu = () => {
 
 const SkeletonProfile = () => {
     return (
-        <div className={sx["skeleton-profile"]}>
-            <div className={sx["skeleton-profile-left"]}>
-                <div className={sx["skeleton-profile-image"]}>
+        <div className={skeleton.profile}>
+            <div className={skeleton.left}>
+                <div className={skeleton.image}>
                     <Bone width="100%" height="100%" radius="4px" animationType="" animationDuration={300} />
                 </div>
             </div>
-            <div className={sx["skeleton-profile-right"]}>
-                <div className={sx["skeleton-profile-name"]}>
+            <div className={skeleton.right}>
+                <div className={skeleton.name}>
                     <Bone width="140px" height="16px" radius="4px" animationType="" animationDuration={300} />
                 </div>
-                <div className={sx["skeleton-profile-email"]}>
+                <div className={skeleton.email}>
                     <Bone width="70px" height="16px" radius="4px" animationType="" animationDuration={300} />
                 </div>
             </div>

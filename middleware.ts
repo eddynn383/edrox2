@@ -34,9 +34,9 @@ export default middleware((req) => {
     if (isApiAuthRoute) return null
 
     if (isAuthRoute) {
-        console.log("auth route if is checked")
+        // console.log("auth route if is checked")
         if (isLoggedIn) {
-            console.log("logged in if checked")
+            // console.log("logged in if checked")
             return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
         }
         return null

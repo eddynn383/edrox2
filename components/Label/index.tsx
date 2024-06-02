@@ -2,19 +2,13 @@
 
 import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
-import sx from "@/styles/component.module.scss"
+import label from "./label.module.css"
+import { LabelProps } from "./interface"
 
-
-const Label = React.forwardRef<
-    React.ElementRef<typeof LabelPrimitive.Root>,
-    React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className=sx["form-label"], ...props }, ref) => (
-    <LabelPrimitive.Root
-        ref={ref}
-        className={className}
-        {...props}
-    />
+const Label = React.forwardRef<React.ElementRef<typeof LabelPrimitive.Root>, LabelProps>(({ className=label.container, ...props }, ref) => (
+    <LabelPrimitive.Root ref={ref} className={className} {...props} />
 ))
+
 Label.displayName = LabelPrimitive.Root.displayName
 
 export { Label }

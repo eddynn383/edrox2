@@ -29,7 +29,7 @@ const Metadata = () => {
     });
 
     const addRowHandler = (values: z.infer<typeof MetadataSchema>) => {
-        console.log(values)
+        // console.log(values)
         // if (data.length === 1 || !MetadataSchema.safeParse(data[data.length - 1])) {
         //     return;
         // }
@@ -44,10 +44,10 @@ const Metadata = () => {
         //     setError("Please fill the row before")
         // }
 
-        console.log("dataValidation: ", dataValidation)
+        // console.log("dataValidation: ", dataValidation)
 
         if (!dataValidation.success) {
-            console.log("not works")
+            // console.log("not works")
             return { error: "Invalid email!"}
         }
 
@@ -58,8 +58,8 @@ const Metadata = () => {
 
         const { name, value } = e.target
 
-        console.log(name)
-        console.log(value)
+        // console.log(name)
+        // console.log(value)
 
         const onChangeVal = [...data];
         onChangeVal[i][name] = value;

@@ -1,0 +1,89 @@
+.container {
+    width: var(--table-width, 100%);
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+}
+
+.wrapper {
+    width: 100%;
+    overflow: auto;
+    border-width: var(--table-border-width, 1px);
+    border-style: var(--table-border-style, solid);
+    border-color: var(--table-border-color, var(--primary-background-300));
+    border-radius: var(--table-border-radius, var(--radius-400, 8px));
+    background-color: var(--table-background-color, transparent);
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    background-color: var(--table-background-header-default, var(--primary-background-200));
+    z-index: 1;
+
+    .actions {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
+
+.tr {
+    border-bottom-width: var(--table-tr-border-width, 1px);
+    border-bottom-style: var(--table-tr-border-style, solid);
+    border-bottom-color: var(--table-tr-border-color, var(--primary-background-300));
+    background-color: var(--table-background-default, transparent);
+
+    &:hover {
+        background-color: var(--table-background-hover, var(--primary-background-200));
+    }
+}
+
+tbody > .tr:last-child {
+    border-bottom-width: 0;
+}
+
+.th,
+.td {
+    height: 53px;
+    padding: var(--table-padding-y, var(--padding-200, 8px)) var(--table-padding-x, var(--padding-300, 12px));
+    text-align: var(--table-text-align, left);
+}
+
+
+.body {
+    .checkbox {
+        width: auto;
+    }
+    .title {
+        display: grid;
+        grid-template-columns: min-content auto;
+        gap: var(--gap-200, 8px);
+        align-items: center;
+    }
+    .tutors {
+        display: flex;
+        gap: var(--gap-100, 4px);
+    }
+    .actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
+
+.selection-counter {
+    display: flex;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+}
+
+@media only screen and (max-width: 768px) {
+    .body {
+        .title {
+            grid-template-columns: auto;
+        }
+    }
+}

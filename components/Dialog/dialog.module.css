@@ -1,0 +1,153 @@
+.container {
+    position: relative;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--dialog-overlay-background, rgba(0, 0, 0, 0.8)); /* Replace with your background color variable and desired opacity */
+    backdrop-filter: blur(var(--dialog-overlay-blur, 4px));
+    z-index: 10;
+
+    &[data-state="open"] {
+        animation-name: animate-in;
+    }
+    
+    &[data-state="closed"] {
+        animation-name: animate-out;
+    }
+      
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dialog-header-gap, var(--gap-100, 4px));
+}
+
+.content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    display: grid;
+    width: 100%;
+    max-width: var(--dialog-content-max-width, 480px);
+    gap: var(--dialog-content-gap, var(--gap-600, 24px));
+    padding: var(--dialog-content-padding, var(--padding-600, 24px));
+    background-color: var(--dialog-content-background, var(--primary-background-200));
+    border-width: var(--dialog-content-border-width, 1px);
+    border-style: var(--dialog-content-border-style, solid);
+    border-color: var(--dialog-content-border-color, var(--primary-background-300));
+    border-radius: var(--dialog-content-border-radius, var(--radius-400, 8px));
+    transform: translate(-50%, -50%);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Equivalent to shadow-lg */
+    transition-duration: 0.2s;
+
+    &[data-state="open"] {    
+        animation-name: animate-in; 
+    }
+    
+    &[data-state="closed"] {
+        animation-name: animate-out;
+    }
+
+    .form-row {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        .input {
+            grid-column: span 3 / span 3;
+        }
+    }
+}
+
+.content:has(.body) {
+    padding: 0;
+    gap: 0;
+    .header {
+        padding: var(--dialog-header-padding-y, var(--padding-600, 24px)) var(--dialog-header-padding-x, var(--padding-600, 24px));
+    }
+    .body:not(:has(.footer)) {
+        padding: var(--dialog-body-padding-y, 0) var(--dialog-body-padding-x, var(--padding-600, 24px));
+    }
+    .footer {
+        padding: var(--dialog-footer-padding-y, var(--padding-600, 24px)) var(--dialog-footer-padding-x, var(--padding-600, 24px));
+        /* border-top: 1px solid var(--dialog-footer-border-top-color, var(--primary-background-300)); */
+    }
+}
+
+.body:has(.form) {
+    .form-rows {
+        padding: var(--dialog-body-padding-y, var(--padding-400, 16px)) var(--dialog-body-padding-x, var(--padding-600, 24px));
+    }
+}
+
+.rows {
+    padding: var(--dialog-body-padding-y, var(--padding-400, 16px)) var(--dialog-body-padding-x, var(--padding-600, 24px));
+}
+
+.footer {
+    display: flex;
+    gap: var(--dialog-footer-gap, var(--gap-400, 16px));
+    justify-content: flex-end;
+}
+
+.close {
+    position: absolute;
+    top: var(--dialog-close-position-top, var(--size-200, 8px));
+    right: var(--dialog-close-position-right, var(--size-200, 8px));
+    padding: var(--dialog-close-padding, var(--padding-200, 8px));
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: opacity .3s ease-in-out;
+    & > svg {
+        width: var(--dialog-close-icon-width, var(--size-400, 16px));
+        height: var(--dialog-close-icon-height, var(--size-400, 16px));
+    }
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.title {
+    font-size: var(--dialog-title-font-size, var(--size-500, 20px));
+    font-weight: var(--dialog-title-font-weight, 700);
+    line-height: var(--dialog-title-line-height, 1.2);
+    letter-spacing: var(--dialog-title-letter-spacing, 1px);
+    color: var(--dialog-title-color, var(--primary-text-100));
+}
+
+.description {
+    font-size: var(--dialog-description-font-size, var(--size-400, 16px));
+    font-weight: var(--dialog-description-font-weight, 400);
+    line-height: var(--dialog-description-line-height, 1.4);
+    letter-spacing: var(--dialog-description-letter-spacing, 0);
+    color: var(--dialog-description-color, var(--primary-text-500));
+}
+
+@keyframes animate-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes animate-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}

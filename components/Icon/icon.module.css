@@ -1,0 +1,15 @@
+.container {
+    position: relative;
+    &[data-size="S"] {
+        width: var(--icon-s-width, var(--size-300, 12px));
+        height: var(--icon-s-height, var(--size-300, 12px));
+    }
+    &[data-size="M"] {
+        width: var(--icon-m-width, var(--size-400, 16px));
+        height: var(--icon-m-height, var(--size-400, 16px));
+    }
+    &[data-size="L"] {
+        width: var(--icon-l-width, var(--size-600, 24px));
+        height: var(--icon-l-height, var(--size-600, 24px));
+    }
+}

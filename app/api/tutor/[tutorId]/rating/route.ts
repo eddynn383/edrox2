@@ -15,7 +15,7 @@ export async function POST(request: Request, { params }: paramsType) {
         const body = await request.json()
         const { tutorId } = params
 
-        console.log("USER: ", user)
+        // console.log("USER: ", user)
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 })
@@ -28,13 +28,13 @@ export async function POST(request: Request, { params }: paramsType) {
             }
         })
 
-        console.log("tutor rating exists: ", alreadyExists)
+        // console.log("tutor rating exists: ", alreadyExists)
 
         if (alreadyExists) {
             return new NextResponse("Review already exists!", { status: 502 })
         }
 
-        console.log("dataBeforeSave: ", body)
+        // console.log("dataBeforeSave: ", body)
         const rating = await prisma.ratingsOnTutors.create({
             data: {
                 tutorId,
@@ -45,10 +45,10 @@ export async function POST(request: Request, { params }: paramsType) {
             }
         })
 
-        console.log("SAVED RATING: ", rating)
+        // console.log("SAVED RATING: ", rating)
         return Response.json(rating)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
@@ -79,7 +79,7 @@ export async function PATCH(request: Request, { params }: paramsType) {
 
         const avgRatingData = avgRating._avg.rating
 
-        console.log("AVG Rating: ", avgRatingData)
+        // console.log("AVG Rating: ", avgRatingData)
 
         await prisma.tutor.update({
             where: {

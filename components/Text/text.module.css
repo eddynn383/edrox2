@@ -1,0 +1,13 @@
+.container {
+    &[data-size="S"] {
+        font-size: var(--text-s-size, var(--size-300, 12px));
+    }
+
+    &[data-size="M"] {
+        font-size: var(--text-m-size, var(--size-400, 16px));
+    }
+
+    &[data-size="L"] {
+        font-size: var(--text-l-size, var(--size-500, 20px));
+    }
+}

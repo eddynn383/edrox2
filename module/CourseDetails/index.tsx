@@ -1,5 +1,5 @@
 import { BarChart, Clock, FileBadge, ListChecks, MoreVertical, PlusCircle } from "lucide-react";
-import { Button, Cover, Playlist } from "@/components";
+import { Button, Cover, Playlist, ScrollArea } from "@/components";
 import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
 import ChaptersViewList from "../ChapterViewList";
 import TutorsViewList from "../TutorsViewList";
@@ -7,6 +7,9 @@ import { getTutor } from "@/actions/tutor";
 import { convertDuration } from "@/lib/utils";
 import msx from "@/styles/module.module.scss";
 import csx from "@/styles/component.module.scss"
+import { ChapterModal } from "../ChapterModal";
+import { Suspense } from "react";
+import { TutorsModal } from "../TutorsModal";
 
 type Tutor = {
     tutorId: string;
@@ -38,8 +41,8 @@ interface CourseDetailsProps {
 }
 
 const CourseDetails = ({ courseId, tutors, chapters, edit=false }: CourseDetailsProps) => {
-    console.log("TUTORS: ", tutors);
-    console.log("CHAPTERS: ", chapters)
+    // console.log("TUTORS: ", tutors);
+    // console.log("CHAPTERS: ", chapters)
 
     const {
         chaptersData,
@@ -101,12 +104,14 @@ const CourseDetails = ({ courseId, tutors, chapters, edit=false }: CourseDetails
                             </span>
                         </div>
                         <div className={msx["chapters-view-bottom"]}>
+                            <Suspense fallback={<p>Loading playlist...</p>}>
                             {
                                 chapters && 
                                 <div className={msx["chapters-view-list"]}>
                                     <Playlist data={chaptersData} target={`${courseId}/chapter`} />
                                 </div>
                             }
+                            </Suspense>
                         </div>
                     </section>
                     <section className={msx["tutors-view"]}>
@@ -124,22 +129,31 @@ const CourseDetails = ({ courseId, tutors, chapters, edit=false }: CourseDetails
                     <section className={msx["chapters-view"]}>
                         <div className={msx["chapters-view-top"]}>
                             <h2>Chapters</h2>
-                            {/* <span className={msx["chapters-view-meta"]}>
-                                <span className={msx["chapters-view-meta-item"]}>{countChapters} {countChapters === 1 ? "Chapter" : "Chapters"}</span>
-                                <span className={msx["chapters-view-meta-item"]}>{convertDuration(sumOfChaptersDuration)}</span>
-                            </span> */}
-                            <Button mode="text" variant="accent" shade="100" size="M" content="icon-text">
-                                <PlusCircle className={csx["icon"]} />
-                                <span>Add chapter</span>
-                            </Button>
+                            <ChapterModal id={courseId} />
                         </div>
                         <div className={msx["chapters-view-bottom"]}>
+                            <Suspense fallback={<p>Loading playlist...</p>}>
                             {
                                 chapters && 
                                 <div className={msx["chapters-view-list"]}>
                                     <Playlist courseId={courseId} data={chaptersData} target={`${courseId}/chapter`} edit={edit}/>
                                 </div>
                             }
+                            </Suspense>
+                        </div>
+                    </section>
+                    <section className={msx["tutors-edit"]}>
+                        <div className={msx["tutors-edit-top"]}>
+                            <h2>Tutors</h2> 
+                            <TutorsModal id={courseId} />
+                        </div>
+                        <div className={msx["tutors-edit-bottom"]}>
+                            <Suspense fallback={<p>Loading tutors...</p>}>
+                                {
+                                    tutors && 
+                                    <TutorsViewList tutors={tutors}/>
+                                }
+                            </Suspense>
                         </div>
                     </section>
                 </>

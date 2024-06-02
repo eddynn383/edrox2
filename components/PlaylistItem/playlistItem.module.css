@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: var(--playlist-item-gap, var(--gap-400, 16px));
+    text-decoration: none;
+    color: var(--playlist-item-text-default, var(--primary-text-400));
+    width: 100%;
+
+    .status { 
+        display: flex;
+        padding: var(--playlist-item-status-padding, var(--padding-100, 4px)); 
+        
+        &[data-status="completed"] {
+            color: var(--playlist-item-status-completed, var(--accent-success-400));
+        }
+        &[data-status="in-progress"] {
+            color: var(--playlist-item-status-progress, var(--accent-warning-400));
+        }
+        &[data-status="not-started"] {
+            color: var(--playlist-item-status-not-started, var(--primary-text-600));
+        }
+        & > svg {
+            width: var(--playlist-item-status-width, var(--size-400, 16px));
+            height: var(--playlist-item-status-height, var(--size-400, 16px));
+        }
+    }
+
+    .title {
+        flex-grow: 1;
+        align-self: center;
+        justify-content: flex-start;
+    }
+
+    .duration {
+        flex-shrink: 0;
+        align-self: center;
+    }
+
+    .state {
+        display: flex;
+        align-items: center;
+    }
+
+    .actions {
+        display: flex;
+        align-items: center;
+        gap: var(--playlist-item-actions-gap, var(--gap-200, 8px));
+    }
+}

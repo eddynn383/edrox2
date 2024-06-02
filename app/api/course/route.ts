@@ -8,7 +8,7 @@ export async function POST(request: Request) {
         const session = await auth()
         const user = session?.user
         const res = await request.json()
-        console.log({ res })
+        // console.log({ res })
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 })
@@ -27,10 +27,10 @@ export async function POST(request: Request) {
         })
 
         revalidateTag('courses')
-        console.log(course)
+        // console.log(course)
         return Response.json(course)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse(JSON.stringify(error), { status: 500 })
     }
 }
@@ -41,7 +41,7 @@ export async function GET() {
 
         return Response.json(course)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse(JSON.stringify(error), { status: 500 })
     }
 }

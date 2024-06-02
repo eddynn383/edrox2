@@ -22,7 +22,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
     const userExists = await getUserByEmail(email)
 
-    console.log("REGISTER UserExists: ", userExists)
+    // console.log("REGISTER UserExists: ", userExists)
 
     if (userExists) {
         return { error: "The email is taken!" }
@@ -38,7 +38,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     })
 
     if (user.role === "ADMIN" || user.role === "TUTOR") {
-        console.log("start tutor Creation")
+        // console.log("start tutor Creation")
         await setTutor(user)
     }
 

@@ -48,7 +48,7 @@ export async function POST(request: Request, { params }: paramsType) {
         // console.log("SAVED RATING: ", rating)
         return Response.json(rating)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
@@ -79,7 +79,7 @@ export async function PATCH(request: Request, { params }: paramsType) {
 
         const avgRatingData = avgRating._avg.rating
 
-        console.log("AVG Rating: ", avgRatingData)
+        // console.log("AVG Rating: ", avgRatingData)
 
         await prisma.course.update({
             where: {

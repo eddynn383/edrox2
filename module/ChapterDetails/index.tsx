@@ -1,16 +1,19 @@
-import { VideoPlayer } from "@/components/Player";
+import { setContent } from "@/data/content";
+import { ContentForm } from "../ContentForm";
 import msx from "@/styles/module.module.scss";
 
 interface ChapterDetailsProps {
+    chapterId: string;
+    courseId: string;
     data: any;
+    edit: boolean;
 }
 
-const ChapterDetails = ({ data }: ChapterDetailsProps) => {
+const ChapterDetails = async ({ data, courseId, chapterId, edit=false }: ChapterDetailsProps) => {
+
     return ( 
         <div className={msx["chapter-details-body"]}>
-            <VideoPlayer playbackId={""} courseId={data.courseId} chapterId={data.chapterId} isLocked={false} completeOnEnd={false} title={data.title} />
-            <h2>{data?.title}</h2>
-            <p>{data?.description}</p>
+            <ContentForm courseId={courseId} chapterId={chapterId} currentData={data} edit={edit} />
         </div>
     );
 }

@@ -184,9 +184,37 @@ h4,
     animation: Rotate 1000ms linear infinite;
 }
 
+.animate-in {
+    animation: animate-in .2s ease-in-out;
+}
+
 
 @keyframes Rotate {
 	to {
 		transform: rotate(360deg);
 	}
+}
+
+@keyframes animate-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes animate-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
 }

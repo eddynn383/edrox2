@@ -1,15 +1,15 @@
 import { NavigationMenuItem } from "../NavigationMenuItem"
 import { NavigationMenuProps } from "./interface"
-import sx from "@/styles/component.module.scss"
+import navigation from "./navigation.module.css"
 
 export const NavigationMenu = ({data, state}: NavigationMenuProps) => {
 
     return (
-        <nav className={sx["menu"]}>
-            <ul className={sx["menu-list"]}>
+        <nav className={navigation.menu}>
+            <ul className={navigation.list}>
                 {
                     data?.map((item: any) => (
-                        <li className={sx["menu-list-item"]} key={item?.id}>
+                        <li className={navigation["list-item"]} key={item?.id}>
                             <NavigationMenuItem path={item.path} icon={item?.icon} text={item?.title} iconsOnly={state} />
                         </li>
                     ))

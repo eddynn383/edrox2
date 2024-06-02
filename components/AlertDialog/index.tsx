@@ -3,14 +3,14 @@
 import * as React from "react"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 import { AlertDialogActionProps, AlertDialogCancelProps, AlertDialogContentProps, AlertDialogDescriptionProps, AlertDialogFooterProps, AlertDialogHeaderProps, AlertDialogOverlayProps, AlertDialogProps, AlertDialogTitleProps } from "./interface"
-import sx from "@/styles/component.module.scss"
+import alertdialog from "./alertdialog.module.css"
 
 const AlertDialog = AlertDialogPrimitive.Root
 
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger
 
 
-const AlertDialogPortal = ({ className=sx["alert-dialog"], ...props}: AlertDialogProps) => (
+const AlertDialogPortal = ({ ...props}: AlertDialogProps) => (
     <AlertDialogPrimitive.Portal {...props} />
 )
 
@@ -18,7 +18,7 @@ AlertDialogPortal.displayName = AlertDialogPrimitive.Portal.displayName
 
 
 
-const AlertDialogOverlay = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Overlay>, AlertDialogOverlayProps>(({ className=sx["alert-dialog-overlay"], children, ...props }, ref) => (
+const AlertDialogOverlay = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Overlay>, AlertDialogOverlayProps>(({ className=alertdialog.overlay, children, ...props }, ref) => (
     <AlertDialogPrimitive.Overlay className={className} {...props} ref={ref} />
 ))
 
@@ -26,7 +26,7 @@ AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName
 
 
 
-const AlertDialogContent = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Content>, AlertDialogContentProps>(({ className=sx["alert-dialog-content"], ...props }, ref) => (
+const AlertDialogContent = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Content>, AlertDialogContentProps>(({ className=alertdialog.content, ...props }, ref) => (
     <AlertDialogPortal>
         <AlertDialogOverlay />
         <AlertDialogPrimitive.Content
@@ -43,7 +43,7 @@ AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName
 
 
 
-const AlertDialogHeader = ({ className=sx["alert-dialog-header"], ...props }: AlertDialogHeaderProps) => (
+const AlertDialogHeader = ({ className=alertdialog.header, ...props }: AlertDialogHeaderProps) => (
     <div className={className} {...props} />
 )
 
@@ -51,7 +51,7 @@ AlertDialogHeader.displayName = "AlertDialogHeader"
 
 
 
-const AlertDialogFooter = ({ className=sx["alert-dialog-footer"], ...props }: AlertDialogFooterProps) => (
+const AlertDialogFooter = ({ className=alertdialog.footer, ...props }: AlertDialogFooterProps) => (
     <div className={className} {...props} />
 )
 
@@ -59,7 +59,7 @@ AlertDialogFooter.displayName = "AlertDialogFooter"
 
 
 
-const AlertDialogTitle = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Title>, AlertDialogTitleProps>(({ className=sx["alert-dialog-title"], ...props }, ref) => (
+const AlertDialogTitle = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Title>, AlertDialogTitleProps>(({ className=alertdialog.title, ...props }, ref) => (
     <AlertDialogPrimitive.Title ref={ref} className={className} {...props} />
 ))
 
@@ -67,7 +67,7 @@ AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName
 
 
 
-const AlertDialogDescription = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Description>, AlertDialogDescriptionProps>(({ className=sx["alert-dialog-description"], ...props }, ref) => (
+const AlertDialogDescription = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Description>, AlertDialogDescriptionProps>(({ className=alertdialog.description, ...props }, ref) => (
     <AlertDialogPrimitive.Description ref={ref} className={className} {...props} />
 ))
 
@@ -75,7 +75,7 @@ AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayNam
 
 
 
-const AlertDialogAction = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Action>, AlertDialogActionProps>(({ className=sx["alert-dialog-action"], ...props }, ref) => (
+const AlertDialogAction = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Action>, AlertDialogActionProps>(({ className=alertdialog.action, ...props }, ref) => (
     <AlertDialogPrimitive.Action ref={ref} className={className} {...props} />
 ))
 
@@ -83,7 +83,7 @@ AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName
 
 
 
-const AlertDialogCancel = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Cancel>, AlertDialogCancelProps>(({ className=sx["alert-dialog-cancel"], ...props }, ref) => (
+const AlertDialogCancel = React.forwardRef<React.ElementRef<typeof AlertDialogPrimitive.Cancel>, AlertDialogCancelProps>(({ className=alertdialog.cancel, ...props }, ref) => (
     <AlertDialogPrimitive.Cancel ref={ref} className={className} {...props} />
 ))
 

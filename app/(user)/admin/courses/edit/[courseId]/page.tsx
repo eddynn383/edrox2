@@ -1,15 +1,13 @@
 import { Home, Plus } from "lucide-react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Button, Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Playlist } from "@/components";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, ScrollArea } from "@/components";
 import { getCourseById } from "@/data/courses";
 import { getAllCategories } from "@/data/categories";
-import { CourseImage } from "@/module/CourseImage";
 import { CourseHeader } from "@/module/CourseHeader";
 import { CourseSummary } from "@/module/CourseSummary";
+import { CourseDetails } from "@/module/CourseDetails";
+import { getAllChaptersByCourseId, getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters";
 import psx from "@/styles/page.module.scss";
 import msx from "@/styles/module.module.scss";
-import { ChapterCreationForm } from "@/module/ChapterCreationForm";
-import { CourseDetails } from "@/module/CourseDetails";
-import { getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters";
 
 interface NewCoursePageProps {
     params: {
@@ -20,6 +18,7 @@ interface NewCoursePageProps {
 const Page = async ({ params }: NewCoursePageProps) => {
     const categories = await getAllCategories();
     const course = await getCourseById(params.courseId)
+    const courseChapters = await getAllChaptersByCourseId(params.courseId)
     const countChapters = await getChaptersCountByCourseId(params.courseId)
     const sumOfChaptersDuration = await getChaptersSumDurationByCourseId(params.courseId)
 
@@ -29,7 +28,7 @@ const Page = async ({ params }: NewCoursePageProps) => {
     }
 
     const chapters = {
-        chaptersData: course?.chapters || [],
+        chaptersData: courseChapters || [],
         countChapters: countChapters || 0,
         sumOfChaptersDuration: sumOfChaptersDuration || 0
     }
@@ -48,11 +47,11 @@ const Page = async ({ params }: NewCoursePageProps) => {
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator />
                                 <BreadcrumbItem>
-                                    <BreadcrumbLink href="/admin/courses" title="Courses">Courses</BreadcrumbLink>
+                                    <BreadcrumbLink href="/admin/courses" title="Courses">Courses Manager</BreadcrumbLink>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator />
                                 <BreadcrumbItem>
-                                    <BreadcrumbPage>Course Creation</BreadcrumbPage>
+                                    <BreadcrumbPage>Edit Course</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
@@ -69,11 +68,13 @@ const Page = async ({ params }: NewCoursePageProps) => {
                     </div>
                 </div>
             </section>
-            <section className={psx["body-content"]}>
-                <div className={psx["body-content-left"]}>
-                    <CourseDetails courseId={params.courseId} tutors={course?.tutors} chapters={chapters} edit={true} />
-                </div>
-            </section>
+            <ScrollArea>
+                <section className={psx["body-content"]}>
+                    <div className={psx["body-content-left"]}>
+                        <CourseDetails courseId={params.courseId} tutors={course?.tutors} chapters={chapters} edit={true} />
+                    </div>
+                </section>
+            </ScrollArea>
         </div>
     )
 }

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
 import { DrawerContentProps, DrawerDescriptionProps, DrawerFooterProps, DrawerHeaderProps, DrawerOverlayProps, DrawerProps, DrawerTitleProps } from "./interface"
-import sx from "@/styles/component.module.scss"
+import drawer from "./drawer.module.css"
 
 const Drawer = ({ shouldScaleBackground = true, ...props }: DrawerProps) => (
     <DrawerPrimitive.Root shouldScaleBackground={shouldScaleBackground} {...props} />
@@ -19,7 +19,7 @@ const DrawerPortal = DrawerPrimitive.Portal
 
 const DrawerClose = DrawerPrimitive.Close
 
-const DrawerOverlay = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Overlay>, DrawerOverlayProps>(({ className=sx["drawer-overlay"], ...props }, ref) => (
+const DrawerOverlay = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Overlay>, DrawerOverlayProps>(({ className=drawer.overlay, ...props }, ref) => (
     <DrawerPrimitive.Overlay ref={ref} className={className} {...props} />
 ))
 
@@ -29,7 +29,7 @@ DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
 
 
 
-const DrawerContent = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Content>, DrawerContentProps>(({ className=sx["drawer-content"], children, ...props }, ref) => (
+const DrawerContent = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Content>, DrawerContentProps>(({ className=drawer.content, children, ...props }, ref) => (
     <DrawerPortal>
         <DrawerOverlay />
         <DrawerPrimitive.Content ref={ref} className={className} {...props} >
@@ -48,7 +48,7 @@ DrawerContent.displayName = "DrawerContent"
 
 
 
-const DrawerHeader = ({ className=sx["drawer-header"], ...props }: DrawerHeaderProps ) => (
+const DrawerHeader = ({ className=drawer.header, ...props }: DrawerHeaderProps ) => (
     <div className={className}
         {...props}
     />
@@ -60,7 +60,7 @@ DrawerHeader.displayName = "DrawerHeader"
 
 
 
-const DrawerFooter = ({ className=sx["drawer-footer"], ...props }: DrawerFooterProps ) => (
+const DrawerFooter = ({ className=drawer.footer, ...props }: DrawerFooterProps ) => (
     <div className={className} {...props} />
 )
 
@@ -70,7 +70,7 @@ DrawerFooter.displayName = "DrawerFooter"
 
 
 
-const DrawerTitle = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Title>, DrawerTitleProps >(({ className=sx["drawer-title"], ...props }, ref) => (
+const DrawerTitle = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Title>, DrawerTitleProps >(({ className=drawer.title, ...props }, ref) => (
     <DrawerPrimitive.Title ref={ref} className={className} {...props} />
 ))
 
@@ -80,9 +80,8 @@ DrawerTitle.displayName = DrawerPrimitive.Title.displayName
 
 
 
-const DrawerDescription = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Description>, DrawerDescriptionProps>(({ className=sx["drawer-description"], ...props }, ref) => (
-    <DrawerPrimitive.Description ref={ref} className={className} {...props}
-    />
+const DrawerDescription = React.forwardRef<React.ElementRef<typeof DrawerPrimitive.Description>, DrawerDescriptionProps>(({ className=drawer.description, ...props }, ref) => (
+    <DrawerPrimitive.Description ref={ref} className={className} {...props} />
 ))
 
 // cn("text-sm text-muted-foreground", className)

@@ -1,0 +1,137 @@
+.bone {
+    overflow: hidden;
+}
+
+.marker {
+    display: block;
+    height: 100%;
+    width: 100%;
+    animation: skeleton-loading 2s infinite .5s;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--skeleton-card-background-color, var(--primary-background-100));
+    border-radius: var(--card-border-radius, var(--radius-400, 8px));
+    border-width: var(--card-border-width, 1px);
+    border-style: var(--card-border-style, solid);
+    border-color: var(--card-border-color, var(--primary-background-300));
+    height: 100%;
+
+    .cover {
+        display: flex;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: var(--card-padding-300, var(--padding-300, 12px));
+        gap: var(--skeleton-card-bottom-gap, var(--gap-300, 12px));
+        height: 100%;
+
+        .top {
+            display: flex;
+            flex-direction: column;
+            gap: var(--skeleton-card-bottom-top-gap, var(--gap-400, 16px));
+            justify-content: space-between;
+        }
+
+        .bottom {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: var(--skeleton-card-bottom-bottom-gap, var(--gap-300, 12px));
+        }
+    }
+
+    .price-rating {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--card-info-gap, var(--gap-400, 16px));
+    }
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: var(--skeleton-card-title-gap, var(--gap-200, 8px));
+    }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+        gap: var(--skeleton-card-description-gap, var(--gap-200, 8px));
+    }
+
+    .metadata {
+        display: flex;
+        gap: var(--card-metadata-list-gap, var(--gap-300, 12px));
+    }
+
+    .instructor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--skeleton-card-bottom-top-gap, var(--gap-200, 8px));
+    }
+}
+
+.menu {
+    display: grid;
+    gap: var(--skeleton-menu-gap, var(--gap-100, 4px));
+
+    .item {
+        display: grid;
+        padding-top: var(--skeleton-menu-item-padding-top, var(--skeleton-menu-item-padding, var(--padding-300, 12px)));
+        padding-bottom: var(--skeleton-menu-item-padding-bottom, var(--skeleton-menu-item-padding, var(--padding-300, 12px)));
+        padding-left: var(--skeleton-menu-item-padding-left, var(--skeleton-menu-item-padding, var(--padding-300, 12px)));
+        padding-right: var(--skeleton-menu-item-padding-right, var(--skeleton-menu-item-padding, var(--padding-300, 12px)));
+    }
+}
+
+.profile {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--skeleton-profile-gap, var(--gap-100, 4px));
+    padding: var(--skeleton-profile-button-padding, var(--padding-100, 4px));
+    border-radius: var(--skeleton-profile-button-border-radius, var(--radius-100, 4px));
+
+    .left,
+    .right {
+        display: flex;
+    }
+
+    .right {
+        flex-direction: column;
+        gap: var(--skeleton-profile-right-gap, var(--gap-100, 4px));
+    }
+
+    .image {
+        display: grid;
+        width: var(--avatar-width-m, var(--size-900, 36px));
+        height: var(--avatar-height-m, var(--size-900, 36px));
+    }
+
+    .name,
+    .email {
+        display: grid;
+    }
+}

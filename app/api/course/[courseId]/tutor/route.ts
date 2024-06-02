@@ -16,7 +16,7 @@ export async function POST(request: Request, { params }: paramsType) {
         const body = await request.json()
         const { courseId } = params
 
-        console.log(courseId)
+        // console.log(courseId)
 
         if (!session) {
             return new NextResponse("Unauthorized", { status: 401 })
@@ -29,13 +29,13 @@ export async function POST(request: Request, { params }: paramsType) {
             }
         })
 
-        console.log("tutor exists: ", alreadyExists)
+        // console.log("tutor exists: ", alreadyExists)
 
         if(alreadyExists) {
             return new NextResponse("This tutor is already assigned to the course!", { status: 502 })
         }
 
-        console.log("TUTOR REQUEST: ", body)
+        // console.log("TUTOR REQUEST: ", body)
         const tutor = await prisma.tutorsOnCourses.create({
             data: {
                 courseId,
@@ -44,10 +44,10 @@ export async function POST(request: Request, { params }: paramsType) {
             }
         })
 
-        console.log("TUTOR: ", tutor)
+        // console.log("TUTOR: ", tutor)
         return Response.json(tutor)
     } catch (error) {
-        console.log("TUTOR ERROR: ", error)
+        // console.log("TUTOR ERROR: ", error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

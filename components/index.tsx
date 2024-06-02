@@ -28,13 +28,14 @@ import { Profile } from "./Profile";
 import { Progress } from "./Progress";
 import { RadioGroup, RadioGroupItem } from "./RadioGroup";
 import { Rating } from "./Rating";
+import { RichTextEditor } from "./RichTextEditor";
 import { ScrollArea, ScrollBar } from "./ScrollArea";
 import { Search } from "./Search";
 import { SkeletonCard, SkeletonMenu, SkeletonProfile } from "./Skeleton";
 import { Star } from "./Star";
 import { Stepper } from "./Stepper";
 import { Switch } from "./Switch";
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "./Table";
+import { Table, TableBody, TableCaption, TableTd, TableFooter, TableTh, TableHeader, TableTr } from "./Table";
 import { Text } from "./Text";
 import { Textarea } from "./Textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue } from "./Select";
@@ -136,6 +137,7 @@ export {
     RadioGroup,
     RadioGroupItem,
     Rating,
+    RichTextEditor,
     ScrollArea,
     ScrollBar,
     Search,
@@ -159,9 +161,9 @@ export {
     TableHeader,
     TableBody,
     TableFooter,
-    TableHead,
-    TableRow,
-    TableCell,
+    TableTh,
+    TableTr,
+    TableTd,
     TableCaption,
     Text,
     Textarea,

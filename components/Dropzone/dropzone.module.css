@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--dropzone-gap, var(--gap-200, 8px));
+    padding: var(--dropzone-padding, var(--padding-400, 16px));
+    border-width: var(--dropzone-border-width, 1px);
+    border-style: var(--dropzone-border-style, dashed);
+    border-color: var(--dropzone-border-color, var(--primary-background-300));
+    border-radius: var(--dropzone-border-radius, var(--radius-800, 16px));
+    max-width: var(--dropzone-max-width, 420px);
+    cursor: pointer;
+
+}
+
+.preview-file {
+    width: 100%;
+}
+
+.preview-file-left {
+    position: relative;
+    .button {
+        position: absolute;
+        right: var(--size-200, 8px);
+        top: var(--size-200, 8px);
+    }
+}
+
+.preview-file-right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dropzone-preview-file-right-gap, var(--gap-100, 4px));
+
+}
+
+.icon {
+    color: var(--dropzone-icon-color, var(--accent-brand-400));
+    & > svg {
+        width: var(--dropzone-icon-width, var(--size-1000, 40px));
+        height: var(--dropzone-icon-height, var(--size-1000, 40px));
+    }
+}
+
+.message {
+    font-size: var(--dropzone-message-font-size, var(--size-400, 16px));
+    font-weight: var(--dropzone-message-font-weight, 400);
+    line-height: var(--dropzone-message-line-height, 1.2);
+    color: var(--dropzone-message-color, var(--primary-text-100));
+    & > span {
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        color: var(--dropzone-message-link-color, var(--accent-brand-400));
+    }
+}
+
+.support {
+    font-size: var(--dropzone-support-font-size, var(--size-300, 12px));
+    font-weight: var(--dropzone-support-font-weight, 400);
+    line-height: var(--dropzone-support-line-height, 1.2);
+    color: var(--dropzone-support-color, var(--primary-text-600));
+}
+
+.progress {
+    width: 100%;
+}

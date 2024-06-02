@@ -11,12 +11,12 @@ const useScreenSize = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            console.log("Before Load: ", screenSize)
+            // console.log("Before Load: ", screenSize)
             setScreenSize({
                 width: window.innerWidth,
                 height: window.innerHeight,
             });
-            console.log("After Load: ", screenSize)
+            // console.log("After Load: ", screenSize)
         };
 
         window.addEventListener("resize", handleResize);

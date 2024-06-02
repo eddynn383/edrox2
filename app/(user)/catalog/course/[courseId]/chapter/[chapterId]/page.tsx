@@ -3,10 +3,11 @@ import { VideoPlayer } from "@/components/Player";
 import { getChapterById, getPublishdedChaptersByCourseId } from "@/data/chapters";
 import { getCourseById } from "@/data/courses";
 import { ChapterDetails } from "@/module/ChapterDetails";
-import msx from "@/styles/module.module.scss"
-import psx from "@/styles/page.module.scss"
 import { ArrowRightToLine, Home } from "lucide-react";
 import { redirect } from "next/navigation";
+import msx from "@/styles/module.module.scss"
+import psx from "@/styles/page.module.scss"
+import { getContentByChapterId } from "@/data/content";
 
 interface PageChapterIdProps {
     params: { 
@@ -23,6 +24,7 @@ const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
     const courseDetails = await getCourseById(params.courseId);
     const playlist = await getPublishdedChaptersByCourseId(params.courseId)
     const chapterDetails = await getChapterById(params.chapterId)
+    const chapterContent = await getContentByChapterId(params.chapterId)
     const chapterTitle = chapterDetails?.title
     
     if (!searchParams.playlist) {
@@ -36,7 +38,7 @@ const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
     if (!chapterTitle) {
         return 
     }
-    console.log("chapterDetails: ", chapterDetails)
+    // console.log("chapterDetails: ", chapterDetails)
 
     const progressValue=75
 
@@ -80,8 +82,11 @@ const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
                 <div className={psx["body-content-left"]}>
                     <Progress value={progressValue} style={{ "height": "2px" }} data-status={"success"}/>
                     <ScrollArea>
-                        <ChapterDetails data={courseDetails} />
+                        <ChapterDetails data={chapterContent} courseId={params.courseId} chapterId={params.chapterId} edit={false} />
                     </ScrollArea>
+                    <div className={psx["body-content-actions"]}>
+                        <Button mode="solid" variant="accent" size="M">Next Chapter</Button>
+                    </div>
                 </div>
                 {
                     searchParams.playlist === "on" &&

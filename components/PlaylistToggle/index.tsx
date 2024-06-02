@@ -10,8 +10,6 @@ const PlaylistToggle = ({}: PlaylistToggleProps) => {
     const router = useRouter();
     const searchParam = useSearchParams();
 
-    
-
     const toggleHandler = () => {
         if (searchParam.get("playlist") === "off") {
             router.push("?playlist=on")

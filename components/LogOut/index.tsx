@@ -3,6 +3,7 @@ import { logout } from "@/actions/logout";
 import { Button } from "@/components";
 
 const LogOut = ({ children }: { children: React.ReactNode }) => {
+    
     const clickHandler = () => {
         logout();
     }

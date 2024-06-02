@@ -18,11 +18,11 @@ export const setTutor = async (body: any) => {
             }
         })
 
-        console.log("NEW TUTOR: ", tutor)
+        // console.log("NEW TUTOR: ", tutor)
 
         return tutor
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -45,11 +45,11 @@ export const setTutorOnCourse = async (tutorId: any, courseId: string) => {
             }
         })
 
-        console.log("NEW TUTOR ON COURSE: ", tutor)
+        // console.log("NEW TUTOR ON COURSE: ", tutor)
 
         return tutor
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -60,7 +60,7 @@ export const getAllTutors = async () => {
 
         return tutor
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }
@@ -100,7 +100,7 @@ export const getTutorById = async (id: string) => {
             }
         };
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }

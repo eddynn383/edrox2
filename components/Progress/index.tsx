@@ -2,19 +2,22 @@
 
 import * as React from "react"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
-import sx from "@/styles/component.module.scss"
+import progress from "./progress.module.css"
+import { ProgressProps } from "./interface"
 
 const Progress = React.forwardRef<
     React.ElementRef<typeof ProgressPrimitive.Root>,
-    React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
->(({ value, ...props }, ref) => (
+    ProgressProps
+>(({ value, className=progress.container, thickness="100", shape="square", ...props }, ref) => (
     <ProgressPrimitive.Root
         ref={ref}
-        className={sx["progress"]}
+        className={className}
+        data-thickness={thickness}
+        data-shape={shape}
         {...props}
     >
         <ProgressPrimitive.Indicator
-            className={sx["progress-indicator"]}
+            className={progress.indicator}
             style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
         />
     </ProgressPrimitive.Root>

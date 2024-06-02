@@ -15,8 +15,8 @@ export const setRatingOnCourse = async (body: RatingBody, courseId: string) => {
 
         const session = await auth()
         const user = session?.user
-        console.log({ body })
-        console.log(courseId)
+        // console.log({ body })
+        // console.log(courseId)
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 })
@@ -56,7 +56,7 @@ export const setRatingOnCourse = async (body: RatingBody, courseId: string) => {
 
         return rating
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -66,8 +66,8 @@ export const setRatingOnTutor = async (body: RatingBody, tutorId: string) => {
 
         const session = await auth()
         const user = session?.user
-        console.log({ body })
-        console.log(tutorId)
+        // console.log({ body })
+        // console.log(tutorId)
 
         if (!user) {
             return new NextResponse("Unauthorized", { status: 401 })
@@ -85,7 +85,7 @@ export const setRatingOnTutor = async (body: RatingBody, tutorId: string) => {
 
         return rating
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -96,7 +96,7 @@ export const getAllCoursesRatings = async () => {
 
         return ratings
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -107,7 +107,7 @@ export const getAllTutorsRatings = async () => {
 
         return ratings
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -122,7 +122,7 @@ export const getRatingByCourseId = async (courseId: string) => {
 
         return rating
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -137,7 +137,7 @@ export const getRatingByTutorId = async (tutorId: string) => {
 
         return rating
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -157,11 +157,11 @@ export const getCourseRatingAvg = async (courseId: string) => {
 
         const ratingAvgData = ratingAvg._avg.rating
 
-        console.log("AVG Rating: ", ratingAvgData)
+        // console.log("AVG Rating: ", ratingAvgData)
 
         return ratingAvgData
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -180,11 +180,11 @@ export const getTutorRatingAvg = async (tutorId: string) => {
 
         const ratingAvgData = ratingAvg._avg
 
-        console.log("AVG Rating: ", ratingAvgData)
+        // console.log("AVG Rating: ", ratingAvgData)
 
         return ratingAvgData.rating
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -204,11 +204,11 @@ export const getCourseRatingCount = async (courseId: string) => {
 
         const ratingAvgData = ratingAvg._count
 
-        console.log("AVG Rating: ", ratingAvgData)
+        // console.log("AVG Rating: ", ratingAvgData)
 
         return ratingAvgData.rating
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -227,11 +227,11 @@ export const getTutorRatingCount = async (tutorId: string) => {
 
         const ratingAvgData = ratingAvg._count
 
-        console.log("AVG Rating: ", ratingAvgData)
+        // console.log("AVG Rating: ", ratingAvgData)
 
         return ratingAvgData.rating
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -258,7 +258,7 @@ export const updateCourseRating = async ( userId: string, courseId: string, data
 
         const avgRatingData = avgRating._avg.rating
 
-        console.log("AVG Rating: ", avgRatingData)
+        // console.log("AVG Rating: ", avgRatingData)
 
         await prisma.course.update({
             where: {
@@ -298,7 +298,7 @@ export const updateTutorRating = async ( userId: string, tutorId: string, data: 
 
         const avgRatingData = avgRating._avg.rating
 
-        console.log("AVG Rating: ", avgRatingData)
+        // console.log("AVG Rating: ", avgRatingData)
 
         await prisma.tutor.update({
             where: {

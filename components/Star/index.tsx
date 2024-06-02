@@ -1,7 +1,6 @@
-import { Icon } from "@/components/Icon"
 import { IPropsStar } from "./interface"
 import { FaStar } from "react-icons/fa6";
-import sx from "@/styles/component.module.scss"
+import star from "./star.module.css"
 
 const Star = ({ value, containerId, idx }: IPropsStar) => {
     const integer = Math.floor(value);
@@ -12,14 +11,14 @@ const Star = ({ value, containerId, idx }: IPropsStar) => {
             ? Math.floor(decimal * 100) : 0;
 
     return (
-        <span className={sx["star"]} data-progress={progress}>
-            <label htmlFor={`${containerId}-star-${idx}`}>{idx + 1}</label>
-            <input id={`${containerId}-star-${idx}`} type="radio" defaultChecked={idx <= value ? true : false} />
-            <span className={sx["star-icon"]}>
-                <span className={sx["star-icon-fill"]} style={{ width: `${progress}%` }}>
+        <span className={star.container} data-progress={progress}>
+            <label className={star.label} htmlFor={`${containerId}-star-${idx}`}>{idx + 1}</label>
+            <input className={star.input} id={`${containerId}-star-${idx}`} type="radio" defaultChecked={idx <= value ? true : false} />
+            <span className={star.icon}>
+                <span className={star["icon-fill"]} style={{ width: `${progress}%` }}>
                     <FaStar />
                 </span>
-                <span className={sx["star-icon-base"]}>
+                <span className={star["icon-base"]}>
                     <FaStar />
                 </span>
             </span>

@@ -4,14 +4,16 @@ import * as z from "zod";
 import toast from "react-hot-toast";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-// import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, Textarea } from "@/components";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Textarea } from "@/components";
 import { updateCourseDescription } from "@/actions/new-course";
 import { CourseDescriptionSchema } from "@/schemas";
 import csx from "@/styles/component.module.scss"
+import { FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
+import { TriangleAlert } from "lucide-react";
+import courseDesc from "./courseDesc.module.css"
 
-export const CourseDescriptionForm = ({courseId, description, actions, onOpen}: CourseDescriptionFormProps) => { 
+export const CourseDescriptionForm = ({courseId, description, actions, onOpen, onPending}: CourseDescriptionFormProps) => { 
     // const router = useRouter()
     const [isPending, startTransition] = useTransition();
     const form = useForm<z.infer<typeof CourseDescriptionSchema>>({
@@ -35,7 +37,7 @@ export const CourseDescriptionForm = ({courseId, description, actions, onOpen}: 
 
                 if (data?.success) {
                     form.reset();
-                    // onOpen(false)
+                    onOpen(false)
                     toast.success(data.success, { position: 'bottom-center'});
                 }
 
@@ -46,23 +48,26 @@ export const CourseDescriptionForm = ({courseId, description, actions, onOpen}: 
     return (
         <>
             <Form {...form}>
-                <form className={csx["form"]} onSubmit={form.handleSubmit(submitHandler)}>
-                    <div className={csx["form-rows"]}>
-
+                <form id="course-description-form" className={courseDesc.form} onSubmit={form.handleSubmit(submitHandler)}>                    
+                    <FormRows className={courseDesc.rows}>
                         <FormField
                             control={form.control}
                             name="description"
                             render={({ field }) => (
                                 <FormItem data-cols="1">
-                                    <FormLabel>Description</FormLabel>
-                                    <FormMessage icon="alert-triangle" />
-                                    <FormControl>
-                                        <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" resize="vertical" />
-                                    </FormControl>
+                                    <FormRowDetails>
+                                        <FormLabel>Description</FormLabel>
+                                        <FormMessage icon={<TriangleAlert />} />
+                                    </FormRowDetails>
+                                    <FormRowFields>
+                                        <FormControl>
+                                            <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" resize="vertical" />
+                                        </FormControl>
+                                    </FormRowFields>
                                 </FormItem>
                             )}
                         />
-                    </div>
+                    </FormRows>
                     {actions}
                 </form>
             </Form>

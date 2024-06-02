@@ -28,7 +28,7 @@ export const setCourse = async (body: any) => {
 
         return NextResponse.json(course)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 });
     }
 }
@@ -53,13 +53,15 @@ export const getAllCourses = async () => {
     
         return courses
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return [];
     }
 }
 
 export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) => {
     try {
+
+        
 
         const courses = await prisma.course.findMany({
             where: {
@@ -82,18 +84,18 @@ export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) =>
                     }
                 },
                 tutors: true,
-                ratings: true
+                ratings: true,
             },
             orderBy: {
                 createdAt: 'asc',
-            }
+            },
         })
         
         // console.log(courses)
         // await new Promise((resolve) => setTimeout(resolve, 5000))
         return courses
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }
@@ -127,7 +129,7 @@ export const getCourseById = async (id: string) => {
         // console.log("RETURNED COURSE: ", course)
         return course
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }
@@ -145,7 +147,7 @@ export const getCourseById = async (id: string) => {
 
 //         return course
 //     } catch (error) {
-//         console.log(error)
+//         // console.log(error)
 //         return null
 //     }
 // }
@@ -162,7 +164,7 @@ export const getCoursesByTitle = async (title: string) => {
 
         return courses
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }
@@ -187,7 +189,7 @@ export const editCourseById = async (id: string, data: any) => {
 
         return editedCourse
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -211,7 +213,7 @@ export const deleteCourseById = async (id: string) => {
 
         return deletedCourse
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -237,7 +239,7 @@ export const deleteCoursesByIds = async (ids: string[]) => {
 
         return deletedCourses
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }

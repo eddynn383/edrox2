@@ -6,11 +6,12 @@
 
 import React from "react";
 import { ButtonProps } from "./interface";
+import button from "./button.module.css"
 import sx from "@/styles/component.module.scss";
 
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ cn, size = "M", mode = "solid", status = "default", variant = "primary", shade = "100", content = "text", selected, controls, children, ...props }, ref) => {
+    ({ className=button.container, size = "M", mode = "solid", status = "default", variant = "primary", shade = "100", content = "text", selected, controls, children, ...props }, ref) => {
 
         const customAttrs = {
             "data-mode": mode,
@@ -27,7 +28,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }
 
         return (
-            <button className={`${sx["button"]}${cn ? " " + cn : ""}`} {...customAttrs} {...a11y} ref={ref} {...props}>
+            <button className={className} {...customAttrs} {...a11y} ref={ref} {...props}>
                 {children}
             </button>
         )

@@ -10,7 +10,7 @@ export const getTwoFactorTokenByToken = async (token: string) => {
 
         return twoFactorToken;
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -25,7 +25,7 @@ export const getTwoFactorTokenByEmail = async (email: string) => {
 
         return twoFactorToken;
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }

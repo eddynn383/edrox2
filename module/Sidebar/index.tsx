@@ -36,7 +36,7 @@ export const Sidebar = ({user, device}: SidebarProps) => {
                 <aside className={msx["sidebar"]} data-device="web" {...customAttrs}>
                     <div className={msx["sidebar-content"]}>
                         <div className={msx["sidebar-header"]}>
-                            <Button cn="toggle" type="button" size="M" content="icon" shade="200" name="Toggle Menu" title={state ? "Click to collapse" : "Click to expand"} onClick={handleState} >
+                            <Button type="button" size="M" content="icon" shade="200" name="Toggle Menu" title={state ? "Click to collapse" : "Click to expand"} onClick={handleState} >
                                 <NavigationToggle state={state} />
                             </Button>
                         </div>
@@ -62,7 +62,7 @@ export const Sidebar = ({user, device}: SidebarProps) => {
                             <div className={msx["sidebar-overlay"]} onClick={handleState}/>
                             <div className={msx["sidebar-content"]}>
                                 <div className={msx["sidebar-header"]}>
-                                    <Button cn="toggle" type="button" size="M" content="icon" shade="200" name="Toggle Menu" title={state ? "Click to collapse" : "Click to expand"} onClick={handleState}>
+                                    <Button type="button" size="M" content="icon" shade="200" name="Toggle Menu" title={state ? "Click to collapse" : "Click to expand"} onClick={handleState}>
                                         <NavigationToggle state={state} />
                                     </Button>
                                 </div>

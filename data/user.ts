@@ -12,7 +12,7 @@ export const getUserByEmail = async (email: string) => {
         return user
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }
@@ -28,7 +28,7 @@ export const getUserById = async (id: string) => {
         return user
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }
@@ -41,11 +41,11 @@ export const updateUserById = async (id: string, data: User) => {
             },
             data
         })
-        console.log("User successfully updated!")
+        // console.log("User successfully updated!")
         return user
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }

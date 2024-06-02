@@ -7,6 +7,7 @@ import useScreenSize from "@/hooks/useScreenSize"
 import psx from "@/styles/page.module.scss"
 import { Bell, ShoppingCart } from "lucide-react"
 import { useSearchParams } from "next/navigation"
+import page from "@/app/(user)/page.module.css"
 
 interface HeaderProps { 
     user: any;
@@ -30,7 +31,7 @@ const Header = ({ user, device, onLogout }: HeaderProps) => {
             <div className={psx["header-left"]}>
                 {
                     mobile &&
-                    <Button cn="toggle" type="button" size="M" content="icon" shade="100" name="Toggle Menu" title={state ? "Click to collapse" : "Click to expand"} onClick={handleState}>
+                    <Button type="button" size="M" content="icon" shade="100" name="Toggle Menu" title={state ? "Click to collapse" : "Click to expand"} onClick={handleState}>
                         <NavigationToggle state={state} />
                     </Button>
                 }
@@ -49,10 +50,10 @@ const Header = ({ user, device, onLogout }: HeaderProps) => {
                 {
                     !mobile && 
                     <>
-                        <Button cn="toggle" type="button" size="M" content="icon" shade="100" aria-label="Shopping Cart">
+                        <Button type="button" size="M" content="icon" shade="100" aria-label="Shopping Cart">
                             <ShoppingCart />
                         </Button>
-                        <Button cn="toggle" type="button" size="M" content="icon" shade="100" aria-label="Notifications">
+                        <Button type="button" size="M" content="icon" shade="100" aria-label="Notifications">
                             <Bell />
                         </Button>
                     </>

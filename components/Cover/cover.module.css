@@ -1,0 +1,32 @@
+.container {
+    --width: attr(data-width);
+    --height: attr(data-height);
+    border: var(--cover-border-width, 1px) solid var(--cover-border-color, var(--primary-background-300));
+    border-radius: var(--cover-border-radius, var(--radius-400, 8px));
+    width: var(--cover-width, var(--width, 100%));
+    height: var(--cover-height, var(--height, 100%));
+    aspect-ratio: 16/9;
+    overflow: hidden;
+ 
+}
+
+.container[data-size="S"] .empty {
+    font-size: var(--size-200, 8px);
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-100, 4px);
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    height: 100%;
+    text-align: center;
+}

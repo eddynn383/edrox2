@@ -18,7 +18,7 @@ type Tutor = {
 
 
 const Tutor = async ({ id }: TutorProps) => {
-    console.log(id)
+    // console.log(id)
     const tutor = await getTutorById(id)
 
     const name = tutor?.name
@@ -28,7 +28,7 @@ const Tutor = async ({ id }: TutorProps) => {
     if (!tutor) {
         return null
     }
-        console.log(tutor)
+        // console.log(tutor)
     
     return ( 
         <div className={csx["tutor-view"]}>
@@ -50,7 +50,7 @@ interface TutorsViewListProps {
 }
 
 const TutorsViewList = async ({ tutors }: TutorsViewListProps) => {
-    console.log(tutors)
+    // console.log(tutors)
     return ( 
         <ul className={msx["tutors-view-list"]}>
             {

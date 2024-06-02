@@ -1,0 +1,22 @@
+.container {
+    background: var(--progress-background, var(--primary-background-200));
+    overflow: hidden;
+
+}
+
+.indicator {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: var(--progress-indicator-default-background, var(--accent-brand-400));
+    transition: .3s linear;
+}
+
+.container[data-status="success"] .indicator {
+    background: var(--progress-indicator-default-background, var(--accent-success-400));
+}
+
+.container[data-status="fail"] .indicator {
+    background: var(--progress-indicator-default-background, var(--accent-fail-400));
+}
+

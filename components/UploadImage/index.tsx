@@ -1,23 +1,14 @@
 "use client";
 
+import toast from "react-hot-toast";
+import { UploadIcon } from "lucide-react";
 import { useCallback, useRef, useState } from "react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { useDropzone } from "@uploadthing/react";
 import { useUploadThing } from "@/lib/uploadthing";
-import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { Button, Cover, Progress } from "@/components";
-import { deleteFileUpload } from "@/actions/upload-file";
-import { Trash2, Upload, UploadIcon } from "lucide-react";
-import toast from "react-hot-toast";
-import csx from "@/styles/component.module.scss"
-import { formatFileSize } from "@/lib/utils";
-
-interface UploadImageProps {
-    currentImage: string | null;
-    onChange: (url?: string) => void;
-    endpoint: keyof typeof ourFileRouter;
-};
-  
+import { UploadImageProps } from "./interface";
+import uploadImage from "./uploadImage.module.css"
 
 export const UploadImage = ({ currentImage, onChange, endpoint }: UploadImageProps) => {
 
@@ -49,11 +40,11 @@ export const UploadImage = ({ currentImage, onChange, endpoint }: UploadImagePro
                 toast.error(`${error?.message}`, { position: "bottom-center" });
             },
             onUploadBegin: () => {
-                console.log("Upload gas begun")
+                // console.log("Upload gas begun")
             },
             onUploadProgress: (p: number) => {
                 setUploadProgress(p)
-                console.log(`Upload progress is on: ${uploadProgress}`)
+                // console.log(`Upload progress is on: ${uploadProgress}`)
             },  
         },
     );
@@ -68,11 +59,11 @@ export const UploadImage = ({ currentImage, onChange, endpoint }: UploadImagePro
     });
 
     return (
-        <div className={csx["upload-image"]} {...getRootProps()} style={{"width": "100%"}}>
+        <div className={uploadImage.container} {...getRootProps()} style={{"width": "100%"}}>
             <Cover src={currentImage} alt="cover-image" width={400} height={200} style={{"width": "100%"}} />
             {
                 uploadProgress === 0 &&
-                <label className={csx["upload-image-label"]} ref={labelRef} data-image="empty" >
+                <label className={uploadImage.label} ref={labelRef} data-image="empty" >
                     <input 
                         {...getInputProps()} 
                         className="sr-only"
@@ -82,13 +73,16 @@ export const UploadImage = ({ currentImage, onChange, endpoint }: UploadImagePro
                             void startUpload(selectedFiles);
                         }}
                     />
-                    <Button variant="accent" size="S" type="button"><UploadIcon /> <span>Choose Image</span></Button>
+                    <Button variant="accent" size="S" type="button">
+                        <UploadIcon /> 
+                        <span>Choose Image</span>
+                    </Button>
                 </label>
             }
             {
                 (uploadProgress > 0 && !uploadComplete) &&
-                <div className={csx["upload-image-progress"]}>
-                    <Progress value={uploadProgress} style={{ "width": "100%", "height": "2px" }} data-status={"success"} />
+                <div className={uploadImage.progress}>
+                    <Progress value={uploadProgress} style={{ "width": "100%", "height": "2px" }} data-status="success" />
                 </div>
             }
         </div>

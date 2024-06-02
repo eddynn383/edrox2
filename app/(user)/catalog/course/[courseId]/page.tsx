@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Home } from "lucide-react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, ScrollArea } from "@/components";
 import { getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters";
@@ -45,7 +46,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
     }
 
     if (!course) {
-        console.log("Course not exists")
+        // console.log("Course not exists")
         return null
     }   
 
@@ -54,7 +55,9 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
             <ScrollArea>
                 <section className={psx["body-toolbar"]} data-page="course-details">
                     <div className={psx["body-toolbar-left"]}>
-                        <CourseSummary course={course} /> 
+                        <Suspense fallback={<p>Loading course summary...</p>}>
+                            <CourseSummary course={course} /> 
+                        </Suspense>
                     </div>
                     <div className={psx["body-toolbar-right"]}>
                         <div className={msx["course-details-header"]}>
@@ -75,12 +78,13 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                             </Breadcrumb>
                             <CourseHeader course={course} rating={rating} />
                         </div>
-
                     </div>
                 </section>
                 <section className={psx["body-content"]}>
                     <div className={psx["body-content-left"]}>
-                        <CourseDetails courseId={courseId} tutors={course?.tutors} chapters={chapters} />
+                        <Suspense fallback={<p>Loading course details...</p>}>
+                            <CourseDetails courseId={courseId} tutors={course?.tutors} chapters={chapters} />
+                        </Suspense>
                     </div>
                 </section>
             </ScrollArea>

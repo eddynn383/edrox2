@@ -35,12 +35,12 @@ export const ConfirmModal = ({ children, onConfirm }: ConfirmModalProps) => {
                 <AlertDialogFooter>
                     <AlertDialogCancel asChild>
                         <div>
-                            <Button cn={sxc["button"]} shade="200">Cancel</Button>
+                            <Button shade="200">Cancel</Button>
                         </div>
                     </AlertDialogCancel>
                     <AlertDialogAction asChild>
                         <div>
-                            <Button cn={sxc["button"]} variant="accent" status="fail" onClick={onConfirm}>Delete</Button>
+                            <Button variant="accent" status="fail" onClick={onConfirm}>Delete</Button>
                         </div>
                     </AlertDialogAction>
                 </AlertDialogFooter>

@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: var(--rating-gap, var(--gap-100, 4px));
+}
+
+.score {
+    display: flex;
+    align-items: center;
+    gap: var(--rating-score-gap, var(--gap-100, 4px));
+}
+
+.value {
+    font-size: var(--rating-score-value-font-size, var(--size-400, 16px));
+    font-weight: var(--rating-score-value-font-weight, 400);
+    line-height: var(--rating-score-value-line-height, var(--size-400, 16px));
+    color: var(--rating-score-value-text-color, var(--primary-text-400));
+}
+
+.stars {
+    display: flex;
+    gap: var(--rating-score-stars-gap, calc(var(--gap-100, 4px) - var(--gap-100, 4px) / 2));
+}
+
+.reviews {
+    font-size: var(--rating-reviews-font-size, var(--size-300, 12px));
+    font-weight: var(--rating-reviews-font-weight, 400);
+    line-height: var(--rating-reviews-line-height, var(--size-400, 16px));
+    color: var(--rating-score-reviews-text-color, var(--primary-text-500));
+}

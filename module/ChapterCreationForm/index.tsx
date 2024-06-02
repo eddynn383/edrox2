@@ -2,16 +2,15 @@
 
 import * as z from "zod";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from "@/components";
+import { Input, Textarea } from "@/components";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/Form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 import { NewChapterSchema } from "@/schemas";
-import { convertToURL } from "@/lib/utils";
 import { newInitChapter } from "@/actions/new-chapter";
-import csx from "@/styles/component.module.scss"
+import chapter from "./chapter.module.css"
 
 interface ChapterCreationFormProps {
     actions?: any;
@@ -43,10 +42,6 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
     // const url = convertToURL(title)
 
     const submitHandler = (values: z.infer<typeof NewChapterSchema>) => {
-        // const newValues = {
-        //     ...values,
-        //     url
-        // }
 
         newInitChapter(values, courseId).then((data) => {
 
@@ -55,8 +50,8 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
             }
 
             if (data?.success) {
-                form.reset();
                 onOpen(false)
+                form.reset();
                 toast.success(data.success, { position: 'bottom-center'})
             }
 
@@ -66,50 +61,57 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
     return (
         <>
             <Form {...form}>
-                <form className="form" style={{"display": "grid", "gap": "16px"}} onSubmit={form.handleSubmit(submitHandler)}>
-                    <FormField
-                        control={form.control}
-                        name="title"
-                        render={({ field }) => {
-                            setTitle(field.value)
-                            
-                            return (
+                <form id="chapter-creation-form" className={chapter.form} onSubmit={form.handleSubmit(submitHandler)}>
+                    <FormRows className={chapter.rows}>
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => {
+                                setTitle(field.value)
+                                
+                                return (
+                                    <FormItem data-cols="1">
+                                        <FormRowDetails>
+                                            <FormLabel>Title</FormLabel>
+                                            <FormMessage />
+                                        </FormRowDetails>
+                                        {/* <div className={formsx["row-details"]} style={{"display": "flex", "gap": "8px", "justifyContent": "space-between"}}>
+                                        </div> */}
+                                        <FormRowFields>
+                                            <FormControl>                                        
+                                                <Input
+                                                    {...field}
+                                                    shade="200"
+                                                    type="text"
+                                                    name="title"
+                                                    placeholder="Eg. Introduction in front-end technologies"
+                                                    status={titleStatus}
+                                                />
+                                            </FormControl>
+                                        </FormRowFields>
+                                    </FormItem>
+                            )}}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
                                 <FormItem data-cols="1">
-                                    <div className={csx["form-row-details"]} style={{"display": "flex", "gap": "8px", "justifyContent": "space-between"}}>
-                                        <FormLabel>Title</FormLabel>
-                                        <FormMessage icon="alert-triangle" />
-                                    </div>
-                                    <FormControl>
-                                        <>
-                                            <Input
-                                                {...field}
-                                                shade="200"
-                                                type="text"
-                                                name="title"
-                                                placeholder="Eg. Introduction in front-end technologies"
-                                                status={titleStatus}
-                                            />
-                        
-                                        </>
-                                    </FormControl>
+                                    <FormRowDetails>
+                                        <FormLabel>Description</FormLabel>
+                                        <FormMessage />
+                                    </FormRowDetails>
+                                    {/* <div className={csx["form-row-details"]}>
+                                    </div> */}
+                                    <FormRowFields>
+                                        <FormControl>
+                                            <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" resize="vertical" status={descriptionStatus} />
+                                        </FormControl>
+                                    </FormRowFields>
                                 </FormItem>
-                        )}}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem data-cols="1">
-                                <div className={csx["form-row-details"]}>
-                                    <FormLabel>Description</FormLabel>
-                                    {<FormMessage icon="alert-triangle" />}
-                                </div>
-                                <FormControl>
-                                    <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" resize="vertical" status={descriptionStatus} />
-                                </FormControl>
-                            </FormItem>
-                        )}
-                    />
+                            )}
+                        />
+                    </FormRows>
                     {actions}
                 </form>
             </Form>

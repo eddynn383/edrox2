@@ -1,13 +1,13 @@
-import { Size } from "@/interfaces/global"
+import { Shape, Size } from "@/interfaces/global"
 
 
-export interface AvatarProps {
+export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
     src: string;
     alt?: string;
     id?: string;
     style?: React.CSSProperties;
     size: Size;
-    type: "square" | "circle";
+    shape: Shape;
     title?: string;
     onClick?: any;
 }

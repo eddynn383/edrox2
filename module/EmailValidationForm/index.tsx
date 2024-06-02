@@ -1,12 +1,14 @@
 "use client"
 
+import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardTitle, CardDescription, Alert, AlertDescription, Icon } from "@/components"
 import { HashLoader } from "react-spinners"
-import msx from "@/styles/module.module.scss"
 import { tokenValidation } from "@/actions/validation"
-import Link from "next/link"
+import { AlertCircle, CircleCheck } from "lucide-react"
+import iconStyle from "@/components/Icon/icon.module.css"
+import msx from "@/styles/module.module.scss"
 
 export const EmailValidationForm = () => {
     const [success, setSuccess] = useState<string>();
@@ -45,7 +47,7 @@ export const EmailValidationForm = () => {
                         !success && error && (
                             <Alert mode="text" status="fail">
                                 <AlertDescription>
-                                    <Icon name="alert-circle" size={20}/>
+                                    <AlertCircle className={iconStyle.container} data-size="L" />
                                     <span>{error}</span>
                                 </AlertDescription>
                             </Alert>
@@ -56,7 +58,7 @@ export const EmailValidationForm = () => {
                         !error && success && (
                             <Alert mode="text" status="success">
                                 <AlertDescription>
-                                    <Icon name="check-circle" size={20}/>
+                                    <CircleCheck className={iconStyle.container} data-size="L" />
                                     <span>{success}</span>
                                 </AlertDescription>
                             </Alert>

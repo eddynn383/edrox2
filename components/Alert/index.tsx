@@ -1,29 +1,26 @@
 "use client";
-/*
-    @preview
-*/
 
 import React from 'react';
-import { AlertProps } from "./interface";
-import sx from "@/styles/component.module.scss";
+import { AlertDescriptionProps, AlertProps, AlertTitleProps } from "./interface";
+import alert from "./alert.module.css"
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(({ mode = "solid", status, ...props }, ref) => {
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(({ className=alert.container, mode = "solid", status, ...props }, ref) => {
 
     return (
-        <div className={sx["alert"]} data-mode={mode} data-status={status} ref={ref} {...props} />
+        <div className={className} data-mode={mode} data-status={status} ref={ref} {...props} />
     )
 })
 
 Alert.displayName = "Alert"
 
-const AlertTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(({ ...props }, ref) => (
-    <h5 className={sx['alert_title']} ref={ref} {...props} />
+const AlertTitle = React.forwardRef<HTMLHeadingElement, AlertTitleProps>(({className=alert.title, ...props }, ref) => (
+    <h5 className={className} ref={ref} {...props} />
 ))
 
 AlertTitle.displayName = "AlertTitle"
 
-const AlertDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={sx['alert_description']} {...props} />
+const AlertDescription = React.forwardRef<HTMLParagraphElement, AlertDescriptionProps>(({ className=alert.description, ...props }, ref) => (
+    <div ref={ref} className={className} {...props} />
 ))
 
 AlertDescription.displayName = "AlertDescription"

@@ -4,11 +4,11 @@ export const getAllCategories = async () => {
     try {
         const categories = await prisma.category.findMany()
     
-        console.log(categories)
+        // console.log(categories)
     
         return categories
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return null;
     }
 
@@ -22,11 +22,11 @@ export const getCategoryById = async (id: string) => {
             }
         })
     
-        console.log(category)
+        // console.log(category)
     
         return category
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return null;
     }
 

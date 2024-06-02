@@ -1,14 +1,15 @@
 import { Button, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components"
 import { DataViewOptionsProps } from "./interface"
 import { Columns } from "lucide-react"
+import useScreenSize from "@/hooks/useScreenSize"
 
 export function DataViewOptions<TData>({ table }: DataViewOptionsProps<TData>) {
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button size="M" shade="200" >
+                <Button mode="outline" size="M" shade="200" content="icon" >
                     <Columns />
-                    Columns
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" shade="200">

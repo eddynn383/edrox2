@@ -38,7 +38,7 @@ model User {
   twoFactorConfirmation TwoFactorConfirmation?
   courseCreated         Course[]               @relation("CreatedById")
   courseUpdated         Course[]               @relation("UpdatedById")
-  coursesEnrolled       Enrollment[]
+  coursesEnrolled       Enrollment[]      
   coursesPurchased      Purchase[]
   courseProgress        UserProgress[]
   tutor                 Tutor?
@@ -199,7 +199,7 @@ model Chapter {
   id          String  @id @default(uuid())
   title       String
   description String? @db.Text
-  status      String  @default("locked")
+  status      ChapterStatus  @default(LOCKED)
   duration    Int     @default(0)
   position    Int
   isPublished Boolean @default(false)
@@ -207,6 +207,7 @@ model Chapter {
 
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  content  Content[]
 
   userProgress UserProgress[]
 
@@ -214,6 +215,18 @@ model Chapter {
   updatedAt DateTime @updatedAt
 
   @@index([courseId])
+}
+
+model Content {
+  id          String     @id @default(uuid())
+  type        String
+  value       String
+  position    Int
+
+  chapterId   String
+  chapter     Chapter  @relation(fields: [chapterId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model RatingsOnTutors {
@@ -245,17 +258,17 @@ model RatingsOnCourses {
 }
 
 model UserProgress {
-  id     String @id @default(uuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  chapterId String
-  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  chapterId   String
+  chapter     Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
-  isCompleted Boolean @default(false)
+  isCompleted Boolean  @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@unique([userId, chapterId])
   @@index([chapterId])
@@ -283,7 +296,7 @@ model Enrollment {
   courseId       String
   course         Course           @relation(fields: [courseId], references: [id])
   grade          Int?
-  status         EnrollmentStatus
+  status         EnrollmentStatus @default(NOTSTARTED)
   completionDate DateTime?
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
@@ -292,20 +305,21 @@ model Enrollment {
   @@map("Enrollments")
 }
 
-enum ContentType {
-  TEXT
-  VIDEO
-  AUDIO
-  PDF
-}
+// enum ContentType {
+//   TEXT
+//   VIDEO
+//   AUDIO
+//   PDF
+// }
 
 enum EnrollmentStatus {
+  NOTSTARTED
   STARTED
   COMPLETED
   CANCELLED
 }
 
-enum CourseStatus {
-  DRAFTED
-  PUBLISHED
+enum ChapterStatus {
+  UNLOCKED
+  LOCKED
 }

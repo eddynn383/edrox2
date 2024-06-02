@@ -1,10 +1,11 @@
-import { Avatar, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Button, LogOut } from "@/components";
 import Link from "next/link";
+import { Avatar, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Button, LogOut, DropdownMenuSubTrigger, DropdownMenuSub, DropdownMenuPortal, DropdownMenuSubContent } from "@/components";
 
 import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
 
+import { Mail, MessageSquare, PlusCircle, UserPlus } from "lucide-react";
 import { ProfileProps } from "./interface";
-import sx from "@/styles/component.module.scss";
+import profile from "./profile.module.css"
 
 const Profile = ({ size, user }: ProfileProps) => {
 
@@ -14,13 +15,13 @@ const Profile = ({ size, user }: ProfileProps) => {
         <>
             <DropdownMenu >
                 <DropdownMenuTrigger asChild>
-                    <div className={sx["profile"]} data-size={size} >
-                        <div className={sx["profile-left"]}>
-                            <Avatar src={user?.image ? user.image : ProfileAvatar} alt={user?.email} size={size} type="circle" />
+                    <div className={profile.container} data-size={size} >
+                        <div className={profile.left}>
+                            <Avatar src={user?.image ? user.image : ProfileAvatar} alt={user?.email} size={size} shape="rounded" />
                         </div>
-                        <div className={sx["profile-right"]}>
-                            <span className={sx["profile-name"]}>{user?.name ? user?.name : user?.email}</span>
-                            {size !== "S" && <span className={sx["profile-role"]}>{role}</span>}
+                        <div className={profile.right}>
+                            <span className={profile.name}>{user?.name ? user?.name : user?.email}</span>
+                            {size !== "S" && <span className={profile.role}>{role}</span>}
                         </div>
                     </div>
                 </DropdownMenuTrigger>
@@ -31,11 +32,34 @@ const Profile = ({ size, user }: ProfileProps) => {
                     <DropdownMenuItem hasChild>
                         <Link href="/my-purchases">My Purchases</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuSub>
+                        <DropdownMenuSubTrigger>
+                            <UserPlus />
+                            <span>Invite users</span>
+                        </DropdownMenuSubTrigger>
+                        <DropdownMenuPortal>
+                            <DropdownMenuSubContent shade="200">
+                                <DropdownMenuItem>
+                                    <Mail />
+                                    <span>Email</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <MessageSquare />
+                                    <span>Message</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem>
+                                    <PlusCircle />
+                                    <span>More...</span>
+                                </DropdownMenuItem>
+                            </DropdownMenuSubContent>
+                        </DropdownMenuPortal>
+                    </DropdownMenuSub>
                     <DropdownMenuItem hasChild>
                         <Link href="/settings">Settings</Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
+                    <DropdownMenuItem hasChild>
                         <LogOut>Logout</LogOut>
                     </DropdownMenuItem>
                 </DropdownMenuContent>

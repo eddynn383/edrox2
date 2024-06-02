@@ -2,15 +2,17 @@
 
 import * as z from "zod"
 
+import { CircleAlert, CircleCheck } from "lucide-react"
 import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ResetSchema } from "@/schemas"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/Form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows} from "@/components/Form"
 import { Alert, AlertDescription, Button, Card, CardDescription, CardHeader, CardTitle, Icon, Input } from "@/components"
-import msx from "@/styles/module.module.scss"
-import csx from "@/styles/component.module.scss"
 import { reset } from "@/actions/reset"
+import msx from "@/styles/module.module.scss"
+import formStyle from "@/components/Form/form.module.css"
+import iconStyle from "@/components/Icon/icon.module.css"
  
 export const ResetPassForm = () => {
 
@@ -29,7 +31,7 @@ export const ResetPassForm = () => {
         setError("");
         setSuccess("");
 
-        console.log(values)
+        // console.log(values)
         startTransition(() => {
             reset(values).then((data) => {
                 setError(data?.error);
@@ -49,7 +51,7 @@ export const ResetPassForm = () => {
                         (error) &&
                         <Alert mode="text" status="fail">
                             <AlertDescription>
-                                <Icon name="alert-circle" size={20}/>
+                                <CircleAlert className={iconStyle.container} data-size="L" />
                                 <span>{ error }</span>
                             </AlertDescription>
                         </Alert>
@@ -59,37 +61,39 @@ export const ResetPassForm = () => {
                         success &&
                         <Alert mode="text" status="success">
                             <AlertDescription>
-                                <Icon name="check-circle" size={20}/>
+                                <CircleCheck className={iconStyle.container} data-size="L" />
                                 <span>{success}</span>
                             </AlertDescription>
                         </Alert>
                     }
 
                     <Form {...form}>
-                        <form className={csx["form"]} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
-                            <FormField 
-                                control={form.control} 
-                                name="email" 
-                                render={({field}) => (
-                                    <FormItem> 
-                                        <div className="flex gap-4 justify-content-between">
-                                            <FormLabel>Email</FormLabel>
-                                            <FormMessage icon="alert-triangle" />
-                                        </div>
-                                        <FormControl>
-                                            <Input 
-                                                {...field}  
-                                                mode="outline"
-                                                placeholder="john.doe@example.com"
-                                                type="email"
-                                                disabled={isPending}
-                                            />
-                                        </FormControl>
-                                    </FormItem>
-                                )}  
-                            />
-                            
-
+                        <form id="reset-password-form" className={formStyle.container} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
+                            <FormRows>
+                                <FormField 
+                                    control={form.control} 
+                                    name="email" 
+                                    render={({field}) => (
+                                        <FormItem> 
+                                            <FormRowDetails>
+                                                <FormLabel>Email</FormLabel>
+                                                <FormMessage />
+                                            </FormRowDetails>
+                                            <FormRowFields>
+                                                <FormControl>
+                                                    <Input 
+                                                        {...field}  
+                                                        mode="outline"
+                                                        placeholder="john.doe@example.com"
+                                                        type="email"
+                                                        disabled={isPending}
+                                                    />
+                                                </FormControl>
+                                            </FormRowFields>
+                                        </FormItem>
+                                    )}  
+                                />
+                            </FormRows>
                             <Button variant="accent" status="default" mode="solid" size="M" type="submit" disabled={isPending}>Reset password</Button>
                         </form>
                     </Form>

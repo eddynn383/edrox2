@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Suspense, useState } from "react";
 import {
     ColumnFiltersState,
     getCoreRowModel,
@@ -9,17 +8,15 @@ import {
     getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { DataTable, DataTableMobile } from "../DataTable";
+import { DataTable } from "../DataTable";
 import { DataToolbar } from "../DataToolbar";
 import { coursesColsDesktop, coursesColsDesktopSmall, coursesColsMobile, coursesColsTablet } from "@/lib/table-headers";
 import { CoursesManagerProps } from "./interface";
 import { DataPaginationDesktop } from "../DataPagination";
-import { Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, ScrollArea } from "@/components";
-import { CourseCreationForm } from "../CourseCreationForm";
 import useScreenSize from "@/hooks/useScreenSize";
 import msx from "@/styles/module.module.scss"
 
-const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
+export const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
     const [open, setOpen] = useState(false)
 
     const deviceScreen = useScreenSize()
@@ -27,9 +24,9 @@ const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
 
     const desktop = deviceWidth >= 1024 ? true : false
 
-    console.log("IS DESKTOP: ", desktop)
+    // console.log("IS DESKTOP: ", desktop)
 
-    console.log(courses)
+    // console.log(courses)
 
     let tableContent;
 
@@ -44,7 +41,7 @@ const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
             break; 
     }
 
-    console.log(tableContent)
+    // console.log(tableContent)
 
     const [rowSelection, setRowSelection] = useState({})
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -66,108 +63,14 @@ const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
         <>        
             <DataToolbar 
                 table={table} 
-                pageTitle="Courses"
                 showTableColumnsEdit={true} 
-                showFilterToggle={true} 
-                toolbarExtraActions={ 
-                    <Dialog open={open} onOpenChange={setOpen}>
-                        <DialogTrigger asChild>
-                            <Button mode="solid" variant="accent" status="default" size="M" >
-                                <Plus /> New
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                            <DialogHeader>
-                                <DialogTitle>New Course</DialogTitle>
-                                <DialogDescription>Use the fields below to create a new course</DialogDescription>
-                            </DialogHeader>
-                            <DialogBody>
-                                <CourseCreationForm 
-                                    categories={categories} 
-                                    actions={
-                                        <DialogFooter>
-                                            <DialogClose asChild>
-                                                <Button shade="200" >Cancel</Button>
-                                            </DialogClose>
-                                            <Button variant="accent" type="submit">Create</Button>
-                                        </DialogFooter>
-                                    } 
-                                    onOpen={setOpen}
-                                />
-                            </DialogBody>
-                        </DialogContent>
-                    </Dialog>
-                    // <>
-                    //     {
-                    //         (desktop && device !== "mobile") && (
-                    //             <Dialog open={open} onOpenChange={setOpen}>
-                    //                 <DialogTrigger asChild>
-                    //                     <Button mode="solid" variant="accent" status="default" size="M" >
-                    //                         <Plus /> New
-                    //                     </Button>
-                    //                 </DialogTrigger>
-                    //                 <DialogContent>
-                    //                     <DialogHeader>
-                    //                         <DialogTitle>New Course</DialogTitle>
-                    //                         <DialogDescription>Use the fields below to create a new course</DialogDescription>
-                    //                     </DialogHeader>
-                    //                     <DialogBody>
-                    //                         <CourseCreationForm 
-                    //                             categories={categories} 
-                    //                             actions={
-                    //                                 <DialogFooter>
-                    //                                     <DialogClose asChild>
-                    //                                         <Button shade="200" >Cancel</Button>
-                    //                                     </DialogClose>
-                    //                                     <Button variant="accent" type="submit">Create</Button>
-                    //                                 </DialogFooter>
-                    //                             } 
-                    //                             onOpen={setOpen}
-                    //                         />
-                    //                     </DialogBody>
-                    //                 </DialogContent>
-                    //             </Dialog>
-                    //         )
-                    //     }
-                    //     {
-                    //         (!desktop && device === "mobile") && (
-                    //             <Drawer open={open} onOpenChange={setOpen}>
-                    //                 <DrawerTrigger asChild>
-                    //                     <Button mode="solid" variant="accent" status="default" size="M" >
-                    //                         <Plus /> New
-                    //                     </Button>
-                    //                 </DrawerTrigger>
-                    //                 <DrawerContent>
-                    //                     <DrawerHeader className="text-left">
-                    //                         <DrawerTitle>Edit profile</DrawerTitle>
-                    //                         <DrawerDescription>
-                    //                             Make changes to your profile here. Click save when you&apos;re done.
-                    //                         </DrawerDescription>
-                    //                     </DrawerHeader>
-                    //                     <CourseCreationForm 
-                    //                             categories={categories} 
-                    //                             actions={
-                    //                                 <DrawerFooter className="pt-2">
-                    //                                     <DrawerClose asChild>
-                    //                                         <Button shade="200" >Cancel</Button>
-                    //                                     </DrawerClose>
-                    //                                     <Button variant="accent" type="submit">Create</Button>
-                    //                                 </DrawerFooter>
-                    //                             } 
-                    //                             onOpen={setOpen}
-                    //                         />
-                    //                 </DrawerContent>
-                    //             </Drawer>
-                    //         )
-                    //     }
-                    // </>                       
-                }    
+                showFilterToggle={true}  
             />
-            {desktop && <DataTable table={table} columns={tableContent} />}
-            {!desktop && <DataTableMobile table={table} columns={coursesColsMobile}/>}
+            <Suspense fallback={<p>Loading Table...</p>}>
+                <DataTable table={table} columns={tableContent} />
+            </Suspense>
+            {/* {!desktop && <DataTableMobile table={table} columns={coursesColsMobile}/>} */}
             {desktop && <DataPaginationDesktop table={table} />}
         </>
     );
 }
- 
-export default CoursesManager;

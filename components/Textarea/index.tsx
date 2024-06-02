@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { TextareaProps } from "./interface";
 import sx from "@/styles/component.module.scss";
+import textarea from "./textarea.module.css"
 
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ shade = "100", sizes = "M", status = "default", resize, ...props }, ref) => {
@@ -25,7 +26,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ shade =
     };
 
     return (
-        <textarea className={sx["textarea"]} ref={ref} {...customAttrs} {...props} onFocus={handleTextareaFocus} onBlur={handleTextareaBlur} />
+        <textarea className={textarea.container} ref={ref} {...customAttrs} {...props} onFocus={handleTextareaFocus} onBlur={handleTextareaBlur} />
     )
 })
 

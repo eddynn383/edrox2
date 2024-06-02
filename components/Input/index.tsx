@@ -4,9 +4,11 @@ import React, { useState } from "react";
 
 import { Icon } from "@/components/Icon";
 import { InputProps } from "./interface";
-import sx from "@/styles/component.module.scss";
+import csx from "@/styles/component.module.scss";
+import { Name } from "../Icon/interface";
+import input from "./input.module.css"
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({type, mode="solid", shade = "100", sizes = "M", status = "default", iconBefore, iconAfter, ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className=input.container, type, mode="solid", shade = "100", sizes = "M", status = "default", iconBefore, iconAfter, outerStyle, ...props }, ref) => {
     const [isInputFocused, setIsInputFocused] = useState(false);
 
 
@@ -15,8 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({type, mode="solid
         "data-shade": shade,
         "data-size": sizes,
         "data-status": status,
-        "data-icon": iconBefore && iconAfter ? 'both' : iconBefore ? 'before' : iconAfter ? 'after' : null,
-        // "data-focus": focus
+        "data-icon": iconBefore && iconAfter ? 'both' : iconBefore ? 'before' : iconAfter ? 'after' : null
     }
 
 
@@ -29,12 +30,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({type, mode="solid
     };
 
     return (
-        <div className={sx["input"]} data-focus={isInputFocused} {...customAttrs}>
-            {iconBefore && <Icon name={iconBefore} className={sx["icon"]} />}
+        <div className={className} data-focus={isInputFocused} style={outerStyle} {...customAttrs} >
+            {iconBefore}
             {
-                <input className={sx["input-inner"]} type={type} ref={ref} {...props} onFocus={handleInputFocus} onBlur={handleInputBlur} />
+                <input className={input.element} type={type} ref={ref} {...props} onFocus={handleInputFocus} onBlur={handleInputBlur} />
             }
-            {iconAfter && <Icon name={iconAfter} className={sx["icon"]} />}
+            {iconAfter}
         </div>
     )
 }

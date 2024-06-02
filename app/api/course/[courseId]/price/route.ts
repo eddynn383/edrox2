@@ -35,7 +35,7 @@ export async function POST(request: Request, { params }: paramsType) {
 
         return Response.json(price)
     } catch (error) {
-        console.log("TUTOR ERROR: ", error)
+        // console.log("TUTOR ERROR: ", error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

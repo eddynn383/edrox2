@@ -44,7 +44,7 @@ export async function POST(request: Request, { params }: paramsType) {
         // console.log(metadata)
         return Response.json(metadata)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

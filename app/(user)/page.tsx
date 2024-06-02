@@ -11,16 +11,18 @@ const Dashboard = async () => {
     const headersList = headers()
     const viewport = headersList.get('x-viewport')
 
-    console.log("X-Viewport", viewport)
+    // console.log("X-Viewport", viewport)
 
     return ( 
         <div className={sxm["page-content"]}>
             <h1>Dashboard</h1>
             {JSON.stringify(session)}
-            <form action={async () => {
-                "use server"
-                await signOut()
-            }}>
+            <form action={
+                async () => {
+                    "use server"
+                    await signOut()
+                }
+            }>
                 {/* <SkeletonCard />
                 <Bone width="376px" height="210px" radius="8px" animationType="" animationDuration={300} /> */}
                 <Button type="submit" variant="accent" status="fail">Sign Out</Button>
