@@ -1,0 +1,15 @@
+.auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    
+    .inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--module-auth-inner-gap, var(--gap-600, 24px));
+        width: 100%;
+        max-width: 420px;
+    }
+}

@@ -18,103 +18,103 @@
     }
 }
 
-// .layout {
-//     position: relative;
-//     width: 100%;
-//     height: 100%;
-//     &--auth {
-//         display: flex;
-//         flex-direction: column;
-//         background-color: var(--layout-auth-background-color, var(--accent-brand-400));
+.layout {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    &--auth {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--layout-auth-background-color, var(--accent-brand-400));
 
-//         .layout-left,
-//         .layout-right {
-//             display: flex;
-//             flex-direction: column;
-//             padding: var(--layout-auth-left-padding, var(--padding-600, 24px));
-//             overflow-y: auto;
-//         }
-//         .layout-left {
-//             flex: 1 1 auto;
-//             gap: var(--layout-left-gap, var(--gap-400, 16px));
-//             overflow-y: auto;
-//         }
-//         .layout-right {
-//             flex-grow: 1;
-//             justify-content: center;
-//             background-color: var(--layout-auth-right-background-color, var(--primary-background-100));
-//             border-radius: var(--layout-auth-right-border-radius, var(--radius-600, 12px)) var(--layout-auth-right-border-radius, var(--radius-600, 12px)) 0 0;
-//             box-shadow: 0px -8px 12px 4px rgba(0, 0, 0, 0.10);
-//             animation: slide-in-from-bottom .5s ease-in-out;
-//         }
+        .layout-left,
+        .layout-right {
+            display: flex;
+            flex-direction: column;
+            padding: var(--layout-auth-left-padding, var(--padding-600, 24px));
+            overflow-y: auto;
+        }
+        .layout-left {
+            flex: 1 1 auto;
+            gap: var(--layout-left-gap, var(--gap-400, 16px));
+            overflow-y: auto;
+        }
+        .layout-right {
+            flex-grow: 1;
+            justify-content: center;
+            background-color: var(--layout-auth-right-background-color, var(--primary-background-100));
+            border-radius: var(--layout-auth-right-border-radius, var(--radius-600, 12px)) var(--layout-auth-right-border-radius, var(--radius-600, 12px)) 0 0;
+            box-shadow: 0px -8px 12px 4px rgba(0, 0, 0, 0.10);
+            animation: slide-in-from-bottom .5s ease-in-out;
+        }
 
-//         .logo {
-//             img {
-//                 width: auto;
-//             }
-//         }
+        .logo {
+            img {
+                width: auto;
+            }
+        }
 
-//         .layout-auth-details {
-//             display: flex;
-//             flex-direction: column;
-//             gap: var(--layout-auth-details-gap, var(--gap-300, 12px));
-//         }
-//         .layout-auth-title {
-//             color: var(--layout-auth-title-text-color, var(--accent-brand-100));
-//             font-size: var(--layout-auth-title-font-size, var(--size-800, 32px));
-//         }
-//         .layout-auth-description {
-//             color: var(--layout-auth-description-text-color, var(--accent-brand-200));
-//         }
+        .layout-auth-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--layout-auth-details-gap, var(--gap-300, 12px));
+        }
+        .layout-auth-title {
+            color: var(--layout-auth-title-text-color, var(--accent-brand-100));
+            font-size: var(--layout-auth-title-font-size, var(--size-800, 32px));
+        }
+        .layout-auth-description {
+            color: var(--layout-auth-description-text-color, var(--accent-brand-200));
+        }
 
 
-//         .component_radiogroup {
-//             .component_form-row {
-//                 padding: 20px;
-//             }
-//         }
+        .component_radiogroup {
+            .component_form-row {
+                padding: 20px;
+            }
+        }
 
-//         @media only screen and (min-width: 768px) {
-//             flex-direction: row;
-//             padding: var(--layout-auth-padding, var(--padding-400, 16px));
-//             background-color: var(--layout-auth-background-color, var(--primary-background-100));
-//             .layout-left {
-//                 max-width: 380px;
-//                 background-color: var(--layout-auth-left-background-color, var(--accent-brand-400));
-//                 border-radius: var(--layout-auth-right-border-radius, var(--radius-800, 16px));
-//                 justify-content: space-between;
-//             }
-//             .layout-right {
-//                 box-shadow: none;
-//             }
-//         }
-//         @media only screen and (max-width: 768px) and (orientation: landscape) {
-//             flex-direction: row;
-//             padding: var(--layout-auth-padding, var(--padding-400, 16px));
-//             background-color: var(--layout-auth-background-color, var(--primary-background-100));
+        @media only screen and (min-width: 768px) {
+            flex-direction: row;
+            padding: var(--layout-auth-padding, var(--padding-400, 16px));
+            background-color: var(--layout-auth-background-color, var(--primary-background-100));
+            .layout-left {
+                max-width: 380px;
+                background-color: var(--layout-auth-left-background-color, var(--accent-brand-400));
+                border-radius: var(--layout-auth-right-border-radius, var(--radius-800, 16px));
+                justify-content: space-between;
+            }
+            .layout-right {
+                box-shadow: none;
+            }
+        }
+        @media only screen and (max-width: 768px) and (orientation: landscape) {
+            flex-direction: row;
+            padding: var(--layout-auth-padding, var(--padding-400, 16px));
+            background-color: var(--layout-auth-background-color, var(--primary-background-100));
 
-//             .layout-left,
-//             .layout-right {
-//                 width: 50%;
-//             }
-//             .layout-left {
-//                 background-color: var(--layout-auth-left-background-color, var(--accent-brand-400));
-//                 border-radius: var(--layout-auth-right-border-radius, var(--radius-800, 16px));
-//                 justify-content: space-between;
-//             }
-//             .layout-right {
-//                 justify-content: flex-start;
-//                 box-shadow: none;
-//             }
-//         }
-//         @media only screen and (min-width: 1025px) {
-//             .layout-left {
-//                 max-width: 640px;
-//             }
-//         }
-//     }
+            .layout-left,
+            .layout-right {
+                width: 50%;
+            }
+            .layout-left {
+                background-color: var(--layout-auth-left-background-color, var(--accent-brand-400));
+                border-radius: var(--layout-auth-right-border-radius, var(--radius-800, 16px));
+                justify-content: space-between;
+            }
+            .layout-right {
+                justify-content: flex-start;
+                box-shadow: none;
+            }
+        }
+        @media only screen and (min-width: 1025px) {
+            .layout-left {
+                max-width: 640px;
+            }
+        }
+    }
 
-// }
+}
 
 .header {
     display: flex;

@@ -1,7 +1,7 @@
 "use client"
 
 import * as z from "zod";
-import { Suspense, useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import {
     Button,
     Dropzone,
@@ -13,15 +13,7 @@ import {
     FormLabel,
     FormMessage,
     Input,
-    Label,
-    RadioGroup,
-    RadioGroupItem,
     ScrollArea,
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
     Textarea
 } from "@/components";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,9 +24,7 @@ import { updateProfile } from "@/actions/user";
 import psx from "@/styles/page.module.scss";
 import msx from "@/styles/module.module.scss";
 import csx from "@/styles/component.module.scss";
-import { FileUpload } from "../FileUpload";
 import toast from "react-hot-toast";
-import Metadata from "../Metadata";
 import { FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 
 interface FormProfileProps {

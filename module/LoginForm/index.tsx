@@ -3,6 +3,7 @@
 import * as z from "zod"
 
 import Link from "next/link"
+import { CircleAlert, CircleCheck, Eye, EyeOff, Lock, Mail, RectangleEllipsis } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
@@ -14,9 +15,9 @@ import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, Ca
 import { login } from "@/actions/login"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
+import module from "@/styles/module.module.css"
 import formStyle from "@/components/Form/form.module.css"
 import iconStyle from "@/components/Icon/icon.module.css"
-import { CircleAlert, CircleCheck, Eye, EyeOff, Lock, Mail, RectangleEllipsis } from "lucide-react"
 
 export const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -69,9 +70,9 @@ export const LoginForm = () => {
         })
     }
     return (
-        <div className={msx["auth"]}>
-            <div className={msx["auth-inner"]}>
-                <Card variant="ghost" padding="0" radius="0" gap="600">
+        <div className={module.auth}>
+            <div className={module.inner}>
+                <Card variant="ghost" padding="0" radius="0" gap="600" style={{"width": "100%"}}>
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Welcome back!</CardTitle>
                         <CardDescription>Don&apos;t have an account yet? <Link href="register" className="link link--accent">Sign up</Link></CardDescription>

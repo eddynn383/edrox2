@@ -13,9 +13,8 @@ import {
 } from "react-hook-form"
 
 import { Label } from "@/components/Label"
-import { Icon } from "@/components/Icon"
 
-import { FormMessageProps, FormRowDetailsProps, FormRowFieldsProps, FormRowsProps } from "./interface"
+import { FormActionsProps, FormMessageProps, FormRowDetailsProps, FormRowFieldsProps, FormRowsProps } from "./interface"
 import sx from "@/styles/component.module.scss"
 import { TriangleAlert } from "lucide-react"
 import form from "./form.module.css"
@@ -221,6 +220,20 @@ const FormRowFields = React.forwardRef<
 })
 
 FormRowFields.displayName = "FormRowFields"
+
+
+const FormActions = React.forwardRef<
+    HTMLDivElement,
+    FormActionsProps
+>(({ className=form.actions, children, direction="vertical",...props }, ref) => {
+    return (
+        <div className={className} {...props} ref={ref} data-direction={direction}>
+            {children}
+        </div>
+    )
+})
+
+FormActions.displayName = "FormActions"
 
 export {
     useFormField,

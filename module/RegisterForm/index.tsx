@@ -2,18 +2,19 @@
 
 import * as z from "zod"
 
+import Link from "next/link"
 import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterSchema } from "@/schemas"
+import { CircleAlert, CircleCheck, Eye, EyeOff, Loader2Icon, Lock, Mail, User } from "lucide-react"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
 import { Social } from "../Social"
 import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input, Label, RadioGroup, RadioGroupItem } from "@/components"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
 import { register } from "@/actions/register"
-import Link from "next/link"
-import { CircleAlert, CircleCheck, Eye, EyeOff, Loader2Icon, Lock, Mail, User } from "lucide-react"
+import module from "@/styles/module.module.css"
 import formStyle from "@/components/Form/form.module.css"
 import iconStyle from "@/components/Icon/icon.module.css"
 
@@ -58,9 +59,9 @@ export const RegisterForm = () => {
         setLoading(false)
     }
     return (
-        <div className={msx["auth"]}>
-            <div className={msx["auth-inner"]}>
-                <Card variant="ghost" padding="0" radius="0" gap="600">
+        <div className={module.auth}>
+            <div className={module.inner}>
+                <Card variant="ghost" padding="0" radius="0" gap="600" style={{"width": "100%"}}>
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={1}>Welcome!</CardTitle>
                         <CardDescription>Have already an account? <Link href="login" className="link link--accent">Sign In</Link></CardDescription>

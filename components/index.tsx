@@ -1,6 +1,7 @@
 
 import { Alert, AlertTitle, AlertDescription } from "./Alert";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "./AlertDialog";
+import { Anchor } from "./Anchor";
 import { Avatar } from "./Avatar";
 import { Badge } from "./Badge";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./Breadcrumb";
@@ -57,6 +58,7 @@ export {
     AlertDialogDescription,
     AlertDialogAction,
     AlertDialogCancel,
+    Anchor, 
     Avatar,
     Badge,
     Breadcrumb,

@@ -1,8 +1,6 @@
 import { Suspense } from "react";
-import { ScrollArea, ScrollBar, SkeletonCard } from "@/components";
+import { SkeletonCard } from "@/components";
 import { getAllCategories } from "@/data/categories";
-import { getPublishdedCourses } from "@/data/courses";
-import Catalog from "@/module/Catalog";
 import CatalogToolbar from "@/module/CatalogToolbar";
 import Category from "@/module/Category";
 import psx from "@/styles/page.module.scss"
@@ -36,7 +34,7 @@ const SkeletonCatalog = () => {
     )
 }
 
-const LearningArea = async ({ searchParams }: LearningAreaProps) => {
+const LearningAreaPage = async ({ searchParams }: LearningAreaProps) => {
     // const courses = await getPublishdedCourses({...searchParams});  
     const courses = await getAllUserEnrolments()
     const categories = await getAllCategories()
@@ -64,4 +62,4 @@ const LearningArea = async ({ searchParams }: LearningAreaProps) => {
     );
 }
 
-export default LearningArea;
+export default LearningAreaPage;

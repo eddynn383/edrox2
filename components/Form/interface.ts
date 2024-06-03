@@ -15,3 +15,7 @@ export interface FormRowDetailsProps extends React.HTMLAttributes<HTMLDivElement
 export interface FormRowFieldsProps extends React.HTMLAttributes<HTMLDivElement> {
     
 }
+
+export interface FormActionsProps extends React.HTMLAttributes<HTMLDivElement> {
+    direction: "vertical" | "horizontal"
+}
