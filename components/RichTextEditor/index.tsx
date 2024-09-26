@@ -249,7 +249,7 @@ export const RichTextEditor = ({ edit, content, position=0, onUpdate, onBlur, ..
     })
 
     useEffect(() => {
-        console.log(selectedItem)
+        // console.log(selectedItem)
         if (editor) {
             editor.chain().focus()
             setActive(true)

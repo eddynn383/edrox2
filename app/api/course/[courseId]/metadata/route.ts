@@ -36,7 +36,7 @@ export async function POST(request: Request, { params }: paramsType) {
             data: {
                 key: data.key,
                 value: data.value,
-                type: data.type,
+                // type: data.type, 
                 courseId: courseId
             }
         })

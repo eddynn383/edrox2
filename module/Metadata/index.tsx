@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 import { z } from "zod";
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Label } from "@/components";
 import { Plus, Trash2 } from "lucide-react";
-import { MetadataSchema } from "@/schemas";
+import { CourseMetadataSchema } from "@/schemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import sxm from "@/styles/module.module.scss"
@@ -20,20 +20,20 @@ const Metadata = () => {
     const [data, setData] = useState<MetadataType[]>([{ key: "", value: "" }])
     const [error, setError] = useState<string | undefined>();
 
-    const form = useForm<z.infer<typeof MetadataSchema>>({
-        resolver: zodResolver(MetadataSchema),
+    const form = useForm<z.infer<typeof CourseMetadataSchema>>({
+        resolver: zodResolver(CourseMetadataSchema),
         defaultValues: {
             key: "", 
             value: ""
         }
     });
 
-    const addRowHandler = (values: z.infer<typeof MetadataSchema>) => {
+    const addRowHandler = (values: z.infer<typeof CourseMetadataSchema>) => {
         // console.log(values)
         // if (data.length === 1 || !MetadataSchema.safeParse(data[data.length - 1])) {
         //     return;
         // }
-        const dataValidation = MetadataSchema.safeParse(values)
+        const dataValidation = CourseMetadataSchema.safeParse(values)
         // console.log("data: ", data)
         // console.log(dataValidation)
         
