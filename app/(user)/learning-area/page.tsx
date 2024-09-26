@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { Suspense } from "react";
 import { SkeletonCard } from "@/components";
 import { getAllCategories } from "@/data/categories";
@@ -39,7 +41,7 @@ const LearningAreaPage = async ({ searchParams }: LearningAreaProps) => {
     const courses = await getAllUserEnrolments()
     const categories = await getAllCategories()
 
-    console.log("My courses: ", courses)
+    // console.log("My courses: ", courses)
     // console.log(searchParams.viewport)
     // console.log("CATALOG COURSES: ", courses)
 
