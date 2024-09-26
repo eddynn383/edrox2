@@ -155,7 +155,7 @@ model Metadata {
   id       String @id @default(uuid())
   key      String
   value    String
-  type     String
+  // type     String
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }

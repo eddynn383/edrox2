@@ -79,6 +79,11 @@ export type Chapter = {
     isFree: boolean;
 }
 
+export type Metadata = {
+    key: string;
+    value: string;
+}
+
 
 // id          String       @id @default(uuid())
 // title       String

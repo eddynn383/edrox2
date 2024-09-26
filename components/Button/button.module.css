@@ -1058,6 +1058,10 @@
         }
     }
 
+    &[data-inline="true"] {
+        display: inline-flex;
+    }
+
     &:hover {
         transition: .3s ease-in-out;
     }

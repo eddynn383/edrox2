@@ -43,7 +43,7 @@ const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
     const progressValue=75
 
     return (
-        <div className={psx["body"]}>
+        <>
             <section className={psx["body-toolbar"]} data-page="chapter-details">
                 <div className={psx["body-toolbar-row"]}>
                     <Breadcrumb className={msx["chapter-details-breadcrumb"]}>
@@ -97,7 +97,7 @@ const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
                     </div>
                 }
             </section>
-        </div>
+        </>
     )
 }
 

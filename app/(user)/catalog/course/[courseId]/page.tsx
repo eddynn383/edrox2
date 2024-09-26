@@ -51,12 +51,12 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
     }   
 
     return (
-        <div className={psx["body"]}>
+        <>
             <ScrollArea>
                 <section className={psx["body-toolbar"]} data-page="course-details">
                     <div className={psx["body-toolbar-left"]}>
                         <Suspense fallback={<p>Loading course summary...</p>}>
-                            <CourseSummary course={course} /> 
+                            <CourseSummary course={course} metadata={[]} /> 
                         </Suspense>
                     </div>
                     <div className={psx["body-toolbar-right"]}>
@@ -83,12 +83,12 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                 <section className={psx["body-content"]}>
                     <div className={psx["body-content-left"]}>
                         <Suspense fallback={<p>Loading course details...</p>}>
-                            <CourseDetails courseId={courseId} tutors={course?.tutors} chapters={chapters} />
+                            <CourseDetails courseId={courseId} tutors={course?.tutors} chapters={chapters} metadata={[]} />
                         </Suspense>
                     </div>
                 </section>
             </ScrollArea>
-        </div>
+        </>
     )
 }
 

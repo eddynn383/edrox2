@@ -6,8 +6,8 @@ import { CourseHeader } from "@/module/CourseHeader";
 import { CourseSummary } from "@/module/CourseSummary";
 import { CourseDetails } from "@/module/CourseDetails";
 import { getAllChaptersByCourseId, getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters";
-import psx from "@/styles/page.module.scss";
-import msx from "@/styles/module.module.scss";
+import courseSx from "./course.module.css"
+import { getMetadata } from "@/data/metadata";
 
 interface NewCoursePageProps {
     params: {
@@ -18,6 +18,7 @@ interface NewCoursePageProps {
 const Page = async ({ params }: NewCoursePageProps) => {
     const categories = await getAllCategories();
     const course = await getCourseById(params.courseId)
+    const metadata = await getMetadata(params.courseId)
     const courseChapters = await getAllChaptersByCourseId(params.courseId)
     const countChapters = await getChaptersCountByCourseId(params.courseId)
     const sumOfChaptersDuration = await getChaptersSumDurationByCourseId(params.courseId)
@@ -36,10 +37,10 @@ const Page = async ({ params }: NewCoursePageProps) => {
     const cover = course.image ? course.image : ""
 
     return (
-        <div className={psx["body"]}>
-            <section className={psx["body-toolbar"]}>
-                <div className={psx["body-toolbar-row"]}>
-                    <div className={psx["body-toolbar-left"]}>
+        <>
+            <section className={courseSx.toolbar}>
+                <div className={courseSx["toolbar-row"]}>
+                    <div className={courseSx["toolbar-left"]}>
                         <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem>
@@ -57,25 +58,19 @@ const Page = async ({ params }: NewCoursePageProps) => {
                         </Breadcrumb>
                     </div>
                 </div>
-                <div className={psx["body-toolbar-row"]}>
-                    <div className={psx["body-toolbar-left"]}>
-                        <div style={{"display": "flex", "alignItems": "center", "gap": "12px"}}>
-                            <CourseHeader course={course} categories={categories} edit={true} />
-                        </div>
+                <div className={courseSx["toolbar-row"]}>
+                    <div className={courseSx["toolbar-left"]}>
+                        <CourseHeader course={course} categories={categories} edit={true} />
                     </div>
-                    <div className={psx["body-toolbar-right"]}>
-                        <CourseSummary course={course} edit={true} /> 
+                    <div className={courseSx["toolbar-right"]}>
+                        <CourseSummary course={course} metadata={metadata} edit={true} /> 
                     </div>
                 </div>
             </section>
             <ScrollArea>
-                <section className={psx["body-content"]}>
-                    <div className={psx["body-content-left"]}>
-                        <CourseDetails courseId={params.courseId} tutors={course?.tutors} chapters={chapters} edit={true} />
-                    </div>
-                </section>
+                <CourseDetails courseId={params.courseId} tutors={course?.tutors} chapters={chapters} metadata={metadata} edit={true} />
             </ScrollArea>
-        </div>
+        </>
     )
 }
 

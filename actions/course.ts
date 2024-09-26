@@ -1,13 +1,14 @@
 "use server";
 
 import * as z from "zod";
-import { NewCourseSchema, CourseDescriptionSchema, CoverImageSchema } from "@/schemas";
+import { NewCourseSchema, CourseDescriptionSchema, CoverImageSchema, CourseMetadataSchema } from "@/schemas";
 import { auth } from "@/auth";
 import { editCourseById, getCourseById, setCourse } from "@/data/courses";
 import { setTutor } from "@/data/tutors";
 import { setPrice } from "@/data/prices";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import { setMetadata } from "@/data/metadata";
 
 
 export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
@@ -92,3 +93,22 @@ export const updateCourseCover = async (courseId: string, values: z.infer<typeof
         success: "The course was successfully updated!" 
     };
 }
+
+export const updateCourseMetadata = async (courseId: string, values: z.infer<typeof CourseMetadataSchema>) => {
+    const validatedFields = CourseMetadataSchema.safeParse(values);
+
+    console.log("Validated Values", validatedFields)
+
+    if (!validatedFields.success) return { error: "Invalid fields!" };
+    
+    const metadata = await setMetadata(courseId, validatedFields.data)
+    const data = await metadata?.json()
+    console.log("===metadata:", metadata)
+
+    revalidatePath(`/admin/courses/edit/${courseId}`)
+
+    return {
+        data,
+        success: "The metadata was successfully created!" 
+    };
+};

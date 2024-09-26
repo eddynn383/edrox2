@@ -3,10 +3,10 @@
 import { deleteContentById, setContent, updateContentById } from "@/data/content"
 import { revalidatePath, revalidateTag } from "next/cache"
 
-export const newContent = async (courseId: string, chapterId: string) => {
+export const newContent = async (courseId: string, chapterId: string, type: string) => {
     console.log("chapter ID: ", chapterId)
     const content = await setContent({
-        type: "text",
+        type,
         value: ""
     }, chapterId)
 

@@ -14,6 +14,7 @@ import { newPassword } from "@/actions/new-password"
 import formStyle from "@/components/Form/form.module.css"
 import iconStyle from "@/components/Icon/icon.module.css"
 import module from "@/styles/module.module.css"
+import { Spinner } from "@/components/Spinner"
  
 export const NewPasswordForm = () => {
     const searchParams = useSearchParams();
@@ -98,7 +99,7 @@ export const NewPasswordForm = () => {
                                         )}  
                                     />
                                 </FormRows>
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">Reset password</Button>
+                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">{isPending ? <Spinner /> : "Reset password"}</Button>
                             </form>
                         </Form>
                     </CardContent>

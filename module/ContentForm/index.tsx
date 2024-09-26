@@ -6,6 +6,7 @@ import { PlusCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import csx from "@/styles/component.module.scss"
 import s from "./chapter.module.css"
+import { ContentToolbar } from "../ContentToolbar";
 
 const demo = [
     {   
@@ -79,18 +80,26 @@ export const ContentForm = ({courseId, chapterId, currentData, edit=false}: Cont
         return ( 
             <div className={s["content"]}>
                 <div className={s["list"]}>
-                    {
-                        content?.map((item) => (
-                            <RichTextEditor key={item.position} position={item.position} edit={edit} content={item} onBlur={updateChapterData} />
-                        ))
-                    }
+                    <RichTextEditor edit={edit}
+                    // key={item.position} position={item.position}  content={item} onBlur={updateChapterData}  
+                    />
+                    {/* {
+                        content?.map((item) => {
+                            console.log("item: ", item)
+
+                            return (
+                            )
+                        })
+                    } */}
                 </div>
                 {
-                    edit &&
-                    <Button mode="solid" variant="accent" content="icon-text" onClick={async () => await newContent(courseId, chapterId)}>
-                        <PlusCircle />
-                        <Text size="M">Add section</Text>
-                    </Button>
+                    // edit &&
+                    // <ContentToolbar />
+
+                    // <Button mode="solid" variant="accent" content="icon-text" onClick={async () => await newContent(courseId, chapterId)}>
+                    //     <PlusCircle />
+                    //     <Text size="M">Add section</Text>
+                    // </Button>
                 }
             </div>
 

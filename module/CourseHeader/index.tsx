@@ -2,7 +2,7 @@ import { Badge, PageTitle, Rating } from "@/components";
 import { Category, Course } from "@/interfaces/global";
 import { CourseDescriptionModal } from "../CourseDescriptionModal";
 import { CourseTitleModal } from "../CourseTitleModal";
-import msx from "@/styles/module.module.scss"
+import courseSx from "./course-header.module.css"
 
 type Rating = {
     score: number;
@@ -28,14 +28,14 @@ export const CourseHeader = async ({course, categories, allowRating=true, rating
     const ratingScore = rating?.score ? rating?.score : 0
 
     return ( 
-        <div className={msx["course-header"]}>
+        <div className={courseSx.container}>
             {
                 !edit &&
                 <>
-                    <div className={msx["course-header-title"]}>
+                    <div className={courseSx.title} data-state="view">
                         <PageTitle title={title}/>
                     </div>
-                    <div className={msx["course-header-metadata"]}>
+                    <div className={courseSx.metadata} data-state="view">
                         {
                             category &&
                             <Badge size="M">{category.name}</Badge>
@@ -52,7 +52,7 @@ export const CourseHeader = async ({course, categories, allowRating=true, rating
                     </div>
                     {
                         description &&
-                        <div className={msx["course-header-description"]}>
+                        <div className={courseSx.description} data-state="view">
                             <p>{description}</p>
                         </div>
                     }
@@ -61,32 +61,31 @@ export const CourseHeader = async ({course, categories, allowRating=true, rating
             {
                 edit && 
                 <>
-                    <div className={msx["course-header-title"]}>
+                    <div className={courseSx.title} data-state="edit">
                         <PageTitle title={title}/>
-                        <div className={msx["course-header-title-edit"]}>
+                        <div className={courseSx.edit}>
                             <CourseTitleModal id={id} value={{course, categories}} />
                         </div>
                     </div>
-                    <div className={msx["course-header-metadata"]}>
+                    <div className={courseSx.metadata} data-state="edit">
                         <Badge size="M">{category.name}</Badge>
                     </div>
-                    <div className={msx["course-header-description"]}>
+                    <div className={courseSx.description} data-state="edit">
                         {
                             description && 
                             <>
                                 <p>{description}</p>
-                                <div className={msx["course-header-description-edit"]}>
+                                <div className={courseSx.edit}>
                                     <CourseDescriptionModal id={id} value={description} />
                                 </div>
                             </>
                         }
                         {
                             !description && 
-                            <>
-                                <div className={msx["course-header-description-add"]}>
-                                    <CourseDescriptionModal id={id} />
-                                </div>
-                            </>
+                            <div className={courseSx.add}>
+                                <CourseDescriptionModal id={id} />
+                            </div>
+                            
                         }
                     </div>
                 </>

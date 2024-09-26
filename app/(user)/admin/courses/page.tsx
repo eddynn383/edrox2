@@ -17,7 +17,7 @@ const Page = async ({ searchParams }: CoursesPageProps) => {
     const categories = await getAllCategories();
 
     return (
-        <div className={psx["body"]}>
+        <>
             <section className={psx["body-toolbar"]}>
                 <div className={psx["body-toolbar-row"]}>
                     <Breadcrumb>
@@ -48,7 +48,7 @@ const Page = async ({ searchParams }: CoursesPageProps) => {
                     </Suspense>
                 </div>
             </section>
-        </div>
+        </>
     );
 }
 

@@ -10,18 +10,18 @@ import { RegisterSchema } from "@/schemas"
 import { CircleAlert, CircleCheck, Eye, EyeOff, Loader2Icon, Lock, Mail, User } from "lucide-react"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
 import { Social } from "../Social"
-import { Alert, AlertDescription, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input, Label, RadioGroup, RadioGroupItem } from "@/components"
+import { Alert, AlertDescription, Anchor, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input, Label, RadioGroup, RadioGroupItem } from "@/components"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
 import { register } from "@/actions/register"
 import module from "@/styles/module.module.css"
 import formStyle from "@/components/Form/form.module.css"
 import iconStyle from "@/components/Icon/icon.module.css"
+import { Spinner } from "@/components/Spinner"
 
 
 export const RegisterForm = () => {
     const [isPending, startTransition] = useTransition();
-    const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
 
@@ -48,7 +48,6 @@ export const RegisterForm = () => {
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
         setError("");
         setSuccess("")
-        setLoading(true)
         // console.log("values:: ", values)
         startTransition(() => {
             register(values).then((data) => {
@@ -56,7 +55,6 @@ export const RegisterForm = () => {
                 setSuccess(data.success)
             })
         })
-        setLoading(false)
     }
     return (
         <div className={module.auth}>
@@ -64,7 +62,7 @@ export const RegisterForm = () => {
                 <Card variant="ghost" padding="0" radius="0" gap="600" style={{"width": "100%"}}>
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={1}>Welcome!</CardTitle>
-                        <CardDescription>Have already an account? <Link href="login" className="link link--accent">Sign In</Link></CardDescription>
+                        <CardDescription>Have already an account? <Anchor url="login" mode="text" variant="accent" content="text">Sign in</Anchor></CardDescription>
                     </CardHeader>
                     <CardContent>
                         {
@@ -200,10 +198,7 @@ export const RegisterForm = () => {
                                         )}
                                     />
                                 </FormRows>
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">
-                                    {loading && <Loader2Icon className="loading-spinner"/>} 
-                                    Create an account
-                                </Button>
+                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">{isPending ? <Spinner /> : "Create an account"}</Button>
                             </form>
                         </Form>
                     </CardContent>

@@ -5,7 +5,7 @@ import { useState, useTransition } from "react";
 import { Cover, UploadImage } from "@/components"
 import { CoverImageSchema } from "@/schemas"
 import toast from "react-hot-toast"
-import { updateCourseCover } from "@/actions/new-course";
+import { updateCourseCover } from "@/actions/course";
 
 interface CourseImageProps {
     cover: string | null;

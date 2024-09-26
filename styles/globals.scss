@@ -132,41 +132,41 @@ h4,
     }
 }
 
-.link {
-    display: inline-block;
-    width: fit-content;
-    font-size: var(--link-font-size, calc(var(--size-400, 16px) - var(--size-100, 4px) / 2));
-    line-height: var(--link-line-height, 1);
+// .link {
+//     display: inline-block;
+//     width: fit-content;
+//     font-size: var(--link-font-size, calc(var(--size-400, 16px) - var(--size-100, 4px) / 2));
+//     line-height: var(--link-line-height, 1);
 
-    &--primary {
-        color: var(--link-primary-text-default, var(--primary-text-400));
-        text-decoration: underline;
+//     &--primary {
+//         color: var(--link-primary-text-default, var(--primary-text-400));
+//         text-decoration: underline;
 
-        &:visited {
-            color: var(--link-primary-text-visited, var(--primary-text-300));
-        }
+//         &:visited {
+//             color: var(--link-primary-text-visited, var(--primary-text-300));
+//         }
 
-        &:hover {
-            color: var(--link-primary-text-hover, var(--primary-text-500));
-            text-decoration: none;
-        }
-    }
+//         &:hover {
+//             color: var(--link-primary-text-hover, var(--primary-text-500));
+//             text-decoration: none;
+//         }
+//     }
 
-    &--accent {
-        color: var(--link-accent-text-default, var(--accent-brand-500));
-        text-decoration: underline;
-        transition: color .3s ease-in-out;
+//     &--accent {
+//         color: var(--link-accent-text-default, var(--accent-brand-500));
+//         text-decoration: underline;
+//         transition: color .3s ease-in-out;
 
-        &:visited {
-            color: var(--link-accent-text-visited, var(--accent-brand-300));
-        }
+//         &:visited {
+//             color: var(--link-accent-text-visited, var(--accent-brand-300));
+//         }
 
-        &:hover {
-            color: var(--link-accent-text-hover, var(--accent-brand-600));
-            text-decoration: none;
-        }
-    }
-}
+//         &:hover {
+//             color: var(--link-accent-text-hover, var(--accent-brand-600));
+//             text-decoration: none;
+//         }
+//     }
+// }
 
 .sr-only {
     position: absolute;

@@ -1,9 +1,10 @@
 import { Sidebar } from "@/module/Sidebar";
-import Header from "@/module/Header";
+import { PageHeader } from "@/module/PageHeader";
 import { auth } from "@/auth";
 import { logout } from "@/actions/logout";
 import { headers } from "next/headers";
 import global from "@/styles/global.module.css"
+import { PageBody } from "@/module/PageBody";
 
 const DashboardLayout = async ({
     children
@@ -16,8 +17,6 @@ const DashboardLayout = async ({
     
     const viewport = headersList.get('x-viewport')
     const device = headersList.get('x-device')
-    // console.log("viewport: ", viewport)
-    // console.log("device: ", device)
 
     return (
         <div className={global.layout}>
@@ -25,8 +24,10 @@ const DashboardLayout = async ({
                 <Sidebar user={session?.user} device={viewport} />
             </div>
             <div className={global.right}>
-                <Header user={session?.user} device={viewport} onLogout={logout} />
-                {children}
+                <PageHeader user={session?.user} device={viewport} onLogout={logout} />
+                <PageBody>
+                    {children}
+                </PageBody>
             </div>
         </div>
     );

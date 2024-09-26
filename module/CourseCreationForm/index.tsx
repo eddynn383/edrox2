@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
-import { newCourse, updateCourse } from "@/actions/new-course";
+import { newCourse, updateCourse } from "@/actions/course";
 import { NewCourseSchema } from "@/schemas";
 import { FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 import courseSX from "./course.module.css"

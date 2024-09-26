@@ -9,6 +9,7 @@ export interface AnchorProps extends React.AnchorHTMLAttributes<HTMLAnchorElemen
     status?: Status;
     shade?: Shade;
     content?: Content;
+    inline?: Boolean;
     value?: string;
     children?: React.ReactNode | React.ReactNode[] | string;
 }

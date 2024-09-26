@@ -8,10 +8,9 @@
     padding-bottom: var(--rich-text-editor-padding-bottom, var(--padding-400, 16px));
     padding-left: var(--rich-text-editor-padding-left, var(--padding-600, 24px));
     padding-right: var(--rich-text-editor-padding-right, var(--padding-400, 16px));
-    background-color: var(--rich-text-editor-background-color, var(--primary-background-100));
-    border: 1px solid var(--rich-text-editor-border-color, var(--primary-background-200));
-    border-radius: var(--rich-text-editor-border-radius, var(--radius-400));
-    &:before {
+    background-color: var(--rich-text-editor-background-color, var(--primary-background-200));
+    border: 1px solid transparent;
+    /* &:before {
         content: "";
         width: var(--size-100, 4px);
         position: absolute;
@@ -23,6 +22,10 @@
         visibility: hidden;
         opacity: 0;
         transition: all .3s ease-in-out;
+    } */
+    &:hover {
+        background-color: var(--rich-text-editor-background-color, var(--primary-background-200));
+        border-color: var(--rich-text-editor-border-color, var(--primary-background-300));
     }
     &[data-focus="true"]:before {
         visibility: visible;
@@ -32,12 +35,12 @@
 
 .toolbar {
     display: flex;
-    position: absolute;
+    /* position: absolute;
     left: 50%;
-    top: 0;
-    transform: translateX(-50%) translateY(-50%);
+    top: 0; */
+    /* transform: translateX(-50%) translateY(-50%); */
     gap: var(--rich-text-toolbar-gap, var(--gap-100, 4px));
-    background-color: var(--rich-text-toolbar-background-color, var(--primary-background-200));
+    background-color: var(--rich-text-toolbar-background-color, var(--primary-background-100));
     padding: var(--rich-text-toolbar-padding, var(--padding-100, 4px));
     border-radius: var(--rich-text-toolbar-border-radius, var(--radius-500, 10px));
     box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);

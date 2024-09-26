@@ -2,14 +2,13 @@
 
 import * as z from "zod";
 import toast from "react-hot-toast";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Textarea } from "@/components";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 import { NewChapterSchema } from "@/schemas";
-import { newInitChapter } from "@/actions/new-chapter";
+import { newInitChapter } from "@/actions/chapter";
 import chapter from "./chapter.module.css"
 
 interface ChapterCreationFormProps {
@@ -22,7 +21,7 @@ interface ChapterCreationFormProps {
 
 const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormProps) => { 
     const router = useRouter()
-    const [title, setTitle] = useState<string>("") 
+    // const [title, setTitle] = useState<string>("")
 
     const form = useForm<z.infer<typeof NewChapterSchema>>({
         resolver: zodResolver(NewChapterSchema),
@@ -67,7 +66,7 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
                             control={form.control}
                             name="title"
                             render={({ field }) => {
-                                setTitle(field.value)
+                                // setTitle(field.value)
                                 
                                 return (
                                     <FormItem data-cols="1">

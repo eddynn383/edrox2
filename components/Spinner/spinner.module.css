@@ -1,0 +1,28 @@
+.container {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    &:before {
+        content: "";
+        display: inline-block;
+        width: var(--spinner-width, var(--size-600));
+        height: var(--spinner-height, var(--size-600));
+        position: absolute;
+        left: -3px;
+        bottom: -3px;
+        border: 3px solid #fff;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

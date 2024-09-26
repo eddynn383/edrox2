@@ -9,6 +9,7 @@
 .list {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-200, 8px);
+    /* gap: var(--gap-200, 8px); */
     width: 100%;
+    background-color: var(--chapter-list-background-color, var(--primary-background-200));
 }

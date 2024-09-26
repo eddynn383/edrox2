@@ -31,8 +31,9 @@
     left: 50%;
     z-index: 10;
     display: grid;
-    width: 100%;
-    max-width: var(--dialog-content-max-width, 480px);
+    /* width: 100%; */
+    min-width: var(--dialog-content-min-width, 480px);
+    max-width: var(--dialog-content-max-width, 80%);
     gap: var(--dialog-content-gap, var(--gap-600, 24px));
     padding: var(--dialog-content-padding, var(--padding-600, 24px));
     background-color: var(--dialog-content-background, var(--primary-background-200));

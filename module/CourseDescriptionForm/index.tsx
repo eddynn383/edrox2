@@ -6,12 +6,11 @@ import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Textarea } from "@/components";
-import { updateCourseDescription } from "@/actions/new-course";
+import { updateCourseDescription } from "@/actions/course";
 import { CourseDescriptionSchema } from "@/schemas";
-import csx from "@/styles/component.module.scss"
 import { FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 import { TriangleAlert } from "lucide-react";
-import courseDesc from "./courseDesc.module.css"
+import courseSx from "./course-description.module.css"
 
 export const CourseDescriptionForm = ({courseId, description, actions, onOpen, onPending}: CourseDescriptionFormProps) => { 
     // const router = useRouter()
@@ -48,8 +47,8 @@ export const CourseDescriptionForm = ({courseId, description, actions, onOpen, o
     return (
         <>
             <Form {...form}>
-                <form id="course-description-form" className={courseDesc.form} onSubmit={form.handleSubmit(submitHandler)}>                    
-                    <FormRows className={courseDesc.rows}>
+                <form id="course-description-form" className={courseSx.form} onSubmit={form.handleSubmit(submitHandler)}>                    
+                    <FormRows className={courseSx.rows}>
                         <FormField
                             control={form.control}
                             name="description"

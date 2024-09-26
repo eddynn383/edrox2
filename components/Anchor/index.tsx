@@ -4,7 +4,7 @@ import button from "@/components/Button/button.module.css"
 import React from "react";
 
 
-const Anchor = React.forwardRef<HTMLAnchorElement, AnchorProps>(({url, className=button.container, size = "M", mode = "text", status = "default", variant = "accent", shade = "100", content = "text", children, ...props}, ref) => {
+const Anchor = React.forwardRef<HTMLAnchorElement, AnchorProps>(({url, className=button.container, size = "M", mode = "text", status = "default", variant = "accent", shade = "100", content = "text", inline=true, children, ...props}, ref) => {
 
     const customAttrs = {
         "data-mode": mode,
@@ -12,7 +12,8 @@ const Anchor = React.forwardRef<HTMLAnchorElement, AnchorProps>(({url, className
         "data-status": status,
         "data-shade": shade,
         "data-size": size,
-        "data-content": content
+        "data-content": content,
+        "data-inline": inline
     }
 
     return ( 

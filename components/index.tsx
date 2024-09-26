@@ -43,7 +43,8 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScro
 import { Playlist } from "./Playlist";
 import { PlaylistItem } from "./PlaylistItem";
 import { PlaylistToggle } from "./PlaylistToggle";
-import { UploadImage } from "./UploadImage"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "./Tabs";
+import { UploadImage } from "./UploadImage";
  
 export {
     Alert,
@@ -167,6 +168,10 @@ export {
     TableTr,
     TableTd,
     TableCaption,
+    Tabs, 
+    TabsList, 
+    TabsTrigger, 
+    TabsContent,
     Text,
     Textarea,
     UploadImage

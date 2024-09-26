@@ -7,8 +7,8 @@ import { Loader2Icon } from "lucide-react";
 import { signIn } from "next-auth/react"
 import { Button } from "@/components"
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
-import sx from "@/styles/module.module.scss"
 import { useState } from "react"
+import sx from "@/styles/module.module.scss"
 
 export const Social = () => {
     const [loading, setLoading] = useState(false)

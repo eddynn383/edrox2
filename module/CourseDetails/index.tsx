@@ -1,15 +1,13 @@
-import { BarChart, Clock, FileBadge, ListChecks, MoreVertical, PlusCircle } from "lucide-react";
-import { Button, Cover, Playlist, ScrollArea } from "@/components";
-import ProfileAvatar from "@/public/assets/images/profile-avatar.png";
-import ChaptersViewList from "../ChapterViewList";
-import TutorsViewList from "../TutorsViewList";
+import { Playlist } from "@/components";
+import { TutorsList } from "../TutorsList";
 import { getTutor } from "@/actions/tutor";
 import { convertDuration } from "@/lib/utils";
-import msx from "@/styles/module.module.scss";
-import csx from "@/styles/component.module.scss"
 import { ChapterModal } from "../ChapterModal";
 import { Suspense } from "react";
 import { TutorsModal } from "../TutorsModal";
+import courseSx from "./course-details.module.css"
+import { MetadataList } from "../MetadataList";
+import { MetadataModal } from "../MetadataModal";
 
 type Tutor = {
     tutorId: string;
@@ -35,131 +33,123 @@ type Chapters = {
 
 interface CourseDetailsProps {
     courseId: string;
-    tutors?: Tutor[];
+    tutors: Tutor[];
     chapters: Chapters;
+    metadata: any;
     edit?: boolean;
 }
 
-const CourseDetails = ({ courseId, tutors, chapters, edit=false }: CourseDetailsProps) => {
+interface CourseChaptersProps {
+    data: Chapters;
+    courseId: string;
+    edit?: boolean;
+}
+
+interface CourseTutorsProps {
+    data: Tutor[];
+    courseId: string;
+    edit?: boolean;
+}
+
+interface CourseMetadataProps {
+    data: any[];
+    courseId: string;
+    edit?: boolean;
+}
+
+const CourseDetails = ({ courseId, tutors, chapters, metadata, edit=false }: CourseDetailsProps) => {
     // console.log("TUTORS: ", tutors);
     // console.log("CHAPTERS: ", chapters)
 
+
+
+    return ( 
+        <div className={courseSx.body}>
+            <CourseMetadata courseId={courseId} data={metadata} edit={edit} />
+            <CourseChapters courseId={courseId} data={chapters} edit={edit} /> 
+            <CourseTutors courseId={courseId} data={tutors} edit={edit} />
+        </div>
+    );
+}
+
+
+const CourseChapters = ({data, courseId, edit=false }: CourseChaptersProps) => {
     const {
         chaptersData,
         countChapters,
         sumOfChaptersDuration
-    } = chapters
-
+    } = data
+    
     return ( 
-        <div className={msx["course-details-body"]}>
-            {
-                !edit &&
-                <>
-                    <section className={msx["course-details-card-metadata"]}>
-                        <ul className={msx["course-details-card-metadata-list"]}>
-                            <li className={msx["course-details-card-metadata-list-item"]}>
-                                <div className={msx["course-details-card-metadata-left"]}>
-                                    <BarChart />
-                                </div>
-                                <div className={msx["course-details-card-metadata-right"]}>
-                                    <span className={msx["course-details-card-metadata-label"]}>Skill</span>
-                                    <span className={msx["course-details-card-metadata-value"]}>Advanced</span>
-                                </div>
-                            </li>
-                            <li className={msx["course-details-card-metadata-list-item"]}>
-                                <div className={msx["course-details-card-metadata-left"]}>
-                                    <Clock />
-                                </div>
-                                <div className={msx["course-details-card-metadata-right"]}>
-                                    <span className={msx["course-details-card-metadata-label"]}>Duration</span>
-                                    <span className={msx["course-details-card-metadata-value"]}>15 Hours</span>
-                                </div>
-                            </li>
-                            <li className={msx["course-details-card-metadata-list-item"]}>
-                                <div className={msx["course-details-card-metadata-left"]}>
-                                    <FileBadge />
-                                </div>
-                                <div className={msx["course-details-card-metadata-right"]}>
-                                    <span className={msx["course-details-card-metadata-label"]}>Certificate</span>
-                                    <span className={msx["course-details-card-metadata-value"]}>Digital</span>
-                                </div>
-                            </li>
-                            <li className={msx["course-details-card-metadata-list-item"]}>
-                                <div className={msx["course-details-card-metadata-left"]}>
-                                    <ListChecks />
-                                </div>
-                                <div className={msx["course-details-card-metadata-right"]}>
-                                    <span className={msx["course-details-card-metadata-label"]}>Prerequisites</span>
-                                    <span className={msx["course-details-card-metadata-value"]}>None</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-                    <section className={msx["chapters-view"]}>
-                        <div className={msx["chapters-view-top"]}>
-                            <h2>Chapters</h2>
-                            <span className={msx["chapters-view-meta"]}>
-                                <span className={msx["chapters-view-meta-item"]}>{countChapters} {countChapters === 1 ? "Chapter" : "Chapters"}</span>
-                                <span className={msx["chapters-view-meta-item"]}>{convertDuration(sumOfChaptersDuration)}</span>
-                            </span>
-                        </div>
-                        <div className={msx["chapters-view-bottom"]}>
-                            <Suspense fallback={<p>Loading playlist...</p>}>
-                            {
-                                chapters && 
-                                <div className={msx["chapters-view-list"]}>
-                                    <Playlist data={chaptersData} target={`${courseId}/chapter`} />
-                                </div>
-                            }
-                            </Suspense>
-                        </div>
-                    </section>
-                    <section className={msx["tutors-view"]}>
-                        <h2>Tutors</h2> 
-                        {
-                            tutors && 
-                            <TutorsViewList tutors={tutors}/>
-                        }
-                    </section>
-                </>
-            }
-            {
-                edit &&
-                <>
-                    <section className={msx["chapters-view"]}>
-                        <div className={msx["chapters-view-top"]}>
-                            <h2>Chapters</h2>
-                            <ChapterModal id={courseId} />
-                        </div>
-                        <div className={msx["chapters-view-bottom"]}>
-                            <Suspense fallback={<p>Loading playlist...</p>}>
-                            {
-                                chapters && 
-                                <div className={msx["chapters-view-list"]}>
-                                    <Playlist courseId={courseId} data={chaptersData} target={`${courseId}/chapter`} edit={edit}/>
-                                </div>
-                            }
-                            </Suspense>
-                        </div>
-                    </section>
-                    <section className={msx["tutors-edit"]}>
-                        <div className={msx["tutors-edit-top"]}>
-                            <h2>Tutors</h2> 
-                            <TutorsModal id={courseId} />
-                        </div>
-                        <div className={msx["tutors-edit-bottom"]}>
-                            <Suspense fallback={<p>Loading tutors...</p>}>
-                                {
-                                    tutors && 
-                                    <TutorsViewList tutors={tutors}/>
-                                }
-                            </Suspense>
-                        </div>
-                    </section>
-                </>
-            }
-        </div>
+
+        <section className={courseSx.chapters} data-state={edit ? "edit" : "view"}>
+            <div className={courseSx.top}>
+                <h2 className={courseSx.title}>Chapters</h2>
+                {
+                    edit &&
+                    <ChapterModal id={courseId} />
+                }
+                {
+                    !edit &&
+                    <span className={courseSx.counter}>
+                        <span className={courseSx.label}>{countChapters} {countChapters === 1 ? "Chapter" : "Chapters"}</span>
+                        <span className={courseSx.value}>{convertDuration(sumOfChaptersDuration)}</span>
+                    </span>
+                }
+            </div>
+            <div className={courseSx.bottom}>
+                <Suspense fallback={<p>Loading playlist...</p>}>
+                {
+                    data && 
+                    <div className={courseSx.playlist}>
+                        <Playlist data={chaptersData} courseId={courseId} target={`${courseId}/chapter`} edit={edit} />
+                    </div>
+                }
+                </Suspense>
+            </div>
+        </section>
     );
 }
- 
-export { CourseDetails };
+
+const CourseTutors = ({data, courseId, edit=false }: CourseTutorsProps) => {    
+    return ( 
+        <section className={courseSx.tutors} data-state={edit ? "edit" : "view"} >
+            <div className={courseSx.top}>
+                <h2 className={courseSx.title}>Tutors</h2> 
+                {
+                    edit && 
+                    <TutorsModal id={courseId} />
+                }
+            </div>
+            <div className={courseSx.bottom}>
+                {
+                    data && 
+                    <TutorsList tutors={data} />
+                }
+                {
+                    !data && 
+                    <p>Tutors are not available!</p>
+                }
+            </div>
+        </section>
+    );
+}
+
+const CourseMetadata = ({data, courseId, edit=false }: CourseMetadataProps) => {    
+    return ( 
+        <section className={courseSx.metadata} data-state={edit ? "edit" : "view"}>
+            <div className={courseSx.top}>
+                <h2 className={courseSx.title}>Metadata</h2>
+                {edit && <MetadataModal id={courseId} />}
+            </div>
+            <div className={courseSx.bottom}>
+                {
+                    data && 
+                    <MetadataList data={data} edit={edit} />
+                }
+            </div>
+        </section>
+    );
+}
+
+export { CourseDetails, CourseChapters, CourseTutors, CourseMetadata };

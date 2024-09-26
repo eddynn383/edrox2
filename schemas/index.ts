@@ -80,7 +80,7 @@ export const CoverImageSchema = z.object({
 
 /*=================METADATA======================*/
 
-export const MetadataSchema = z.object({
+export const CourseMetadataSchema = z.object({
     key: z.string().min(1),
     value: z.string(),
 });

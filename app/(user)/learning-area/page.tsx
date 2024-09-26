@@ -44,7 +44,7 @@ const LearningAreaPage = async ({ searchParams }: LearningAreaProps) => {
     // console.log("CATALOG COURSES: ", courses)
 
     return (
-        <div className={psx["body"]}>
+        <>
             <section className={psx["body-toolbar"]}>
                 <CatalogToolbar pageTitle="Learning area" />
             </section>
@@ -58,7 +58,7 @@ const LearningAreaPage = async ({ searchParams }: LearningAreaProps) => {
                     </Suspense>
                 </div>
             </section>
-        </div>
+        </>
     );
 }
 

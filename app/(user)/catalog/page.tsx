@@ -41,7 +41,7 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
     // console.log("CATALOG COURSES: ", courses)
 
     return (
-        <div className={psx["body"]}>
+        <>
             <section className={psx["body-toolbar"]}>
                 <CatalogToolbar pageTitle="Catalog" />
             </section>
@@ -55,7 +55,7 @@ const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
                     </Suspense>
                 </div>
             </section>
-        </div>
+        </>
     );
 }
 

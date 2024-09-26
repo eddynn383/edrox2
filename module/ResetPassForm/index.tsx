@@ -13,6 +13,7 @@ import { reset } from "@/actions/reset"
 import module from "@/styles/module.module.css"
 import formStyle from "@/components/Form/form.module.css"
 import iconStyle from "@/components/Icon/icon.module.css"
+import { Spinner } from "@/components/Spinner"
  
 export const ResetPassForm = () => {
 
@@ -96,7 +97,7 @@ export const ResetPassForm = () => {
                                         )}  
                                     />
                                 </FormRows>
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit" disabled={isPending}>Reset password</Button>
+                                <Button variant="accent" status="default" mode="solid" size="M" type="submit" disabled={isPending}>{isPending ? <Spinner /> : "Reset password"}</Button>
                             </form>
                         </Form>
                     </CardContent>

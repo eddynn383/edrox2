@@ -1,0 +1,28 @@
+.list {
+    display: flex;
+    gap: var(--tutor-list-gap, var(--gap-400, 16px));
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    padding: var(--tutor-list-item-padding-y, var(--padding-200, 8px)) var(--tutor-list-item-padding-x, var(--padding-200, 8px));
+    border: 1px solid var(--tutor-list-item-border-color, var(--primary-background-200));
+    border-radius: var(--tutor-list-item-border-radius, var(--radius-400, 8px))
+}
+
+.container {
+    display: flex;
+    gap: var(--tutor-gap, var(--gap-200, 8px));
+
+    .left {
+        display: flex;
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        gap: var(--tutor-right-gap, var(--gap-100, 4px));
+    }
+}

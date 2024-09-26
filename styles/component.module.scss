@@ -2957,6 +2957,13 @@
     }
 }
 
+/* ==============SPINNER=============== */
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+
 
 
 /* ==============PROFILE=============== */
@@ -3329,21 +3336,6 @@
 
 
 
-/* ==============TUTOR=============== */
-
-.tutor {
-    &-view {
-        display: flex;
-        gap: var(--tutor-view-gap, var(--gap-200, 8px));
-        &-right {
-            display: flex;
-            flex-direction: column;
-            gap: var(--tutor-view-right-gap, var(--gap-100, 4px));
-        }
-    }
-}
-
-
 
 /* ==============UPLOAD FILE=============== */
 
@@ -3525,5 +3517,14 @@
 
     to {
         transform: translateY(-50%);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

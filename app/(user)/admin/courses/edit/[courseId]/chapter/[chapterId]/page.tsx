@@ -55,7 +55,7 @@ const Page = async ({ params, searchParams }: NewChapterPageProps) => {
     }
 
     return (
-        <div className={psx["body"]}>
+        <>
             <section className={psx["body-toolbar"]}>
                 <div className={psx["body-toolbar-row"]}>
                     <div className={psx["body-toolbar-left"]}>
@@ -106,7 +106,7 @@ const Page = async ({ params, searchParams }: NewChapterPageProps) => {
                     </div>
                 }
             </section>
-        </div>
+        </>
     );
 }
 

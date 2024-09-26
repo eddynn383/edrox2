@@ -5,7 +5,7 @@ import msx from "@/styles/module.module.scss"
 const Page = async () => {
 
     return (
-        <div className={psx["body"]}>
+        <>
             <section className={psx["body-toolbar"]}>
                 <PageTitle title="Test"  />
             </section>
@@ -26,7 +26,7 @@ const Page = async () => {
                     </ScrollArea>
                 </div>
             </section>
-        </div>
+        </>
     )
 }
 

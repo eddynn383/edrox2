@@ -1,0 +1,64 @@
+/* "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground", */
+
+/* "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", */
+.container {
+    /* padding: var(--tabs-padding, var(--padding-200, 8px));
+    border-width: var(--tabs-border-width, 1px);
+    border-style: var(--tabs-border-style, solid);
+    border-color: var(--tabs-border-color, var(--primary-background-300));
+    border-radius: var(--tabs-border-radius, var(--radius-400, 8px)) */
+}
+
+.list {
+    display: flex;
+    gap: var(--tabs-list-gap, var(--gap-100, 4px));
+    padding: var(--tabs-list-padding, var(--padding-100, 4px));
+    margin-bottom: var(--tabs-list-margin-bottom, var(--space-200, 8px));
+    background-color: var(--primary-background-200);
+    border-radius: var(--tabs-list-border-radius, var(--radius-600, 12px));
+    & > * {
+        width: 100%;
+    }
+}
+
+.trigger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--button-gap, var(--gap-200, 8px));
+    position: relative;
+    font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
+    line-height: 18px;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+    font-size: var(--button-font-size, var(--size-400, 16px));
+    font-weight: var(--button-font-weight, var(--font-weight-400, 400));
+    border-width: var(--button-border-width, var(--button-border-width, 1px));
+    border-style: var(--button-border-style, solid);
+    border-color: transparent;
+    border-radius: var(--button-border-radius, var(--radius-400, 8px));
+    padding-top: var(--button-padding-y, var(--button-padding, var(--padding-200, 8px)));
+    padding-bottom: var(--button-padding-y, var(--button-padding, var(--padding-200, 8px)));
+    padding-left: var(--button-padding-x, var(--button-padding, var(--padding-200, 8px)));
+    padding-right: var(--button-padding-x, var(--button-padding, var(--padding-200, 8px)));
+    background-color: transparent;
+    color: var(--button-accent-brand-text-default, var(--primary-text-500));
+
+    
+    &>svg {
+        width: var(--button-m-icon-width, var(--size-400, 16px));
+        height: var(--button-m-icon-height, var(--size-400, 16px));
+    }
+
+    &[data-state="active"] {
+        background-color: var(--button-accent-brand-background-active, var(--accent-brand-400));
+        border-color: var(--button-accent-brand-border-active, var(--accent-brand-400));
+        color: var(--button-accent-brand-text-active, var(--accent-brand-100));
+    }
+}
+
+.content {
+    display: flex;
+    gap: var(--tabs-list-gap, var(--gap-200, 8px));
+}
