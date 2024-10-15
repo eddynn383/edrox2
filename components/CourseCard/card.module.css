@@ -115,7 +115,7 @@
     }
 
     &:hover {
-        transform: translateY(-10px);
+        transform: scale3d(1.02, 1.02, 1.02) translate3d(0.1rem, -0.25rem, 20rem);
         box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.1);
 
         @media (prefers-color-scheme: dark) {
