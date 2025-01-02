@@ -2,10 +2,10 @@
 
 import { prisma } from "@/lib/prismadb"
 
-import { getUserByEmail } from "@/data/user"
+import { getUserByEmail } from "@/data/users"
 import { getVerificationTokenByToken } from "@/data/verificationToken"
 
-export const tokenValidation = async (token:string) => {
+export const tokenValidation = async (token: string) => {
     const existingToken = await getVerificationTokenByToken(token)
 
     // console.log({existingToken})

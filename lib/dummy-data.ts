@@ -1,3 +1,5 @@
+import { Eye, Home } from "lucide-react";
+
 export const learnerMenu = [
     {
         id: 1,
@@ -36,25 +38,31 @@ export const adminMenu = [
     //     id: 1,
     //     title: "Pages",
     //     icon: "gantt-chart-square",
-    //     path: "/admin/pages",
+    //     path: "/management/pages",
     // },
     // {
     //     id: 2,
     //     title: "Catalogs",
     //     icon: "library-square",
-    //     path: "/admin/catalogs",
+    //     path: "/management/catalogs",
     // },
     {
         id: 1,
         title: "Courses",
         icon: "book-text",
-        path: "/admin/courses",
+        path: "/management/courses",
     },
     {
         id: 2,
+        title: "Categories",
+        icon: "component",
+        path: "/management/categories",
+    },
+    {
+        id: 3,
         title: "Users",
         icon: "users",
-        path: "/admin/users",
+        path: "/management/users",
     },
 ];
 

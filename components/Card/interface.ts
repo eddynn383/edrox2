@@ -1,15 +1,18 @@
 // import { Roles } from "@prisma/client";
 
-import { Category, Instructor, Price, Rating, Shade, Variant } from "@/interfaces/global";
+import { Category, Instructor, Mode, Price, Rating, Shade, Variant } from "@/interfaces/global";
 
-type Size = "0" | "100" | "200" | "300" | "400" | "500" | "600"
+type Size = "0" | "100" | "200" | "300" | "400" | "500" | "600";
+type Rank = 1 | 2 | 3 | 4 | 5 | 6;
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: Exclude<Variant, "accent"> | "ghost";
+    mode: Exclude<Mode, "text">;
     shade?: Shade;
     padding?: Size;
     radius?: Size;
     gap?: Size;
+    view?: "portrait" | "landscape";
 }
 
 export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -31,7 +34,7 @@ export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-    rank: number
+    rank: Rank;
 }
 
 export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {

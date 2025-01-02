@@ -7,7 +7,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     mode?: Mode;
     variant?: Variant;
     status?: Status;
-    shade?: Shade;
     content?: Content;
     value?: string;
     children?: React.ReactNode | React.ReactNode[] | string;

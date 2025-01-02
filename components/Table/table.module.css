@@ -40,7 +40,7 @@
     }
 }
 
-tbody > .tr:last-child {
+tbody>.tr:last-child {
     border-bottom-width: 0;
 }
 
@@ -49,6 +49,10 @@ tbody > .tr:last-child {
     height: 53px;
     padding: var(--table-padding-y, var(--padding-200, 8px)) var(--table-padding-x, var(--padding-300, 12px));
     text-align: var(--table-text-align, left);
+
+    &:first-child {
+        width: 44px;
+    }
 }
 
 
@@ -56,16 +60,19 @@ tbody > .tr:last-child {
     .checkbox {
         width: auto;
     }
+
     .title {
         display: grid;
         grid-template-columns: min-content auto;
         gap: var(--gap-200, 8px);
         align-items: center;
     }
+
     .tutors {
         display: flex;
         gap: var(--gap-100, 4px);
     }
+
     .actions {
         display: flex;
         align-items: center;

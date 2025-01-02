@@ -77,7 +77,7 @@ const DataTableMobile = <TData, TValue>({ columns, table }: DataTableProps<TData
                                 <div key={headerGroup.id} >
                                     {
                                         headerGroup.headers.map((header) => {
-                                            if (header.id === "select") {                                     
+                                            if (header.id === "select") {
                                                 return (
                                                     <div key={header.id}>
                                                         {
@@ -109,10 +109,9 @@ const DataTableMobile = <TData, TValue>({ columns, table }: DataTableProps<TData
                         table.getRowModel().rows?.length && (
                             table.getRowModel().rows.map((row) => (
                                 <li key={row.id}>
-                                    <Card padding="400" gap="200" data-state={row.getIsSelected() && "selected"} >
+                                    <Card padding="400" gap="200" data-state={row.getIsSelected() && "selected"} mode="solid" >
                                         {
                                             row.getVisibleCells().map((cell) => {
-                                                // console.log("cell:: ", cell)
                                                 return (
                                                     <div key={cell.id}>
                                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -123,12 +122,7 @@ const DataTableMobile = <TData, TValue>({ columns, table }: DataTableProps<TData
                                     </Card>
                                 </li>
                             ))
-                        ) 
-                        // : (
-                        //     <Card>
-                        //         <CardDescription>No results.</CardDescription>
-                        //     </Card>
-                        // )
+                        )
                     }
                 </ul>
             </ScrollArea>

@@ -1,0 +1,11 @@
+.container {
+    border-radius: var(--surface-radius, var(--radius-200, 8px));
+
+    &[data-mode="solid"] {
+        background-color: var(--surface-background, var(--primary-background-100));
+    }
+
+    &[data-mode="outline"] {
+        border: 1px solid var(--surface-border-color, var(--primary-background-200));
+    }
+}

@@ -12,9 +12,20 @@ const { auth: middleware } = NextAuth(authConfig);
 export default middleware((req) => {
     const { nextUrl } = req;
     const { device } = userAgent(req)
-    const isMobile = device.type === 'mobile' 
+    const isMobile = device.type === 'mobile'
     const viewport = device.type === 'mobile' ? 'mobile' : 'desktop'
-    nextUrl.searchParams.set('viewport', viewport)
+    if (!nextUrl.searchParams.has('viewport')) {
+        nextUrl.searchParams.set('viewport', viewport)
+        return NextResponse.redirect(nextUrl)
+    }
+    console.log("MIDDLEWARE PATH: ", nextUrl.pathname.includes("edit/content"))
+
+    if (nextUrl.pathname.includes("management/courses") && nextUrl.pathname.includes("edit/content")) {
+        if (!nextUrl.searchParams.has('playlist')) {
+            nextUrl.searchParams.set('playlist', "on")
+            return NextResponse.redirect(nextUrl)
+        }
+    }
 
     const isLoggedIn = !!req.auth;
 
@@ -47,20 +58,17 @@ export default middleware((req) => {
         if (nextUrl.search) {
             callbackUrl += nextUrl.search;
         }
-      
+
         const encodedCallbackUrl = encodeURIComponent(callbackUrl);
 
         return NextResponse.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl))
     }
 
-    // return NextResponse.next({
-    //     request: {
-    //         headers: newHeaders,
-    //     },
-    // })
     if (isMobile) {
         return NextResponse.rewrite(nextUrl)
     }
+
+
 });
 
 // Optionally, don't invoke Middleware on some paths

@@ -56,7 +56,7 @@ DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 const DropdownMenuItem = React.forwardRef<
     React.ElementRef<typeof DropdownMenuPrimitive.Item>,
     DropdownMenuItemProps
->(({ className = dropdown.item, hasChild="false", inset, ...props }, ref) => (
+>(({ className = dropdown.item, hasChild = "false", inset, ...props }, ref) => (
     <DropdownMenuPrimitive.Item ref={ref} className={className} data-has-children={hasChild} {...props} />
 ))
 
@@ -70,7 +70,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     <DropdownMenuPrimitive.CheckboxItem ref={ref} className={className} checked={checked} {...props} >
         <span className={dropdown["checkbox-marker"]}>
             <DropdownMenuPrimitive.ItemIndicator>
-                <Check />
+                <Check size={16} />
             </DropdownMenuPrimitive.ItemIndicator>
         </span>
         {children}

@@ -2,18 +2,18 @@ import { auth, signOut } from "@/auth"
 import { Button } from "@/components";
 import { Bone, SkeletonCard } from "@/components/Skeleton";
 import sxm from "@/styles/module.module.scss"
-import { headers } from "next/headers";
+// import { headers } from "next/headers";
 
 
 const Dashboard = async () => {
 
     const session = await auth()
-    const headersList = headers()
-    const viewport = headersList.get('x-viewport')
+    // const headersList = await headers()
+    // const viewport = headersList.get('x-viewport')
 
     // console.log("X-Viewport", viewport)
 
-    return ( 
+    return (
         <div className={sxm["page-content"]}>
             <h1>Dashboard</h1>
             {JSON.stringify(session)}
@@ -30,5 +30,5 @@ const Dashboard = async () => {
         </div>
     );
 }
- 
+
 export default Dashboard;

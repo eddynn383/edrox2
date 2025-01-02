@@ -1,7 +1,7 @@
 export type Variant = "primary" | "secondary" | "accent" | "link";
 export type Mode = "solid" | "outline" | "text";
 export type Shape = "square" | "rounded"
-export type Status = "default" | "success" | "fail" | "warning" | "info" | "neutral";
+export type Status = "default" | "brand" | "success" | "fail" | "warning" | "info" | "neutral";
 export type Size = "XS" | "S" | "M" | "L" | "XL" | "2XL" | "3XL" | "4XL" | "5XL";
 export type Shade = "100" | "200";
 export type Content = "text" | "icon" | "icon-text-icon" | "icon-text" | "text-icon";
@@ -32,8 +32,12 @@ export type Instructor = {
 }
 
 export type Category = {
-    id: string;
     name: string;
+    id: string;
+    createdById: string;
+    createdAt: Date;
+    updatedById: string | null;
+    updatedAt: Date;
 }
 
 export type User = {
@@ -61,7 +65,7 @@ export type Course = {
     id: string;
     title: string;
     description: string | null;
-    image: string | null;
+    image: Image | null;
     categoryId: string;
     category: Category;
     price: Price | null;
@@ -75,6 +79,7 @@ export type Chapter = {
     description: string | null;
     isPublished: boolean;
     status: string;
+    position: number;
     duration: number;
     isFree: boolean;
 }
@@ -82,6 +87,15 @@ export type Chapter = {
 export type Metadata = {
     key: string;
     value: string;
+}
+
+export type Image = {
+    id: string;
+    type: string;
+    url: string;
+    key: string;
+    size: number;
+    uploadedById: string;
 }
 
 

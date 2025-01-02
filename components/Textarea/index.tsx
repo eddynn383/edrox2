@@ -6,10 +6,11 @@ import sx from "@/styles/component.module.scss";
 import textarea from "./textarea.module.css"
 
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ shade = "100", sizes = "M", status = "default", resize, ...props }, ref) => {
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({ mode = "solid", shade = "100", sizes = "M", status = "default", resize, ...props }, ref) => {
     const [isTextareaFocused, setIsTextareaFocused] = useState(false);
-    
+
     const customAttrs = {
+        "data-mode": mode,
         "data-shade": shade,
         "data-size": sizes,
         "data-status": status,

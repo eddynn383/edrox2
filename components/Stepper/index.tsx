@@ -1,36 +1,52 @@
 "use client"
 
-import React from "react";
-import { Button, Progress } from "@/components";
-import { StepperProps } from "./interface";
-import sx from "@/styles/component.module.scss"
+import { Check } from "lucide-react";
+import { Button, Text } from "@/components";
+import { SeparatorProps, StepProps, StepperProps } from "./interface";
 import stepper from "./stepper.module.css"
+import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import { useEffect } from "react";
+
+const Step = ({ icon, number, name, complete = false, separator = false, href }: StepProps) => {
+    const router = useRouter()
+    const pathname = usePathname()
+    const current = pathname?.includes(href);
+
+    const handleClick = () => {
+        console.log("its clicked")
 
 
+        if (!pathname) return;
 
-const Stepper = ({ steps, currentStep, onPrev, onNext, onClick, onDone }: StepperProps) => {
-    // console.log(currentStep)
+        const pathSegments = pathname.split('/');
+        pathSegments[pathSegments.length - 1] = href;
+        const newPath = pathSegments.join('/');
+        router.push(newPath);
+    }
+
+    return (
+        <button className={stepper.step} data-current={current} data-complete={complete} onClick={handleClick}>
+            <Text size="XS" type="span">{name}</Text>
+        </button>
+    )
+}
+
+const Stepper = ({ steps, orientation = "horizontal" }: StepperProps) => {
+
     return (
         <nav className={stepper.container}>
-            {/* <ul className={sx["stepper-steps"]}>
+            <ul className={stepper.list} data-orientation={orientation}>
                 {
-                    steps.map((item) => (
-                        <li className={sx["stepper-step"]} key={item.id}>
-                            <div className={sx["stepper-step-button"]} data-status={item.status} onClick={() => onClick(item)}>
-                                <span className={sx["stepper-step-name"]}>{item.name}</span>
-                                <Progress value={currentStep === item.id ? 100 : currentStep > item.id ? 100 : 0} style={{ "height": "6px" }} data-status={item.status} />
-                            </div>
+                    steps.map((item, idx) => (
+                        <li className={stepper.item} key={item.id}>
+                            <Step icon={item.icon} number={`Step ${idx + 1}`} name={item.name} complete={item.complete} separator={item.separator} href={item.href} />
                         </li>
                     ))
                 }
-            </ul> */}
-            <div className={stepper.controls}>
-                <Button variant="primary" shade="200" type="button" mode="solid" size="M" disabled={currentStep <= 1} onClick={() => onPrev(steps[currentStep - 1])}>Prev</Button>
-                {currentStep < steps.length && <Button variant="accent" type="button" mode="solid" size="M" onClick={() => onNext(steps[currentStep + 1])}>Next</Button>}
-                {currentStep >= steps.length && <Button variant="accent" type="button" mode="solid" size="M" onClick={onDone}>Done</Button>}
-            </div>
+            </ul>
         </nav>
     )
 }
 
-export { Stepper }
+export { Stepper, Step }

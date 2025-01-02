@@ -10,15 +10,15 @@ interface CourseDescriptionModalProps {
     value?: string;
 }
 
-export const CourseDescriptionModal = ({id, value}: CourseDescriptionModalProps) => {
+export const CourseDescriptionModal = ({ id, value }: CourseDescriptionModalProps) => {
     const [open, setOpen] = useState(false);
 
-    return ( 
+    return (
         <Dialog open={open} onOpenChange={setOpen}>
             {
                 value &&
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
+                    <Button mode="text" variant="accent" status="default" size="M" content="icon">
                         Edit
                     </Button>
                 </DialogTrigger>
@@ -26,42 +26,42 @@ export const CourseDescriptionModal = ({id, value}: CourseDescriptionModalProps)
             {
                 !value &&
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
+                    <Button mode="text" variant="accent" status="default" size="M" content="icon">
                         <PlusCircle />
                         Add description
                     </Button>
                 </DialogTrigger>
             }
             <DialogContent>
-                { 
-                    value &&  
+                {
+                    value &&
                     <DialogHeader>
                         <DialogTitle>Edit Description</DialogTitle>
                         <DialogDescription>Use the field below to change the course description</DialogDescription>
-                    </DialogHeader>                      
+                    </DialogHeader>
                 }
                 {
-                    !value && 
-                    <DialogHeader>                        
+                    !value &&
+                    <DialogHeader>
                         <DialogTitle>Add description</DialogTitle>
                         <DialogDescription>Use the field below to add a course description</DialogDescription>
-                    </DialogHeader>                       
+                    </DialogHeader>
                 }
                 <DialogBody>
-                    <CourseDescriptionForm 
+                    <CourseDescriptionForm
                         courseId={id}
-                        description={value} 
+                        description={value}
                         actions={
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button shade="200" >Cancel</Button>
+                                    <Button>Cancel</Button>
                                 </DialogClose>
                                 {
-                                    value &&  
+                                    value &&
                                     <Button variant="accent" type="submit">Update</Button>
                                 }
                                 {
-                                    !value &&  
+                                    !value &&
                                     <Button variant="accent" type="submit">Save</Button>
                                 }
                             </DialogFooter>

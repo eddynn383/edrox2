@@ -10,11 +10,11 @@ export const newContent = async (courseId: string, chapterId: string, type: stri
         value: ""
     }, chapterId)
 
-    const data =  await content?.json()
+    const data = await content?.json()
 
-    revalidatePath(`/admin/courses/edit/${courseId}/chapter/${chapterId}`)
+    revalidatePath(`/management/courses/edit/${courseId}/chapter/${chapterId}`)
 
-    return { 
+    return {
         data,
         success: "Content was successfully created!"
     }
@@ -23,7 +23,7 @@ export const newContent = async (courseId: string, chapterId: string, type: stri
 export const updateContent = async (id: string, courseId: string, chapterId: string, data: any) => {
     await updateContentById(id, data)
 
-    revalidatePath(`/admin/courses/edit/${courseId}/chapter/${chapterId}`)
+    revalidatePath(`/management/courses/edit/${courseId}/chapter/${chapterId}`)
 
     return {
         data,
@@ -35,9 +35,9 @@ export const deleteContent = async (id: string, courseId: string, chapterId: str
 
     await deleteContentById(id)
 
-    revalidatePath(`/admin/courses/edit/${courseId}/chapter/${chapterId}`)
+    revalidatePath(`/management/courses/edit/${courseId}/chapter/${chapterId}`)
 
-    return { 
+    return {
         success: "Content was successfully removed!"
     }
 }

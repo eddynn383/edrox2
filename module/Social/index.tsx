@@ -25,12 +25,12 @@ export const Social = () => {
         <div className={sx["social"]}>
             <Button size="M" mode="outline" onClick={() => loginHandler("google")}>
                 {!loading && <FcGoogle />}
-                {loading && <Loader2Icon className="loading-spinner"/>} 
+                {loading && <Loader2Icon className="loading-spinner" />}
                 Sign in with Google
             </Button>
             <Button size="M" mode="outline" onClick={() => loginHandler("github")}>
                 {!loading && <FaGithub />}
-                {loading && <Loader2Icon className="loading-spinner"/>} 
+                {loading && <Loader2Icon className="loading-spinner" />}
                 Sign in with Github
             </Button>
         </div>

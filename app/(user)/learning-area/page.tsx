@@ -10,12 +10,14 @@ import csx from "@/styles/module.module.scss"
 import { getAllUserEnrolments } from "@/data/enrolment";
 import MyLearning from "@/module/MyLearning";
 
+type SearchParams = Promise<{
+    title: string;
+    categoryId: string;
+    viewport: string;
+}>
+
 interface LearningAreaProps {
-    searchParams: {
-        title: string;
-        categoryId: string;
-        viewport: string;
-    }
+    searchParams: SearchParams;
 };
 
 const SkeletonCatalog = () => {
@@ -36,8 +38,9 @@ const SkeletonCatalog = () => {
     )
 }
 
-const LearningAreaPage = async ({ searchParams }: LearningAreaProps) => {
+const LearningAreaPage = async (props: LearningAreaProps) => {
     // const courses = await getPublishdedCourses({...searchParams});  
+    const searchParams = await props.searchParams
     const courses = await getAllUserEnrolments()
     const categories = await getAllCategories()
 

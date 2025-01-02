@@ -8,3 +8,19 @@ export const editCourse = async (id: string, data: any) => {
     await editCourseById(id, data);
     revalidateTag('courses')
 };
+
+export const goToCourseDetails = async () => {
+
+}
+
+export const goToCourseContent = async () => {
+
+}
+
+export const goToCourseParticipants = async () => {
+
+}
+
+export const goToCourseRewards = async () => {
+
+}

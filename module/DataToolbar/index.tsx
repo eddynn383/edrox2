@@ -8,7 +8,7 @@ import { deleteManyCourses } from "@/actions/delete-course"
 import useScreenSize from "@/hooks/useScreenSize"
 import csx from "@/styles/module.module.scss"
 
-export function DataToolbar<TData>({ table, showTableColumnsEdit, showFilterToggle }: DataToolbarProps<TData>) {
+export function DataToolbar<TData>({ table, showTableColumnsEdit, showFilterToggle, target = "title" }: DataToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0
     const [selectedRows, setSelectedRows] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ export function DataToolbar<TData>({ table, showTableColumnsEdit, showFilterTogg
             toast.success("Course deleted");
         } catch (error) {
             toast.error("Something went wrong");
-            
+
         } finally {
             setIsLoading(false)
         }
@@ -48,11 +48,11 @@ export function DataToolbar<TData>({ table, showTableColumnsEdit, showFilterTogg
         <div className={csx["data-toolbar"]}>
             <div className={csx["data-toolbar-row"]}>
                 <div className={csx["data-toolbar-left"]}>
-                    <Search 
-                        containerId="search" 
-                        value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+                    <Search
+                        containerId="search"
+                        value={(table.getColumn(target)?.getFilterValue() as string) ?? ""}
                         onChange={(event) =>
-                            table.getColumn("title")?.setFilterValue(event.target.value)
+                            table.getColumn(target)?.setFilterValue(event.target.value)
                         }
                     />
                 </div>

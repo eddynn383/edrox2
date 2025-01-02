@@ -26,15 +26,15 @@ interface MetadataModalProps {
     value?: Chapters;
 }
 
-export const MetadataModal = ({id, value}: MetadataModalProps) => {
+export const MetadataModal = ({ id, value }: MetadataModalProps) => {
     const [open, setOpen] = useState(false);
 
-    return ( 
+    return (
         <Dialog open={open} onOpenChange={setOpen}>
             {
                 value &&
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
+                    <Button mode="text" variant="accent" status="default" size="M" content="icon">
                         Edit metadata
                     </Button>
                 </DialogTrigger>
@@ -42,7 +42,7 @@ export const MetadataModal = ({id, value}: MetadataModalProps) => {
             {
                 !value &&
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
+                    <Button mode="text" variant="accent" status="default" size="M" content="icon">
                         <PlusCircle />
                         Add metadata
                     </Button>
@@ -50,19 +50,19 @@ export const MetadataModal = ({id, value}: MetadataModalProps) => {
             }
             <DialogContent>
                 {
-                    !value && 
-                    <DialogHeader>                      
+                    !value &&
+                    <DialogHeader>
                         <DialogTitle>Add metadata</DialogTitle>
                         <DialogDescription>Use the fields below to create a new chapter</DialogDescription>
-                    </DialogHeader>                       
+                    </DialogHeader>
                 }
                 <DialogBody>
-                    <CourseMetadataForm 
+                    <CourseMetadataForm
                         courseId={id}
                         actions={
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button shade="200">Cancel</Button>
+                                    <Button>Cancel</Button>
                                 </DialogClose>
                                 {
                                     value &&
@@ -73,8 +73,8 @@ export const MetadataModal = ({id, value}: MetadataModalProps) => {
                                     <Button variant="accent" type="submit">Create</Button>
                                 }
                             </DialogFooter>
-                        } 
-                        onOpen={setOpen}    
+                        }
+                        onOpen={setOpen}
                     />
                 </DialogBody>
             </DialogContent>

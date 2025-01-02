@@ -17,8 +17,8 @@ const SelectValue = SelectPrimitive.Value
 const SelectTrigger = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Trigger>,
     SelectTriggerProps
->(({ className, children, mode = "solid", shade = "100", size = "M", status="default", ...props }, ref) => (
-    <SelectPrimitive.Trigger ref={ref} className={select.trigger} data-mode={mode} data-shade={shade} data-size={size} data-status={status} {...props} >
+>(({ className, children, mode = "solid", shade = "100", size = "M", status = "default", showText = false, ...props }, ref) => (
+    <SelectPrimitive.Trigger ref={ref} className={select.trigger} data-mode={mode} data-shade={shade} data-size={size} data-status={status} data-show-text={showText} {...props} >
         {children}
         <SelectPrimitive.Icon asChild>
             <ChevronDown />
@@ -56,9 +56,9 @@ SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayNam
 const SelectContent = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Content>,
     SelectContentProps
->(({ className, children, position = "popper", shade = "100", size = "M", ...props }, ref) => (
+>(({ className, children, position = "popper", mode = "solid", shade = "100", size = "M", ...props }, ref) => (
     <SelectPrimitive.Portal>
-        <SelectPrimitive.Content ref={ref} className={select["content"]} position={position} data-shade={shade} data-size={size} {...props} >
+        <SelectPrimitive.Content ref={ref} className={select["content"]} position={position} data-mode={mode} data-shade={shade} data-size={size} {...props} >
             <SelectScrollUpButton />
             <SelectPrimitive.Viewport className={select["content-inner"]} >
                 {children}

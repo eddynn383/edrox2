@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prismadb"
 import bcrypt from "bcrypt"
 import { RegisterSchema } from "@/schemas"
 
-import { getUserByEmail } from "@/data/user"
+import { getUserByEmail } from "@/data/users"
 import { generateVerificationToken } from "@/lib/tokens"
 import { sendVerificationEmail } from "@/lib/mail"
 import { setTutor } from "@/data/tutors"
@@ -16,7 +16,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
     if (!validatedFields.success) return { error: "Invalid fields!" }
 
-    const {role, name, email, password} = validatedFields.data
+    const { role, name, email, password } = validatedFields.data
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -49,5 +49,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         verificationToken.token
     )
 
-    return { success: "Confirmation email sent!"}
+    return { success: "Confirmation email sent!" }
 }

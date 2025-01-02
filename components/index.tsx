@@ -6,16 +6,19 @@ import { Avatar } from "./Avatar";
 import { Badge } from "./Badge";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./Breadcrumb";
 import { Button } from "./Button";
+import { Calendar } from "./Calendar";
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "./Card";
 import { CourseCard } from "./CourseCard";
 import { ColorPicker } from "./ColorPicker";
 import { Cover } from "./Cover";
 import { Checkbox } from "./Checkbox";
+import { DatePicker } from "./DatePicker";
 import { Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "./Dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from "./Drawer";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./DropdownMenu";
 import { Dropzone } from "./Dropzone";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./Form";
+import { Heading } from "./Heading";
 import { Icon } from "./Icon";
 import { Input } from "./Input";
 import { Label } from "./Label";
@@ -33,19 +36,28 @@ import { RichTextEditor } from "./RichTextEditor";
 import { ScrollArea, ScrollBar } from "./ScrollArea";
 import { Search } from "./Search";
 import { SkeletonCard, SkeletonMenu, SkeletonProfile } from "./Skeleton";
+import { SortableItem } from "./SortableItem";
 import { Star } from "./Star";
+import { Stepper as StepperOld } from "./Stepper(old)";
 import { Stepper } from "./Stepper";
+import { Surface } from "./Surface";
 import { Switch } from "./Switch";
 import { Table, TableBody, TableCaption, TableTd, TableFooter, TableTh, TableHeader, TableTr } from "./Table";
 import { Text } from "./Text";
 import { Textarea } from "./Textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue } from "./Select";
+import { Playlist as PlaylistOld } from "./Playlist(old)";
 import { Playlist } from "./Playlist";
 import { PlaylistItem } from "./PlaylistItem";
 import { PlaylistToggle } from "./PlaylistToggle";
+import { Popover, PopoverTrigger, PopoverContent } from "./Popover";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./Tabs";
+import { Toast, ToastAction, ToastClose, ToastDescription, ToastProvider, ToastTitle, ToastViewport } from "./Toast";
+import { Toaster } from "./Toaster";
+import { ToolbarWrapper, ToolbarButton, ToolbarDivider } from "./Toolbar";
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "./Tooltip";
 import { UploadImage } from "./UploadImage";
- 
+
 export {
     Alert,
     AlertTitle,
@@ -59,7 +71,7 @@ export {
     AlertDialogDescription,
     AlertDialogAction,
     AlertDialogCancel,
-    Anchor, 
+    Anchor,
     Avatar,
     Badge,
     Breadcrumb,
@@ -69,6 +81,7 @@ export {
     BreadcrumbPage,
     BreadcrumbSeparator,
     Button,
+    Calendar,
     Card,
     CardHeader,
     CardContent,
@@ -79,6 +92,7 @@ export {
     ColorPicker,
     Cover,
     Checkbox,
+    DatePicker,
     Dialog,
     DialogPortal,
     DialogOverlay,
@@ -123,6 +137,7 @@ export {
     FormDescription,
     FormMessage,
     FormField,
+    Heading,
     Icon,
     Input,
     Label,
@@ -137,6 +152,9 @@ export {
     PlaylistToggle,
     Profile,
     Progress,
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
     RadioGroup,
     RadioGroupItem,
     Rating,
@@ -157,8 +175,11 @@ export {
     SkeletonCard,
     SkeletonMenu,
     SkeletonProfile,
+    SortableItem,
     Star,
+    StepperOld,
     Stepper,
+    Surface,
     Switch,
     Table,
     TableHeader,
@@ -168,11 +189,26 @@ export {
     TableTr,
     TableTd,
     TableCaption,
-    Tabs, 
-    TabsList, 
-    TabsTrigger, 
+    Tabs,
+    TabsList,
+    TabsTrigger,
     TabsContent,
     Text,
     Textarea,
+    ToastProvider,
+    ToastViewport,
+    Toast,
+    ToastTitle,
+    ToastDescription,
+    ToastClose,
+    ToastAction,
+    Toaster,
+    ToolbarWrapper,
+    ToolbarButton,
+    ToolbarDivider,
+    TooltipProvider,
+    Tooltip,
+    TooltipTrigger,
+    TooltipContent,
     UploadImage
 }

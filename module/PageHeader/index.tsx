@@ -1,62 +1,63 @@
 "use client"
 
-import { useContext } from "react"
-import { Button, NavigationToggle, Logo, Profile, Search } from "@/components"
-import { ToggleContext } from "@/context/toggleContext"
-import { Bell, ShoppingCart } from "lucide-react"
-import useScreenSize from "@/hooks/useScreenSize"
+import React from "react"
+import { Breadcrumb, PageTitle, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, Text } from "@/components"
 import header from "./page-header.module.css"
 
-interface HeaderProps { 
-    user: any;
-    device: string | null;
-    onLogout?: () => void;
+interface PageHeaderProps {
+    title: string;
+    description?: string;
+    breadcrumb?: any[];
+    actions?: any[] | React.ReactElement[];
 }
 
-
-export const PageHeader = ({ user, device, onLogout }: HeaderProps) => {
-    const { state, handleState } = useContext(ToggleContext)
-    // const params = useSearchParams()
-
-    const deviceScreen = useScreenSize()
-    const deviceWidth = deviceScreen.width
-
-    const mobile = deviceWidth === 0 && device === "mobile" ? true : deviceWidth > 0 && deviceWidth < 768 ? true : false
-    const tablet = deviceWidth === 0 && device === "mobile" ? true : deviceWidth > 767 && deviceWidth < 1025 ? true : false
+export const PageHeader = ({ title, description, breadcrumb, actions }: PageHeaderProps) => {
 
     return (
         <div className={header.container}>
-            <div className={header.left}>
-                {
-                    mobile &&
-                    <Button type="button" size="M" content="icon" shade="100" name="Toggle Menu" title={state ? "Click to collapse" : "Click to expand"} onClick={handleState}>
-                        <NavigationToggle state={state} />
-                    </Button>
-                }
-                {
-                    !mobile &&
-                    <Logo src="/logo.svg" alt="Edrox Logo" width={200} height={42} />
-                }
+            <div className={header.row}>
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        {breadcrumb?.map((item) => (
+                            <React.Fragment key={item.id}>
+                                {
+                                    item.href &&
+                                    <BreadcrumbItem key={item.id}>
+                                        <BreadcrumbLink {...item}>{item.children}</BreadcrumbLink>
+                                    </BreadcrumbItem>
+                                }
+                                {
+                                    item.separator === "true" &&
+                                    <BreadcrumbSeparator key={`${item.id + "-separator"}`} id={`${item.id + "-separator"}`} />
+                                }
+                                {
+                                    !item.href &&
+                                    <BreadcrumbItem key={item.id}>
+                                        <BreadcrumbPage {...item}>{item.children}</BreadcrumbPage>
+                                    </BreadcrumbItem>
+                                }
+                            </React.Fragment>
+                        ))}
+                    </BreadcrumbList>
+                </Breadcrumb>
             </div>
-            <div className={header.center}>
-                {
-                    mobile &&
-                    <Logo src="/logo.svg" alt="Edrox Logo" width={200} height={42} />
-                }
-            </div>
-            <div className={header.right}>
-                {
-                    !mobile && 
-                    <>
-                        <Button type="button" size="M" content="icon" shade="100" aria-label="Shopping Cart">
-                            <ShoppingCart />
-                        </Button>
-                        <Button type="button" size="M" content="icon" shade="100" aria-label="Notifications">
-                            <Bell />
-                        </Button>
-                    </>
-                }
-                <Profile size="M" user={user} onLogout={onLogout} />
+            <div className={header.row}>
+                <div className={header.left}>
+                    <PageTitle title={title} />
+                    {
+                        description &&
+                        <div className={header.description}>
+                            <Text size="M">{description}</Text>
+                        </div>
+                    }
+                </div>
+                <div className={header.right}>
+                    {actions?.map((action) => (
+                        <div key={action.id}>
+                            {action.element}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

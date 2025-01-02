@@ -20,7 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ProfileSchema } from "@/schemas";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { updateProfile } from "@/actions/user";
+import { updateProfile } from "@/actions/users";
 import psx from "@/styles/page.module.scss";
 import msx from "@/styles/module.module.scss";
 import csx from "@/styles/component.module.scss";
@@ -177,31 +177,32 @@ const FormProfile = ({ userId, defaultValues }: FormProfileProps) => {
                                         <FormRowFields>
                                             <FormControl>
                                                 <>
-                                                {/* <FileUpload endpoint="profilePicture" onChange={
+                                                    {/* <FileUpload endpoint="profilePicture" onChange={
                                                     (url) => {
                                                         if (url) {
                                                             onSubmit({ imageUrl: url });
                                                         }
                                                     }}
                                                 /> */}
-                                                <Dropzone 
-                                                    endpoint="profilePicture"
-                                                    onChange={
-                                                        (url) => {
-                                                            if (url) {
-                                                                // onSubmit({ imageUrl: url });
-                                                                // console.log("this is profile image url: ", url)
+                                                    {/* <Dropzone
+                                                        currentImage={{ url: "", key: "" }}
+                                                        endpoint="profilePicture"
+                                                        onChange={
+                                                            (url) => {
+                                                                if (url) {
+                                                                    // onSubmit({ imageUrl: url });
+                                                                    // console.log("this is profile image url: ", url)
+                                                                }
                                                             }
                                                         }
-                                                    }
-                                                />
+                                                    /> */}
                                                 </>
                                             </FormControl>
                                         </FormRowFields>
                                     </FormItem>
                                 </FormRows>
                                 <div className={csx["form-actions"]}>
-                                    <Button type="submit" variant="primary" shade="100">Reset</Button>
+                                    <Button type="submit" variant="primary">Reset</Button>
                                     <Button type="submit" variant="accent">Save</Button>
                                 </div>
                             </form>

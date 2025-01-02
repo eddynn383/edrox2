@@ -14,7 +14,7 @@ import {
 
 import { Label } from "@/components/Label"
 
-import { FormActionsProps, FormMessageProps, FormRowDetailsProps, FormRowFieldsProps, FormRowsProps } from "./interface"
+import { FormActionsProps, FormItemProps, FormLabelProps, FormMessageProps, FormRowDetailsProps, FormRowFieldsProps, FormRowsProps } from "./interface"
 import sx from "@/styles/component.module.scss"
 import { TriangleAlert } from "lucide-react"
 import form from "./form.module.css"
@@ -79,13 +79,13 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 
 const FormItem = React.forwardRef<
     HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ className = form.row, ...props }, ref) => {
+    FormItemProps
+>(({ className = form.row, orientation = "vertical", ...props }, ref) => {
     const id = React.useId()
 
     return (
         <FormItemContext.Provider value={{ id }}>
-            <div ref={ref} className={className} {...props} />
+            <div ref={ref} className={className} data-orientation={orientation} {...props} />
         </FormItemContext.Provider>
     )
 })
@@ -96,17 +96,20 @@ FormItem.displayName = "FormItem"
 
 const FormLabel = React.forwardRef<
     React.ElementRef<typeof LabelPrimitive.Root>,
-    React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className = form.label, ...props }, ref) => {
+    FormLabelProps
+>(({ className = form.label, htmlFor, required = false, children, ...props }, ref) => {
     const { error, formItemId } = useFormField()
 
     return (
         <Label
             ref={ref}
             className={className}
-            htmlFor={formItemId}
+            htmlFor={htmlFor ? htmlFor : formItemId}
             {...props}
-        />
+        >
+            {children}
+            {required && <span className={form.required}> *</span>}
+        </Label>
     )
 })
 
@@ -157,7 +160,7 @@ FormDescription.displayName = "FormDescription"
 const FormMessage = React.forwardRef<
     HTMLParagraphElement,
     FormMessageProps
->(({ className, icon=<TriangleAlert className={iconStyle.container} data-size="M" />, children, ...props }, ref) => {
+>(({ className, icon = <TriangleAlert className={iconStyle.container} data-size="M" />, children, ...props }, ref) => {
     const { error, formMessageId } = useFormField()
     const body = error ? String(error?.message) : children
 
@@ -182,9 +185,9 @@ FormMessage.displayName = "FormMessage"
 const FormRows = React.forwardRef<
     HTMLDivElement,
     FormRowsProps
->(({ className=form.rows, children, ...props }, ref) => {
+>(({ className = form.rows, orientation = "vertical", children, ...props }, ref) => {
     return (
-        <div className={className} {...props} ref={ref}>
+        <div className={className} data-orientation={orientation} {...props} ref={ref}>
             {children}
         </div>
     )
@@ -197,7 +200,7 @@ FormRows.displayName = "FormRows"
 const FormRowDetails = React.forwardRef<
     HTMLDivElement,
     FormRowDetailsProps
->(({ className=form["row-details"], children, ...props }, ref) => {
+>(({ className = form["row-details"], children, ...props }, ref) => {
     return (
         <div className={className} {...props} ref={ref}>
             {children}
@@ -211,7 +214,7 @@ FormRowDetails.displayName = "FormRowDetails"
 const FormRowFields = React.forwardRef<
     HTMLDivElement,
     FormRowFieldsProps
->(({ className=form["row-fields"], children, ...props }, ref) => {
+>(({ className = form["row-fields"], children, ...props }, ref) => {
     return (
         <div className={className} {...props} ref={ref}>
             {children}
@@ -225,9 +228,9 @@ FormRowFields.displayName = "FormRowFields"
 const FormActions = React.forwardRef<
     HTMLDivElement,
     FormActionsProps
->(({ className=form.actions, children, direction="vertical",...props }, ref) => {
+>(({ className = form.actions, children, direction = "vertical", container = false, ...props }, ref) => {
     return (
-        <div className={className} {...props} ref={ref} data-direction={direction}>
+        <div className={className} {...props} ref={ref} data-direction={direction} data-container={container}>
             {children}
         </div>
     )
@@ -246,5 +249,6 @@ export {
     FormField,
     FormRows,
     FormRowDetails,
-    FormRowFields
+    FormRowFields,
+    FormActions
 }

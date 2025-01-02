@@ -1,7 +1,7 @@
-import { deleteFileById } from "@/data/files"
+"use server"
+
+import { utapi } from "@/app/api/uploadthing/server"
 
 export const deleteFileUpload = async (key: string) => {
-
-    await deleteFileById(key)
-    
+    await utapi.deleteFiles(key)
 }

@@ -7,14 +7,14 @@ import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ResetSchema } from "@/schemas"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows} from "@/components/Form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
 import { Alert, AlertDescription, Anchor, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input } from "@/components"
 import { reset } from "@/actions/reset"
 import module from "@/styles/module.module.css"
 import formStyle from "@/components/Form/form.module.css"
 import iconStyle from "@/components/Icon/icon.module.css"
 import { Spinner } from "@/components/Spinner"
- 
+
 export const ResetPassForm = () => {
 
     const [isPending, startTransition] = useTransition();
@@ -42,10 +42,10 @@ export const ResetPassForm = () => {
     }
     return (
         <div className={module.auth}>
-            <div className={module.inner}>     
-                <Anchor url="/auth/login" mode="outline" variant="primary" content="icon-text" size="S"><ChevronLeft /> Back</Anchor>               
+            <div className={module.inner}>
+                <Anchor url="/auth/login" mode="outline" variant="primary" content="icon-text" size="S"><ChevronLeft /> Back</Anchor>
                 <Card variant="ghost" padding="0" radius="0" gap="600">
-                    <CardHeader style={{"display": "flex", "flexDirection": "column", "gap": "8px"}}>
+                    <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Forgot your password?</CardTitle>
                         <CardDescription>Add your email address below to request a password reset</CardDescription>
                     </CardHeader>
@@ -55,7 +55,7 @@ export const ResetPassForm = () => {
                             <Alert mode="text" status="fail">
                                 <AlertDescription>
                                     <CircleAlert className={iconStyle.container} data-size="L" />
-                                    <span>{ error }</span>
+                                    <span>{error}</span>
                                 </AlertDescription>
                             </Alert>
                         }
@@ -71,21 +71,21 @@ export const ResetPassForm = () => {
                         }
 
                         <Form {...form}>
-                            <form id="reset-password-form" className={formStyle.container} style={{"gap": "var(--gap-600, 24px)"}} onSubmit={form.handleSubmit(onSubmit)}>
+                            <form id="reset-password-form" className={formStyle.container} style={{ "gap": "var(--gap-600, 24px)" }} onSubmit={form.handleSubmit(onSubmit)}>
                                 <FormRows>
-                                    <FormField 
-                                        control={form.control} 
-                                        name="email" 
-                                        render={({field}) => (
-                                            <FormItem> 
+                                    <FormField
+                                        control={form.control}
+                                        name="email"
+                                        render={({ field }) => (
+                                            <FormItem>
                                                 <FormRowDetails>
                                                     <FormLabel>Email</FormLabel>
                                                     <FormMessage />
                                                 </FormRowDetails>
                                                 <FormRowFields>
                                                     <FormControl>
-                                                        <Input 
-                                                            {...field}  
+                                                        <Input
+                                                            {...field}
                                                             mode="outline"
                                                             placeholder="john.doe@example.com"
                                                             type="email"
@@ -94,7 +94,7 @@ export const ResetPassForm = () => {
                                                     </FormControl>
                                                 </FormRowFields>
                                             </FormItem>
-                                        )}  
+                                        )}
                                     />
                                 </FormRows>
                                 <Button variant="accent" status="default" mode="solid" size="M" type="submit" disabled={isPending}>{isPending ? <Spinner /> : "Reset password"}</Button>

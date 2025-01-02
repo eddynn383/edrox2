@@ -1,8 +1,7 @@
 
 import psx from "@/styles/page.module.scss"
 
-const Page = async ({ params }: { params: { courseId: string } }) => {
-
+const Page = async () => {
 
     return (
         <div className={psx["body"]}>

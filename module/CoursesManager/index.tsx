@@ -12,11 +12,11 @@ import { DataTable } from "../DataTable";
 import { DataToolbar } from "../DataToolbar";
 import { coursesColsDesktop, coursesColsDesktopSmall, coursesColsMobile, coursesColsTablet } from "@/lib/table-headers";
 import { CoursesManagerProps } from "./interface";
-import { DataPaginationDesktop } from "../DataPagination";
+import { DataPagination } from "../DataPagination";
 import useScreenSize from "@/hooks/useScreenSize";
 import msx from "@/styles/module.module.scss"
 
-export const CoursesManager = ({courses, categories, device}: CoursesManagerProps) => {
+export const CoursesManager = ({ courses, categories, device }: CoursesManagerProps) => {
     const [open, setOpen] = useState(false)
 
     const deviceScreen = useScreenSize()
@@ -26,19 +26,17 @@ export const CoursesManager = ({courses, categories, device}: CoursesManagerProp
 
     // console.log("IS DESKTOP: ", desktop)
 
-    // console.log(courses)
-
     let tableContent;
 
     switch (true) {
-        case deviceWidth <= 1440 : tableContent = coursesColsDesktopSmall
+        case deviceWidth <= 1440: tableContent = coursesColsDesktopSmall
             break;
-        case deviceWidth <= 1024 : tableContent = coursesColsTablet
+        case deviceWidth <= 1024: tableContent = coursesColsTablet
             break;
-        case deviceWidth <= 768 : tableContent = coursesColsMobile
+        case deviceWidth <= 768: tableContent = coursesColsMobile
             break;
         default: tableContent = coursesColsDesktop
-            break; 
+            break;
     }
 
     // console.log(tableContent)
@@ -59,18 +57,18 @@ export const CoursesManager = ({courses, categories, device}: CoursesManagerProp
         }
     })
 
-    return ( 
-        <>        
-            <DataToolbar 
-                table={table} 
-                showTableColumnsEdit={true} 
-                showFilterToggle={true}  
+    return (
+        <>
+            <DataToolbar
+                table={table}
+                showTableColumnsEdit={true}
+                showFilterToggle={true}
             />
             <Suspense fallback={<p>Loading Table...</p>}>
                 <DataTable table={table} columns={tableContent} />
             </Suspense>
             {/* {!desktop && <DataTableMobile table={table} columns={coursesColsMobile}/>} */}
-            {desktop && <DataPaginationDesktop table={table} />}
+            <DataPagination table={table} />
         </>
     );
 }

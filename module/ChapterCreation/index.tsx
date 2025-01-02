@@ -7,19 +7,20 @@ import { ChapterCreationForm } from "@/module/ChapterCreationForm"
 import { Plus } from "lucide-react";
 import ChaptersEditList from "../ChaptersEditList";
 import msx from "@/styles/module.module.scss"
+import { Spinner } from "@/components/Spinner";
 
 const ChapterCreation = ({ chapters, courseId }: ChapterCreationProps) => {
     const [open, setOpen] = useState(false)
+    const [isPending, setIsPending] = useState(false)
 
     // console.log(open)
-    return ( 
+    return (
         <div className={msx["chapters"]}>
-            <h2 className={msx["chapters-title"]}>Chapters</h2>
-            <ChaptersEditList data={chapters} />
+            {/* <ChaptersEditList data={chapters} /> */}
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button mode="solid" variant="primary" shade="200" status="default" size="M" >
-                        <Plus /> Add chapter
+                    <Button mode="text" variant="primary" status="default" content="icon" size="S" >
+                        <Plus />
                     </Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -27,16 +28,19 @@ const ChapterCreation = ({ chapters, courseId }: ChapterCreationProps) => {
                         <DialogTitle>New chapter</DialogTitle>
                     </DialogHeader>
                     <div>
-                        <ChapterCreationForm 
-                            courseId={courseId} 
+                        <ChapterCreationForm
+                            courseId={courseId}
                             actions={
                                 <DialogFooter>
                                     <DialogClose asChild>
-                                        <Button shade="200" >Cancel</Button>
+                                        <Button>Cancel</Button>
                                     </DialogClose>
-                                    <Button variant="accent" type="submit">Create</Button>
+                                    <Button status="brand" variant="accent" type="submit">{isPending ? <Spinner /> : "Create"}</Button>
                                 </DialogFooter>
-                            } 
+                            }
+                            onPendingChange={(isPending) => {
+                                setIsPending(isPending)
+                            }}
                             onOpen={setOpen}
                         />
                     </div>

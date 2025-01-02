@@ -10,18 +10,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRow
 import { NewChapterSchema } from "@/schemas";
 import { newInitChapter } from "@/actions/chapter";
 import chapter from "./chapter.module.css"
+import { useEffect, useTransition } from "react";
 
 interface ChapterCreationFormProps {
     actions?: any;
     courseId: string;
-    onOpen?: any
+    onOpen?: any;
+    onPendingChange?: (isPending: boolean) => void;
 }
 
-
-
-const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormProps) => { 
+const ChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange }: ChapterCreationFormProps) => {
     const router = useRouter()
-    // const [title, setTitle] = useState<string>("")
+    const [isPending, startTransition] = useTransition();
 
     const form = useForm<z.infer<typeof NewChapterSchema>>({
         resolver: zodResolver(NewChapterSchema),
@@ -31,30 +31,37 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
         }
     });
 
-
     const titleState = form.getFieldState("title")
     const titleStatus = !titleState.invalid ? "default" : "fail";
-    
+
     const descriptionState = form.getFieldState("description")
     const descriptionStatus = !descriptionState.invalid ? "default" : "fail";
+
+    useEffect(() => {
+        if (onPendingChange) {
+            onPendingChange(isPending);
+        }
+    }, [isPending, onPendingChange]);
 
     // const url = convertToURL(title)
 
     const submitHandler = (values: z.infer<typeof NewChapterSchema>) => {
 
-        newInitChapter(values, courseId).then((data) => {
+        startTransition(() => {
+            newInitChapter(values, courseId).then((data) => {
 
-            if (data?.error) {
-                toast.error(data.error, { position: 'bottom-center'})
-            }
+                if (data?.error) {
+                    toast.error(data.error, { position: 'bottom-center' })
+                }
 
-            if (data?.success) {
-                onOpen(false)
-                form.reset();
-                toast.success(data.success, { position: 'bottom-center'})
-            }
+                if (data?.success) {
+                    onOpen(false)
+                    form.reset();
+                    toast.success(data.success, { position: 'bottom-center' })
+                }
 
-        }).catch(() => toast.error("Something went wrong!"))
+            }).catch(() => toast.error("Something went wrong!"))
+        })
     }
 
     return (
@@ -67,19 +74,18 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
                             name="title"
                             render={({ field }) => {
                                 // setTitle(field.value)
-                                
+
                                 return (
                                     <FormItem data-cols="1">
                                         <FormRowDetails>
                                             <FormLabel>Title</FormLabel>
                                             <FormMessage />
                                         </FormRowDetails>
-                                        {/* <div className={formsx["row-details"]} style={{"display": "flex", "gap": "8px", "justifyContent": "space-between"}}>
-                                        </div> */}
                                         <FormRowFields>
-                                            <FormControl>                                        
+                                            <FormControl>
                                                 <Input
                                                     {...field}
+                                                    mode="outline"
                                                     shade="200"
                                                     type="text"
                                                     name="title"
@@ -89,7 +95,8 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
                                             </FormControl>
                                         </FormRowFields>
                                     </FormItem>
-                            )}}
+                                )
+                            }}
                         />
                         <FormField
                             control={form.control}
@@ -100,11 +107,18 @@ const ChapterCreationForm = ({actions, courseId, onOpen}: ChapterCreationFormPro
                                         <FormLabel>Description</FormLabel>
                                         <FormMessage />
                                     </FormRowDetails>
-                                    {/* <div className={csx["form-row-details"]}>
-                                    </div> */}
                                     <FormRowFields>
                                         <FormControl>
-                                            <Textarea {...field} value={field.value} name="description" shade="200" placeholder="Add details here" resize="vertical" status={descriptionStatus} />
+                                            <Textarea
+                                                {...field}
+                                                value={field.value}
+                                                name="description"
+                                                mode="outline"
+                                                shade="200"
+                                                placeholder="Add details here"
+                                                resize="vertical"
+                                                status={descriptionStatus}
+                                            />
                                         </FormControl>
                                     </FormRowFields>
                                 </FormItem>

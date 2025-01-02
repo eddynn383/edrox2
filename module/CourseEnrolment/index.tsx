@@ -13,11 +13,11 @@ export const CourseEnrolment = ({ courseId, isEnrolled }: CourseEnrolmentProps) 
 
     if (isEnrolled) {
         return (
-            <Button variant="primary" status="default" content="text" style={{"flex": "1 1 0%"}} shade="200" aria-label="Start" disabled={true}> Already enrolled!</Button>
+            <Button variant="primary" status="default" content="text" style={{ "flex": "1 1 0%" }} aria-label="Already enrolled!" disabled={true}> Already enrolled!</Button>
         )
     }
 
-    return ( 
-        <Button variant="accent" status="default" content="icon-text" style={{"flex": "1 1 0%"}} aria-label="Start" onClick={async () => await courseEnrolment(courseId)}><PlayCircle /> Start</Button>
+    return (
+        <Button variant="accent" status="brand" content="icon-text" style={{ "flex": "1 1 0%" }} aria-label="Start" onClick={async () => await courseEnrolment(courseId)}><PlayCircle /> Start</Button>
     );
 }

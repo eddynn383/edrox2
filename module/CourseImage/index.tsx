@@ -6,14 +6,15 @@ import { Cover, UploadImage } from "@/components"
 import { CoverImageSchema } from "@/schemas"
 import toast from "react-hot-toast"
 import { updateCourseCover } from "@/actions/course";
+import { Image } from "@/interfaces/global";
 
 interface CourseImageProps {
-    cover: string | null;
+    cover: string;
     courseId: string;
     edit?: boolean;
 }
 
-export const CourseImage = ({cover, courseId, edit=false}: CourseImageProps) => {
+export const CourseImage = ({ cover, courseId, edit = false }: CourseImageProps) => {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
@@ -45,21 +46,21 @@ export const CourseImage = ({cover, courseId, edit=false}: CourseImageProps) => 
     return (
         <>
             {
-                !edit && 
-                <Cover src={cover} alt="cover-image" width={400} height={200} style={{"width": "100%"}} />
+                !edit &&
+                <Cover src={cover} alt="cover-image" width={400} height={200} style={{ "width": "100%" }} />
             }
             {
-                edit &&
-                <UploadImage currentImage={cover} endpoint="courseImage" onChange={
-                    (url) => {
-                        if (url) {
-                            // console.log("URL uploaded: ", url)
-                            uploadCoverImage({
-                                image: url
-                            })
-                        }
-                    }
-                } />
+                // edit &&
+                // <UploadImage currentImage={cover} endpoint="courseImage" onChange={
+                //     (url) => {
+                //         if (url) {
+                //             // console.log("URL uploaded: ", url)
+                //             uploadCoverImage({
+                //                 image: url
+                //             })
+                //         }
+                //     }
+                // } />
             }
         </>
     );

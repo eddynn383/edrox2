@@ -26,15 +26,15 @@ interface ChapterModalProps {
     value?: Chapters;
 }
 
-export const ChapterModal = ({id, value}: ChapterModalProps) => {
+export const ChapterModal = ({ id, value }: ChapterModalProps) => {
     const [open, setOpen] = useState(false);
 
-    return ( 
+    return (
         <Dialog open={open} onOpenChange={setOpen}>
             {
                 value &&
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="primary" shade="200" status="default" size="M" content="icon-text">
+                    <Button mode="text" variant="primary" status="default" size="S" content="icon-text">
                         <Edit />
                         Edit chapter
                     </Button>
@@ -43,34 +43,34 @@ export const ChapterModal = ({id, value}: ChapterModalProps) => {
             {
                 !value &&
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
+                    <Button mode="text" variant="accent" status="default" size="S" content="icon">
                         <PlusCircle />
                         Add chapter
                     </Button>
                 </DialogTrigger>
             }
             <DialogContent>
-                { 
-                    value &&  
+                {
+                    value &&
                     <DialogHeader>
                         <DialogTitle>Edit Description</DialogTitle>
                         <DialogDescription>Use the field below to change the course description</DialogDescription>
-                    </DialogHeader>                      
+                    </DialogHeader>
                 }
                 {
-                    !value && 
-                    <DialogHeader>                      
+                    !value &&
+                    <DialogHeader>
                         <DialogTitle>Create chapter</DialogTitle>
                         <DialogDescription>Use the fields below to create a new chapter</DialogDescription>
-                    </DialogHeader>                       
+                    </DialogHeader>
                 }
                 <DialogBody>
-                    <ChapterCreationForm 
-                        courseId={id} 
+                    <ChapterCreationForm
+                        courseId={id}
                         actions={
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button shade="200" >Cancel</Button>
+                                    <Button>Cancel</Button>
                                 </DialogClose>
                                 {
                                     value &&
@@ -81,7 +81,7 @@ export const ChapterModal = ({id, value}: ChapterModalProps) => {
                                     <Button variant="accent" type="submit">Create</Button>
                                 }
                             </DialogFooter>
-                        } 
+                        }
                         onOpen={setOpen}
                     />
                 </DialogBody>

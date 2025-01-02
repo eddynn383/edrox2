@@ -15,60 +15,60 @@ interface CourseTitleModalProps {
     value: Value;
 }
 
-export const CourseTitleModal = ({id, value}: CourseTitleModalProps) => {
+export const CourseTitleModal = ({ id, value }: CourseTitleModalProps) => {
     const [open, setOpen] = useState(false);
 
-    const {course, categories} = value;
+    const { course, categories } = value;
 
-    return ( 
+    return (
         <Dialog open={open} onOpenChange={setOpen}>
+            {
+                course &&
+                <DialogTrigger asChild>
+                    <Button mode="text" variant="accent" status="default" size="M" content="icon">
+                        Edit
+                    </Button>
+                </DialogTrigger>
+            }
+            {
+                !course &&
+                <DialogTrigger asChild>
+                    <Button mode="text" variant="accent" status="default" size="M" content="icon">
+                        <PlusCircle />
+                        Create
+                    </Button>
+                </DialogTrigger>
+            }
+            <DialogContent>
                 {
                     course &&
-                    <DialogTrigger asChild>
-                        <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
-                            Edit
-                        </Button>
-                    </DialogTrigger>
+                    <DialogHeader>
+                        <DialogTitle>Edit course</DialogTitle>
+                        <DialogDescription>Use the fields below to edit the course</DialogDescription>
+                    </DialogHeader>
                 }
                 {
                     !course &&
-                    <DialogTrigger asChild>
-                        <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
-                            <PlusCircle />
-                            Create
-                        </Button>
-                    </DialogTrigger>
-                }
-            <DialogContent>                
-                { 
-                    course &&  
-                    <DialogHeader>        
-                        <DialogTitle>Edit course</DialogTitle>
-                        <DialogDescription>Use the fields below to edit the course</DialogDescription>          
-                    </DialogHeader>                      
-                }
-                {
-                    !course && 
-                    <DialogHeader>                        
+                    <DialogHeader>
                         <DialogTitle>Create course</DialogTitle>
                         <DialogDescription>Use the field below to add a course description</DialogDescription>
-                    </DialogHeader>                       
+                    </DialogHeader>
                 }
                 <DialogBody>
-                    <CourseCreationForm 
+                    <CourseCreationForm
                         course={course}
-                        categories={categories} 
+                        categories={categories}
                         actions={
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button shade="200" >Cancel</Button>
+                                    <Button>Cancel</Button>
                                 </DialogClose>
-                                { 
-                                    course &&  
+                                {
+                                    course &&
                                     <Button variant="accent" type="submit">Update</Button>
                                 }
-                                { 
-                                    !course &&  
+                                {
+                                    !course &&
                                     <Button variant="accent" type="submit">Create</Button>
                                 }
                             </DialogFooter>

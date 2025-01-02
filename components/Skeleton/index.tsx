@@ -1,10 +1,11 @@
+import { Card } from "../Card"
 import { IPropsSkeleton } from "./interface"
 import skeleton from "./skeleton.module.css"
 
-const Bone = ({className=skeleton.bone, background="var(--primary-background-200)", foreground="var(--primary-background-300)", width, height, radius, animationType, animationDuration, extraStyle, ...props }: IPropsSkeleton) => {
+const Bone = ({ className = skeleton.bone, background = "var(--primary-background-200)", foreground = "var(--primary-background-300)", width, height, radius, animationType, animationDuration, extraStyle, ...props }: IPropsSkeleton) => {
     return (
-        <span className={className} data-animation-type={animationType} data-animation-duration={animationDuration} style={{width: width, height: height, borderRadius: radius, backgroundColor: background, ...extraStyle}} {...props}>
-            <span className={skeleton.marker} style={{backgroundImage: `linear-gradient(to right, transparent, ${foreground}, transparent)`}}></span>
+        <span className={className} data-animation-type={animationType} data-animation-duration={animationDuration} style={{ width: width, height: height, borderRadius: radius, backgroundColor: background, ...extraStyle }} {...props}>
+            <span className={skeleton.marker} style={{ backgroundImage: `linear-gradient(to right, transparent, ${foreground}, transparent)` }}></span>
         </span >
     )
 }
@@ -13,7 +14,7 @@ const SkeletonCard = () => {
     return (
         <div className={skeleton.card}>
             <div className={skeleton.cover}>
-                <Bone width="100%" height="100%" radius="8px 8px 0 0" animationType="" animationDuration={300} extraStyle={{"aspect-ratio": "16 / 9"}} />
+                <Bone width="100%" height="100%" radius="8px 8px 0 0" animationType="" animationDuration={300} extraStyle={{ "aspectRatio": "16 / 9" }} />
             </div>
             <div className={skeleton.content}>
                 <div className={skeleton.top}>
@@ -90,4 +91,24 @@ const SkeletonProfile = () => {
     )
 }
 
-export { Bone, SkeletonCard, SkeletonMenu, SkeletonProfile }
+const ChapterSkeleton = () => {
+    return (
+        <div className={skeleton.chapters}>
+            {Array.from({ length: 3 }).map((_, i) => (
+                <Card mode="solid" shade="200" key={i}>
+                    <div className={skeleton.chapter}>
+                        <div className={skeleton.left}>
+                            <Bone width="200px" height="20px" radius="4px" animationType="" animationDuration={300} />
+                            {/* <Bone width="300px" height="4px" radius="4px" animationType="" animationDuration={300} /> */}
+                        </div>
+                        <div className={skeleton.right}>
+                            <Bone width="32px" height="32px" radius="4px" animationType="" animationDuration={300} />
+                        </div>
+                    </div>
+                </Card>
+            ))}
+        </div>
+    )
+}
+
+export { Bone, SkeletonCard, SkeletonMenu, SkeletonProfile, ChapterSkeleton }

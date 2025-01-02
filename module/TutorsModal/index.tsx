@@ -26,15 +26,15 @@ interface TutorsModalProps {
     value?: Chapters;
 }
 
-export const TutorsModal = ({id, value}: TutorsModalProps) => {
+export const TutorsModal = ({ id, value }: TutorsModalProps) => {
     const [open, setOpen] = useState(false);
 
-    return ( 
+    return (
         <Dialog open={open} onOpenChange={setOpen}>
             {
                 value &&
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
+                    <Button mode="text" variant="accent" status="default" size="M" content="icon">
                         Edit tutor
                     </Button>
                 </DialogTrigger>
@@ -42,7 +42,7 @@ export const TutorsModal = ({id, value}: TutorsModalProps) => {
             {
                 !value &&
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="accent" shade="200" status="default" size="M" content="icon">
+                    <Button mode="text" variant="accent" status="default" size="M" content="icon">
                         <PlusCircle />
                         Add tutor
                     </Button>
@@ -57,11 +57,11 @@ export const TutorsModal = ({id, value}: TutorsModalProps) => {
                     </DialogHeader>                      
                 } */}
                 {
-                    !value && 
-                    <DialogHeader>                      
+                    !value &&
+                    <DialogHeader>
                         <DialogTitle>Add tutor</DialogTitle>
                         <DialogDescription>Use the fields below to create a new chapter</DialogDescription>
-                    </DialogHeader>                       
+                    </DialogHeader>
                 }
                 <DialogBody>
                     {/* <ChapterCreationForm 

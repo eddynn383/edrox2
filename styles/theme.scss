@@ -31,7 +31,7 @@
         $variable-name: #{$name}-#{$weight};
         $shade-color: $mixture;
 
-        --#{$variable-name}: #{$shade-color};
+        --#{$variable-name}: var(--custom-#{$variable-name}, #{$shade-color});
     }
 }
 

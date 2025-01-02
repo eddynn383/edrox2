@@ -8,39 +8,46 @@ import { redirect } from "next/navigation";
 import msx from "@/styles/module.module.scss"
 import psx from "@/styles/page.module.scss"
 import { getContentByChapterId } from "@/data/content";
+import { Chapter } from "@/interfaces/global";
+
+type Params = Promise<{
+    courseId: string,
+    chapterId: string
+}>;
+
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
 interface PageChapterIdProps {
-    params: { 
-        courseId: string,
-        chapterId: string
-    },
-    searchParams: { [key: string]: string }
+    params: Params;
+    searchParams: SearchParams
 }
 
 
-const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
+const PageChapterId = async (props: PageChapterIdProps) => {
     // <span>{params.courseId}</span>
+    const params = await props.params
+    const searchParams = await props.searchParams
 
     const courseDetails = await getCourseById(params.courseId);
     const playlist = await getPublishdedChaptersByCourseId(params.courseId)
     const chapterDetails = await getChapterById(params.chapterId)
     const chapterContent = await getContentByChapterId(params.chapterId)
     const chapterTitle = chapterDetails?.title
-    
+
     if (!searchParams.playlist) {
         if (searchParams.viewport !== "mobile") {
-            redirect("?playlist=on")    
+            redirect("?playlist=on")
         } else {
-            redirect("?playlist=off")    
+            redirect("?playlist=off")
         }
     }
 
     if (!chapterTitle) {
-        return 
+        return
     }
     // console.log("chapterDetails: ", chapterDetails)
 
-    const progressValue=75
+    const progressValue = 75
 
     return (
         <>
@@ -69,8 +76,8 @@ const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
                 <div className={psx["body-toolbar-row"]}>
                     <div className={psx["body-toolbar-left"]}>
                         {/* <div className={msx["chapter-details-header"]}> */}
-                            
-                            <PageTitle title={chapterTitle} />
+
+                        <PageTitle title={chapterTitle} />
                         {/* </div> */}
                     </div>
                     <div className={psx["body-toolbar-right"]}>
@@ -80,7 +87,7 @@ const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
             </section>
             <section className={psx["body-content"]}>
                 <div className={psx["body-content-left"]}>
-                    <Progress value={progressValue} style={{ "height": "2px" }} data-status={"success"}/>
+                    <Progress value={progressValue} style={{ "height": "2px" }} data-status={"success"} />
                     <ScrollArea>
                         <ChapterDetails data={chapterContent} courseId={params.courseId} chapterId={params.chapterId} edit={false} />
                     </ScrollArea>
@@ -92,7 +99,13 @@ const PageChapterId = async ({ params, searchParams }: PageChapterIdProps) => {
                     searchParams.playlist === "on" &&
                     <div className={psx["body-content-right"]}>
                         <ScrollArea>
-                            <Playlist data={playlist} />
+                            <Playlist items={playlist} onReorder={function (items: Chapter[]): void {
+                                throw new Error("Function not implemented.");
+                            }} onEdit={function (id: string): void {
+                                throw new Error("Function not implemented.");
+                            }} onDelete={function (id: string): void {
+                                throw new Error("Function not implemented.");
+                            }} />
                         </ScrollArea>
                     </div>
                 }

@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prismadb"
 import { signIn } from "@/auth"
 import { LoginSchema } from "@/schemas"
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes"
-import { getUserByEmail } from "@/data/user"
+import { getUserByEmail } from "@/data/users"
 import { generateVerificationToken, generateTwoFactorToken } from "@/lib/tokens"
 import { sendVerificationEmail, sendTwoFactorTokenEmail } from "@/lib/mail"
 import { getTwoFactorTokenByEmail } from "@/data/twoFactorToken"
@@ -20,7 +20,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
 
 
     if (!validatedFields.success) {
-        return { error: "Invalid fields!"}
+        return { error: "Invalid fields!" }
     }
 
     const { email, password, code } = validatedFields.data;
@@ -44,12 +44,12 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
             verificationToken.token
         )
 
-        return {success: "A confirmation email was sent!"}
+        return { success: "A confirmation email was sent!" }
     }
 
     if (existingUser.isTwoFactorEnabled && existingUser.email) {
 
-        if (code) { 
+        if (code) {
 
             const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email)
 
@@ -68,8 +68,8 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
             }
 
             await prisma.twoFactorToken.delete({
-                where: { 
-                    id: twoFactorToken.id 
+                where: {
+                    id: twoFactorToken.id
                 }
             })
 
@@ -77,7 +77,7 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
 
             if (existingConfirmation) {
                 await prisma.twoFactorConfirmation.delete({
-                    where: { 
+                    where: {
                         id: existingConfirmation.id
                     }
                 })
@@ -91,9 +91,9 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
 
         } else {
             const twoFactorToken = await generateTwoFactorToken(existingUser.email)
-    
+
             await sendTwoFactorTokenEmail(twoFactorToken.email, twoFactorToken.token)
-    
+
             return {
                 twoFactor: true
             }
@@ -106,13 +106,13 @@ export const login = async (values: z.infer<typeof LoginSchema>, callbackUrl?: s
             password,
             redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT
         })
-        
+
     } catch (error) {
         if (error instanceof AuthError) {
             switch (error.type) {
                 case "CredentialsSignin":
                     return { error: "Invalid credentials!" }
-            
+
                 default:
                     return { error: "Something went wrong!" };
             }

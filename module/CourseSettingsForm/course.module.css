@@ -1,0 +1,10 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    .rows {
+        display: flex;
+        flex-direction: column;
+        gap: var(--form-rows, var(--gap-400, 16px));
+        padding: var(--course-creation-form-rows-padding-y, 0) var(--course-creation-form-rows-padding-x, var(--padding-600, 24px));
+    }
+}

@@ -1,6 +1,14 @@
-.container {
+.element {
+    &[data-size="XXS"] {
+        font-size: var(--text-xxs-size, var(--size-250, 10px));
+    }
+
+    &[data-size="XS"] {
+        font-size: var(--text-xs-size, var(--size-300, 12px));
+    }
+
     &[data-size="S"] {
-        font-size: var(--text-s-size, var(--size-300, 12px));
+        font-size: var(--text-s-size, var(--size-350, 14px));
     }
 
     &[data-size="M"] {
@@ -8,6 +16,47 @@
     }
 
     &[data-size="L"] {
-        font-size: var(--text-l-size, var(--size-500, 20px));
+        font-size: var(--text-l-size, var(--size-450, 18px));
+    }
+
+    &[data-weight="300"] {
+        font-weight: 300;
+    }
+
+    &[data-weight="400"] {
+        font-weight: 400;
+    }
+
+    &[data-weight="600"] {
+        font-weight: 600;
+    }
+
+    &[data-weight="700"] {
+        font-weight: 700;
+    }
+
+    &[data-uppercase="true"] {
+        text-transform: uppercase;
+    }
+
+    &[data-truncate="1"] {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &[data-truncate="2"] {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &[data-truncate="3"] {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 }

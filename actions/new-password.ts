@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs"
 
 import { NewPasswordSchema } from "@/schemas"
 import { getPasswordResetTokenByToken } from "@/data/passResetToken"
-import { getUserByEmail } from "@/data/user"
+import { getUserByEmail } from "@/data/users"
 import { prisma } from "@/lib/prismadb"
 
 export const newPassword = async (values: z.infer<typeof NewPasswordSchema>, token?: string | null) => {
@@ -24,7 +24,7 @@ export const newPassword = async (values: z.infer<typeof NewPasswordSchema>, tok
     const exisingToken = await getPasswordResetTokenByToken(token)
 
     if (!exisingToken) {
-        return { error: "Invalid token!" }        
+        return { error: "Invalid token!" }
     }
 
     const hasExpired = new Date(exisingToken.expires) < new Date();

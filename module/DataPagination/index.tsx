@@ -3,7 +3,7 @@ import { DataPaginationProps } from "./interface";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
 import sx from "@/styles/module.module.scss"
 
-const DataPaginationDesktop = <TData, TValue>({ table }: DataPaginationProps<TData>) => {
+const DataPagination = <TData, TValue>({ table }: DataPaginationProps<TData>) => {
     return (
         <div className={sx["data-pagination"]}>
             <div className={sx["data-pagination-left"]}>
@@ -36,19 +36,19 @@ const DataPaginationDesktop = <TData, TValue>({ table }: DataPaginationProps<TDa
                     {table.getPageCount()}
                 </div>
                 <div className={sx["data-pagination-controls"]}>
-                    <Button variant="primary" shade="200" content="icon" size="S" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()} >
+                    <Button variant="primary" content="icon" size="S" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()} >
                         <span className="sr-only">Go to first page</span>
                         <ChevronsLeft />
                     </Button>
-                    <Button variant="primary" shade="200" content="icon" size="S" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} >
+                    <Button variant="primary" content="icon" size="S" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} >
                         <span className="sr-only">Go to previous page</span>
                         <ChevronLeft />
                     </Button>
-                    <Button variant="primary" shade="200" content="icon" size="S" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} >
+                    <Button variant="primary" content="icon" size="S" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} >
                         <span className="sr-only">Go to next page</span>
                         <ChevronRight />
                     </Button>
-                    <Button variant="primary" shade="200" content="icon" size="S" onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()} >
+                    <Button variant="primary" content="icon" size="S" onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()} >
                         <span className="sr-only">Go to last page</span>
                         <ChevronsRight />
                     </Button>
@@ -58,4 +58,4 @@ const DataPaginationDesktop = <TData, TValue>({ table }: DataPaginationProps<TDa
     )
 }
 
-export {DataPaginationDesktop}
+export { DataPagination }

@@ -6,41 +6,27 @@ import { FilePenLine, MoreVertical, Trash2 } from "lucide-react"
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger, Avatar, Badge, Button, Checkbox, Cover, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, Icon, Label, Text } from "@/components"
 import { deleteCourse, deleteManyCourses } from "@/actions/delete-course"
 import { formatDate } from "./utils"
-import { Course } from "@/interfaces/course"
+import { Category, Course } from "@/interfaces/course"
 import { Price, TutorsOnCourses } from "@/interfaces/global"
 import defaultAvatar from "@/public/assets/images/avatar-placeholder.svg";
 import csx from "@/styles/component.module.scss"
 import toast from "react-hot-toast"
+import { deleteCategory, deleteManyCategories } from "@/actions/categories"
 
-
-// const clickHandler = () => {
-//     try {
-//         setIsLoading(true)
-//         deleteManyCourses(selectedRows)
-//         table.toggleAllPageRowsSelected(false)
-//         toast.success("Course deleted");
-//     } catch (error) {
-//         toast.error("Something went wrong");
-        
-//     } finally {
-//         setIsLoading(false)
-//     }
-// }
-
-const TableActions = ({data, onDelete}: any) => {
+const CourseActions = ({ data, onDelete }: any) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="primary" shade="100" size="S" content="icon">
+                <Button mode="text" variant="primary" size="S" content="icon">
                     <MoreVertical className={csx["icon"]} />
                     <span className="sr-only">Open menu</span>
                 </Button>
             </DropdownMenuTrigger>
             <AlertDialog>
                 {/* Start Dropdowon Definition */}
-                <DropdownMenuContent shade="100" align="end">
+                <DropdownMenuContent shade="200" align="end">
                     <DropdownMenuItem hasChild>
-                        <Link href={`/admin/courses/edit/${data.id}`}>
+                        <Link href={`/management/courses/${data.id}/edit`}>
                             <FilePenLine /> Edit
                         </Link>
                     </DropdownMenuItem>
@@ -65,7 +51,59 @@ const TableActions = ({data, onDelete}: any) => {
                     <AlertDialogFooter>
                         <AlertDialogCancel asChild>
                             <div>
-                                <Button shade="200">Cancel</Button>
+                                <Button>Cancel</Button>
+                            </div>
+                        </AlertDialogCancel>
+                        <AlertDialogAction asChild>
+                            <Button variant="accent" status="fail" onClick={onDelete}>Delete</Button>
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+                {/* End Dialog Definition */}
+            </AlertDialog>
+        </DropdownMenu>
+    )
+}
+
+const CategoryActions = ({ data, onDelete }: any) => {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button mode="text" variant="primary" size="S" content="icon">
+                    <MoreVertical className={csx["icon"]} />
+                    <span className="sr-only">Open menu</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <AlertDialog>
+                {/* Start Dropdowon Definition */}
+                <DropdownMenuContent shade="200" align="end">
+                    <DropdownMenuItem hasChild>
+                        <Link href={`/management/categories/${data.id}/edit`}>
+                            <FilePenLine /> Edit
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem hasChild>
+                        <AlertDialogTrigger asChild >
+                            <Button mode="text" variant="accent" status="fail">
+                                <Trash2 /> Delete
+                            </Button>
+                        </AlertDialogTrigger>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+                {/* End Dropdowon Definition */}
+                {/* Start Dialog Definition */}
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel asChild>
+                            <div>
+                                <Button>Cancel</Button>
                             </div>
                         </AlertDialogCancel>
                         <AlertDialogAction asChild>
@@ -116,20 +154,17 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
         accessorKey: "title",
         header: () => <span>Title</span>,
         cell: ({ row }) => {
-            const image: React.ReactNode = row.original.image
+            const image = row.original.image
             const courseId = row.original.id
-            // const cover = image ? image : "https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             const title: string = row.getValue("title")
-            // console.log(title) 
-            // const cover = image.find((image) => image.value === row.original.image)
-            // console.log(image)
+
             return (
-                <div className={csx["table-body-title"]}>  
-                    <Cover src={image} alt={title} width={60} height={36} size="S" defSize />
+                <div className={csx["table-body-title"]}>
+                    <Cover src={image?.url} alt={title} width={60} height={36} size="S" defSize />
                     <div>
-                        <Link className={csx["link"]} href={`/admin/courses/edit/${courseId}`}>{title}</Link>
+                        <Link className={csx["link"]} href={`/management/courses/edit/${courseId}`}>{title}</Link>
                     </div>
-                </div> 
+                </div>
             )
         }
     },
@@ -140,12 +175,6 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
             const published: boolean = row.getValue("isPublished")
 
             return <Badge shape="rounded" status={published ? "success" : "default"}>{published ? "Published" : "Draft"}</Badge>
-            // <div>
-            //     {/* <Switch 
-            //         checked={published}
-            //         onCheckedChange={() => editCourse(row.original.id, {isPublished: !published})}
-            //     /> */}
-            // </div>
         }
     },
     {
@@ -155,7 +184,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
             const chapters: any[] = row.getValue("chapters")
 
             if (!chapters) return 0
-            
+
             // console.log(chapters)
 
             return chapters.length
@@ -166,7 +195,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
         header: () => <div>Price </div>,
         cell: ({ row }) => {
             const price: Price = row.getValue("price")
-            if(!price) return "Free"
+            if (!price) return "Free"
 
             const currency = price.currency
             const discount = price.discountedPrice
@@ -174,7 +203,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
 
 
             return (
-                
+
                 <div>
                     {
                         discount && <span>{discount} {currency}</span>
@@ -191,7 +220,6 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
         header: "Tutors",
         cell: ({ row }) => {
             const tutors: TutorsOnCourses[] = row.getValue("tutors")
-            // console.log(tutors)
             return (
                 <div className={csx["table-body-tutors"]}>
                     {
@@ -212,7 +240,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
         cell: ({ row }) => {
             const date = new Date(row.getValue("createdAt"))
 
-            const newDate = formatDate({dateValue: date, dateFormat: "dd/MMM/yyyy - HH:mm"})
+            const newDate = formatDate({ dateValue: date, dateFormat: "dd/MMM/yyyy - HH:mm" })
 
             return (
                 <>
@@ -229,12 +257,11 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
                 image: string;
                 name: string;
             }
+
             const user: User = row.getValue("createdBy")
 
-            // console.log(user)
-
             return (
-                <div style={{"display": "flex", "gap": "var(--gap-200, 8px)", "alignItems": "center"}}>
+                <div style={{ "display": "flex", "gap": "var(--gap-200, 8px)", "alignItems": "center" }}>
                     <Avatar src={user?.image ? user?.image : defaultAvatar} shape="rounded" size="S" title={user.name} />
                     <Text size="S">{user?.name}</Text>
                 </div>
@@ -243,7 +270,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
     },
     {
         id: "actions",
-        header: ({table}) => {
+        header: ({ table }) => {
             const selectedRows = table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()
             const model = table.getSelectedRowModel()
             const rows = model.rows
@@ -264,11 +291,11 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
 
             return (
                 <div className={csx["table-header-actions"]}>
-                   {
-                        selectedRows && 
+                    {
+                        selectedRows &&
                         <DropdownMenu>
-                            <DropdownMenuTrigger asChild>                                
-                                <Button variant="primary" shade="100" size="S" content="icon">
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="primary" size="S" content="icon">
                                     <MoreVertical className={csx["icon"]} />
                                     <span className="sr-only">Open menu</span>
                                     <div className={csx["table-selection-counter"]}>
@@ -299,7 +326,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
                                     <AlertDialogFooter>
                                         <AlertDialogCancel asChild>
                                             <div>
-                                                <Button shade="200">Cancel</Button>
+                                                <Button>Cancel</Button>
                                             </div>
                                         </AlertDialogCancel>
                                         <AlertDialogAction asChild>
@@ -324,7 +351,7 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
             }
             return (
                 <div className={csx["table-body-actions"]}>
-                    <TableActions data={course} onDelete={deleteConf} />
+                    <CourseActions data={course} onDelete={deleteConf} />
                 </div>
             )
         }
@@ -368,20 +395,17 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
         accessorKey: "title",
         header: () => <span>Title</span>,
         cell: ({ row }) => {
-            const image: React.ReactNode = row.original.image
-            // const cover = image ? image : "https://images.pexels.com/photos/1051838/pexels-photo-1051838.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            const image = row.original.image
             const title: string = row.getValue("title")
             const courseId = row.original.id
-            // console.log(title) 
-            // const cover = image.find((image) => image.value === row.original.image)
-            // console.log(image)
+
             return (
-                <div className={csx["table-body-title"]}>  
-                    <Cover src={image} alt={title} width={60} height={36} size="S" defSize />
+                <div className={csx["table-body-title"]}>
+                    <Cover src={image?.url} alt={title} width={60} height={36} size="S" defSize />
                     <div>
-                        <Link className={csx["link"]} href={`/admin/courses/edit/${courseId}`}>{title}</Link>
+                        <Link className={csx["link"]} href={`/management/courses/edit/${courseId}`}>{title}</Link>
                     </div>
-                </div> 
+                </div>
             )
         }
     },
@@ -401,7 +425,7 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
             const chapters: any[] = row.getValue("chapters")
 
             if (!chapters) return 0
-            
+
             // console.log(chapters)
 
             return chapters.length
@@ -412,7 +436,7 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
         header: () => <div>Price </div>,
         cell: ({ row }) => {
             const price: Price = row.getValue("price")
-            if(!price) return "Free"
+            if (!price) return "Free"
 
             const currency = price.currency
             const discount = price.discountedPrice
@@ -420,7 +444,7 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
 
 
             return (
-                
+
                 <div>
                     {
                         discount && <span>{discount} {currency}</span>
@@ -444,7 +468,7 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
                         tutors?.map((item) => {
                             const tutor = item?.tutors
                             return (
-                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} shape="rounded" size="S" title={tutor.name}/>
+                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} shape="rounded" size="S" title={tutor.name} />
                             )
                         })
                     }
@@ -464,7 +488,7 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
             }
             return (
                 <div className={csx["table-body-actions"]}>
-                    <TableActions data={course} onDelete={deleteConf} />
+                    <CourseActions data={course} onDelete={deleteConf} />
                 </div>
 
             )
@@ -527,7 +551,7 @@ export const coursesColsTablet: ColumnDef<Course>[] = [
             const chapters: any[] = row.getValue("chapters")
 
             if (!chapters) return 0
-            
+
             // console.log(chapters)
 
             return chapters.length
@@ -538,7 +562,7 @@ export const coursesColsTablet: ColumnDef<Course>[] = [
         header: () => <div>Price </div>,
         cell: ({ row }) => {
             const price: Price = row.getValue("price")
-            if(!price) return "Free"
+            if (!price) return "Free"
 
             const currency = price.currency
             const discount = price.discountedPrice
@@ -546,7 +570,7 @@ export const coursesColsTablet: ColumnDef<Course>[] = [
 
 
             return (
-                
+
                 <div>
                     {
                         discount && <span>{discount} {currency}</span>
@@ -570,7 +594,7 @@ export const coursesColsTablet: ColumnDef<Course>[] = [
                         tutors?.map((item) => {
                             const tutor = item?.tutors
                             return (
-                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} shape="rounded" size="S" title={tutor.name}/>
+                                <Avatar key={tutor?.id} src={tutor?.image ? tutor?.image : defaultAvatar} shape="rounded" size="S" title={tutor.name} />
                             )
                         })
                     }
@@ -590,7 +614,7 @@ export const coursesColsTablet: ColumnDef<Course>[] = [
             }
             return (
                 <div className={csx["table-body-actions"]}>
-                    <TableActions data={course} onDelete={deleteConf} />
+                    <CourseActions data={course} onDelete={deleteConf} />
                 </div>
             )
         }
@@ -637,7 +661,7 @@ export const coursesColsMobile: ColumnDef<Course>[] = [
             return (
                 <span className={csx["table-body-title"]}>
                     <div>
-                        <Link className={csx["link"]} href={`/admin/courses/edit/${courseId}`}>{title}</Link>
+                        <Link className={csx["link"]} href={`/management/courses/edit/${courseId}`}>{title}</Link>
                     </div>
                 </span>
             )
@@ -664,7 +688,7 @@ export const coursesColsMobile: ColumnDef<Course>[] = [
             }
             return (
                 <div className={csx["table-body-actions"]}>
-                    <TableActions data={course} onDelete={deleteConf} />
+                    <CourseActions data={course} onDelete={deleteConf} />
                 </div>
             )
         }
@@ -675,7 +699,7 @@ export const coursesColsMobileCard: ColumnDef<Course>[] = [
     {
         id: "select",
         header: ({ table }) => (
-            <Label htmlFor="select-all-checkbox" style={{"display": "flex", "alignItems": "center", "gap": "var(--gap-200, 8px)"}}>
+            <Label htmlFor="select-all-checkbox" style={{ "display": "flex", "alignItems": "center", "gap": "var(--gap-200, 8px)" }}>
                 <Checkbox
                     id="select-all-checkbox"
                     checked={
@@ -727,7 +751,7 @@ export const coursesColsMobileCard: ColumnDef<Course>[] = [
         header: () => false,
         cell: ({ row }) => {
             const price: Price = row.getValue("price")
-            if(!price) return "Free"
+            if (!price) return "Free"
 
             const currency = price.currency
             const discount = price.discountedPrice
@@ -735,7 +759,7 @@ export const coursesColsMobileCard: ColumnDef<Course>[] = [
 
 
             return (
-                
+
                 <div className={csx["table-price"]}>
                     {
                         discount && <span>{discount} {currency}</span>
@@ -759,7 +783,557 @@ export const coursesColsMobileCard: ColumnDef<Course>[] = [
             }
             return (
                 <div className={csx["table-body-actions"]}>
-                    <TableActions data={course} onDelete={deleteConf} />
+                    <CourseActions data={course} onDelete={deleteConf} />
+                </div>
+            )
+        }
+    }
+]
+
+
+
+
+
+export const categoriesColsDesktop: ColumnDef<Category>[] = [
+    {
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                mode="outline"
+                shade="100"
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+                }}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <div className={csx["table-body-checkbox"]}>
+                <Checkbox
+                    checked={row.getIsSelected()}
+                    mode="outline"
+                    shade="100"
+                    onCheckedChange={(value) => {
+                        row.toggleSelected(!!value)
+                    }}
+                    aria-label="Select row"
+                />
+            </div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+    },
+    {
+        accessorKey: "name",
+        header: () => <span>Name</span>,
+        cell: ({ row }) => {
+            const name: string = row.getValue("name")
+
+            return (
+                <div className={csx["table-body-name"]}>
+                    <Text>{name}</Text>
+                </div>
+            )
+        }
+    },
+    {
+        accessorKey: "courses",
+        header: () => <span>Courses</span>,
+        cell: ({ row }) => {
+            const courses: string = row.getValue("courses")
+
+            return (
+                <div className={csx["table-body-courses"]}>
+                    <Text>{courses.length}</Text>
+                </div>
+            )
+        }
+    },
+    {
+        accessorKey: "createdAt",
+        header: "Created At",
+        cell: ({ row }) => {
+            const date = new Date(row.getValue("createdAt"))
+
+            const newDate = formatDate({ dateValue: date, dateFormat: "dd/MMM/yyyy - HH:mm" })
+
+            return (
+                <>
+                    {newDate}
+                </>
+            )
+        }
+    },
+    {
+        accessorKey: "createdBy",
+        header: "Created By",
+        cell: ({ row }) => {
+            type User = {
+                image: string;
+                name: string;
+            }
+
+            const user: User = row.getValue("createdBy")
+
+            return (
+                <div style={{ "display": "flex", "gap": "var(--gap-200, 8px)", "alignItems": "center" }}>
+                    <Avatar src={user?.image ? user?.image : defaultAvatar} shape="rounded" size="S" title={user?.name} />
+                    <Text size="S">{user?.name}</Text>
+                </div>
+            )
+        }
+    },
+    {
+        id: "actions",
+        header: ({ table }) => {
+            const selectedRows = table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()
+            const model = table.getSelectedRowModel()
+            const rows = model.rows
+            const ids = rows.map((row: any) => row.original.id);
+            const selectedRowsLength = ids.length
+
+            const deleteHandler = async () => {
+                try {
+                    await deleteManyCategories(ids)
+                    table.toggleAllPageRowsSelected(false)
+                    toast.success("Category deleted");
+                } catch (error) {
+                    toast.error("Something went wrong");
+                }
+            }
+
+            return (
+                <div className={csx["table-header-actions"]}>
+                    {
+                        selectedRows &&
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="primary" size="S" content="icon">
+                                    <MoreVertical className={csx["icon"]} />
+                                    <span className="sr-only">Open menu</span>
+                                    <div className={csx["table-selection-counter"]}>
+                                        <Badge size="S" shape="rounded" status="info">{selectedRowsLength}</Badge>
+                                    </div>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <AlertDialog>
+                                {/* Start Dropdowon Definition */}
+                                <DropdownMenuContent shade="100" align="end">
+                                    <DropdownMenuItem hasChild>
+                                        <AlertDialogTrigger asChild >
+                                            <Button mode="text" variant="accent" status="fail">
+                                                <Trash2 /> Delete
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                                {/* End Dropdowon Definition */}
+                                {/* Start Dialog Definition */}
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            This action cannot be undone.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel asChild>
+                                            <div>
+                                                <Button>Cancel</Button>
+                                            </div>
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction asChild>
+                                            <div>
+                                                <Button variant="accent" status="fail" onClick={deleteHandler}>Delete</Button>
+                                            </div>
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                                {/* End Dialog Definition */}
+                            </AlertDialog>
+                        </DropdownMenu>
+                    }
+                </div>
+            )
+        },
+        cell: ({ row }) => {
+            const category = row.original
+
+            const deleteConf = async () => {
+                await deleteCategory(category.id)
+            }
+            return (
+                <div className={csx["table-body-actions"]}>
+                    <CategoryActions data={category} onDelete={deleteConf} />
+                </div>
+            )
+        }
+    }
+]
+
+export const categoriesColsDesktopSmall: ColumnDef<Category>[] = [
+    {
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                mode="outline"
+                shade="200"
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+                }}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <div className={csx["table-body-checkbox"]}>
+                <Checkbox
+                    checked={row.getIsSelected()}
+                    mode="outline"
+                    shade="200"
+                    onCheckedChange={(value) => {
+                        row.toggleSelected(!!value)
+                    }}
+                    aria-label="Select row"
+                />
+            </div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+    },
+    {
+        accessorKey: "name",
+        header: () => <span>Name</span>,
+        cell: ({ row }) => {
+            const name: string = row.getValue("name")
+
+            return (
+                <div className={csx["table-body-name"]}>
+                    <Text>{name}</Text>
+                </div>
+            )
+        }
+    },
+    {
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+            const category = row.original
+            const deleteConf = () => {
+                deleteCategory(category.id)
+            }
+
+            return (
+                <div className={csx["table-body-actions"]}>
+                    <CategoryActions data={category} onDelete={deleteConf} />
+                </div>
+
+            )
+        }
+    }
+]
+
+export const categoriesColsTablet: ColumnDef<Category>[] = [
+    {
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                mode="outline"
+                shade="200"
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+                }}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+                checked={row.getIsSelected()}
+                mode="outline"
+                shade="200"
+                onCheckedChange={(value) => {
+                    row.toggleSelected(!!value)
+                }}
+                aria-label="Select row"
+            />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+    },
+    {
+        accessorKey: "name",
+        header: () => <span>Name</span>,
+        cell: ({ row }) => {
+            const name: string = row.getValue("name")
+            return <Text className={csx["table-body-name"]}>{name}</Text>
+        }
+    },
+    // {
+    //     accessorKey: "isPublished",
+    //     header: "Status",
+    //     cell: ({ row }) => {
+    //         const published: boolean = row.getValue("isPublished")
+
+    //         return <Badge shape="rounded" status={published ? "success" : "default"}>{published ? "Published" : "Draft"}</Badge>
+    //     }
+    // },
+    {
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+            const category = row.original
+
+            const deleteConf = () => {
+                // console.log(category.id)
+                deleteCategory(category.id)
+            }
+            return (
+                <div className={csx["table-body-actions"]}>
+                    <CourseActions data={category} onDelete={deleteConf} />
+                </div>
+            )
+        }
+    }
+]
+
+export const categoriesColsMobile: ColumnDef<Category>[] = [
+    {
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                mode="outline"
+                shade="200"
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+                }}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+                checked={row.getIsSelected()}
+                mode="outline"
+                shade="200"
+                onCheckedChange={(value) => {
+                    row.toggleSelected(!!value)
+                }}
+                aria-label="Select row"
+            />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+    },
+    {
+        accessorKey: "name",
+        header: () => <span>Name</span>,
+        cell: ({ row }) => {
+            const name: string = row.getValue("name")
+            const courseId = row.original.id
+            return (
+                <Text>{name}</Text>
+            )
+        }
+    },
+    // {
+    //     accessorKey: "isPublished",
+    //     header: "Status",
+    //     cell: ({ row }) => {
+    //         const published: boolean = row.getValue("isPublished")
+
+    //         return <Badge shape="rounded" status={published ? "success" : "default"}>{published ? "Published" : "Draft"}</Badge>
+    //     }
+    // },
+    {
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+            const category = row.original
+
+            const deleteConf = () => {
+                // console.log(course.id)
+                deleteCategory(category.id)
+            }
+            return (
+                <div className={csx["table-body-actions"]}>
+                    <CategoryActions data={category} onDelete={deleteConf} />
+                </div>
+            )
+        }
+    }
+]
+
+export const usersCols: ColumnDef<any>[] = [
+    {
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                mode="outline"
+                shade="100"
+                onCheckedChange={(value) => {
+                    table.toggleAllPageRowsSelected(!!value)
+                }}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <div className={csx["table-body-checkbox"]}>
+                <Checkbox
+                    checked={row.getIsSelected()}
+                    mode="outline"
+                    shade="100"
+                    onCheckedChange={(value) => {
+                        row.toggleSelected(!!value)
+                    }}
+                    aria-label="Select row"
+                />
+            </div>
+        ),
+        enableSorting: false,
+        enableHiding: false,
+    },
+    {
+        accessorKey: "name",
+        header: () => <span>Name</span>,
+        cell: ({ row }) => {
+            const name: string = row.getValue("name")
+            const image = row.original.image
+            const email = row.original.email
+
+            const initials = name.split(" ").map(name => name[0]).join('')
+
+            console.log("row: ", row)
+
+            return (
+                <div className={csx["table-body-name"]} style={{ display: "flex", gap: "var(--size-200, 8px)", alignItems: "center" }}>
+                    <Avatar src={image} text={!image ? initials : ""} alt={name} size="M" shape="rounded" />
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div style={{ color: "var(--primary-text-100)", lineHeight: "1" }}>
+                            <Text type="span" size="S">{name}</Text>
+                        </div>
+                        <div style={{ color: "var(--primary-text-500)", lineHeight: "1" }}>
+                            <Text type="span" size="XS">{email}</Text>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    },
+    {
+        accessorKey: "role",
+        header: () => <span>Role</span>,
+        cell: ({ row }) => {
+            const role: string = row.getValue("role")
+
+            return (
+                <div className={csx["table-body-role"]} style={{ display: "flex", alignItems: "center" }}>
+                    <Badge shape="rounded" mode="outline">{role}</Badge>
+                </div>
+            )
+        }
+    },
+    {
+        id: "actions",
+        header: ({ table }) => {
+            const selectedRows = table.getIsAllPageRowsSelected() || table.getIsSomePageRowsSelected()
+            const model = table.getSelectedRowModel()
+            const rows = model.rows
+            const ids = rows.map((row: any) => row.original.id);
+            const selectedRowsLength = ids.length
+            console.log(ids)
+            console.log(selectedRowsLength)
+
+            const deleteHandler = () => {
+                try {
+                    deleteManyCourses(ids)
+                    table.toggleAllPageRowsSelected(false)
+                    toast.success("Course deleted");
+                } catch (error) {
+                    toast.error("Something went wrong");
+                }
+            }
+
+            return (
+                <div className={csx["table-header-actions"]}>
+                    {
+                        selectedRows &&
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="primary" size="S" content="icon">
+                                    <MoreVertical className={csx["icon"]} />
+                                    <span className="sr-only">Open menu</span>
+                                    <div className={csx["table-selection-counter"]}>
+                                        <Badge size="S" shape="rounded" status="info">{selectedRowsLength}</Badge>
+                                    </div>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <AlertDialog>
+                                {/* Start Dropdowon Definition */}
+                                <DropdownMenuContent shade="100" align="end">
+                                    <DropdownMenuItem hasChild>
+                                        <AlertDialogTrigger asChild >
+                                            <Button mode="text" variant="accent" status="fail">
+                                                <Trash2 /> Delete
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                                {/* End Dropdowon Definition */}
+                                {/* Start Dialog Definition */}
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            This action cannot be undone.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel asChild>
+                                            <div>
+                                                <Button>Cancel</Button>
+                                            </div>
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction asChild>
+                                            <div>
+                                                <Button variant="accent" status="fail" onClick={deleteHandler}>Delete</Button>
+                                            </div>
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                                {/* End Dialog Definition */}
+                            </AlertDialog>
+                        </DropdownMenu>
+                    }
+                </div>
+            )
+        },
+        cell: ({ row }) => {
+            const course = row.original
+
+            const deleteConf = () => {
+                deleteCourse(course.id)
+            }
+            return (
+                <div className={csx["table-body-actions"]}>
+                    <CourseActions data={course} onDelete={deleteConf} />
                 </div>
             )
         }

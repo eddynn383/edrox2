@@ -1,5 +1,7 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prismadb"
+import { simulateDelay } from "@/lib/utils";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 type ChapterBodyType = {
@@ -22,12 +24,12 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        const courseOwner = await prisma.course.findUnique({
-            where: {
-                id: courseId,
-                createdById: session.user.id,
-            }
-        })
+        // const courseOwner = await prisma.course.findUnique({
+        //     where: {
+        //         id: courseId,
+        //         createdById: session.user.id,
+        //     }
+        // })
 
         // if (!courseOwner) {
         //     console.log("You are not allowed to create a chapter for this course")
@@ -58,22 +60,61 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
             }
         })
 
+        console.log("SETTED CHAPTER (DATA): ", chapter)
+
         return Response.json(chapter)
+
     } catch (error) {
-        // console.log(error)
+        console.error(error)
         return null
     }
 }
 
 export const getAllChapters = async () => {
-    try {        
+    try {
         const chapters = await prisma.chapter.findMany()
-    
-        return chapters
+
+        console.log("GET ALL CHAPTERS (DATA): ", chapters)
+
+        return chapters;
+
     } catch (error) {
-        // console.log(error)
+        console.error(error)
         return null;
     }
+}
+
+export const getAllChaptersLazy = async (page: number) => {
+    try {
+        const chapters = await prisma.chapter.findMany({
+            orderBy: { position: 'asc' },
+            take: 12,
+            skip: (page - 1) * 12,
+        })
+
+        console.log("GET ALL CHAPTERS LAZY (DATA): ", chapters)
+
+        return chapters;
+
+    } catch (error) {
+        console.error(error)
+        return null;
+    }
+}
+
+// needs to be reviewed
+export async function reorderChapters(
+    updates: { id: string; position: number }[]
+) {
+    const transaction = updates.map((update) =>
+        prisma.chapter.update({
+            where: { id: update.id },
+            data: { position: update.position }
+        })
+    )
+
+    await prisma.$transaction(transaction)
+    revalidatePath('/chapters')
 }
 
 export const getPublishdedChapters = async () => {
@@ -86,12 +127,13 @@ export const getPublishdedChapters = async () => {
                 createdAt: 'asc',
             },
         })
-        
-        // console.log(chapters)
 
-        return chapters
+        console.log("GET PUBLISHED CHAPTERS (DATA): ", chapters)
+
+        return chapters;
+
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return null;
     }
 }
@@ -107,12 +149,13 @@ export const getPublishdedChaptersById = async (id: string) => {
                 createdAt: 'asc',
             },
         })
-        
-        // console.log(chapters)
 
-        return chapters
+        console.log("GET PUBLISHED CHAPTERS BY ID (DATA): ", chapters)
+
+        return chapters;
+
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return null;
     }
 }
@@ -128,12 +171,13 @@ export const getPublishdedChaptersByCourseId = async (courseId: string) => {
                 createdAt: 'asc',
             },
         })
-        
-        // console.log(chapters)
 
-        return chapters
+        console.log("GET PUBLISHED CHAPTERS BY COURSE ID (DATA): ", chapters)
+
+        return chapters;
+
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return [];
     }
 }
@@ -148,17 +192,22 @@ export const getAllChaptersByCourseId = async (courseId: string) => {
                 createdAt: 'asc',
             },
         })
-        
-        // console.log(chapters)
 
-        return chapters
+        if (process.env.NODE_ENV === "development") {
+            await simulateDelay(3000); // 3 seconds delay
+        }
+
+        console.log("GET ALL CHAPTERS BY COURSE ID (DATA): ", chapters)
+
+        return chapters;
+
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return [];
     }
 }
 
-export const getChapterById = async ( id: string ) => {
+export const getChapterById = async (id: string) => {
     try {
         const chapter = await prisma.chapter.findUnique({
             where: {
@@ -166,14 +215,17 @@ export const getChapterById = async ( id: string ) => {
             }
         })
 
+        console.log("GET CHAPTER BY ID (DATA): ", chapter)
+
         return chapter;
+
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return null;
     }
 }
 
-export const getChaptersCountByCourseId = async ( courseId: string) => {
+export const getChaptersCountByCourseId = async (courseId: string) => {
     try {
         const chapter = await prisma.chapter.aggregate({
             where: {
@@ -182,14 +234,17 @@ export const getChaptersCountByCourseId = async ( courseId: string) => {
             _count: true
         })
 
-        return chapter._count
+        console.log("COUNT CHAPTERS BY COURSE ID (DATA): ", chapter._count)
+
+        return chapter._count;
+
     } catch (error) {
-        // console.log(error)
+        console.log(error)
         return null;
     }
 }
 
-export const getChaptersSumDurationByCourseId = async ( courseId: string) => {
+export const getChaptersSumDurationByCourseId = async (courseId: string) => {
     try {
         const chapter = await prisma.chapter.aggregate({
             where: {
@@ -200,9 +255,38 @@ export const getChaptersSumDurationByCourseId = async ( courseId: string) => {
             }
         })
 
-        return chapter._sum.duration === null ? 0 : chapter._sum.duration
+        return chapter._sum.duration === null ? 0 : chapter._sum.duration;
+
     } catch (error) {
-        // console.log(error)
+        console.log(error)
+        return null;
+    }
+}
+
+export const editChapterById = async (id: string, body: any) => {
+    try {
+        const session = await auth()
+        const user = session?.user
+
+        if (!session) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        console.log("Edit Course Body: ", body)
+
+        const editedChapter = await prisma.chapter.update({
+            where: {
+                id
+            },
+            data: body
+        })
+
+        console.log("EDIT CHAPTER BY ID (DATA): ", editedChapter)
+
+        return editedChapter;
+
+    } catch (error) {
+        console.log(error)
         return null;
     }
 }

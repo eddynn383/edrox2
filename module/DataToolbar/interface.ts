@@ -4,4 +4,5 @@ export interface DataToolbarProps<TData> {
     table: Table<TData>;
     showTableColumnsEdit?: boolean;
     showFilterToggle?: boolean;
+    target?: string;
 }

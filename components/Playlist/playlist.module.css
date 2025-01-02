@@ -5,22 +5,30 @@
 .list {
     display: flex;
     flex-direction: column;
-    gap: var(--playlist-list-gap, var(--gap-100, 4px));
+    gap: var(--playlist-list-gap, var(--gap-200, 8px));
     list-style: none;
     padding: 0;
 }
 
 .list-item {
-    border: 1px solid var(--playlist-list-item-border-color, var(--primary-background-200));
-    padding: var(--playlist-list-item-padding-y, var(--padding-300, 12px)) var(--playlist-list-item-padding-x, var(--padding-400, 16px));
     border-radius: var(--playlist-list-item-border-radius, var(--radius-400, 8px));
+    /* border: 1px solid var(--playlist-list-item-border-color, var(--primary-background-200));
+    padding: var(--playlist-list-item-padding-y, var(--padding-300, 12px)) var(--playlist-list-item-padding-x, var(--padding-200, 8px));
 
     &:hover {
         background-color: var(--playlist-list-item-background-hover, var(--primary-background-200));
         color: var(--playlist-list-item-text-hover, var(--primary-text-400));
+    } */
+
+    &[data-active="true"] {
+        border: 2px solid var(--playlist-list-item-active-border-color, var(--accent-brand-400));
     }
 
+    display: flex;
+    width: 100%;
+
 }
+
 .list-item-wrapper {
     display: flex;
     gap: var(--list-item-wrapper-gap, var(--gap-200, 8px));

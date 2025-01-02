@@ -35,7 +35,7 @@ export const ConfirmModal = ({ children, onConfirm }: ConfirmModalProps) => {
                 <AlertDialogFooter>
                     <AlertDialogCancel asChild>
                         <div>
-                            <Button shade="200">Cancel</Button>
+                            <Button>Cancel</Button>
                         </div>
                     </AlertDialogCancel>
                     <AlertDialogAction asChild>

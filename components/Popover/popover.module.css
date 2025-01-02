@@ -1,0 +1,73 @@
+.trigger {
+    background-color: transparent;
+}
+
+.content {
+    background-color: var(--popover-content-background, var(--primary-background-200));
+    border-color: var(--popover-content-border-color, var(--primary-background-300));
+    border-width: var(--popover-content-border-width, 1px);
+    border-style: var(--popover-content-border-style, solid);
+    border-radius: var(--popover-content-radius, var(--radius-400, 8px));
+    color: var(--popover-content-text-color, var(--primary-text-500));
+    padding: var(--popover-content-padding, var(--padding-400, 16px));
+    width: 18rem;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fade-in 0.2s;
+    z-index: 50;
+
+    &[data-state="open"] {
+        opacity: 1;
+        animation: fade-in 0.2s, slide-in 0.3s;
+    }
+
+    &[data-state="closed"] {
+        opacity: 0;
+        animation: fade-out 0.2s;
+    }
+
+}
+
+.close {
+    position: absolute;
+    top: var(--popover-close-position-top, var(--padding-400, 16px));
+    right: var(--popover-close-position-right, var(--padding-400, 16px));
+    padding: 4px;
+    background: transparent;
+    border: none;
+    color: var(--popover-close-text-color, var(--primary-text-500));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color .3s ease-in-out;
+
+    &:hover {
+        color: var(--popover-close-text-color, var(--primary-text-100));
+    }
+
+    &>svg {
+        width: var(--popover-close-icon-width, var(--size-400, 16px));
+        height: var(--popover-close-icon-height, var(--size-400, 16px));
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

@@ -12,7 +12,7 @@ import { NewCourseSchema } from "@/schemas";
 import { FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 import courseSX from "./course.module.css"
 
-export const CourseCreationForm = ({className, course, categories, actions, onOpen}: CourseCreationFormProps) => { 
+export const CourseCreationForm = ({ className, course, categories, actions, onOpen }: CourseCreationFormProps) => {
     const router = useRouter()
     const [isPending, startTransition] = useTransition();
     const form = useForm<z.infer<typeof NewCourseSchema>>({
@@ -26,7 +26,7 @@ export const CourseCreationForm = ({className, course, categories, actions, onOp
     const titleState = form.getFieldState("title")
     const titleStatus = !titleState.invalid ? "default" : "fail";
 
-    
+
     const categoriesState = form.getFieldState("category")
     const categoriesStatus = !categoriesState.invalid ? "default" : "fail";
 
@@ -34,16 +34,16 @@ export const CourseCreationForm = ({className, course, categories, actions, onOp
         if (course) {
             startTransition(() => {
                 updateCourse(course.id, values).then((data) => {
-                    
+
                     if (data?.error) {
-                        toast.error(data.error, { position: 'bottom-center'});
+                        toast.error(data.error, { position: 'bottom-center' });
                     }
-        
+
                     if (data?.success) {
                         onOpen(false)
-                        toast.success(data.success, { position: 'bottom-center'});
+                        toast.success(data.success, { position: 'bottom-center' });
                     }
-        
+
                 }).catch((error) => toast.error(error.message))
             })
         }
@@ -53,14 +53,14 @@ export const CourseCreationForm = ({className, course, categories, actions, onOp
                 const courseId = course.data.id
 
                 if (data?.error) {
-                    toast.error(data.error, { position: 'bottom-center'});
+                    toast.error(data.error, { position: 'bottom-center' });
                 }
 
                 if (data?.success) {
                     onOpen(false)
                     form.reset();
-                    router.push(`/admin/courses/edit/${courseId}`);
-                    toast.success(data.success, { position: 'bottom-center'});
+                    router.push(`/management/courses/${courseId}/edit`);
+                    toast.success(data.success, { position: 'bottom-center' });
                 }
 
             }).catch((error) => toast.error(error.message))
@@ -82,20 +82,17 @@ export const CourseCreationForm = ({className, course, categories, actions, onOp
                                             <FormLabel>Title</FormLabel>
                                             <FormMessage />
                                         </FormRowDetails>
-                                        {/* <div className={csx["form-row-details"]} style={{"display": "flex", "gap": "8px", "justifyContent": "space-between"}}>
-                                        </div> */}
                                         <FormRowFields>
                                             <FormControl>
-                                                {/* <div className={csx["form-field"]}> */}
-                                                    <Input
-                                                        {...field}
-                                                        shade="200"
-                                                        type="text"
-                                                        name="title"
-                                                        placeholder="Eg. Introduction in front-end technologies"
-                                                        status={titleStatus}
-                                                    />
-                                                {/* </div> */}
+                                                <Input
+                                                    {...field}
+                                                    shade="200"
+                                                    type="text"
+                                                    name="title"
+                                                    mode="outline"
+                                                    placeholder="Eg. Introduction in front-end technologies"
+                                                    status={titleStatus}
+                                                />
                                             </FormControl>
                                         </FormRowFields>
                                     </FormItem>
@@ -111,16 +108,13 @@ export const CourseCreationForm = ({className, course, categories, actions, onOp
                                         <FormLabel>Category</FormLabel>
                                         <FormMessage />
                                     </FormRowDetails>
-                                    {/* <div className={csx["form-row-details"]} style={{"display": "flex", "gap": "8px", "justifyContent": "space-between"}}>
-                                    </div> */}
                                     <FormRowFields>
                                         <FormControl>
-                                            {/* <div className={csx["form-field"]}> */}
                                             <Select name="category" value={field.value} onValueChange={field.onChange} >
                                                 <SelectTrigger mode="outline" size="M" shade="200" status={categoriesStatus} {...field}>
                                                     <SelectValue placeholder="Select category" />
                                                 </SelectTrigger>
-                                                <SelectContent side="top" shade="200">
+                                                <SelectContent side="top" mode="outline" shade="200">
                                                     {categories.map((item: any) => (
                                                         <SelectItem key={item.id} value={item.id}>
                                                             {item.name}
@@ -128,7 +122,6 @@ export const CourseCreationForm = ({className, course, categories, actions, onOp
                                                     ))}
                                                 </SelectContent>
                                             </Select>
-                                            {/* </div> */}
                                         </FormControl>
                                     </FormRowFields>
                                 </FormItem>

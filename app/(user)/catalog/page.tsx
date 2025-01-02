@@ -7,13 +7,16 @@ import CatalogToolbar from "@/module/CatalogToolbar";
 import Category from "@/module/Category";
 import psx from "@/styles/page.module.scss"
 import csx from "@/styles/module.module.scss"
+import { auth } from "@/auth";
+
+type SearchParams = Promise<{
+    title: string;
+    categoryId: string;
+    viewport: string;
+}>
 
 interface CatalogPageProps {
-    searchParams: {
-        title: string;
-        categoryId: string;
-        viewport: string;
-    }
+    searchParams: SearchParams;
 };
 
 const SkeletonCatalog = () => {
@@ -34,16 +37,23 @@ const SkeletonCatalog = () => {
     )
 }
 
-const CatalogPage = async ({ searchParams }: CatalogPageProps) => {
-    const courses = await getPublishdedCourses({...searchParams});  
+const CatalogPage = async (props: CatalogPageProps) => {
+
+    const searchParams = await props.searchParams;
+
+    const courses = await getPublishdedCourses({ ...searchParams });
     const categories = await getAllCategories()
+
+    const session = await auth();
+    const user = session?.user;
+    const role = user?.role;
     // console.log(searchParams.viewport)
     // console.log("CATALOG COURSES: ", courses)
 
     return (
         <>
             <section className={psx["body-toolbar"]}>
-                <CatalogToolbar pageTitle="Catalog" />
+                <CatalogToolbar pageTitle="Catalog" role={role} />
             </section>
             <section className={psx["body-content"]}>
                 <div className={psx["body-content-left"]}>

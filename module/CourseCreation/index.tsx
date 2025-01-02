@@ -7,16 +7,16 @@ import { CourseCreationProps } from "./interface";
 import { useState } from "react";
 import dialog from "@/components/Dialog/dialog.module.css"
 
-export const CourseCreation = ({categories}: CourseCreationProps) => {
+export const CourseCreation = ({ categories }: CourseCreationProps) => {
     const [open, setOpen] = useState(false);
 
-    return ( 
-        <Dialog 
-            open={open} 
+    return (
+        <Dialog
+            open={open}
             onOpenChange={setOpen}
         >
             <DialogTrigger asChild>
-                <Button mode="solid" variant="accent" status="default" size="M" >
+                <Button mode="solid" variant="accent" status="brand" size="M" >
                     <Plus /> New
                 </Button>
             </DialogTrigger>
@@ -26,17 +26,17 @@ export const CourseCreation = ({categories}: CourseCreationProps) => {
                     <DialogDescription>Use the fields below to create a new course</DialogDescription>
                 </DialogHeader>
                 <DialogBody>
-                    <CourseCreationForm 
+                    <CourseCreationForm
                         className={dialog.form}
-                        categories={categories} 
+                        categories={categories}
                         actions={
                             <DialogFooter>
+                                <Button mode="solid" variant="accent" status="brand" type="submit">Create</Button>
                                 <DialogClose asChild>
-                                    <Button shade="200" >Cancel</Button>
+                                    <Button mode="outline">Cancel</Button>
                                 </DialogClose>
-                                <Button variant="accent" type="submit">Create</Button>
                             </DialogFooter>
-                        } 
+                        }
                         onOpen={setOpen}
                     />
                 </DialogBody>

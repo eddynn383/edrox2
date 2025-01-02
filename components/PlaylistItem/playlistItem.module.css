@@ -1,34 +1,55 @@
 .container {
     display: flex;
     align-items: center;
-    gap: var(--playlist-item-gap, var(--gap-400, 16px));
+    gap: var(--playlist-item-gap, var(--gap-200, 8px));
     text-decoration: none;
-    color: var(--playlist-item-text-default, var(--primary-text-400));
     width: 100%;
+    background-color: var(--playlist-list-item-background, var(--primary-background-200));
+    border: 1px solid var(--playlist-list-item-border-color, var(--primary-background-200));
+    padding-block: var(--playlist-list-item-padding-block, var(--padding-200, 8px));
+    padding-inline: var(--playlist-list-item-padding-left, var(--padding-400, 16px)) var(--playlist-list-item-padding-right, var(--padding-200, 8px));
+    border-radius: var(--playlist-list-item-border-radius, var(--radius-400, 8px));
+    color: var(--playlist-item-text-default, var(--primary-text-400));
+    min-height: 56px;
 
-    .status { 
+    &:hover {
+        background-color: var(--playlist-list-item-background-hover, var(--primary-background-200));
+        color: var(--playlist-list-item-text-hover, var(--primary-text-400));
+    }
+
+    &[data-active="true"] {
+        border: 1px solid var(--playlist-list-item-active-border-color, var(--accent-brand-400));
+        background-color: var(--playlist-list-item-active-background, var(--accent-brand-400));
+    }
+
+    .status {
         display: flex;
-        padding: var(--playlist-item-status-padding, var(--padding-100, 4px)); 
-        
+        padding: var(--playlist-item-status-padding, var(--padding-100, 4px));
+
         &[data-status="completed"] {
             color: var(--playlist-item-status-completed, var(--accent-success-400));
         }
+
         &[data-status="in-progress"] {
             color: var(--playlist-item-status-progress, var(--accent-warning-400));
         }
+
         &[data-status="not-started"] {
             color: var(--playlist-item-status-not-started, var(--primary-text-600));
         }
-        & > svg {
+
+        &>svg {
             width: var(--playlist-item-status-width, var(--size-400, 16px));
             height: var(--playlist-item-status-height, var(--size-400, 16px));
         }
     }
 
     .title {
-        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
         align-self: center;
         justify-content: flex-start;
+        flex-grow: 1;
     }
 
     .duration {
@@ -39,6 +60,15 @@
     .state {
         display: flex;
         align-items: center;
+    }
+
+    .drag-handle {
+        padding: 4px;
+
+        &>svg {
+            width: 16px;
+            height: 16px;
+        }
     }
 
     .actions {

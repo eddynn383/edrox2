@@ -26,31 +26,31 @@ export const UploadImage = ({ currentImage, onChange, endpoint }: UploadImagePro
         setFiles(acceptedFiles);
     }, []);
 
-    const { startUpload, isUploading, permittedFileInfo } = useUploadThing(endpoint, {
+    const { startUpload, isUploading, routeConfig } = useUploadThing(endpoint, {
 
-            onClientUploadComplete: (res) => {
-                onChange(res?.[0].url);
-                setFileUrl(res?.[0].url)
-                setFileKey(res?.[0].key)
-                setUploadFiles(res)
-                setUploadComplete(true)
-                setUploadProgress(0)
-            },
-            onUploadError: (error: Error) => {
-                toast.error(`${error?.message}`, { position: "bottom-center" });
-            },
-            onUploadBegin: () => {
-                // console.log("Upload gas begun")
-            },
-            onUploadProgress: (p: number) => {
-                setUploadProgress(p)
-                // console.log(`Upload progress is on: ${uploadProgress}`)
-            },  
+        onClientUploadComplete: (res) => {
+            onChange(res?.[0].url);
+            setFileUrl(res?.[0].url)
+            setFileKey(res?.[0].key)
+            setUploadFiles(res)
+            setUploadComplete(true)
+            setUploadProgress(0)
         },
+        onUploadError: (error: Error) => {
+            toast.error(`${error?.message}`, { position: "bottom-center" });
+        },
+        onUploadBegin: () => {
+            // console.log("Upload gas begun")
+        },
+        onUploadProgress: (p: number) => {
+            setUploadProgress(p)
+            // console.log(`Upload progress is on: ${uploadProgress}`)
+        },
+    },
     );
 
-    const fileTypes = permittedFileInfo?.config
-        ? Object.keys(permittedFileInfo?.config)
+    const fileTypes = routeConfig
+        ? Object.keys(routeConfig)
         : [];
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -59,13 +59,13 @@ export const UploadImage = ({ currentImage, onChange, endpoint }: UploadImagePro
     });
 
     return (
-        <div className={uploadImage.container} {...getRootProps()} style={{"width": "100%"}}>
-            <Cover src={currentImage} alt="cover-image" width={400} height={200} style={{"width": "100%"}} />
+        <div className={uploadImage.container} {...getRootProps()} style={{ "width": "100%" }}>
+            <Cover src={currentImage} alt="cover-image" width={400} height={200} style={{ "width": "100%" }} />
             {
                 uploadProgress === 0 &&
                 <label className={uploadImage.label} ref={labelRef} data-image="empty" >
-                    <input 
-                        {...getInputProps()} 
+                    <input
+                        {...getInputProps()}
                         className="sr-only"
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             if (!e.target.files) return;
@@ -74,7 +74,7 @@ export const UploadImage = ({ currentImage, onChange, endpoint }: UploadImagePro
                         }}
                     />
                     <Button variant="accent" size="S" type="button">
-                        <UploadIcon /> 
+                        <UploadIcon />
                         <span>Choose Image</span>
                     </Button>
                 </label>

@@ -23,7 +23,7 @@ const Metadata = () => {
     const form = useForm<z.infer<typeof CourseMetadataSchema>>({
         resolver: zodResolver(CourseMetadataSchema),
         defaultValues: {
-            key: "", 
+            key: "",
             value: ""
         }
     });
@@ -36,7 +36,7 @@ const Metadata = () => {
         const dataValidation = CourseMetadataSchema.safeParse(values)
         // console.log("data: ", data)
         // console.log(dataValidation)
-        
+
         // if (data[data.length - 1].key) {
         //     // form.setError("key", () => {
         //     //     return error: "bla bla bla"
@@ -48,7 +48,7 @@ const Metadata = () => {
 
         if (!dataValidation.success) {
             // console.log("not works")
-            return { error: "Invalid email!"}
+            return { error: "Invalid email!" }
         }
 
         setData([...data, { key: "", value: "" }]);
@@ -79,11 +79,11 @@ const Metadata = () => {
         setData(updatedData)
     }
 
-    return ( 
+    return (
         <div className={sxm["metadata"]}>
             <div className={sxm["metadata-content"]}>
                 {
-                    data.map((row, i) => (                        
+                    data.map((row, i) => (
                         <div className={sxm["metadata-row"]} key={i}>
                             {/* <Input sizes="S" shade="200" name="key" value={row.key} placeholder="Key" onChange={(e) => changeHandler(e, i)} />
                             <Input sizes="S" shade="200" name="value" value={row.value} placeholder="Value" onChange={(e) => changeHandler(e, i)} /> */}
@@ -119,9 +119,9 @@ const Metadata = () => {
                 }
                 <p>{JSON.stringify(data)}</p>
             </div>
-            <Button variant="primary" shade="200" size="S" content="icon" type="submit" ><Plus /></Button>
+            <Button variant="primary" size="S" content="icon" type="submit" ><Plus /></Button>
         </div>
     );
 }
- 
+
 export default Metadata;

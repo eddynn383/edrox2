@@ -5,11 +5,11 @@ export const newProgress = async (courseId: string, chapterId: string, isComplet
     console.log("chapter ID: ", chapterId)
     const content = await setProgress(chapterId, isCompleted)
 
-    const data =  await content?.json()
+    const data = await content?.json()
 
-    revalidatePath(`/admin/courses/edit/${courseId}/chapter/${chapterId}`)
+    revalidatePath(`/management/courses/edit/${courseId}/chapter/${chapterId}`)
 
-    return { 
+    return {
         data,
         success: `This chapter ${chapterId} was succesfully set in progress`
     }

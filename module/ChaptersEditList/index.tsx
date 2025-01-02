@@ -21,20 +21,20 @@ const Chapter = ({ id, title, isPublished }: ChapterProps) => {
 
     // console.log(isActive)
 
-    return ( 
+    return (
         <Link href={id} className={csx["chapter-edit"]} data-active={isActive}>
-            <GripVertical className={csx["chapter-edit-grip"]}/>
+            <GripVertical className={csx["chapter-edit-grip"]} />
             <div className={csx["chapter-edit-left"]}>
                 <h3 className={csx["chapter-edit-title"]}>
                     {title}
                 </h3>
             </div>
             <div className={csx["chapter-edit-right"]}>
-                <Switch 
+                <Switch
                     checked={isPublished}
                     onCheckedChange={() => false
                         // editCourse(row.original.id, {isPublished: !published})
-                        
+
                     }
                 />
             </div>
@@ -47,10 +47,10 @@ interface ChaptersEditListProps {
 }
 
 const ChaptersEditList = ({ data }: ChaptersEditListProps) => {
-    return ( 
+    return (
         <ul className={msx["chapters-edit-list"]}>
             {
-                data.map((item: any) => (
+                data?.map((item: any) => (
                     <li className={msx["chapters-edit-list-item"]} key={item.id}>
                         <Chapter id={item.id} title={item.title} isPublished={true} />
                     </li>
@@ -59,5 +59,5 @@ const ChaptersEditList = ({ data }: ChaptersEditListProps) => {
         </ul>
     );
 }
- 
+
 export default ChaptersEditList;

@@ -59,7 +59,7 @@ export const RegisterForm = () => {
     return (
         <div className={module.auth}>
             <div className={module.inner}>
-                <Card variant="ghost" padding="0" radius="0" gap="600" style={{"width": "100%"}}>
+                <Card variant="ghost" padding="0" radius="0" gap="600" style={{ "width": "100%" }}>
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={1}>Welcome!</CardTitle>
                         <CardDescription>Have already an account? <Anchor url="login" mode="text" variant="accent" content="text">Sign in</Anchor></CardDescription>
@@ -100,13 +100,13 @@ export const RegisterForm = () => {
                                                         <RadioGroup orientation="horizontal" onValueChange={field.onChange} defaultValue={field.value}>
                                                             <FormItem className={formStyle["row-radiobox"]} data-selected={field.value === "LEARNER"}>
                                                                 <FormControl>
-                                                                    <RadioGroupItem value="LEARNER" mode="outline" shade="200"/>
+                                                                    <RadioGroupItem value="LEARNER" mode="outline" shade="200" />
                                                                 </FormControl>
                                                                 <FormLabel>Learner</FormLabel>
                                                             </FormItem>
                                                             <FormItem className={formStyle["row-radiobox"]} data-selected={field.value === "TUTOR"}>
                                                                 <FormControl>
-                                                                    <RadioGroupItem value="TUTOR" mode="outline" shade="200"/>
+                                                                    <RadioGroupItem value="TUTOR" mode="outline" shade="200" />
                                                                 </FormControl>
                                                                 <FormLabel>Tutor</FormLabel>
                                                             </FormItem>

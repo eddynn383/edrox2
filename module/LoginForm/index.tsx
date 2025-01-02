@@ -29,7 +29,6 @@ export const LoginForm = () => {
 
     const [showTwoFactor, setShowTwoFactor] = useState(false)
     const [isPending, startTransition] = useTransition();
-    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<any>();
     const [success, setSuccess] = useState<any>();
 
@@ -43,8 +42,6 @@ export const LoginForm = () => {
         }
     });
 
-    console.log("formState", form.formState.isLoading)
-
     const emailState = form.getFieldState("email")
     const emailStatus = !emailState.invalid ? "default" : "fail";
     const passwordState = form.getFieldState("password")
@@ -53,9 +50,8 @@ export const LoginForm = () => {
     const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         setError("");
         setSuccess("");
-        
+
         startTransition(() => {
-            setIsLoading(true)
             login(values, callbackUrl).then((data) => {
                 // console.log(data)
                 if (data?.error) {
@@ -72,21 +68,13 @@ export const LoginForm = () => {
                     setShowTwoFactor(true)
                 }
             }).catch(() => setError("Something went wrong!"))
-            setIsLoading(false)
         })
     }
-
-    useEffect(() => {
-        console.log("isPending", isPending)
-        console.log("IsLoading", isLoading)
-
-    }, [isLoading, isPending])
-
 
     return (
         <div className={module.auth}>
             <div className={module.inner}>
-                <Card variant="ghost" padding="0" radius="0" gap="600" style={{"width": "100%"}}>
+                <Card mode="solid" variant="ghost" padding="0" radius="0" gap="600" style={{ "width": "100%" }}>
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Welcome back!</CardTitle>
                         <CardDescription>Don&apos;t have an account yet? <Anchor url="register" mode="text" variant="accent" content="text">Sign up</Anchor></CardDescription>
@@ -206,7 +194,7 @@ export const LoginForm = () => {
                                         )
                                     }
                                 </FormRows>
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">{isPending ? <Spinner /> : "Sign In"}</Button>
+                                <Button variant="accent" status="default" mode="solid" size="M" type="submit" style={{ "minWidth": "100px" }}>{isPending ? <Spinner /> : "Sign In"}</Button>
                             </form>
                         </Form>
                     </CardContent>

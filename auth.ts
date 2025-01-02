@@ -6,7 +6,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "@/auth.config";
 import { prisma } from "@/lib/prismadb";
 import { JWT } from "next-auth/jwt";
-import { getUserById } from "@/data/user";
+import { getUserById } from "@/data/users";
 import { getTwoFactorConfirmationByUserId } from "@/data/twoFactorConfirmation";
 import { getAccountByUserId } from "./data/account";
 import { UserRole } from "@prisma/client";
@@ -25,13 +25,13 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
     interface JWT {
-        role?: UserRole;    
+        role?: UserRole;
         isOAuth: boolean;
     }
 }
 
 export const {
-    handlers: { GET, POST },
+    handlers,
     auth,
     signIn,
     signOut
@@ -56,7 +56,7 @@ export const {
         async signIn({ user, account }) {
             // console.log("SIGNIN CB: ", {user})
             if (account?.provider !== "credentials") return true;
-            
+
             if (!user.id) return false;
             const existingUser = await getUserById(user.id);
 
@@ -107,10 +107,10 @@ export const {
 
             const existingUser = await getUserById(token.sub)
             // console.log("JWT: ", existingUser)
-            if(!existingUser) return token;
+            if (!existingUser) return token;
 
             const existingAccount = await getAccountByUserId(existingUser.id);
-            
+
             token.isOAuth = !!existingAccount;
             token.name = existingUser.name;
             token.email = existingUser.email;
@@ -127,3 +127,4 @@ export const {
     },
     ...authConfig,
 });
+

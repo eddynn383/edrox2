@@ -9,6 +9,10 @@ export const delayData = (data: any, milliseconds: any) => {
     });
 }
 
+export function simulateDelay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const convertToURL = (title: string) => {
     return title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 };
@@ -23,7 +27,7 @@ export const formatDate = ({ dateValue, dateFormat }: DateFormatOptions): string
     return format(dateValue, dateFormat);
 };
 
-export const convertDuration = (durationInMiliseconds: number, shortFormat=true) => {
+export const convertDuration = (durationInMiliseconds: number, shortFormat = true) => {
     const seconds = durationInMiliseconds > 1000 ? Math.floor(durationInMiliseconds / 1000) : 0
     const remainingSeconds = seconds % 60
     const minutes = seconds > 60 ? Math.floor(seconds / 60) : 0
@@ -36,7 +40,7 @@ export const convertDuration = (durationInMiliseconds: number, shortFormat=true)
     const h = remainingHours < 10 ? `0${remainingHours}` : remainingHours
 
     const duration = shortFormat ? `${remainingHours > 0 ? `${h}h` : ``} ${m}m ${s}s` : `${remainingHours > 0 ? `${h} h<span className="sr-only">ours -</span>` : ``} ${m} m<span className="sr-only">inutes -</span> ${s} s<span className="sr-only">econds</span>`
-    
+
     return duration;
 };
 
@@ -48,4 +52,8 @@ export const formatFileSize = (bytes: number) => {
     const formattedSize = parseFloat((bytes / Math.pow(1024, i)).toFixed(2));
 
     return `${formattedSize} ${sizes[i]}`;
+}
+
+export function randomElement<T>(array: Array<T>): T {
+    return array[Math.floor(Math.random() * array.length)]
 }

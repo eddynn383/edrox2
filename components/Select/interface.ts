@@ -6,6 +6,7 @@ export interface SelectTriggerProps extends React.ComponentPropsWithoutRef<typeo
     shade?: Shade;
     size?: Size;
     status?: Status;
+    showText?: boolean;
 }
 
 export interface SelectScrollUpButtonProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton> {
@@ -17,6 +18,7 @@ export interface SelectScrollDownButtonProps extends React.ComponentPropsWithout
 }
 
 export interface SelectContentProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {
+    mode?: Mode;
     shade?: Shade;
     size?: Size;
 }

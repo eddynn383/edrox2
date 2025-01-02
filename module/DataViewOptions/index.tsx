@@ -8,7 +8,7 @@ export function DataViewOptions<TData>({ table }: DataViewOptionsProps<TData>) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button mode="outline" size="M" shade="200" content="icon" >
+                <Button mode="outline" size="M" content="icon" >
                     <Columns />
                 </Button>
             </DropdownMenuTrigger>
@@ -16,14 +16,14 @@ export function DataViewOptions<TData>({ table }: DataViewOptionsProps<TData>) {
                 <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {
-                table.getAllColumns().filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
-                    .map((column) => {
-                        return (
-                            <DropdownMenuCheckboxItem key={column.id} checked={column.getIsVisible()} onCheckedChange={(value) => column.toggleVisibility(!!value)} >
-                                {column.id}
-                            </DropdownMenuCheckboxItem>
-                        )
-                    })
+                    table.getAllColumns().filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
+                        .map((column) => {
+                            return (
+                                <DropdownMenuCheckboxItem key={column.id} checked={column.getIsVisible()} onCheckedChange={(value) => column.toggleVisibility(!!value)} >
+                                    {column.id}
+                                </DropdownMenuCheckboxItem>
+                            )
+                        })
                 }
             </DropdownMenuContent>
         </DropdownMenu>

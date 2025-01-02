@@ -10,15 +10,15 @@ import { CourseSummary } from "@/module/CourseSummary";
 import psx from "@/styles/page.module.scss";
 import msx from "@/styles/module.module.scss";
 
+type Params = Promise<{ courseId: string }>
 
 interface PageCourseIdProps {
-    params: { 
-        courseId: string
-    }
+    params: Params
 }
 
 
-const PageCourseId = async ({ params }: PageCourseIdProps) => {
+const PageCourseId = async (props: PageCourseIdProps) => {
+    const params = await props.params
     const courseId = params.courseId
     const course = await getCourseById(courseId);
     const countChapters = await getChaptersCountByCourseId(courseId)
@@ -48,7 +48,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
     if (!course) {
         // console.log("Course not exists")
         return null
-    }   
+    }
 
     return (
         <>
@@ -56,7 +56,7 @@ const PageCourseId = async ({ params }: PageCourseIdProps) => {
                 <section className={psx["body-toolbar"]} data-page="course-details">
                     <div className={psx["body-toolbar-left"]}>
                         <Suspense fallback={<p>Loading course summary...</p>}>
-                            <CourseSummary course={course} metadata={[]} /> 
+                            <CourseSummary course={course} metadata={[]} />
                         </Suspense>
                     </div>
                     <div className={psx["body-toolbar-right"]}>
