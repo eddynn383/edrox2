@@ -128,7 +128,7 @@ export const ContentForm = ({ courseId, chapterId, chapters, currentChapter, edi
                         playlist === "off" &&
                         <ChapterSelection courseId={courseId} chapters={chapters} chapterId={chapterId} />
                     }
-                    <Button content="icon" size="S" shade="200" onClick={playlistHandler}>
+                    <Button content="icon" size="S" onClick={playlistHandler}>
                         {
                             playlist === "on" &&
                             <PanelRightClose />

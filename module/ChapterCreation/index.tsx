@@ -50,4 +50,4 @@ const ChapterCreation = ({ chapters, courseId }: ChapterCreationProps) => {
     );
 }
 
-export default ChapterCreation
+export { ChapterCreation }

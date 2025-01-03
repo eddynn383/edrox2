@@ -44,7 +44,7 @@ export const ResetPassForm = () => {
         <div className={module.auth}>
             <div className={module.inner}>
                 <Anchor url="/auth/login" mode="outline" variant="primary" content="icon-text" size="S"><ChevronLeft /> Back</Anchor>
-                <Card variant="ghost" padding="0" radius="0" gap="600">
+                <Card variant="ghost" padding="0" radius="0" gap="600" mode="solid">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Forgot your password?</CardTitle>
                         <CardDescription>Add your email address below to request a password reset</CardDescription>

@@ -14,7 +14,7 @@ import { getEnrolment } from "@/data/enrolment"
 import { getProgress } from "@/data/progress"
 import { Anchor as Link } from "../Link"
 
-const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", layout = "columns", mode = "solid", variant = "primary", shade = "100" }: CourseCardProps) => {
+const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", view = "grid", mode = "solid", variant = "primary", shade = "100" }: CourseCardProps) => {
     const { image } = data
     const coverURL = image?.url ? image.url : "https://images.pexels.com/photos/2457284/pexels-photo-2457284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
@@ -34,7 +34,7 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", layout
     console.log("avgRating data: ", avgRating)
 
     return (
-        <Card className={card.container} mode={mode} variant={variant} shade={shade} padding="0" radius="200">
+        <Card className={card.container} mode={mode} variant={variant} shade={shade} view={view} padding="0" radius="200">
             <Link href={`${detailsURL}/${data.id}`} >
                 <CardHeader className={card.header}>
                     <Cover className={card.cover} src={coverURL} alt={data.title} width={250} height={100} />
@@ -88,8 +88,6 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", layout
                             }
                         </div>
                         <div className={card["footer-right"]}>
-                            <Link href="test">test</Link>
-
                             <Button size="S" type="button" mode="text" variant="accent"><ShoppingCart />Add to cart</Button>
                         </div>
                     </CardFooter>
@@ -104,7 +102,6 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", layout
                             </div>
                         </div>
                         <div className={card["footer-right"]}>
-                            <Link href="test">test</Link>
                             <Button type="button" mode="text" variant="accent" size="S"><BookOpen />Open course</Button>
                         </div>
                     </CardFooter>

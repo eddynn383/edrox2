@@ -1,8 +1,8 @@
-import { ScrollArea, Text } from "@/components";
+import { Heading, ScrollArea, Text } from "@/components";
 import { ChapterSkeleton } from "@/components/Skeleton";
 import { getAllChaptersByCourseId } from "@/data/chapters";
-import ChapterCreation from "@/module/ChapterCreation";
-import CourseChapters from "@/module/CourseChapters";
+import { ChapterCreation } from "@/module/ChapterCreation";
+import CourseChapters from "@/module/CourseViewChapters";
 import page from "@/styles/page.module.css"
 import { Suspense } from "react";
 
@@ -26,15 +26,15 @@ export default async function ParticipantsLayout({ children, params }: Participa
             </div>
             <div className={page["section-right"]}>
                 <div className={page["section-header"]} >
-                    <Text type="heading" size="H2">Groups</Text>
+                    <Heading rank={3}>Groups</Heading>
                     <ChapterCreation courseId={courseId} />
                 </div>
                 <div className={page["section-body"]}>
                     <ScrollArea>
                         <div className={page.inner}>
-                            <Suspense fallback={<ChapterSkeleton />}>
+                            {/* <Suspense fallback={<ChapterSkeleton />}>
                                 <CourseChapters courseId={courseId} chapters={chapters} />
-                            </Suspense>
+                            </Suspense> */}
                         </div>
                     </ScrollArea>
                 </div>

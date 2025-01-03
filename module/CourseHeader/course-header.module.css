@@ -2,15 +2,16 @@
     display: flex;
     flex-direction: column;
     gap: var(--course-header-gap, var(--gap-300, 12px));
-    @media only screen and (min-width: 1025px) {
+    /* @media only screen and (min-width: 1025px) {
         padding-right: calc(var(--course-header-card-width, 380px) + 40px);
-    }
+    } */
 }
 
 .title,
 .description {
-    & > h1,
-    & > p {
+
+    &>h1,
+    &>p {
         display: inline;
     }
 

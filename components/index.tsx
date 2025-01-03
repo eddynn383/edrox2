@@ -38,7 +38,6 @@ import { Search } from "./Search";
 import { SkeletonCard, SkeletonMenu, SkeletonProfile } from "./Skeleton";
 import { SortableItem } from "./SortableItem";
 import { Star } from "./Star";
-import { Stepper as StepperOld } from "./Stepper(old)";
 import { Stepper } from "./Stepper";
 import { Surface } from "./Surface";
 import { Switch } from "./Switch";
@@ -46,9 +45,10 @@ import { Table, TableBody, TableCaption, TableTd, TableFooter, TableTh, TableHea
 import { Text } from "./Text";
 import { Textarea } from "./Textarea";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue } from "./Select";
-import { Playlist as PlaylistOld } from "./Playlist(old)";
 import { Playlist } from "./Playlist";
+import { PlaylistDnD } from "./PlaylistDnD";
 import { PlaylistItem } from "./PlaylistItem";
+import { PlaylistItemDnD } from "./PlaylistItemDnD";
 import { PlaylistToggle } from "./PlaylistToggle";
 import { Popover, PopoverTrigger, PopoverContent } from "./Popover";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./Tabs";
@@ -148,7 +148,9 @@ export {
     NavigationToggle,
     PageTitle,
     Playlist,
+    PlaylistDnD,
     PlaylistItem,
+    PlaylistItemDnD,
     PlaylistToggle,
     Profile,
     Progress,
@@ -177,7 +179,6 @@ export {
     SkeletonProfile,
     SortableItem,
     Star,
-    StepperOld,
     Stepper,
     Surface,
     Switch,

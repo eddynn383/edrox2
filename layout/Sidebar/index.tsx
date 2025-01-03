@@ -4,12 +4,13 @@ import { useContext, useState } from "react"
 import { Button } from "@/components/Button"
 import { NavigationMenu } from "@/components/NavigationMenu"
 import { NavigationToggle } from "@/components/NavigationToggle"
-import msx from "@/styles/module.module.scss"
 
 // replace this import with data from database
 import { learnerMenu, adminMenu, userTools } from "@/lib/dummy-data"
 import useScreenSize from "@/hooks/useScreenSize"
 import { ToggleContext } from "@/context/toggleContext"
+import msx from "@/styles/module.module.scss"
+import sidebar from "./sidebar.module.css"
 
 interface SidebarProps {
     user?: any;
@@ -33,18 +34,18 @@ export const Sidebar = ({ user, device }: SidebarProps) => {
         <>
             {
                 !mobile &&
-                <aside className={msx["sidebar"]} data-device="web" {...customAttrs}>
-                    <div className={msx["sidebar-content"]}>
-                        <div className={msx["sidebar-body"]}>
+                <aside className={sidebar.container} data-device="web" {...customAttrs}>
+                    <div className={sidebar.content}>
+                        <div className={sidebar.body}>
                             <NavigationMenu data={learnerMenu} state={state} />
                             {user?.role === "ADMIN" &&
                                 <>
-                                    <span className={msx["sidebar-separator"]}></span>
+                                    <span className={sidebar.separator}></span>
                                     <NavigationMenu data={adminMenu} state={state} />
                                 </>
                             }
                         </div>
-                        <div className={msx["sidebar-footer"]}>
+                        <div className={sidebar.footer}>
                             <NavigationMenu data={userTools} state={state} />
                         </div>
                     </div>
@@ -53,15 +54,15 @@ export const Sidebar = ({ user, device }: SidebarProps) => {
             {
                 mobile &&
                 <>
-                    <aside className={msx["sidebar"]} data-device="mobile" {...customAttrs}>
-                        <div className={msx["sidebar-overlay"]} onClick={handleState} />
-                        <div className={msx["sidebar-content"]}>
-                            <div className={msx["sidebar-body"]}>
+                    <aside className={sidebar.container} data-device="mobile" {...customAttrs}>
+                        <div className={sidebar.overlay} onClick={handleState} />
+                        <div className={sidebar.content}>
+                            <div className={sidebar.body}>
                                 <NavigationMenu data={learnerMenu} state={state} />
-                                <span className={msx["sidebar-separator"]}></span>
+                                <span className={sidebar.separator}></span>
                                 <NavigationMenu data={adminMenu} state={state} />
                             </div>
-                            <div className={msx["sidebar-footer"]}>
+                            <div className={sidebar.footer}>
                                 <NavigationMenu data={userTools} state={state} />
                             </div>
                         </div>

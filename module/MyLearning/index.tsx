@@ -16,7 +16,7 @@ const MyLearning = async ({ courses }: MyLearningProps) => {
                             {
                                 courses.map((item: any) => (
                                     <li key={item.id}>
-                                        <CourseCard cardId={item?.id} data={item.course} variant="primary" shade="100" />
+                                        <CourseCard cardId={item?.id} data={item.course} variant="primary" shade="100" mode="solid" />
                                     </li>
                                 ))
                             }

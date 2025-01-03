@@ -20,6 +20,13 @@ export default middleware((req) => {
     }
     console.log("MIDDLEWARE PATH: ", nextUrl.pathname.includes("edit/content"))
 
+    if (nextUrl.pathname.includes("/catalog")) {
+        if (!nextUrl.searchParams.has('view')) {
+            nextUrl.searchParams.set('view', "grid")
+            return NextResponse.redirect(nextUrl)
+        }
+    }
+
     if (nextUrl.pathname.includes("management/courses") && nextUrl.pathname.includes("edit/content")) {
         if (!nextUrl.searchParams.has('playlist')) {
             nextUrl.searchParams.set('playlist', "on")

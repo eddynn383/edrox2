@@ -2,7 +2,7 @@ import { getAllChaptersByCourseId, getChapterById, getPublishdedChaptersByCourse
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Button, Playlist, PlaylistToggle, RichTextEditor, ScrollArea, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
 import { Heading, Type, Image as ImageIcon, Film, Home, PanelRightOpen } from "lucide-react";
 import { ChapterHeader } from "@/module/ChapterHeader";
-import { getContentByChapterId } from "@/data/content";
+// import { getContentByChapterId } from "@/data/content";
 import { ChapterDetails } from "@/module/ChapterDetails";
 import psx from "@/styles/page.module.scss"
 import msx from "@/styles/module.module.scss"
@@ -40,11 +40,11 @@ const ChapterContentActions = () => {
 }
 
 const Page = async ({ params, searchParams }: NewChapterPageProps) => {
-    const chapterContent = await getContentByChapterId(params.chapterId)
+    // const chapterContent = await getContentByChapterId(params.chapterId)
 
-    console.log("chapterContent: ", chapterContent)
+    // console.log("chapterContent: ", chapterContent)
 
-    return chapterContent
+    return null
 }
 
 export default Page;

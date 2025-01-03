@@ -6,7 +6,7 @@ import { ToggleContext } from "@/context/toggleContext"
 import { Bell, ShoppingCart } from "lucide-react"
 import useScreenSize from "@/hooks/useScreenSize"
 import header from "./layout-header.module.css"
-import { CreateManyModal } from "@/module/CreateManyModal"
+// import { CreateManyModal } from "@/module/CreateManyModal"
 
 interface LayoutHeaderProps {
     user: any;
@@ -35,7 +35,7 @@ export const LayoutHeader = ({ user, device, onLogout }: LayoutHeaderProps) => {
                 <Logo src="/logo.svg" alt="Edrox Logo" width={200} height={42} />
             </div>
             <div className={header.right}>
-                <CreateManyModal />
+                {/* <CreateManyModal /> */}
                 <Button type="button" mode="text" size="M" content="icon" aria-label="Shopping Cart">
                     <ShoppingCart />
                 </Button>

@@ -1,7 +1,9 @@
 export interface PlaylistItemProps {
-    courseId?: string;
-    item: any;
-    edit?: boolean;
-    isActive?: boolean;
-    dragHandleProps?: any;
+    id: string;
+    title: string;
+    status?: string;
+    duration?: number;
+    description?: string;
+    href?: string;
+    showDescription?: boolean;
 }

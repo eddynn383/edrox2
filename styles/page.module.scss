@@ -155,8 +155,8 @@
     &-toolbar {
         position: relative;
         display: flex;
-        flex-direction: column;
-        gap: var(--page-toolbar-gap, var(--gap-300, 12px));
+        // flex-direction: column;
+        // gap: var(--page-toolbar-gap, var(--gap-300, 12px));
         padding: var(--page-toolbar-padding-y, var(--padding-400, 16px)) var(--page-toolbar-padding-x, var(--padding-400, 16px));
         border-bottom: var(--page-toolbar-border-bottom, 1px solid var(--primary-background-200));
         z-index: 0;
@@ -214,12 +214,11 @@
             }
         }
 
-        @media only screen and (min-width: 1025px) {
-            padding: var(--page-toolbar-padding-y, var(--padding-400, 16px)) var(--page-toolbar-padding-x, var(--padding-600, 24px));
-            &[data-page="course-details"] {
-                gap: 0;
-            }
-        }
+        // @media only screen and (min-width: 1025px) {
+        //     &[data-page="course-details"] {
+        //         gap: 0;
+        //     }
+        // }
         @media only screen and (max-width: 600px) {
             &[data-page="course-details"] {
                 flex-direction: column;

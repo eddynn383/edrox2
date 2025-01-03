@@ -1,11 +1,6 @@
-import { Heading, ScrollArea, Text } from "@/components";
-import { ChapterSkeleton } from "@/components/Skeleton";
+
 import { getAllChaptersByCourseId } from "@/data/chapters";
-import { delayData } from "@/lib/utils";
-import ChapterCreation from "@/module/ChapterCreation";
-import CourseChapters from "@/module/CourseChapters";
 import page from "@/styles/page.module.css"
-import { Suspense } from "react";
 
 type SearchParams = Promise<{ playlist: string }>
 
@@ -19,12 +14,9 @@ interface ChapterLayoutProps {
 }
 
 
-const ChapterLayout = async (props: ChapterLayoutProps) => {
+export default async function ChapterLayout(props: ChapterLayoutProps) {
 
-    const { params, children, sidepanel } = await props;
-
-    const courseId = params.courseId;
-    const chapters = await getAllChaptersByCourseId(courseId)
+    const { children, sidepanel } = props;
 
     return (
         <>
@@ -38,4 +30,3 @@ const ChapterLayout = async (props: ChapterLayoutProps) => {
     );
 }
 
-export default ChapterLayout;

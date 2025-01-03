@@ -40,12 +40,12 @@ export const EmailValidationForm = () => {
     return (
         <div className={module.auth}>
             <div className={module.inner} >
-                <Card variant="ghost" padding="0" radius="0" gap="600">
-                    <CardHeader style={{"display": "flex", "flexDirection": "column", "gap": "8px"}}>
+                <Card variant="ghost" padding="0" radius="0" gap="600" mode="solid">
+                    <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Email Validation</CardTitle>
                         <CardDescription>Wait until your email is validated!</CardDescription>
                     </CardHeader>
-                    <CardContent>    
+                    <CardContent>
                         {
                             !success && error && (
                                 <Alert mode="text" status="fail">

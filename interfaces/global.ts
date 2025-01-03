@@ -98,6 +98,9 @@ export type Image = {
     uploadedById: string;
 }
 
+export type Grid = string
+export type List = string
+
 
 // id          String       @id @default(uuid())
 // title       String

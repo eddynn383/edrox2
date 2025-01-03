@@ -188,20 +188,18 @@ const Toolbar = ({ editor }: ToolbarProps) => {
         setIsLinkDialogOpen(false);
     };
 
+    const editorUpdateHandler = () => {
+        editor.on("update", updateButtonStates);
+        editor.on("selectionUpdate", updateButtonStates);
 
+        return () => {
+            editor.off("update", updateButtonStates);
+            editor.off("selectionUpdate", updateButtonStates);
+        };
+    }
 
     useEffect(() => {
-        // Update button states when the editor state changes
-        if (editor) {
-            editor.on("update", updateButtonStates);
-            editor.on("selectionUpdate", updateButtonStates);
-
-            // Cleanup the event listeners when the component is unmounted
-            return () => {
-                editor.off("update", updateButtonStates);
-                editor.off("selectionUpdate", updateButtonStates);
-            };
-        }
+        editorUpdateHandler()
     }, [editor]);
 
 

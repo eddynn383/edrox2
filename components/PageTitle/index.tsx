@@ -7,7 +7,6 @@ const PageTitle = ({ title }: PageTitleProps) => {
 
     return (
         <Heading rank={1}>{title}</Heading>
-        // <h1 className={page.title}>{title}</h1>
     );
 }
 

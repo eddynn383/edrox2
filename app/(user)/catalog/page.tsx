@@ -13,6 +13,7 @@ type SearchParams = Promise<{
     title: string;
     categoryId: string;
     viewport: string;
+    view: "grid" | "list";
 }>
 
 interface CatalogPageProps {
@@ -61,7 +62,7 @@ const CatalogPage = async (props: CatalogPageProps) => {
                         <Category data={categories} current={searchParams.categoryId} />
                     </Suspense>
                     <Suspense fallback={<SkeletonCatalog />}>
-                        <Catalog courses={courses} />
+                        <Catalog courses={courses} layout={searchParams.view} />
                     </Suspense>
                 </div>
             </section>

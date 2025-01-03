@@ -6,6 +6,36 @@
     background-color: var(--header-background, rgba(0, 0, 0, 0.025));
     border-bottom: 1px solid var(--primary-background-200);
 
+
+    &[data-device="tablet"],
+    &[data-device="mobile"] {
+        display: none;
+    }
+
+    /* @media only screen and (max-width: 1024px) {
+        &[data-device="tablet"] {
+            display: flex;
+        }
+
+        &[data-device="desktop"],
+        &[data-device="mobile"] {
+            display: none;
+        }
+    } */
+
+    @media only screen and (max-width: 767px) {
+        width: 100vw;
+
+        &[data-device="mobile"] {
+            display: flex;
+        }
+
+        &[data-device="desktop"],
+        &[data-device="tablet"] {
+            display: none;
+        }
+    }
+
     @media (prefers-color-scheme: dark) {
         background-color: var(--header-background, rgba(255, 255, 255, 0.025));
     }
@@ -24,7 +54,21 @@
         display: grid;
         grid-template-columns: 1fr auto;
         align-items: center;
+    }
+
+    &:has(> .right) {
+        gap: var(--header-column-gap, var(--gap-400, 16px));
+    }
+
+    &:has(> .row) {
+        display: flex;
+        flex-direction: column;
         gap: var(--header-row-gap, var(--gap-200, 8px));
+    }
+
+    .left,
+    .right {
+        display: flex;
     }
 }
 
@@ -41,7 +85,6 @@
     display: flex;
     flex: 1 1 0%;
     align-items: center;
-    justify-content: flex-end;
     gap: var(--header-right-gap, var(--gap-300, 12px));
 }
 

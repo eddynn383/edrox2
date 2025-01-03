@@ -3,22 +3,22 @@ import module from "@/styles/module.module.css"
 
 
 const AuthErrorPage = () => {
-    
-    return ( 
+
+    return (
         <div className={module.auth}>
-            
+
             <div className={module.inner}>
-                <Card variant="ghost" padding="0" radius="0" gap="600">
-                    <CardHeader style={{"display": "flex", "flexDirection": "column", "gap": "8px"}}>                        
+                <Card mode="solid" variant="ghost" padding="0" radius="0" gap="600">
+                    <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Something went wrong!</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <Anchor url="/auth/login" mode="solid" variant="accent" content="text">Back to login</Anchor>   
+                        <Anchor url="/auth/login" mode="solid" variant="accent" content="text">Back to login</Anchor>
                     </CardContent>
                 </Card>
             </div>
         </div>
     );
 }
- 
+
 export default AuthErrorPage;

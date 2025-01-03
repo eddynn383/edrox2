@@ -59,7 +59,7 @@ export const RegisterForm = () => {
     return (
         <div className={module.auth}>
             <div className={module.inner}>
-                <Card variant="ghost" padding="0" radius="0" gap="600" style={{ "width": "100%" }}>
+                <Card variant="ghost" padding="0" radius="0" gap="600" style={{ "width": "100%" }} mode="solid">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={1}>Welcome!</CardTitle>
                         <CardDescription>Have already an account? <Anchor url="login" mode="text" variant="accent" content="text">Sign in</Anchor></CardDescription>

@@ -5,6 +5,27 @@
     height: 100%;
 }
 
+.course-details {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    height: 100%;
+
+    &[data-device="mobile"] {
+        display: none;
+    }
+
+    @media only screen and (max-width: 767px) {
+        &[data-device="mobile"] {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &[data-device="desktop"] {
+            display: none;
+        }
+    }
+}
+
 .inner {
     padding: 16px;
 }
@@ -16,12 +37,15 @@
 }
 
 .content {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto;
     flex: 1 1 auto;
     overflow: hidden;
 
     .section-right {
         border-left: 1px solid var(--page-section-right-border-color, var(--primary-background-200));
+        min-width: 280px;
+        max-width: 400px;
 
         .section-inner {
             padding: var(--page-toolbar-padding-y, 0) var(--page-toolbar-padding-x, var(--padding-400, 16px));
@@ -46,7 +70,12 @@
 .left,
 .right {
     display: flex;
+    flex-direction: column;
+}
+
+.left {
     width: 100%;
+    border-right: 1px solid var(--page-left-border-color, var(--primary-background-200));
 
     .inner {
         padding: var(--padding-400, 16px);
@@ -58,13 +87,8 @@
     }
 }
 
-.left,
-.section-right {
-    max-width: 320px;
-}
-
-.left {
-    border-right: 1px solid var(--page-left-border-color, var(--primary-background-200));
+.right {
+    width: auto;
 }
 
 .center {
@@ -107,6 +131,10 @@
         opacity: 0;
         visibility: hidden;
     }
+}
+
+.section-right {
+    width: auto;
 }
 
 .empty {

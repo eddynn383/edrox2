@@ -7,8 +7,10 @@ import { ArrowRightToLine, Home } from "lucide-react";
 import { redirect } from "next/navigation";
 import msx from "@/styles/module.module.scss"
 import psx from "@/styles/page.module.scss"
-import { getContentByChapterId } from "@/data/content";
+// import { getContentByChapterId } from "@/data/content";
 import { Chapter } from "@/interfaces/global";
+import { PageHeader } from "@/module/PageHeader";
+import { SidePanelToggle } from "@/module/ActionButtons";
 
 type Params = Promise<{
     courseId: string,
@@ -31,16 +33,16 @@ const PageChapterId = async (props: PageChapterIdProps) => {
     const courseDetails = await getCourseById(params.courseId);
     const playlist = await getPublishdedChaptersByCourseId(params.courseId)
     const chapterDetails = await getChapterById(params.chapterId)
-    const chapterContent = await getContentByChapterId(params.chapterId)
+    // const chapterContent = await getContentByChapterId(params.chapterId)
     const chapterTitle = chapterDetails?.title
 
-    if (!searchParams.playlist) {
-        if (searchParams.viewport !== "mobile") {
-            redirect("?playlist=on")
-        } else {
-            redirect("?playlist=off")
-        }
-    }
+    // if (!searchParams.playlist) {
+    //     if (searchParams.viewport !== "mobile") {
+    //         redirect("?playlist=on")
+    //     } else {
+    //         redirect("?playlist=off")
+    //     }
+    // }
 
     if (!chapterTitle) {
         return
@@ -49,47 +51,44 @@ const PageChapterId = async (props: PageChapterIdProps) => {
 
     const progressValue = 75
 
+    const PageActions = [{
+        id: "a1",
+        element: <SidePanelToggle />
+    }]
+
+    const PageBreadcrumb = [{
+        id: "b1",
+        href: "/",
+        title: "Home",
+        children: <Home />,
+        separator: "true"
+    }, {
+        id: "b2",
+        href: "/catalog",
+        title: "Catalog",
+        children: "Home",
+        separator: "true"
+    }, {
+        id: "b3",
+        href: `/catalog/course/${params.courseId}`,
+        title: courseDetails?.title,
+        children: "Catalog",
+        separator: "true"
+    }, {
+        id: "b4",
+        title: "Chapter details",
+        children: courseDetails?.title,
+        separator: "false"
+    }]
+
     return (
         <>
-            <section className={psx["body-toolbar"]} data-page="chapter-details">
-                <div className={psx["body-toolbar-row"]}>
-                    <Breadcrumb className={msx["chapter-details-breadcrumb"]}>
-                        <BreadcrumbList>
-                            <BreadcrumbItem>
-                                <BreadcrumbLink href="/" title="Home"><Home /></BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbLink href="/catalog" title="Catalog">Catalog</BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbLink href={`/catalog/course/${params.courseId}`} title={courseDetails?.title}>{courseDetails?.title}</BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator />
-                            <BreadcrumbItem>
-                                <BreadcrumbPage>Chapter details</BreadcrumbPage>
-                            </BreadcrumbItem>
-                        </BreadcrumbList>
-                    </Breadcrumb>
-                </div>
-                <div className={psx["body-toolbar-row"]}>
-                    <div className={psx["body-toolbar-left"]}>
-                        {/* <div className={msx["chapter-details-header"]}> */}
-
-                        <PageTitle title={chapterTitle} />
-                        {/* </div> */}
-                    </div>
-                    <div className={psx["body-toolbar-right"]}>
-                        <PlaylistToggle />
-                    </div>
-                </div>
-            </section>
+            <PageHeader title={chapterTitle || ""} breadcrumb={PageBreadcrumb} actions={PageActions} />
             <section className={psx["body-content"]}>
                 <div className={psx["body-content-left"]}>
                     <Progress value={progressValue} style={{ "height": "2px" }} data-status={"success"} />
                     <ScrollArea>
-                        <ChapterDetails data={chapterContent} courseId={params.courseId} chapterId={params.chapterId} edit={false} />
+                        <ChapterDetails data={chapterDetails} courseId={params.courseId} chapterId={params.chapterId} edit={false} />
                     </ScrollArea>
                     <div className={psx["body-content-actions"]}>
                         <Button mode="solid" variant="accent" size="M">Next Chapter</Button>
@@ -99,13 +98,9 @@ const PageChapterId = async (props: PageChapterIdProps) => {
                     searchParams.playlist === "on" &&
                     <div className={psx["body-content-right"]}>
                         <ScrollArea>
-                            <Playlist items={playlist} onReorder={function (items: Chapter[]): void {
-                                throw new Error("Function not implemented.");
-                            }} onEdit={function (id: string): void {
-                                throw new Error("Function not implemented.");
-                            }} onDelete={function (id: string): void {
-                                throw new Error("Function not implemented.");
-                            }} />
+                            <Playlist
+                                items={playlist}
+                            />
                         </ScrollArea>
                     </div>
                 }

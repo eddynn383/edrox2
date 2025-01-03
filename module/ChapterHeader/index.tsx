@@ -26,54 +26,19 @@ interface ChapterHeaderProps {
     edit?: boolean;
 }
 
-export const ChapterHeader = async ({chapter, edit=false}: ChapterHeaderProps) => {
-    const {id, title, description} = chapter
+export const ChapterHeader = async ({ chapter, edit = false }: ChapterHeaderProps) => {
+    const { id, title, description } = chapter
 
-    return ( 
+    return (
         <div className={msx["chapter-header"]}>
+            <div className={msx["chapter-header-title"]}>
+                <PageTitle title={title} />
+            </div>
             {
-                !edit &&
-                <>
-                    <div className={msx["chapter-header-title"]}>
-                        <PageTitle title={title}/>
-                    </div>
-                    {
-                        description &&
-                        <div className={msx["chapter-header-description"]}>
-                            <p>{description}</p>
-                        </div>
-                    }
-                </>
-            }
-            {
-                edit && 
-                <>
-                    <div className={msx["chapter-header-title"]}>
-                        <PageTitle title={title}/>
-                        {/* <div className={msx["course-header-title-edit"]}>
-                            <CourseTitleModal id={id} value={{chapter, categories}} />
-                        </div> */}
-                    </div>
-                    {/* <div className={msx["course-header-description"]}>
-                        {
-                            description && 
-                            <>
-                                <p>{description}</p>
-                                <div className={msx["course-header-description-edit"]}>
-                                    <CourseDescriptionModal id={id} value={description} />
-                                </div>
-                            </>
-                        }
-                        {
-                            !description && 
-                            <>
-                                <div className={msx["course-header-description-add"]}>
-                                    <CourseDescriptionModal id={id} />
-                                </div>
-                            </>
-                        }
-                    </div> */}
-                </>
+                description &&
+                <div className={msx["chapter-header-description"]}>
+                    <p>{description}</p>
+                </div>
             }
         </div>
     );

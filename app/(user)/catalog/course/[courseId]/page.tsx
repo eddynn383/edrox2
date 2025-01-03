@@ -1,14 +1,20 @@
 import { Suspense } from "react";
 import { Home } from "lucide-react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, ScrollArea } from "@/components";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, Heading, Playlist, ScrollArea } from "@/components";
 import { getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters";
 import { getCourseById } from "@/data/courses";
 import { getCourseRatingAvg, getCourseRatingCount } from "@/data/ratings";
-import { CourseDetails } from "@/module/CourseDetails";
+import { CourseDetails } from "@/module/CourseViewDetails";
 import { CourseHeader } from "@/module/CourseHeader";
 import { CourseSummary } from "@/module/CourseSummary";
 import psx from "@/styles/page.module.scss";
+import page from "@/styles/page.module.css";
 import msx from "@/styles/module.module.scss";
+import { PageHeader } from "@/module/PageHeader";
+import { SidePanelToggle } from "@/module/ActionButtons";
+import { PageBody } from "@/module/PageBody";
+import { ChapterSkeleton } from "@/components/Skeleton";
+import CourseViewChapters from "@/module/CourseViewChapters";
 
 type Params = Promise<{ courseId: string }>
 
@@ -30,7 +36,6 @@ const PageCourseId = async (props: PageCourseIdProps) => {
     const avgRating = await getCourseRatingAvg(courseId)
     const countRating = await getCourseRatingCount(courseId)
 
-
     const parsedAvgRating = avgRating ? parseFloat(avgRating.toString()) : 0
     const parsedCountRating = countRating ? parseFloat(countRating.toString()) : 0
 
@@ -40,9 +45,9 @@ const PageCourseId = async (props: PageCourseIdProps) => {
     }
 
     const chapters = {
-        chaptersData: course?.chapters || [],
-        countChapters: countChapters || 0,
-        sumOfChaptersDuration: sumOfChaptersDuration || 0
+        data: course?.chapters || [],
+        count: countChapters || 0,
+        duration: sumOfChaptersDuration || 0
     }
 
     if (!course) {
@@ -50,10 +55,29 @@ const PageCourseId = async (props: PageCourseIdProps) => {
         return null
     }
 
+    const PageBreadcrumb = [{
+        id: "b1",
+        href: "/",
+        title: "Home",
+        children: <Home />,
+        separator: "true"
+    }, {
+        id: "b2",
+        href: "/catalog",
+        title: "Catalog",
+        children: "Catalog",
+        separator: "true"
+    }, {
+        id: "b3",
+        title: "Course details",
+        children: "Course details",
+        separator: "false"
+    }]
+
     return (
         <>
-            <ScrollArea>
-                <section className={psx["body-toolbar"]} data-page="course-details">
+
+            {/* <section className={psx["body-toolbar"]} data-page="course-details">
                     <div className={psx["body-toolbar-left"]}>
                         <Suspense fallback={<p>Loading course summary...</p>}>
                             <CourseSummary course={course} metadata={[]} />
@@ -79,15 +103,34 @@ const PageCourseId = async (props: PageCourseIdProps) => {
                             <CourseHeader course={course} rating={rating} />
                         </div>
                     </div>
-                </section>
-                <section className={psx["body-content"]}>
-                    <div className={psx["body-content-left"]}>
+                </section> */}
+            <div className={page["course-details"]} data-device="desktop">
+                <div className={page.left}>
+                    <PageHeader title={course.title || ""} category={course.category} rating={rating} description={course.description || ""} breadcrumb={PageBreadcrumb} device="desktop" />
+                    <PageBody orientation="vertical">
+                        <div className={page.inner}>
+                            <Suspense fallback={<ChapterSkeleton />}>
+                                <CourseViewChapters courseId={courseId} chapters={chapters} />
+                            </Suspense>
+                        </div>
+                    </PageBody>
+                </div>
+                <div className={page.right}>
+                    <CourseSummary course={course} metadata={[]} />
+                </div>
+            </div>
+            <div className={page["course-details"]} data-device="mobile">
+                <ScrollArea>
+                    <PageHeader title={course.title || ""} category={course.category} rating={rating} description={course.description || ""} breadcrumb={PageBreadcrumb} image={course?.image || undefined} device="mobile" />
+                    <PageBody orientation="vertical">
                         <Suspense fallback={<p>Loading course details...</p>}>
-                            <CourseDetails courseId={courseId} tutors={course?.tutors} chapters={chapters} metadata={[]} />
+                            {/* <CourseDetails courseId={courseId} tutors={course?.tutors} chapters={chapters} metadata={[]} /> */}
                         </Suspense>
-                    </div>
-                </section>
-            </ScrollArea>
+                    </PageBody>
+                </ScrollArea>
+            </div>
+
+            {/* </ScrollArea> */}
         </>
     )
 }

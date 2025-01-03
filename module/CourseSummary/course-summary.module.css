@@ -1,22 +1,30 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: var(--course-gap, var(--gap-300, 12px));
-    width: var(--course-width, 280px);
+    gap: var(--course-gap, var(--gap-400, 16px));
+    width: var(--course-width, 380px);
+    background-color: var(--course-background-color, var(--primary-background-100));
+    padding: var(--course-padding-y, var(--padding-400, 16px)) var(--course-padding-x, var(--padding-400, 16px));
+    width: 100%;
+    min-width: 412px;
     border-radius: var(--course-border-radius, var(--radius-600, 12px));
-}
 
-/* .top {
-    & > *:[data-device="mobile"] {
-        display: none;
+    @media only screen and (max-width: 1024px) {
+        width: 300px;
+        min-width: auto;
     }
-} */
+
+    @media only screen and (max-width: 800px) {
+        width: 280px;
+        min-width: auto;
+    }
+}
 
 .middle {
     display: flex;
     flex-direction: column;
     gap: var(--course-middle-gap, var(--gap-400, 16px));
-    
+
 }
 
 .breadcrumb {
@@ -81,7 +89,7 @@
             border-color: var(--course-metadata-list-item-color, var(--primary-background-300));
             border-radius: var(--course-metadata-list-item-radius, var(--radius-400, 8px));
         }
-        
+
         .card {
             border: none;
         }
@@ -120,27 +128,6 @@
 }
 
 @media only screen and (min-width: 1025px) {
-    /* &-header { 
-        padding-right: calc(var(--course-width, 380px) + 40px);
-    }
-    &-body {
-        padding-right: calc(var(--course-width, 380px) + 40px);
-    } */
-    .container {
-        position: fixed;
-        top: 94px;
-        right: 24px;
-        gap: var(--course-gap, var(--gap-400, 16px));
-        width: var(--course-width, 380px);
-        background-color: var(--course-background-color, var(--primary-background-100));
-        border-width: var(--course-border-width, 1px);
-        border-style: var(--course-border-style, solid);
-        border-color: var(--course-border-color, var(--primary-background-300));
-        padding: var(--course-padding-y, var(--padding-400, 16px)) var(--course-padding-x, var(--padding-400, 16px));
-        /* @media (prefers-color-scheme: dark) {
-            background-color: var(--course-background-color, var(--primary-background-200));
-        } */
-    }  
 
     .top {
         display: flex;
@@ -156,68 +143,4 @@
         flex-direction: column;
         gap: var(--gap-200, 8px);
     }
-} 
-
-/* @media only screen and (max-width: 1024px) { 
-    &-body {
-        padding: var(--course-details-body-padding-y, var(--padding-400, 16px)) var(--course-details-body-padding-x, var(--padding-400, 16px));  
-        .course-metadata { 
-            display: block; 
-            &-list { 
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-    }
-    &-form {
-        padding: var(--course-details-form-padding-y, var(--padding-400, 16px)) var(--course-details-form-padding-x, var(--padding-400, 16px));
-    }
 }
-
-@media only screen and (max-width: 800px) {
-    &-body {
-        .course-metadata {
-            &-list {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    &-breadcrumb {
-        &-desktop {
-            display: none;
-        }
-        &-mobile {
-            display: block;
-        }
-    }
-
-    &-card {
-        width: 100%;
-        position: relative;
-        z-index: 2;
-        &-top {
-            display: flex;
-            flex-direction: column;
-            gap: var(--gap-400, 16px);
-        }
-        &-bottom {
-            position: relative;
-            z-index: 10;
-        }
-        &-actions {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 16px;
-            background-color: var(--primary-background-100);
-            border-top: 1px solid var(--primary-background-300);
-        }
-    }
-
-    &-body {
-        padding-bottom: 92px !important;
-    }
-} */

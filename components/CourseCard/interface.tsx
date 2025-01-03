@@ -17,5 +17,5 @@ export interface CourseCardProps extends CardProps {
     cardId: string;
     data: Course;
     detailsURL?: string;
-    layout?: "columns" | "rows";
+    // view?: "columns" | "rows";
 }

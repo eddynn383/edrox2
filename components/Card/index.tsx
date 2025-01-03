@@ -5,7 +5,7 @@ import { Heading } from "@/components"
 import csx from "@/styles/component.module.scss";
 import card from "./card.module.css"
 
-const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className = card.container, variant = "primary", mode = "solid", shade = "100", padding = "200", radius = "200", gap = "0", view = "portrait", ...props }, ref) => (
+const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className = card.container, variant = "primary", mode = "solid", shade = "100", padding = "200", radius = "200", gap = "0", view = "grid", ...props }, ref) => (
     <div ref={ref} className={className} data-variant={variant} data-mode={mode} data-shade={shade} data-padding={padding} data-radius={radius} data-gap={gap} data-view={view} {...props} />
 ))
 

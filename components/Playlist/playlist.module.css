@@ -1,11 +1,14 @@
 .container {
     display: block;
+    border: 1px solid var(--playlist-border-color, var(--primary-background-300));
+    border-radius: var(--playlist-border-radius, var(--radius-400, 8px));
+    overflow: hidden;
 }
 
 .list {
     display: flex;
     flex-direction: column;
-    gap: var(--playlist-list-gap, var(--gap-200, 8px));
+    /* gap: var(--playlist-list-gap, var(--gap-100, 4px)); */
     list-style: none;
     padding: 0;
 }

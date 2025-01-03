@@ -1,9 +1,8 @@
-import { Button, ScrollArea, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
-import { getAllChaptersByCourseId, getPublishdedChaptersByCourseId } from "@/data/chapters";
+import { Button } from "@/components";
+import { getAllChaptersByCourseId } from "@/data/chapters";
 import { ChapterSelection } from "@/module/ChapterSelection";
-import page from "@/styles/page.module.css"
 import { PanelRightOpen } from "lucide-react";
-import { redirect } from "next/navigation";
+import page from "@/styles/page.module.css"
 
 interface NewChapterPageProps {
     params: {
@@ -13,7 +12,7 @@ interface NewChapterPageProps {
     searchParams: { [key: string]: string }
 }
 
-const Page = async ({ params, searchParams }: NewChapterPageProps) => {
+export default async function ContentPage({ params, searchParams }: NewChapterPageProps) {
     const courseId = params.courseId
     const chapters = await getAllChaptersByCourseId(courseId)
     console.log("Published chapters: ", chapters)
@@ -37,5 +36,3 @@ const Page = async ({ params, searchParams }: NewChapterPageProps) => {
     )
 
 }
-
-export default Page;

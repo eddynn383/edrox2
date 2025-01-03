@@ -12,7 +12,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     padding?: Size;
     radius?: Size;
     gap?: Size;
-    view?: "portrait" | "landscape";
+    view?: "grid" | "list";
 }
 
 export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {

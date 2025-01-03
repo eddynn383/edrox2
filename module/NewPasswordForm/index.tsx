@@ -46,7 +46,7 @@ export const NewPasswordForm = () => {
         <div className={module.auth}>
             <Anchor url="/auth/login" mode="outline" variant="primary" content="icon-text" size="S"><ChevronLeft /> Back</Anchor>
             <div className={module.inner}>
-                <Card variant="ghost" padding="0" radius="0" gap="600">
+                <Card variant="ghost" padding="0" radius="0" gap="600" mode="solid">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Enter a new password</CardTitle>
                         <CardDescription>Add your new password in the field below</CardDescription>
