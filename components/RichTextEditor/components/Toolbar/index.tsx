@@ -188,19 +188,21 @@ const Toolbar = ({ editor }: ToolbarProps) => {
         setIsLinkDialogOpen(false);
     };
 
-    const editorUpdateHandler = () => {
-        editor.on("update", updateButtonStates);
-        editor.on("selectionUpdate", updateButtonStates);
 
-        return () => {
-            editor.off("update", updateButtonStates);
-            editor.off("selectionUpdate", updateButtonStates);
-        };
-    }
+    // ESTE COMENTAT DIN CAUZA UNEI ERRORI IN BUILD
+    // const editorUpdateHandler = () => {
+    //     editor.on("update", updateButtonStates);
+    //     editor.on("selectionUpdate", updateButtonStates);
 
-    useEffect(() => {
-        editorUpdateHandler()
-    }, [editor]);
+    //     return () => {
+    //         editor.off("update", updateButtonStates);
+    //         editor.off("selectionUpdate", updateButtonStates);
+    //     };
+    // }
+
+    // useEffect(() => {
+    //     editorUpdateHandler()
+    // }, [editor]);
 
 
     return (
