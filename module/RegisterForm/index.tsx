@@ -2,7 +2,6 @@
 
 import * as z from "zod"
 
-import Link from "next/link"
 import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -10,9 +9,7 @@ import { RegisterSchema } from "@/schemas"
 import { CircleAlert, CircleCheck, Eye, EyeOff, Loader2Icon, Lock, Mail, User } from "lucide-react"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
 import { Social } from "../Social"
-import { Alert, AlertDescription, Anchor, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input, Label, RadioGroup, RadioGroupItem } from "@/components"
-import msx from "@/styles/module.module.scss"
-import csx from "@/styles/component.module.scss"
+import { Alert, AlertDescription, Link, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input, Label, RadioGroup, RadioGroupItem } from "@/components"
 import { register } from "@/actions/register"
 import module from "@/styles/module.module.css"
 import formStyle from "@/components/Form/form.module.css"
@@ -62,7 +59,7 @@ export const RegisterForm = () => {
                 <Card variant="ghost" padding="0" radius="0" gap="600" style={{ "width": "100%" }} mode="solid">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={1}>Welcome!</CardTitle>
-                        <CardDescription>Have already an account? <Anchor url="login" mode="text" variant="accent" content="text">Sign in</Anchor></CardDescription>
+                        <CardDescription>Have already an account? <Link href="login" mode="text">Sign in</Link></CardDescription>
                     </CardHeader>
                     <CardContent>
                         {

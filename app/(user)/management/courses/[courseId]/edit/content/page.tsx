@@ -15,7 +15,7 @@ interface NewChapterPageProps {
 export default async function ContentPage({ params, searchParams }: NewChapterPageProps) {
     const courseId = params.courseId
     const chapters = await getAllChaptersByCourseId(courseId)
-    console.log("Published chapters: ", chapters)
+    // console.log("Published chapters: ", chapters)
 
     return (
         <>

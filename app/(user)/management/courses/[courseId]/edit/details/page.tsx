@@ -3,73 +3,38 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetail
 import { getAllCategories } from "@/data/categories";
 import { editCourseById, getCourseById, getCourseSettingsByCourseId } from "@/data/courses"
 import { CourseCreationFullForm } from "@/module/CourseCreationFullForm";
+import { CourseCreationFullForm2 } from "@/module/CourseCreationFullForm2";
 import { CourseSchema } from "@/schemas";
 import page from "@/styles/page.module.css"
 
-// const saveCourse = async (formData: FormData) => {
-//     "use server"
+interface CourseDetailsPage {
+    params: { courseId: string }
+}
 
-//     console.log(formData)
-
-//     const parsed = CourseSchema.safeParse({
-//         id: formData.get('id'),
-//         title: formData.get('title'),
-//         categoryId: formData.get('category'),
-//         description: formData.get('description') || "",
-//     });
-
-//     console.log(parsed)
-
-//     if (!parsed.success) {
-//         return {
-//             errors: parsed.error.flatten().fieldErrors
-//         }
-//     }
-
-//     const { id, ...data } = parsed.data;
-
-//     // const form = Object.fromEntries(formData.entries())
-//     console.log("my data: ", data)
-
-//     await editCourseById(id, data)
-
-
-//     // console.log(form)
-// }
-
-const Page = async ({ params }: { params: { courseId: string } }) => {
+export default async function CourseDetailsPage({ params }: CourseDetailsPage) {
     const { courseId } = params;
-    console.log(courseId)
+    // console.log(courseId)
 
-    let course = await getCourseById(courseId);
+    const course = await getCourseById(courseId);
 
-    console.log("Course: ", course)
+    // console.log("Course: ", course)
 
-    let description = course?.description;
+    // let description = course?.description;
     const categories = await getAllCategories()
 
     const settings = await getCourseSettingsByCourseId(courseId)
 
-    console.log("SETTIGNS IN DETAILS: ", settings)
-    // if (!course) {
-    //     return; 
-    // }
-
-    // const form = useForm<z.infer<typeof NewCourseSchema>>({
-    //     resolver: zodResolver(NewCourseSchema),
-    //     defaultValues: {
-    //         title: course ? course.title : "",
-    //         category: course ? course.categoryId : ""
-    //     }
-    // });
-
-
-
+    // console.log("SETTIGNS IN DETAILS: ", settings)
 
     return (
         <ScrollArea>
             <div className={page.inner}>
-                <CourseCreationFullForm
+                {/* <CourseCreationFullForm
+                    course={course}
+                    categories={categories}
+                    settings={settings}
+                /> */}
+                <CourseCreationFullForm2
                     course={course}
                     categories={categories}
                     settings={settings}
@@ -79,5 +44,3 @@ const Page = async ({ params }: { params: { courseId: string } }) => {
     )
 
 }
-
-export default Page;

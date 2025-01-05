@@ -1,6 +1,264 @@
 .container {
-    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
     margin: 0;
     background: transparent;
     border: none;
+    color: var(--link-color-default, var(--accent-brand-400));
+    transition: color .3s ease-in-out;
+    cursor: pointer;
+
+    &:not(:disabled):hover {
+        color: var(--link-color-hover, var(--accent-brand-500));
+    }
+
+    &[data-size="L"] {
+        font-size: var(--link-l-font-size, var(--size-500, 20px));
+        font-weight: var(--link-l-font-weight, var(--font-weight-400, 400));
+        line-height: var(--link-l-line-height, calc(var(--size-500, 20px) + var(--size-100, 4px) / 2));
+        gap: var(--link-l-gap, var(--gap-300, 12px));
+
+        &>svg {
+            width: var(--link-l-icon-width, var(--size-500, 20px));
+            height: var(--link-l-icon-height, var(--size-500, 20px));
+        }
+
+        &[data-mode="solid"] {
+            border-width: var(--link-l-border-width, var(--link-border-width, 1px));
+            border-style: var(--link-l-border-style, solid);
+            border-radius: var(--link-l-border-radius, var(--radius-600, 12px));
+
+            &[data-content="text"] {
+                padding-top: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--link-l-padding-x, var(--link-l-padding, var(--padding-500, 20px)));
+                padding-right: var(--link-l-padding-x, var(--link-l-padding, var(--padding-500, 20px)));
+            }
+
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--link-l-padding-x, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-right: var(--link-l-padding-x, var(--link-l-padding, var(--padding-400, 16px)));
+            }
+
+            &[data-content="icon-text"] {
+                padding-top: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--link-l-padding-x, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-right: var(--link-l-padding-x, var(--link-l-padding, var(--padding-500, 20px)));
+            }
+
+            &[data-content="text-icon"] {
+                padding-top: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--link-l-padding-x, var(--link-l-padding, var(--padding-500, 20px)));
+                padding-right: var(--link-l-padding-x, var(--link-l-padding, var(--padding-400, 16px)));
+            }
+
+            &[data-content="icon"] {
+                padding-top: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-bottom: var(--link-l-padding-y, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-left: var(--link-l-padding-x, var(--link-l-padding, var(--padding-400, 16px)));
+                padding-right: var(--link-l-padding-x, var(--link-l-padding, var(--padding-400, 16px)));
+                width: var(--link-l-width, var(--size-1400, 56px));
+                height: var(--link-l-height, var(--size-1400, 56px));
+            }
+
+            &:focus:before {
+                border-radius: calc(var(--link-l-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
+
+    }
+
+    &[data-size="M"] {
+        font-size: var(--link-m-font-size, var(--size-400, 16px));
+        font-weight: var(--link-m-font-weight, var(--font-weight-400, 400));
+        line-height: var(--link-m-line-height, 18px);
+        gap: var(--link-m-gap, var(--gap-200, 8px));
+
+        &>svg {
+            width: var(--link-m-icon-width, var(--size-400, 16px));
+            height: var(--link-m-icon-height, var(--size-400, 16px));
+        }
+
+        &[data-mode="solid"] {
+            border-width: var(--link-m-border-width, var(--link-border-width, 1px));
+            border-style: var(--link-m-border-style, solid);
+            border-radius: var(--link-m-border-radius, var(--radius-400, 8px));
+
+            &[data-content="text"] {
+                padding-top: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-bottom: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-left: var(--link-m-padding-x, var(--link-m-padding, var(--padding-400, 16px)));
+                padding-right: var(--link-m-padding-x, var(--link-m-padding, var(--padding-400, 16px)));
+            }
+
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-bottom: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-left: var(--link-m-padding-x, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-right: var(--link-m-padding-x, var(--link-m-padding, var(--padding-300, 12px)));
+            }
+
+            &[data-content="icon-text"] {
+                padding-top: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-bottom: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-left: var(--link-m-padding-x, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-right: var(--link-m-padding-x, var(--link-m-padding, var(--padding-400, 16px)));
+            }
+
+            &[data-content="text-icon"] {
+                padding-top: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-bottom: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-left: var(--link-m-padding-x, var(--link-m-padding, var(--padding-400, 16px)));
+                padding-right: var(--link-m-padding-x, var(--link-m-padding, var(--padding-300, 12px)));
+            }
+
+            &[data-content="icon"] {
+                padding-top: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-bottom: var(--link-m-padding-y, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-left: var(--link-m-padding-x, var(--link-m-padding, var(--padding-300, 12px)));
+                padding-right: var(--link-m-padding-x, var(--link-m-padding, var(--padding-300, 12px)));
+                width: var(--link-m-width, var(--size-1100, 44px));
+                height: var(--link-m-height, var(--size-1100, 44px));
+            }
+
+            &:focus:before {
+                border-radius: calc(var(--link-m-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
+
+    }
+
+    &[data-size="S"] {
+        font-size: var(--link-s-font-size, var(--size-400, 16px));
+        line-height: var(--link-s-line-height, calc(var(--size-400, 16px) + var(--size-100, 4px) / 2));
+        font-weight: var(--link-s-font-weight, var(--font-weight-400, 400));
+
+        gap: var(--link-s-gap, var(--gap-200, 8px));
+
+        &>svg {
+            width: var(--link-s-icon-width, calc(var(--size-400, 16px) + var(--size-100, 4px) / 2));
+            height: var(--link-s-icon-height, calc(var(--size-400, 16px) + var(--size-100, 4px) / 2));
+        }
+
+        &[data-mode="solid"] {
+            border-width: var(--link-s-border-width, var(--link-border-width, 1px));
+            border-style: var(--link-s-border-style, solid);
+            border-radius: var(--link-s-border-radius, var(--radius-400, 8px));
+
+            &[data-content="text"] {
+                padding-top: var(--link-s-padding-y, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--link-s-padding-y, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--link-s-padding-x, var(--link-s-padding, var(--padding-400, 16px)));
+                padding-right: var(--link-s-padding-x, var(--link-s-padding, var(--padding-400, 16px)));
+            }
+
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--link-s-padding-y, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--link-s-padding-y, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--link-s-padding-x, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-right: var(--link-s-padding-x, var(--link-s-padding, var(--padding-200, 8px)));
+            }
+
+            &[data-content="icon-text"] {
+                padding-top: var(--link-s-padding-y, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--link-s-padding-y, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--link-s-padding-x, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-right: var(--link-s-padding-x, var(--link-s-padding, var(--padding-400, 16px)));
+            }
+
+            &[data-content="text-icon"] {
+                padding-top: var(--link-s-padding-y, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-bottom: var(--link-s-padding-y, var(--link-s-padding, var(--padding-200, 8px)));
+                padding-left: var(--link-s-padding-x, var(--link-s-padding, var(--padding-400, 16px)));
+                padding-right: var(--link-s-padding-x, var(--link-s-padding, var(--padding-200, 8px)));
+            }
+
+            &[data-content="icon"] {
+                padding-top: var(--link-s-padding-y, calc(var(--link-s-padding, var(--padding-200, 8px) - var(--link-border-width) * 2)));
+                padding-bottom: var(--link-s-padding-y, calc(var(--link-s-padding, var(--padding-200, 8px) - var(--link-border-width) * 2)));
+                padding-left: var(--link-s-padding-x, calc(var(--link-s-padding, var(--padding-200, 8px) - var(--link-border-width) * 2)));
+                padding-right: var(--link-s-padding-x, calc(var(--link-s-padding, var(--padding-200, 8px) - var(--link-border-width) * 2)));
+                /* width: var(--link-s-width, var(--size-800, 32px));
+                    height: var(--link-s-height, var(--size-800, 32px)); */
+            }
+
+            &:focus:before {
+                border-radius: calc(var(--link-s-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
+    }
+
+    &[data-size="XS"] {
+        font-size: var(--link-xs-font-size, var(--size-300, 12px));
+        line-height: var(--link-xs-line-height, calc(var(--size-300, 12px) + var(--size-100, 4px) / 2));
+        font-weight: var(--link-xs-font-weight, var(--font-weight-400, 400));
+        letter-spacing: var(--link-xs-letter-spacing, var(--letter-spacing-500, 0.5px));
+
+
+        &>svg {
+            width: var(--link-xs-icon-width, var(--size-300, 12px));
+            height: var(--link-xs-icon-height, var(--size-300, 12px));
+        }
+
+        &[data-mode="solid"] {
+            border-width: var(--link-xs-border-width, var(--link-border-width, 1px));
+            border-style: var(--link-xs-border-style, solid);
+            border-radius: var(--link-xs-border-radius, var(--radius-300, 6px));
+
+            &[data-content="text"] {
+                padding-top: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-200, 8px)));
+                padding-right: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-200, 8px)));
+            }
+
+            &[data-content="icon-text-icon"] {
+                padding-top: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-100, 4px)));
+            }
+
+            &[data-content="icon-text"] {
+                padding-top: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-200, 8px)));
+            }
+
+            &[data-content="text-icon"] {
+                padding-top: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-200, 8px)));
+                padding-right: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-100, 4px)));
+            }
+
+            &[data-content="icon"] {
+                padding-top: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-bottom: var(--link-xs-padding-y, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-left: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-100, 4px)));
+                padding-right: var(--link-xs-padding-x, var(--link-xs-padding, var(--padding-100, 4px)));
+                width: var(--link-xs-width, var(--size-600, 24px));
+                height: var(--link-xs-height, var(--size-600, 24px));
+            }
+
+            &:focus:before {
+                border-radius: calc(var(--link-s-border-radius, var(--radius-400, 8px)) + 2px);
+            }
+        }
+
+    }
+
+    &[data-mode="text"] {
+        padding: 0;
+    }
+
+    &[data-mode="solid"] {
+        padding: 16px;
+    }
 }

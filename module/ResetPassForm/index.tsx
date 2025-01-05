@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ResetSchema } from "@/schemas"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
-import { Alert, AlertDescription, Anchor, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input } from "@/components"
+import { Alert, AlertDescription, Link, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input } from "@/components"
 import { reset } from "@/actions/reset"
 import module from "@/styles/module.module.css"
 import formStyle from "@/components/Form/form.module.css"
@@ -43,7 +43,7 @@ export const ResetPassForm = () => {
     return (
         <div className={module.auth}>
             <div className={module.inner}>
-                <Anchor url="/auth/login" mode="outline" variant="primary" content="icon-text" size="S"><ChevronLeft /> Back</Anchor>
+                <Link href="/auth/login" mode="text" size="S"><ChevronLeft /> Back</Link>
                 <Card variant="ghost" padding="0" radius="0" gap="600" mode="solid">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Forgot your password?</CardTitle>

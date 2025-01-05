@@ -16,17 +16,18 @@ import { DatePickerProps } from "./interface"
 
 const DatePicker = ({ type = "single", size = "M" }: DatePickerProps) => {
     const [date, setDate] = React.useState<DateRange | undefined>()
-
+    console.log(date)
     return (
         <Popover>
             <PopoverTrigger asChild>
                 <Button
                     mode="outline"
                     size={size}
-                // className={cn(
-                //     "w-[280px] justify-start text-left font-normal",
-                //     !date && "text-muted-foreground"
-                // )}
+                    // className={cn(
+                    //     "w-[280px] justify-start text-left font-normal",
+                    //     !date && "text-muted-foreground"
+                    // )}
+                    style={{ justifyContent: "flex-start" }}
                 >
                     <CalendarIcon />
                     {date?.from ? (

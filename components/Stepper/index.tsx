@@ -7,14 +7,24 @@ import stepper from "./stepper.module.css"
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import { useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useCourseForm } from "@/hooks/useCourseForm";
+import { useDebouncedCourseSave } from "@/hooks/useAutoSave";
 
-const Step = ({ name, status, href }: StepProps) => {
+const Step = ({ name, status, href, course }: StepProps) => {
     const router = useRouter()
     const pathname = usePathname()
     const current = pathname?.includes(href);
 
+    const { form, formValues } = useCourseForm(course)
+    const { isDirty } = form.formState;
+    const { debouncedSave } = useDebouncedCourseSave(form)
+
     const handleClick = () => {
-        console.log("its clicked")
+        // console.log("its clicked")
+        if (isDirty) return;
+        // debouncedSave(course.id);
 
 
         if (!pathname) return;
@@ -32,7 +42,7 @@ const Step = ({ name, status, href }: StepProps) => {
     )
 }
 
-const Stepper = ({ steps }: StepperProps) => {
+const Stepper = ({ steps, course }: StepperProps) => {
 
     return (
         <nav className={stepper.container}>
@@ -40,7 +50,7 @@ const Stepper = ({ steps }: StepperProps) => {
                 {
                     steps.map((item, idx) => (
                         <li className={stepper.item} key={item.id}>
-                            <Step name={item.name} status={item.status} href={item.url} />
+                            <Step name={item.name} status={item.status} href={item.url} course={course} />
                         </li>
                     ))
                 }
@@ -49,19 +59,19 @@ const Stepper = ({ steps }: StepperProps) => {
     )
 }
 
-const StepperControls = ({ steps }: StepperProps) => {
+const StepperControls = ({ steps, course }: StepperProps) => {
     const router = useRouter()
     const pathname = usePathname()
     const paths = pathname.split('/')
     const currentPath = paths[paths.length - 1]
-    console.log("pathname: ", currentPath)
+    // console.log("pathname: ", currentPath)
+    const { form, formValues } = useCourseForm(course)
 
     const currentStep = steps.find((s) => s.url === currentPath);
     const currentPosition = currentStep?.position || 1
     const nextStep = steps.find((s) => s.position === currentPosition + 1)
     const prevStep = steps.find((s) => s.position === currentPosition - 1)
-    console.log("current step: ", currentStep)
-    // const current = pathname?.includes(steps?.url);
+    // console.log("current step: ", currentStep)
 
 
     const handleGoNext = () => {

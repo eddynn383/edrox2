@@ -29,7 +29,7 @@ export const Dropzone = ({ onChange, endpoint, currentImage }: FileUploadProps) 
         if (currentImage) {
 
             getImage(currentImage).then((data) => {
-                console.log("CURRENT IMAGE (DROPZONE): ", data)
+                // console.log("CURRENT IMAGE (DROPZONE): ", data)
                 setUploadFiles([data])
                 setUploadComplete(true)
             })
@@ -39,7 +39,7 @@ export const Dropzone = ({ onChange, endpoint, currentImage }: FileUploadProps) 
     }, [currentImage]);
 
 
-    console.log("uploadedFiles (DROPZONE): ", uploadedFiles)
+    // console.log("uploadedFiles (DROPZONE): ", uploadedFiles)
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
@@ -49,7 +49,7 @@ export const Dropzone = ({ onChange, endpoint, currentImage }: FileUploadProps) 
 
         onClientUploadComplete: (res) => {
 
-            console.log("RESSSSS: ", res)
+            // console.log("RESSSSS: ", res)
 
             onChange({
                 name: res?.[0].name,

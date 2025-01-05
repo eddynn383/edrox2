@@ -1,4 +1,4 @@
-import { Anchor, Card, CardContent, CardHeader, CardTitle } from "@/components";
+import { Link, Card, CardContent, CardHeader, CardTitle } from "@/components";
 import module from "@/styles/module.module.css"
 
 
@@ -13,7 +13,7 @@ const AuthErrorPage = () => {
                         <CardTitle rank={2}>Something went wrong!</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <Anchor url="/auth/login" mode="solid" variant="accent" content="text">Back to login</Anchor>
+                        <Link href="/auth/login" mode="solid">Back to login</Link>
                     </CardContent>
                 </Card>
             </div>

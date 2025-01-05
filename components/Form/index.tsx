@@ -15,9 +15,9 @@ import {
 import { Label } from "@/components/Label"
 
 import { FormActionsProps, FormItemProps, FormLabelProps, FormMessageProps, FormRowDetailsProps, FormRowFieldsProps, FormRowsProps } from "./interface"
-import sx from "@/styles/component.module.scss"
 import { TriangleAlert } from "lucide-react"
 import form from "./form.module.css"
+import sx from "@/styles/component.module.scss"
 import iconStyle from "@/components/Icon/icon.module.css"
 
 const Form = FormProvider

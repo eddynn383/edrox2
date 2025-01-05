@@ -2,7 +2,6 @@
 
 import * as z from "zod"
 
-import Link from "next/link"
 import { CircleAlert, CircleCheck, Eye, EyeOff, Lock, Mail, RectangleEllipsis } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState, useTransition } from "react"
@@ -11,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { LoginSchema } from "@/schemas"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
 import { Social } from "../Social"
-import { Alert, AlertDescription, Anchor, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Icon, Input } from "@/components"
+import { Alert, AlertDescription, Link, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Icon, Input } from "@/components"
 import { login } from "@/actions/login"
 import msx from "@/styles/module.module.scss"
 import csx from "@/styles/component.module.scss"
@@ -77,7 +76,7 @@ export const LoginForm = () => {
                 <Card mode="solid" variant="ghost" padding="0" radius="0" gap="600" style={{ "width": "100%" }}>
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Welcome back!</CardTitle>
-                        <CardDescription>Don&apos;t have an account yet? <Anchor url="register" mode="text" variant="accent" content="text">Sign up</Anchor></CardDescription>
+                        <CardDescription>Don&apos;t have an account yet? <Link href="register" mode="text">Sign up</Link></CardDescription>
                     </CardHeader>
                     <CardContent>
                         {

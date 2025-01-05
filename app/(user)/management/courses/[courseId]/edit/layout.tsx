@@ -105,20 +105,21 @@ const CourseEditLayout = async ({ children, params }: CourseEditLayoutProps) => 
         // onAction: async () => await goToCourseContent()
     }]
 
+
     return (
         <div className={page["course-edit"]}>
             <PageHeader title={currentCourse?.title || ""} breadcrumb={PageBreadcrumb} actions={PageActions} />
             <PageBody orientation="vertical">
                 <div className={page.toolbar}>
                     <div className={page.inner}>
-                        <Stepper steps={creationSteps} />
+                        <Stepper steps={creationSteps} course={currentCourse} />
                     </div>
                 </div>
                 <div className={page.content}>
                     {children}
                 </div>
                 <div className={page.actions}>
-                    <StepperControls steps={creationSteps} />
+                    <StepperControls steps={creationSteps} course={currentCourse} />
                 </div>
             </PageBody>
         </div>

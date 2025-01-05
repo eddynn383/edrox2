@@ -1,5 +1,10 @@
+import { Size, Status } from "@/interfaces/global";
+
 export interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement | HTMLButtonElement> {
     href?: string;
+    mode?: "solid" | "text";
+    size?: Size;
+    // status?: Status;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 

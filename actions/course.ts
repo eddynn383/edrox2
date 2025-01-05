@@ -76,11 +76,12 @@ export const updateCourse = async (courseId: string, values: z.infer<typeof NewC
     //     },
     // }
 
-    await editCourseById(courseId, validatedFields.data)
+    const course: any = await editCourseById(courseId, validatedFields.data)
 
     revalidatePath(`/management/courses/edit/${courseId}`)
 
     return {
+        course,
         success: "The course was successfully updated!"
     };
 };
