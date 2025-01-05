@@ -1,37 +1,14 @@
-import { ReactElement } from "react";
-
-type Status = "Not started" | "Started" | "Completed";
-
-export type Step = {
-    id: string;
-    icon: any;
-    name: string;
-    complete: boolean;
-    separator: boolean;
-    requiredFields?: number;
-    href: string;
-    onAction?: () => void;
-}
-
+import { CreationStep } from "@prisma/client";
 
 export interface StepProps {
-    icon: ReactElement;
-    number: string;
     name: string;
-    complete: boolean;
-    separator?: boolean;
+    status: string;
     href: string;
     onAction?: () => void;
 }
 
 export interface StepperProps {
-    steps: Step[];
-    // currentStep: number;
-    // onPrev?: any;
-    // onNext?: any;
-    // onClick?: any;
-    // onDone?: any;
-    orientation?: "vertical" | "horizontal";
+    steps: CreationStep[];
 }
 
 export interface SeparatorProps {

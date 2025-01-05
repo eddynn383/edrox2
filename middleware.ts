@@ -14,7 +14,7 @@ export default middleware((req) => {
     const { device } = userAgent(req)
     const isMobile = device.type === 'mobile'
     const viewport = device.type === 'mobile' ? 'mobile' : 'desktop'
-    if (!nextUrl.searchParams.has('viewport')) {
+    if (!nextUrl.searchParams.has('viewport') && !nextUrl.pathname.includes("/api")) {
         nextUrl.searchParams.set('viewport', viewport)
         return NextResponse.redirect(nextUrl)
     }
@@ -27,7 +27,7 @@ export default middleware((req) => {
         }
     }
 
-    if (nextUrl.pathname.includes("management/courses") && nextUrl.pathname.includes("edit/content")) {
+    if (nextUrl.pathname.includes("management/courses") && nextUrl.pathname.includes("edit/")) {
         if (!nextUrl.searchParams.has('playlist')) {
             nextUrl.searchParams.set('playlist', "on")
             return NextResponse.redirect(nextUrl)

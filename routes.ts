@@ -3,7 +3,8 @@ export const publicRoutes = [
     "not-found",
     "/auth/email-validation",
     "/api/category",
-    "/api/uploadthing"
+    "/api/uploadthing",
+    "/api/steps"
 ]
 
 export const authRoutes = [

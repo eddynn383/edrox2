@@ -53,54 +53,48 @@ export const PageHeader = ({ title, description, image, category, rating, breadc
                 </div>
             }
             <div className={header.row}>
-
-                <div className={header.row} data-comp="title">
-                    <div className={header.left}>
-                        <PageTitle title={title} />
+                <div className={header.left}>
+                    <div className={header.row} data-comp="title">
+                        <div className={header.left}>
+                            <PageTitle title={title} />
+                        </div>
                     </div>
                     {
-                        (!description && actions) &&
-                        <div className={header.right}>
-                            {actions?.map((action) => (
-                                <div key={action.id}>
-                                    {action.element}
+                        (category || rating) &&
+                        <div className={header.row} data-comp="category-rating">
+                            <div className={header.left}>
+                                {
+                                    category &&
+                                    <Badge>{category.name}</Badge>
+                                }
+                            </div>
+                            <div className={header.right}>
+                                {
+                                    rating &&
+                                    <Rating containerId={rating?.id} score={rating?.score} reviews={rating?.reviews} minified={true} />
+                                }
+                            </div>
+                        </div>
+                    }
+                    {
+                        description &&
+                        <div className={header.row} data-comp="description-actions">
+                            <div className={header.left}>
+                                <div className={header.description}>
+                                    <Text size="M">{description}</Text>
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     }
                 </div>
-                <div className={header.row} data-comp="category-rating">
-                    <div className={header.left}>
-                        {
-                            category &&
-                            <Badge>{category.name}</Badge>
-                        }
-                    </div>
-                    <div className={header.right}>
-                        {
-                            rating &&
-                            <Rating containerId={rating?.id} score={rating?.score} reviews={rating?.reviews} minified={true} />
-                        }
-                    </div>
-                </div>
                 {
-                    description &&
-                    <div className={header.row} data-comp="description-actions">
-                        <div className={header.left}>
-                            <div className={header.description}>
-                                <Text size="M">{description}</Text>
+                    actions &&
+                    <div className={header.right}>
+                        {actions?.map((action) => (
+                            <div key={action.id}>
+                                {action.element}
                             </div>
-                        </div>
-                        {
-                            (description && actions) &&
-                            <div className={header.right}>
-                                {actions?.map((action) => (
-                                    <div key={action.id}>
-                                        {action.element}
-                                    </div>
-                                ))}
-                            </div>
-                        }
+                        ))}
                     </div>
                 }
             </div>

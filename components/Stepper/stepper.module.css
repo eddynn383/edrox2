@@ -114,8 +114,19 @@
 
 
 .controls {
-    min-width: 280px;
     display: grid;
     gap: var(--stepper-controls-gap, var(--gap-300, 12px));
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto;
+    width: 100%;
+    padding: 16px;
+}
+
+.controls-left,
+.controls-right {
+    display: flex;
+    gap: 8px;
+}
+
+.controls-right {
+    align-items: flex-end;
 }

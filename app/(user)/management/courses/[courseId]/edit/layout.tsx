@@ -1,22 +1,21 @@
-import { goToCourseContent, goToCourseDetails } from "@/actions/edit-course";
-import { Button, ScrollArea, Stepper } from "@/components";
+import { Stepper } from "@/components";
 import { Preview, SidePanelToggle } from "@/module/ActionButtons";
 import { PageHeader } from "@/module/PageHeader";
 import { Award, BookOpenText, Eye, Home, LayoutList, ListPlus, Medal, ScanEye, UsersRound } from "lucide-react";
-import page from "@/styles/page.module.css"
 import { PageBody } from "@/module/PageBody";
 import { getCourseById } from "@/data/courses";
-
-const testhandler = () => {
-    "use client"
-    console.log("test handler")
-}
+import { getAllCreationStepsByFor, getAllCreationStepsByUrl } from "@/data/creationSteps";
+import { headers } from "next/headers";
+import { NextRequest } from "next/server";
+import page from "@/styles/page.module.css"
+import { StepperControls } from "@/components/Stepper";
 
 interface CourseEditLayoutProps {
     children: React.ReactNode,
     params: {
         courseId: string
-    }
+    },
+    req: NextRequest
 }
 
 const CourseEditLayout = async ({ children, params }: CourseEditLayoutProps) => {
@@ -26,6 +25,20 @@ const CourseEditLayout = async ({ children, params }: CourseEditLayoutProps) => 
     console.log("CourseEditLayout COURSE ID: ", courseId)
 
     const currentCourse = await getCourseById(courseId)
+    const creationSteps = await getAllCreationStepsByFor("courses")
+
+    function getCurrentPath() {
+        const headersList = headers()
+        const referer = headersList.get('referer')
+        if (referer) {
+            const url = new URL(referer);
+            const paths = url.pathname.split("/")
+            return paths[paths.length - 1]
+        }
+    }
+    console.log("pathname:: ", getCurrentPath())  // Extract the pathname
+
+    const currentStep = await getAllCreationStepsByUrl(getCurrentPath() || "")
 
     const PageActions = [{
         id: "a1",
@@ -98,23 +111,14 @@ const CourseEditLayout = async ({ children, params }: CourseEditLayoutProps) => 
             <PageBody orientation="vertical">
                 <div className={page.toolbar}>
                     <div className={page.inner}>
-                        <Stepper steps={PageStepper} orientation="horizontal" />
+                        <Stepper steps={creationSteps} />
                     </div>
                 </div>
                 <div className={page.content}>
                     {children}
                 </div>
                 <div className={page.actions}>
-                    <div className={page["section-left"]}>
-                        <div className={page["section-inner"]}>
-                            <Button mode="text">Back</Button>
-                        </div>
-                    </div>
-                    <div className={page["section-right"]}>
-                        <div className={page["section-inner"]}>
-                            <Button variant="accent" status="brand" style={{ minWidth: "140px" }}>Next</Button>
-                        </div>
-                    </div>
+                    <StepperControls steps={creationSteps} />
                 </div>
             </PageBody>
         </div>

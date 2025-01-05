@@ -132,7 +132,7 @@ model Course {
     enrollments  Enrollment[]
     ratings      RatingsOnCourses[]
     settings     CourseSettings[]
-    Group        Group[]
+    group        Group[]
 
     @@index([categoryId])
     @@map("Courses")
@@ -300,14 +300,15 @@ model UserProgress {
 }
 
 model Purchase {
-    id       String @id @default(uuid())
-    userId   String
-    user     User   @relation(fields: [userId], references: [id])
-    courseId String
-    course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt()
+    id            String   @id @default(uuid())
+    userId        String
+    user          User     @relation(fields: [userId], references: [id])
+    courseId      String
+    course        Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+    status        String   @default("SUCCESS") // PENDING, FAILED, REFUNDED, etc.
+    transactionId String? // Optional for payment tracking
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt()
 
     @@unique([userId, courseId])
     @@index([courseId])
@@ -344,6 +345,17 @@ model Image {
     Course Course[]
 }
 
+model CreationStep {
+    id       String     @id @default(uuid())
+    name     String
+    status   StepStatus @default(UNTOUCHED)
+    position Int
+    url      String     @unique
+    for      String     @default("Courses")
+
+    @@map("CreationSteps")
+}
+
 // enum ContentType {
 //   TEXT
 //   VIDEO
@@ -356,6 +368,13 @@ enum EnrollmentStatus {
     STARTED
     COMPLETED
     CANCELLED
+}
+
+enum StepStatus {
+    UNTOUCHED
+    TOUCHED
+    COMPLETED
+    LOCKED
 }
 
 enum ChapterStatus {

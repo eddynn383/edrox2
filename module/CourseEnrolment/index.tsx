@@ -18,6 +18,6 @@ export const CourseEnrolment = ({ courseId, isEnrolled }: CourseEnrolmentProps) 
     }
 
     return (
-        <Button variant="accent" status="brand" content="icon-text" style={{ "flex": "1 1 0%" }} aria-label="Start" onClick={async () => await courseEnrolment(courseId)}><PlayCircle /> Start</Button>
+        <Button variant="accent" status="brand" content="icon-text" style={{ "flex": "1 1 0%" }} aria-label="Start" onClick={async () => await courseEnrolment(courseId)}><PlayCircle /> Enroll</Button>
     );
 }
