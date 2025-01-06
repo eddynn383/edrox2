@@ -6,15 +6,14 @@ import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterSchema } from "@/schemas"
-import { CircleAlert, CircleCheck, Eye, EyeOff, Loader2Icon, Lock, Mail, User } from "lucide-react"
+import { CircleAlert, CircleCheck, Eye, EyeClosed, Lock, Mail, User } from "lucide-react"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
-import { Social } from "../Social"
-import { Alert, AlertDescription, Link, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input, Label, RadioGroup, RadioGroupItem } from "@/components"
+import { Alert, AlertDescription, Link, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, RadioGroup, RadioGroupItem } from "@/components"
 import { register } from "@/actions/register"
-import module from "@/styles/module.module.css"
+import { Spinner } from "@/components/Spinner"
 import formStyle from "@/components/Form/form.module.css"
 import iconStyle from "@/components/Icon/icon.module.css"
-import { Spinner } from "@/components/Spinner"
+import module from "@/styles/module.module.css"
 
 
 export const RegisterForm = () => {
@@ -58,8 +57,8 @@ export const RegisterForm = () => {
             <div className={module.inner}>
                 <Card variant="ghost" padding="0" radius="0" gap="600" style={{ "width": "100%" }} mode="solid">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
-                        <CardTitle rank={1}>Welcome!</CardTitle>
-                        <CardDescription>Have already an account? <Link href="login" mode="text">Sign in</Link></CardDescription>
+                        <CardTitle rank={1} size="L">Welcome!</CardTitle>
+                        <CardDescription>Have already an account? <Link href="login" mode="text" underline={true}>Sign in</Link></CardDescription>
                     </CardHeader>
                     <CardContent>
                         {
@@ -183,10 +182,14 @@ export const RegisterForm = () => {
                                                             status={passwordStatus}
                                                             iconBefore={<Lock className={iconStyle.container} data-size="M" />}
                                                             iconAfter={
-                                                                <Button type="button" mode="text" onClick={() => setPassType(passType === "password" ? "text" : "password")}>
-                                                                    {passType === "password" && <EyeOff className={iconStyle.container} data-size="M" />}
-                                                                    {passType === "text" && <Eye className={iconStyle.container} data-size="M" />}
+                                                                <Button type="button" size="S" mode="text" content="icon" style={{ position: "absolute", right: "4px" }} onClick={() => setPassType(passType === "password" ? "text" : "password")}>
+                                                                    {passType === "password" && <EyeClosed />}
+                                                                    {passType === "text" && <Eye />}
                                                                 </Button>
+                                                                // <Button type="button" mode="text" onClick={() => setPassType(passType === "password" ? "text" : "password")}>
+                                                                //     {passType === "password" && <EyeOff className={iconStyle.container} data-size="M" />}
+                                                                //     {passType === "text" && <Eye className={iconStyle.container} data-size="M" />}
+                                                                // </Button>
                                                             }
                                                         />
                                                     </FormControl>
@@ -195,7 +198,7 @@ export const RegisterForm = () => {
                                         )}
                                     />
                                 </FormRows>
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit">{isPending ? <Spinner /> : "Create an account"}</Button>
+                                <Button variant="accent" status="brand" mode="solid" size="M" type="submit">{isPending ? <Spinner /> : "Create an account"}</Button>
                             </form>
                         </Form>
                     </CardContent>

@@ -1,8 +1,9 @@
-import { Chapter } from "@prisma/client";
+import { Chapter, CourseSettings } from "@prisma/client";
 
 
 export interface SidePanelProps {
     courseId: string;
-    chapters: Chapter[];
-    show: boolean;
+    chapters?: Chapter[];
+    courseSettings?: CourseSettings | null;
+    location: string;
 }

@@ -2,7 +2,7 @@
 
 import * as z from "zod"
 
-import { CircleAlert, CircleCheck, Eye, EyeOff, Lock, Mail, RectangleEllipsis } from "lucide-react"
+import { CircleAlert, CircleCheck, Eye, EyeClosed, Lock, Mail, RectangleEllipsis } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
@@ -75,8 +75,8 @@ export const LoginForm = () => {
             <div className={module.inner}>
                 <Card mode="solid" variant="ghost" padding="0" radius="0" gap="600" style={{ "width": "100%" }}>
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
-                        <CardTitle rank={2}>Welcome back!</CardTitle>
-                        <CardDescription>Don&apos;t have an account yet? <Link href="register" mode="text">Sign up</Link></CardDescription>
+                        <CardTitle rank={1} size="L">Welcome back!</CardTitle>
+                        <CardDescription>Don&apos;t have an account yet? <Link href="register" mode="text" underline>Sign up</Link></CardDescription>
                     </CardHeader>
                     <CardContent>
                         {
@@ -177,9 +177,9 @@ export const LoginForm = () => {
                                                                         status={passwordStatus}
                                                                         iconBefore={<Lock className={iconStyle.container} data-size="M" />}
                                                                         iconAfter={
-                                                                            <Button type="button" mode="text" onClick={() => setPassType(passType === "password" ? "text" : "password")}>
-                                                                                {passType === "password" && <EyeOff className={iconStyle.container} data-size="M" />}
-                                                                                {passType === "text" && <Eye className={iconStyle.container} data-size="M" />}
+                                                                            <Button type="button" size="S" mode="text" content="icon" style={{ position: "absolute", right: "4px" }} onClick={() => setPassType(passType === "password" ? "text" : "password")}>
+                                                                                {passType === "password" && <EyeClosed />}
+                                                                                {passType === "text" && <Eye />}
                                                                             </Button>
                                                                         }
                                                                     />
@@ -193,7 +193,7 @@ export const LoginForm = () => {
                                         )
                                     }
                                 </FormRows>
-                                <Button variant="accent" status="default" mode="solid" size="M" type="submit" style={{ "minWidth": "100px" }}>{isPending ? <Spinner /> : "Sign In"}</Button>
+                                <Button variant="accent" status="brand" mode="solid" size="M" type="submit" style={{ "minWidth": "100px" }}>{isPending ? <Spinner /> : "Sign In"}</Button>
                             </form>
                         </Form>
                     </CardContent>

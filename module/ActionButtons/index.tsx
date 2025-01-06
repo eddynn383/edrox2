@@ -5,6 +5,7 @@ import { Button, ToastAction } from "@/components"
 import { useToast } from "@/hooks/useToast"
 import { Eye, SidebarClose, SidebarOpen } from "lucide-react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 const Preview = () => {
 
@@ -36,6 +37,8 @@ const SidePanelToggle = () => {
     const searchParams = useSearchParams()
     const playlist = searchParams.get("playlist")
 
+    const [sidePanelState, setSidePanelState] = useLocalStorage("SidePanelState", true)
+
     const createQueryString = useCallback(
         (name: string, value: string) => {
             const params = new URLSearchParams(searchParams.toString())
@@ -47,14 +50,22 @@ const SidePanelToggle = () => {
     )
 
     return (
-        <>
-            <Button mode="outline" content="icon" selected={playlist === "on" ? true : false} onClick={() => {
-                router.push(pathname + '?' + createQueryString('playlist', playlist === "on" ? "off" : "on"))
+        <div data-active={sidePanelState}>
+            <Button mode="outline" content="icon" selected={sidePanelState} onClick={() => {
+                setSidePanelState(!sidePanelState)
             }}>
-                {playlist === "on" && <SidebarOpen />}
-                {playlist === "off" && <SidebarClose />}
+                {sidePanelState && <SidebarOpen />}
+                {!sidePanelState && <SidebarClose />}
             </Button>
-        </>
+        </div>
+        // <>
+        //     <Button mode="outline" content="icon" selected={playlist === "on" ? true : false} onClick={() => {
+        //         router.push(pathname + '?' + createQueryString('playlist', playlist === "on" ? "off" : "on"))
+        //     }}>
+        //         {playlist === "on" && <SidebarOpen />}
+        //         {playlist === "off" && <SidebarClose />}
+        //     </Button>
+        // </>
     )
 }
 

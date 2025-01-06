@@ -22,6 +22,7 @@ import { Heading } from "./Heading";
 import { Icon } from "./Icon";
 import { Input } from "./Input";
 import { Label } from "./Label";
+import { Loader } from "./Loader";
 import { Logo } from "./Logo";
 import { LogOut } from "./LogOut";
 import { NavigationMenu } from "./NavigationMenu";
@@ -140,6 +141,7 @@ export {
     Icon,
     Input,
     Label,
+    Loader,
     Link,
     Logo,
     LogOut,

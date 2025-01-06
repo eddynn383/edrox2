@@ -1,7 +1,43 @@
 .container {
+    display: flex;
     background: var(--progress-background, var(--primary-background-200));
     overflow: hidden;
 
+    &[data-status="default"] {
+        .indicator {
+            background: var(--progress-indicator-default-background, var(--primary-background-300));
+        }
+    }
+
+    &[data-status="brand"] {
+        .indicator {
+            background: var(--progress-indicator-brand-background, var(--accent-brand-400));
+        }
+    }
+
+    &[data-status="success"] {
+        .indicator {
+            background: var(--progress-indicator-success-background, var(--accent-success-400));
+        }
+    }
+
+    &[data-status="fail"] {
+        .indicator {
+            background: var(--progress-indicator-fail-background, var(--accent-fail-400));
+        }
+    }
+
+    &[data-shape="square"] {
+        border-radius: 0;
+    }
+
+    &[data-shape="rounded"] {
+        border-radius: calc(var(--progress-height) / 2);
+
+        .indicator {
+            border-radius: calc(var(--progress-height) / 2);
+        }
+    }
 }
 
 .indicator {
@@ -11,12 +47,3 @@
     background: var(--progress-indicator-default-background, var(--accent-brand-400));
     transition: .3s linear;
 }
-
-.container[data-status="success"] .indicator {
-    background: var(--progress-indicator-default-background, var(--accent-success-400));
-}
-
-.container[data-status="fail"] .indicator {
-    background: var(--progress-indicator-default-background, var(--accent-fail-400));
-}
-

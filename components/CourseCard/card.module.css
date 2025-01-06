@@ -10,24 +10,30 @@
     overflow: hidden;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
-    &[data-padding="0"] { 
+    &[data-padding="0"] {
         padding: 0;
     }
+
     &[data-padding="100"] {
         padding: var(--card-padding-100, var(--padding-100, 4px));
     }
+
     &[data-padding="200"] {
         padding: var(--card-padding-200, var(--padding-200, 8px));
     }
+
     &[data-padding="300"] {
         padding: var(--card-padding-300, var(--padding-300, 12px));
     }
+
     &[data-padding="400"] {
         padding: var(--card-padding-400, var(--padding-400, 16px));
     }
+
     &[data-padding="500"] {
         padding: var(--card-padding-500, var(--padding-500, 20px));
     }
+
     &[data-padding="600"] {
         padding: var(--card-padding-600, var(--padding-600, 24px));
     }
@@ -35,21 +41,27 @@
     &[data-gap="0"] {
         gap: var(--card-gap, 0);
     }
+
     &[data-gap="100"] {
         gap: var(--card-gap-100, var(--gap-100, 4px));
     }
+
     &[data-gap="200"] {
         gap: var(--card-gap-200, var(--gap-200, 8px));
     }
+
     &[data-gap="300"] {
         gap: var(--card-gap-300, var(--gap-300, 12px));
     }
+
     &[data-gap="400"] {
         gap: var(--card-gap-400, var(--gap-400, 16px));
     }
+
     &[data-gap="500"] {
         gap: var(--card-gap-500, var(--gap-500, 20px));
     }
+
     &[data-gap="600"] {
         gap: var(--card-gap-600, var(--gap-600, 24px));
     }
@@ -57,21 +69,27 @@
     &[data-radius="0"] {
         border-radius: var(--card-radius, 0);
     }
+
     &[data-radius="100"] {
         border-radius: var(--card-radius-100, var(--radius-200, 4px));
     }
+
     &[data-radius="200"] {
         border-radius: var(--card-radius-200, var(--radius-400, 8px));
     }
+
     &[data-radius="300"] {
         border-radius: var(--card-radius-300, var(--radius-600, 12px));
     }
+
     &[data-radius="400"] {
         border-radius: var(--card-radius-400, var(--radius-800, 16px));
     }
+
     &[data-radius="500"] {
         border-radius: var(--card-radius-500, var(--radius-1000, 20px));
     }
+
     &[data-radius="600"] {
         border-radius: var(--card-radius-600, var(--radius-1200, 24px));
     }
@@ -100,6 +118,7 @@
             border-color: var(--card-border-color, var(--secondary-background-300));
         }
     }
+
     &[data-variant="ghost"] {
         border: none;
         background-color: transparent;
@@ -107,7 +126,7 @@
 
 
 
-    & > a {
+    &>a {
         display: flex;
         flex-direction: column;
         text-decoration: none;
@@ -131,24 +150,31 @@
 .footer {
     display: flex;
     flex-direction: column;
+
     &[data-padding="0"] {
         padding: var(--card-padding, 0);
     }
+
     &[data-padding="100"] {
         padding: var(--card-padding-100, var(--padding-100, 4px));
     }
+
     &[data-padding="200"] {
         padding: var(--card-padding-200, var(--padding-200, 8px));
     }
+
     &[data-padding="300"] {
         padding: var(--card-padding-300, var(--padding-300, 12px));
     }
+
     &[data-padding="400"] {
         padding: var(--card-padding-400, var(--padding-400, 16px));
     }
+
     &[data-padding="500"] {
         padding: var(--card-padding-500, var(--padding-500, 20px));
     }
+
     &[data-padding="600"] {
         padding: var(--card-padding-600, var(--padding-600, 24px));
     }
@@ -156,21 +182,27 @@
     &[data-gap="0"] {
         gap: var(--card-gap, 0);
     }
+
     &[data-gap="100"] {
         gap: var(--card-gap-100, var(--gap-100, 4px));
     }
+
     &[data-gap="200"] {
         gap: var(--card-gap-200, var(--gap-200, 8px));
     }
+
     &[data-gap="300"] {
         gap: var(--card-gap-300, var(--gap-300, 12px));
     }
+
     &[data-gap="400"] {
         gap: var(--card-gap-400, var(--gap-400, 16px));
     }
+
     &[data-gap="500"] {
         gap: var(--card-gap-500, var(--gap-500, 20px));
     }
+
     &[data-gap="600"] {
         gap: var(--card-gap-600, var(--gap-600, 24px));
     }
@@ -178,28 +210,65 @@
     &[data-radius="0"] {
         border-radius: var(--card-radius, 0);
     }
+
     &[data-radius="100"] {
         border-radius: var(--card-radius-100, var(--radius-100, 4px));
     }
+
     &[data-radius="200"] {
         border-radius: var(--card-radius-200, var(--radius-200, 8px));
     }
+
     &[data-radius="300"] {
         border-radius: var(--card-radius-300, var(--radius-300, 12px));
     }
+
     &[data-radius="400"] {
         border-radius: var(--card-radius-400, var(--radius-400, 16px));
     }
+
     &[data-radius="500"] {
         border-radius: var(--card-radius-500, var(--radius-500, 20px));
     }
+
     &[data-radius="600"] {
         border-radius: var(--card-radius-600, var(--radius-600, 24px));
     }
 }
 
 .header {
+    position: relative;
     aspect-ratio: 16/9;
+
+    .category,
+    .flag {
+        display: flex;
+        position: absolute;
+    }
+
+    .category {
+        left: 12px;
+        bottom: 12px;
+    }
+
+    .flag {
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 2px 12px;
+
+        &:before {
+            content: "";
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 6px;
+            display: block;
+            background-color: var(--accent-brand-400);
+            position: absolute;
+            padding-left: 12px;
+        }
+    }
 }
 
 .content {
@@ -218,6 +287,19 @@
     justify-content: space-between;
     gap: var(--card-content-bottom-gap, var(--gap-200, 8px));
     height: 100%;
+}
+
+.content-left {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    gap: var(--card-footer-left-gap, var(--gap-100, 4px));
+}
+
+.content-right {
+    display: flex;
+    align-items: center;
+    gap: var(--card-footer-right-gap, var(--gap-100, 4px));
 }
 
 .footer {
@@ -269,18 +351,19 @@
 .metadata-list {
     display: flex;
     gap: var(--card-metadata-list-gap, var(--gap-300, 12px));
-    list-style: none; 
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .metadata-list-item {
     display: flex;
-    align-items: center; 
+    align-items: center;
     gap: var(--card-metadata-list-item-gap, var(--gap-100, 4px));
     font-size: var(--card-metadata-list-item-font-size, 14px);
     color: var(--card-metadata-list-item-color, var(--primary-text-500));
-    & > svg {
+
+    &>svg {
         width: var(--card-metadata-list-item-icon-width, 14px);
         height: var(--card-metadata-list-item-icon-height, 14px);
         color: var(--card-metadata-list-item-icon-color, var(--accent-brand-400));
@@ -288,9 +371,9 @@
 }
 
 .current-price {
-    font-size: var(--card-current-price-font-size, var(--size-400, 16px));
+    font-size: var(--card-current-price-font-size, var(--size-350, 14px));
     line-height: 1;
-    color: var(--card-current-price-text-color, var(--primary-text-100));
+    color: var(--card-current-price-text-color, var(--accent-success-400));
 }
 
 .old-price {

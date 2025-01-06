@@ -33,7 +33,7 @@ export const newInitChapter = async (values: z.infer<typeof NewChapterSchema>, c
     await setChapter(validatedFields.data, courseId)
     // const data = await chapterData.json()
     revalidateTag('chapters')
-    // revalidatePath(`/management/courses/edit/${courseId}`)
+    // revalidatePath(`/management/courses/${courseId}/edit/content`)
     // console.log("COurse Data Json", data)
 
     return {

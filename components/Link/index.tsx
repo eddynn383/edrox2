@@ -5,13 +5,13 @@ import { LinkProps } from "./interface";
 import link from "./link.module.css";
 import Link from "next/link";
 
-const Anchor = React.forwardRef<HTMLAnchorElement, LinkProps>(({ className = link.container, href, mode = "text", size = "M", children, onClick, ...props }, ref) => {
+const Anchor = React.forwardRef<HTMLAnchorElement, LinkProps>(({ className = link.container, href, mode = "text", variant = "accent", size = "M", underline = false, children, onClick, ...props }, ref) => {
 
 
     if (onClick && !href) {
         return (
 
-            <button type="button" className={className} data-mode={mode} data-size={size} {...props} ref={ref as React.Ref<HTMLButtonElement>} onClick={onClick} >
+            <button type="button" className={className} data-mode={mode} data-variant={variant} data-size={size} data-underline={underline} {...props} ref={ref as React.Ref<HTMLButtonElement>} onClick={onClick} >
                 {children}
             </button>
         )
@@ -19,7 +19,7 @@ const Anchor = React.forwardRef<HTMLAnchorElement, LinkProps>(({ className = lin
 
     if (href && !onClick) {
         return (
-            <Link className={className} href={href} data-mode={mode} data-size={size} {...props} ref={ref} >
+            <Link className={className} href={href} data-mode={mode} data-variant={variant} data-size={size} data-underline={underline} {...props} ref={ref} >
                 {children}
             </Link>
         )

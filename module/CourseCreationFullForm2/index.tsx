@@ -205,53 +205,50 @@ export const CourseCreationFullForm2 = ({ className, course, categories, setting
                                 <Link onClick={addSubCategoryHandlder} ><Plus /> Add subcategory</Link>
                             </FormRows>
                         </FormRows>
-                        {
-                            settings.date &&
-                            <FormRows orientation="horizontal">
-                                <FormRows orientation="vertical">
-                                    <FormField
-                                        control={form.control}
-                                        name="startDate"
-                                        render={({ field }) => {
-                                            return (
-                                                <FormItem data-cols="1">
-                                                    <FormRowDetails>
-                                                        <FormLabel>Start Date</FormLabel>
-                                                        <FormMessage />
-                                                    </FormRowDetails>
-                                                    <FormRowFields>
-                                                        <FormControl>
-                                                            <DatePicker type="range" />
-                                                        </FormControl>
-                                                    </FormRowFields>
-                                                </FormItem>
-                                            )
-                                        }}
-                                    />
-                                </FormRows>
-                                <FormRows orientation="vertical">
-                                    <FormField
-                                        control={form.control}
-                                        name="endDate"
-                                        render={({ field }) => {
-                                            return (
-                                                <FormItem data-cols="1">
-                                                    <FormRowDetails>
-                                                        <FormLabel>End Date</FormLabel>
-                                                        <FormMessage />
-                                                    </FormRowDetails>
-                                                    <FormRowFields>
-                                                        <FormControl>
-                                                            <DatePicker type="single" />
-                                                        </FormControl>
-                                                    </FormRowFields>
-                                                </FormItem>
-                                            )
-                                        }}
-                                    />
-                                </FormRows>
+                        <FormRows orientation="horizontal">
+                            <FormRows orientation="vertical">
+                                <FormField
+                                    control={form.control}
+                                    name="startDate"
+                                    render={({ field }) => {
+                                        return (
+                                            <FormItem data-cols="1">
+                                                <FormRowDetails>
+                                                    <FormLabel>Start Date</FormLabel>
+                                                    <FormMessage />
+                                                </FormRowDetails>
+                                                <FormRowFields>
+                                                    <FormControl>
+                                                        <DatePicker type="range" />
+                                                    </FormControl>
+                                                </FormRowFields>
+                                            </FormItem>
+                                        )
+                                    }}
+                                />
                             </FormRows>
-                        }
+                            <FormRows orientation="vertical">
+                                <FormField
+                                    control={form.control}
+                                    name="endDate"
+                                    render={({ field }) => {
+                                        return (
+                                            <FormItem data-cols="1">
+                                                <FormRowDetails>
+                                                    <FormLabel>End Date</FormLabel>
+                                                    <FormMessage />
+                                                </FormRowDetails>
+                                                <FormRowFields>
+                                                    <FormControl>
+                                                        <DatePicker type="single" />
+                                                    </FormControl>
+                                                </FormRowFields>
+                                            </FormItem>
+                                        )
+                                    }}
+                                />
+                            </FormRows>
+                        </FormRows>
                     </FormRows>
                 </form>
             </Form>

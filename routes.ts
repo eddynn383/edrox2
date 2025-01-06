@@ -4,7 +4,9 @@ export const publicRoutes = [
     "/auth/email-validation",
     "/api/category",
     "/api/uploadthing",
-    "/api/steps"
+    "/api/steps",
+    "/api/course",
+    "/api/tutor"
 ]
 
 export const authRoutes = [

@@ -87,7 +87,20 @@ export const setCourseSettings = async (data: any) => {
 
 export const getAllCourses = async () => {
     try {
+        const session = await auth();
+        const user = session?.user;
+
+        if (!user) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
         const courses = await prisma.course.findMany({
+            where: {
+                OR: [
+                    { isPublished: { not: false } }, // Include all non-draft courses
+                    { AND: [{ isPublished: false }, { createdById: user.id }] } // Include drafts created by the current user
+                ],
+            },
             orderBy: {
                 createdAt: 'asc',
             },

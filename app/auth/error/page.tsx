@@ -10,7 +10,7 @@ const AuthErrorPage = () => {
             <div className={module.inner}>
                 <Card mode="solid" variant="ghost" padding="0" radius="0" gap="600">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
-                        <CardTitle rank={2}>Something went wrong!</CardTitle>
+                        <CardTitle rank={2} size="L">Something went wrong!</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <Link href="/auth/login" mode="solid">Back to login</Link>

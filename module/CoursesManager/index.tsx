@@ -15,10 +15,10 @@ import { CoursesManagerProps } from "./interface";
 import { DataPagination } from "../DataPagination";
 import useScreenSize from "@/hooks/useScreenSize";
 import msx from "@/styles/module.module.scss"
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export const CoursesManager = ({ courses, categories, device }: CoursesManagerProps) => {
     const [open, setOpen] = useState(false)
-
     const deviceScreen = useScreenSize()
     const deviceWidth = deviceScreen.width
 

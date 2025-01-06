@@ -16,6 +16,8 @@ export const CourseSettingsForm = ({ id, settings }: CourseSettingsFormProps) =>
     const [isPending, startTransition] = useTransition();
     const { date, repetition, price, seats, tags } = settings
 
+    // const [sidePanelState, setSidePanelState] = useLocalStorage("SidePanelState", true)
+
     const form = useForm<z.infer<typeof CourseSettingsSchema>>({
         resolver: zodResolver(CourseSettingsSchema),
         defaultValues: {

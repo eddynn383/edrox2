@@ -1,4 +1,44 @@
 .container {
+    display: flex;
+    flex-direction: column;
     min-width: 280px;
     max-width: 400px;
+    height: 100%;
+    opacity: 1;
+    visibility: visible;
+
+    &[data-active="false"] {
+        min-width: auto;
+        width: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity linear 200ms, visibility linear;
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: var(--sidepanel-header-gap, var(--gap-300, 12px));
+    padding: var(--sidepanel-header-padding-y, var(--padding-300, 12px)) var(--sidepanel-header-padding-x, var(--padding-400, 16px));
+}
+
+.header-left {
+    flex: 1 1 auto;
+}
+
+.header-right {
+    display: flex;
+    gap: var(--sidepanel-header-right-gap, var(--gap-200, 8px));
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .body-inner {
+        padding: var(--sidepanel-body-padding, var(--padding-400, 16px));
+        padding-top: 0;
+    }
 }

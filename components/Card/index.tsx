@@ -2,7 +2,6 @@
 import React from "react";
 import { CardContentProps, CardDescriptionProps, CardFooterProps, CardHeaderProps, CardProps, CardTitleProps } from "./interface";
 import { Heading } from "@/components"
-import csx from "@/styles/component.module.scss";
 import card from "./card.module.css"
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(({ className = card.container, variant = "primary", mode = "solid", shade = "100", padding = "200", radius = "200", gap = "0", view = "grid", ...props }, ref) => (
@@ -18,7 +17,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(({ classNam
 CardHeader.displayName = "CardHeader"
 
 
-const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(({ className = card.title, rank, ...props }, ref) => {
+const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(({ className = card.title, rank, size = "M", ...props }, ref) => {
     let title;
 
     // switch (rank) {
@@ -34,7 +33,7 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(({ clas
 
     return (
         <>
-            <Heading rank={rank} size="S" {...props} />
+            <Heading rank={rank} size={size} {...props} />
         </>
     )
 })

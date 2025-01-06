@@ -1,6 +1,6 @@
 // import { Roles } from "@prisma/client";
 
-import { Category, Instructor, Mode, Price, Rating, Shade, Variant } from "@/interfaces/global";
+import { Category, Instructor, Mode, Size as SizeT, Price, Rating, Shade, Variant } from "@/interfaces/global";
 
 type Size = "0" | "100" | "200" | "300" | "400" | "500" | "600";
 type Rank = 1 | 2 | 3 | 4 | 5 | 6;
@@ -35,6 +35,7 @@ export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
     rank: Rank;
+    size?: "S" | "M" | "L";
 }
 
 export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraphElement> {

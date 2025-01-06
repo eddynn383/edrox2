@@ -29,10 +29,12 @@ const Step = ({ name, status, href, course }: StepProps) => {
 
         if (!pathname) return;
 
+
+
         const pathSegments = pathname.split('/');
         pathSegments[pathSegments.length - 1] = href;
         const newPath = pathSegments.join('/');
-        router.push(newPath);
+        router.push(`/management/courses/${course.id}/edit/${href}`);
     }
 
     return (
@@ -75,11 +77,11 @@ const StepperControls = ({ steps, course }: StepperProps) => {
 
 
     const handleGoNext = () => {
-        router.push(nextStep?.url || "");
+        router.push(`/management/courses/${course.id}/edit/${nextStep?.url || ""}`);
     }
 
     const handleGoPrev = () => {
-        router.push(prevStep?.url || "");
+        router.push(`/management/courses/${course.id}/edit/${prevStep?.url || ""}`);
     }
 
     return (

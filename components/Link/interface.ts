@@ -4,6 +4,8 @@ export interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement | HTML
     href?: string;
     mode?: "solid" | "text";
     size?: Size;
+    variant?: "primary" | "accent";
+    underline?: boolean;
     // status?: Status;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }

@@ -45,6 +45,8 @@ export const PlaylistItemDnD = ({ id, title, description, href, isSorting, showD
 
     let pressTimer: NodeJS.Timeout;
 
+    console.log("href: ", href)
+
     const handlePressStart = () => {
         pressTimer = setTimeout(() => {
             onLongPress && onLongPress(id);
@@ -57,11 +59,13 @@ export const PlaylistItemDnD = ({ id, title, description, href, isSorting, showD
 
     const handleClick = (e: React.MouseEvent) => {
         // Prevent navigation if we're in sorting mode or clicking the menu
+        console.log("its clicked")
+        console.log("href: ", href)
         if (isSorting || e.target instanceof HTMLButtonElement) {
             return;
         }
         if (href) {
-            router.push(href)
+            router.replace(href)
         }
         // navigate(`/song/${id}`);
     };
@@ -92,7 +96,6 @@ export const PlaylistItemDnD = ({ id, title, description, href, isSorting, showD
                 }
             </div>
             <div className={playlistItem.actions}>
-
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button mode="text" variant="primary" size="S" content="icon">
@@ -142,7 +145,6 @@ export const PlaylistItemDnD = ({ id, title, description, href, isSorting, showD
                     </AlertDialog>
                 </DropdownMenu>
             </div>
-            {/* </div> */}
         </div>
     );
 }

@@ -5,12 +5,31 @@
     margin: 0;
     background: transparent;
     border: none;
-    color: var(--link-color-default, var(--accent-brand-400));
     transition: color .3s ease-in-out;
     cursor: pointer;
 
-    &:not(:disabled):hover {
-        color: var(--link-color-hover, var(--accent-brand-500));
+    &[data-underline="true"] {
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &[data-variant="primary"] {
+        color: var(--link-color-primary-default, var(--primary-text-500));
+
+        &:not(:disabled):hover {
+            color: var(--link-color-primary-hover, var(--primary-text-400));
+        }
+    }
+
+    &[data-variant="accent"] {
+        color: var(--link-color-accent-default, var(--accent-brand-400));
+
+        &:not(:disabled):hover {
+            color: var(--link-color-accent-hover, var(--accent-brand-500));
+        }
     }
 
     &[data-size="L"] {
@@ -138,7 +157,7 @@
         line-height: var(--link-s-line-height, calc(var(--size-400, 16px) + var(--size-100, 4px) / 2));
         font-weight: var(--link-s-font-weight, var(--font-weight-400, 400));
 
-        gap: var(--link-s-gap, var(--gap-200, 8px));
+        gap: var(--link-s-gap, var(--gap-100, 4px));
 
         &>svg {
             width: var(--link-s-icon-width, calc(var(--size-400, 16px) + var(--size-100, 4px) / 2));
@@ -256,9 +275,5 @@
 
     &[data-mode="text"] {
         padding: 0;
-    }
-
-    &[data-mode="solid"] {
-        padding: 16px;
     }
 }

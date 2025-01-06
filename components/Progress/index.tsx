@@ -8,12 +8,19 @@ import { ProgressProps } from "./interface"
 const Progress = React.forwardRef<
     React.ElementRef<typeof ProgressPrimitive.Root>,
     ProgressProps
->(({ value, className=progress.container, thickness="100", shape="square", ...props }, ref) => (
+>(({ value, className = progress.container, thickness = "100", shape = "rounded", status = "default", width, height = "4px", ...props }, ref) => (
     <ProgressPrimitive.Root
         ref={ref}
         className={className}
         data-thickness={thickness}
         data-shape={shape}
+        data-status={status}
+        style={{
+            "--progress-width": width,
+            "--progress-height": height,
+            width: "var(--progress-width)",
+            height: "var(--progress-height)",
+        } as React.CSSProperties}
         {...props}
     >
         <ProgressPrimitive.Indicator

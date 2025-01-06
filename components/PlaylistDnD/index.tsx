@@ -22,11 +22,16 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy
 } from "@dnd-kit/sortable";
+import { usePathname } from "next/navigation";
 
-const PlaylistDnD = ({ items, currentPath, showDescription = false, onReorder, onEdit, onDelete }: PlaylistDnDProps) => {
+const PlaylistDnD = ({ items, courseId, currentPath, showDescription = false, onReorder, onEdit, onDelete }: PlaylistDnDProps) => {
     const [isSorting, setIsSorting] = useState(false);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const componentRef = useRef<HTMLDivElement>(null);
+    const pathname = usePathname()
+
+    console.log("currentPath: ", currentPath)
+    console.log("pathname: ", pathname)
 
     console.log("PLAYLIST ITEMS: ", items)
 
@@ -37,6 +42,10 @@ const PlaylistDnD = ({ items, currentPath, showDescription = false, onReorder, o
             coordinateGetter: sortableKeyboardCoordinates
         })
     );
+
+    useEffect(() => {
+        console.log("ITEMS IN PLAYLIST DND: ", items)
+    }, [items])
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -86,7 +95,7 @@ const PlaylistDnD = ({ items, currentPath, showDescription = false, onReorder, o
                                                 id={item.id}
                                                 title={item.title}
                                                 description={item.description}
-                                                href={item.href}
+                                                href={`/management/courses/${courseId}/edit/content/${item.id}`}
                                                 isSorting={isSorting}
                                                 showDescription={showDescription}
                                                 onEdit={onEdit}
@@ -101,7 +110,7 @@ const PlaylistDnD = ({ items, currentPath, showDescription = false, onReorder, o
                     </DndContext>
                 }
                 {
-                    !items &&
+                    (items === null || items.length === 0) &&
                     <li className={playlist["list-item"]}>
                         <Text size="S" type="paragraph" >There are no chapters created yet</Text>
                     </li>

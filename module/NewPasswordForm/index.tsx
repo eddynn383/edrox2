@@ -11,10 +11,10 @@ import { NewPasswordSchema } from "@/schemas"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form"
 import { Alert, AlertDescription, Link, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Icon, Input } from "@/components"
 import { newPassword } from "@/actions/new-password"
+import { Spinner } from "@/components/Spinner"
 import formStyle from "@/components/Form/form.module.css"
 import iconStyle from "@/components/Icon/icon.module.css"
 import module from "@/styles/module.module.css"
-import { Spinner } from "@/components/Spinner"
 
 export const NewPasswordForm = () => {
     const searchParams = useSearchParams();
@@ -30,6 +30,7 @@ export const NewPasswordForm = () => {
             password: ""
         }
     });
+
     const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
         setError("");
         setSuccess("");
@@ -42,9 +43,10 @@ export const NewPasswordForm = () => {
                 })
         })
     }
+
     return (
         <div className={module.auth}>
-            <Link href="/auth/login" mode="text" size="S"><ChevronLeft /> Back</Link>
+            <Link href="/auth/login" mode="text" variant="primary" size="S"><ChevronLeft /> Back</Link>
             <div className={module.inner}>
                 <Card variant="ghost" padding="0" radius="0" gap="600" mode="solid">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>

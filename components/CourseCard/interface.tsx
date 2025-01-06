@@ -10,6 +10,7 @@ export type Course = {
     price: Price;
     rating: Rating;
     category: Category;
+    status?: string;
 }
 
 

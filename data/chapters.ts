@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prismadb"
 import { simulateDelay } from "@/lib/utils";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 type ChapterBodyType = {
@@ -196,7 +196,9 @@ export const getAllChaptersByCourseId = async (courseId: string) => {
         if (process.env.NODE_ENV === "development") {
             await simulateDelay(3000); // 3 seconds delay
         }
-
+        // revalidatePath('/chapters')
+        // revalidateTag('chapters')
+        // revalidatePath(`/management/courses/${courseId}/edit/content`)
         console.log("GET ALL CHAPTERS BY COURSE ID (DATA): ", chapters)
 
         return chapters;

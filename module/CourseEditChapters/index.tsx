@@ -2,7 +2,7 @@
 
 import { updateChaptersPositions } from "@/actions/chapter";
 import { PlaylistDnD } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import chaptersSX from "./course-chapters.module.css"
 import { convertDuration } from "@/lib/utils";
@@ -10,6 +10,13 @@ import { convertDuration } from "@/lib/utils";
 const CourseEditChapters = ({ courseId, chapters }: CourseChaptersProps) => {
     const [items, setItems] = useState(chapters);
     const path = usePathname()
+
+    console.log("Chapters in CourseEditChapters: ", chapters)
+    console.log("Items in CourseEditChapters: ", items)
+
+    useEffect(() => {
+        setItems(chapters)
+    }, [chapters])
 
     const handleReorder = (newItems: any) => {
         setItems(newItems);

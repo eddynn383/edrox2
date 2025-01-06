@@ -1,18 +1,16 @@
 "use server"
 
-// import Link from "next/link"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../Card"
 import { getChaptersCountByCourseId, getChaptersSumDurationByCourseId } from "@/data/chapters"
-import { Badge, Button, Cover, Label, Progress, Rating, Text } from "@/components"
+import { Badge, Button, Cover, Label, Progress, Rating, Text, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components"
 import { getCourseRatingAvg } from "@/data/ratings"
 import { CourseCardProps } from "./interface"
 import { BookOpen, Clock, Layers, Play, ShoppingCart } from "lucide-react"
-import csx from "@/styles/component.module.scss"
-import card from "./card.module.css"
 import { convertDuration } from "@/lib/utils"
 import { getEnrolment } from "@/data/enrolment"
 import { getProgress } from "@/data/progress"
-import { Anchor as Link } from "../Link"
+import card from "./card.module.css"
 
 const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", view = "grid", mode = "solid", variant = "primary", shade = "100" }: CourseCardProps) => {
     const { image } = data
@@ -38,34 +36,20 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", view =
             <Link href={`${detailsURL}/${data.id}`} >
                 <CardHeader className={card.header}>
                     <Cover className={card.cover} src={coverURL} alt={data.title} width={250} height={100} />
+                    {data.category &&
+                        <div className={card.category}>
+                            <Badge>{data.category.name}</Badge>
+                        </div>
+                    }
+                    {data.status &&
+                        <div className={card.flag}>
+                            <Badge size="M" status="brand">NEW</Badge>
+                        </div>
+                    }
                 </CardHeader>
                 <CardContent className={card.content} padding="300" gap="200">
                     <div className={card["content-top"]}>
-                        {data.category && <Badge>{data.category.name}</Badge>}
-                        <Rating containerId={cardId} minified={true} score={avgRating || 0.0} showRatings={false} />
-                    </div>
-                    <div className={card["content-bottom"]}>
-                        <div className={card.info}>
-                            <CardTitle rank={2}>{data?.title}</CardTitle>
-                            <CardDescription truncated>{data?.description}</CardDescription>
-                        </div>
-                        <ul className={card["metadata-list"]}>
-                            <li className={card["metadata-list-item"]}>
-                                <Layers />
-                                <Text size="S">{totalChapters} Chapters</Text>
-                            </li>
-                            <li className={card["metadata-list-item"]}>
-                                <Clock />
-                                <Text size="S">{totalDuration}</Text>
-                            </li>
-                        </ul>
-                    </div>
-
-                </CardContent>
-                {
-                    !alreadyEnrolled &&
-                    <CardFooter className={card.footer} padding="300" gap="200">
-                        <div className={card["footer-left"]}>
+                        <div className={card["content-left"]}>
                             {
                                 data.price &&
                                 <>
@@ -87,12 +71,46 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", view =
                                 <span className={card["current-price"]}>Free</span>
                             }
                         </div>
-                        <div className={card["footer-right"]}>
-                            <Button size="S" type="button" mode="text" variant="accent"><ShoppingCart />Add to cart</Button>
+                        <div className={card["content-right"]}>
+                            {
+                                avgRating &&
+                                <Rating containerId={cardId} minified={false} score={avgRating || 0.0} showRatings={false} />
+                            }
                         </div>
-                    </CardFooter>
-                }
-                {
+                    </div>
+                    <div className={card["content-bottom"]}>
+                        <div className={card.info}>
+                            <CardTitle rank={2} size="S">{data?.title}</CardTitle>
+                            <CardDescription truncated>{data?.description}</CardDescription>
+                        </div>
+                        <ul className={card["metadata-list"]}>
+                            <li className={card["metadata-list-item"]}>
+                                <Layers />
+                                <Text size="S">{totalChapters} Chapters</Text>
+                            </li>
+                            <li className={card["metadata-list-item"]}>
+                                <Clock />
+                                <Text size="S">{totalDuration}</Text>
+                            </li>
+                        </ul>
+                    </div>
+                    {
+                        alreadyEnrolled &&
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Progress value={50} width="100%" height="6px" data-status="success" />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <Text>{progress} Completed</Text>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+
+                    }
+
+                </CardContent>
+                {/* {
                     alreadyEnrolled &&
                     <CardFooter className={card.footer} padding="300" gap="400">
                         <div className={card["footer-left"]}>
@@ -101,11 +119,8 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", view =
                                 <Progress value={50} style={{ "width": "100%", "height": "4px" }} data-status={"success"} />
                             </div>
                         </div>
-                        <div className={card["footer-right"]}>
-                            <Button type="button" mode="text" variant="accent" size="S"><BookOpen />Open course</Button>
-                        </div>
                     </CardFooter>
-                }
+                } */}
             </Link>
         </Card>
     )

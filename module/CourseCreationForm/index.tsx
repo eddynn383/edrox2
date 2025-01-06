@@ -6,7 +6,7 @@ import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Text } from "@/components";
 import { newCourse, updateCourse } from "@/actions/course";
 import { NewCourseSchema } from "@/schemas";
 import { FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
@@ -115,7 +115,8 @@ export const CourseCreationForm = ({ className, course, categories, actions, onO
                                                     <SelectValue placeholder="Select category" />
                                                 </SelectTrigger>
                                                 <SelectContent side="top" mode="outline" shade="200">
-                                                    {categories.map((item: any) => (
+                                                    {!categories && <Text>No Chapter Available</Text>}
+                                                    {categories?.map((item: any) => (
                                                         <SelectItem key={item.id} value={item.id}>
                                                             {item.name}
                                                         </SelectItem>

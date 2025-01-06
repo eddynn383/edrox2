@@ -1,11 +1,7 @@
-import { goToCourseContent, goToCourseDetails } from "@/actions/edit-course";
-import { Button, Playlist, ScrollArea, Stepper } from "@/components";
-import { Preview } from "@/module/ActionButtons";
-import { PageHeader } from "@/module/PageHeader";
-
-import page from "@/styles/page.module.css"
-import { PageBody } from "@/module/PageBody";
 import { getAllChaptersByCourseId } from "@/data/chapters";
+import { SidePanel } from "@/module/SidePanel";
+import { getCourseSettingsByCourseId } from "@/data/courses";
+import page from "@/styles/page.module.css"
 
 interface DetailsEditLayoutPropsp {
     children: React.ReactNode,
@@ -16,7 +12,9 @@ interface DetailsEditLayoutPropsp {
 }
 
 const DetailsEditLayout = async ({ children, settings, params }: DetailsEditLayoutPropsp) => {
-
+    const courseId = params.courseId
+    const chapters = await getAllChaptersByCourseId(courseId)
+    const courseSettings = await getCourseSettingsByCourseId(courseId)
     return (
         <>
             <div className={page["section-left"]}>
@@ -25,10 +23,12 @@ const DetailsEditLayout = async ({ children, settings, params }: DetailsEditLayo
                 </div>
             </div>
             <div className={page["section-right"]}>
-                {settings}
+                {/* {settings} */}
+                <SidePanel courseId={courseId} chapters={chapters} courseSettings={courseSettings} location="details" />
             </div>
         </>
     );
 }
 
 export default DetailsEditLayout;
+

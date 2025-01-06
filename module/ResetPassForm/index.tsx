@@ -43,7 +43,7 @@ export const ResetPassForm = () => {
     return (
         <div className={module.auth}>
             <div className={module.inner}>
-                <Link href="/auth/login" mode="text" size="S"><ChevronLeft /> Back</Link>
+                <Link href="/auth/login" mode="text" variant="primary" size="S"><ChevronLeft /> Back</Link>
                 <Card variant="ghost" padding="0" radius="0" gap="600" mode="solid">
                     <CardHeader style={{ "display": "flex", "flexDirection": "column", "gap": "8px" }}>
                         <CardTitle rank={2}>Forgot your password?</CardTitle>
