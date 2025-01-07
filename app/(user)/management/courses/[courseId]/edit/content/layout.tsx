@@ -6,27 +6,20 @@ import { headers } from "next/headers";
 
 type SearchParams = Promise<{ playlist: string }>
 
-interface ChapterLayoutProps {
+type ChapterLayoutProps = {
     children: React.ReactNode,
-    sidepanel: React.ReactNode,
     params: {
         courseId: string,
         chapterId: string
     }
 }
 
+const ChapterLayout = async (props: ChapterLayoutProps) => {
 
-export default async function ChapterLayout(props: ChapterLayoutProps) {
-
-    const { children, sidepanel, params } = props;
+    const { children, params } = props;
     // const playlist = (await searchParams).playlist === "on" ? true : false;
     const courseId = params.courseId
     const chapters = await getAllChaptersByCourseId(courseId)
-
-    const headersList = headers()
-    const referer = headersList.get('referer')
-
-    console.log("referer::", referer)
 
     return (
         <>
@@ -40,4 +33,6 @@ export default async function ChapterLayout(props: ChapterLayoutProps) {
         </>
     );
 }
+
+export default ChapterLayout;
 
