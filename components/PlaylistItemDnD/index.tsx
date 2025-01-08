@@ -21,7 +21,7 @@ export interface PlaylistItemProps {
     // isActive?: boolean;
     // dragHandleProps?: any;
     id: string;
-    title: string;
+    name: string;
     description: string;
     href: string;
     showDescription?: boolean;
@@ -32,7 +32,7 @@ export interface PlaylistItemProps {
 }
 
 
-export const PlaylistItemDnD = ({ id, title, description, href, isSorting, showDescription = false, onEdit, onDelete, onLongPress }: PlaylistItemProps) => {
+export const PlaylistItemDnD = ({ id, name, description, href, isSorting, showDescription = false, onEdit, onDelete, onLongPress }: PlaylistItemProps) => {
     const router = useRouter()
     const {
         attributes,
@@ -89,7 +89,7 @@ export const PlaylistItemDnD = ({ id, title, description, href, isSorting, showD
             onClick={handleClick}
         >
             <div className={playlistItem.title}>
-                <Text type="span" size="S" weight="600">{title}</Text>
+                <Text type="span" size="S" weight="600">{name}</Text>
                 {
                     showDescription &&
                     <Text type="span" size="XS" weight="300">{description}</Text>

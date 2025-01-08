@@ -1,7 +1,7 @@
 "use server";
 
 import * as z from "zod";
-import { ContentChapterSchema, NewChapterSchema } from "@/schemas";
+import { ContentCourseChapterSchema, NewCourseChapterSchema } from "@/schemas";
 import { editChapterById, setChapter } from "@/data/chapters";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { Chapter } from "@/interfaces/global";
@@ -16,13 +16,13 @@ import { Chapter } from "@/interfaces/global";
 //     return chapters
 // }
 
-export const newInitChapter = async (values: z.infer<typeof NewChapterSchema>, courseId: string) => {
-    const validatedFields = NewChapterSchema.safeParse(values);
+export const newInitChapter = async (values: z.infer<typeof NewCourseChapterSchema>, courseId: string) => {
+    const validatedFields = NewCourseChapterSchema.safeParse(values);
     // console.log("validatedFields: ", validatedFields)
     // console.log("courseId: ", courseId)
 
-    if (!values.title) {
-        return { error: "Title is required" };
+    if (!values.name) {
+        return { error: "Name is required" };
     }
 
     if (!validatedFields.success) return {
@@ -42,8 +42,8 @@ export const newInitChapter = async (values: z.infer<typeof NewChapterSchema>, c
     };
 };
 
-export const updateContentChapter = async (courseId: string, chapterId: string, values: z.infer<typeof ContentChapterSchema>) => {
-    const validatedFields = ContentChapterSchema.safeParse(values);
+export const updateContentChapter = async (courseId: string, chapterId: string, values: z.infer<typeof ContentCourseChapterSchema>) => {
+    const validatedFields = ContentCourseChapterSchema.safeParse(values);
 
 
     if (!validatedFields.success) return { error: "Invalid fields!" };

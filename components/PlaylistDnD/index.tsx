@@ -24,17 +24,11 @@ import {
 } from "@dnd-kit/sortable";
 import { usePathname } from "next/navigation";
 
-const PlaylistDnD = ({ items, courseId, currentPath, showDescription = false, onReorder, onEdit, onDelete }: PlaylistDnDProps) => {
+const PlaylistDnD = ({ items, courseId, location, showDescription = false, onReorder, onEdit, onDelete }: PlaylistDnDProps) => {
     const [isSorting, setIsSorting] = useState(false);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const componentRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname()
-
-    console.log("currentPath: ", currentPath)
-    console.log("pathname: ", pathname)
-
-    console.log("PLAYLIST ITEMS: ", items)
-
     // Handle drag and drop sorting
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -87,15 +81,15 @@ const PlaylistDnD = ({ items, courseId, currentPath, showDescription = false, on
                         >
                             {
                                 items.map((item: any, idx) => {
-                                    const isActive = currentPath?.includes(item.id);
+                                    const isActive = pathname?.includes(item.id);
                                     console.log(item)
                                     return (
                                         <li key={idx} className={playlist["list-item"]} data-active={isActive}>
                                             <PlaylistItemDnD
                                                 id={item.id}
-                                                title={item.title}
+                                                name={item.name}
                                                 description={item.description}
-                                                href={`/management/courses/${courseId}/edit/content/${item.id}`}
+                                                href={`/management/courses/${courseId}/edit/${location}/${item.id}`}
                                                 isSorting={isSorting}
                                                 showDescription={showDescription}
                                                 onEdit={onEdit}

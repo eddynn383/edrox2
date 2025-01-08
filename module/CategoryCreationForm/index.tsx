@@ -86,6 +86,7 @@ export const CategoryCreationForm = ({ className, category, actions, onOpen, onP
                                             <FormControl>
                                                 <Input
                                                     {...field}
+                                                    mode="outline"
                                                     shade="200"
                                                     type="text"
                                                     name="name"

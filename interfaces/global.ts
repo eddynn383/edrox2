@@ -63,7 +63,7 @@ export type TutorsOnCourses = {
 
 export type Course = {
     id: string;
-    title: string;
+    name: string;
     description: string | null;
     image: Image | null;
     categoryId: string;
@@ -75,7 +75,7 @@ export type Course = {
 
 export type Chapter = {
     id: string;
-    title: string;
+    name: string;
     description: string | null;
     isPublished: boolean;
     status: string;

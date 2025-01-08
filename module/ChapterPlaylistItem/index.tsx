@@ -48,7 +48,7 @@ export function ChapterItem({ chapter }: ChapterItemProps) {
         >
             <div className="flex items-center justify-between">
                 <div>
-                    <h3 className="text-lg font-semibold">{chapter.title}</h3>
+                    <h3 className="text-lg font-semibold">{chapter.name}</h3>
                     {chapter.description && (
                         <p className="text-sm text-muted-foreground">
                             {chapter.description}

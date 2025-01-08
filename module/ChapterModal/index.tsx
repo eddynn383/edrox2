@@ -3,7 +3,7 @@
 import { Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components";
 import { useState } from "react";
 import { Edit, PlusCircle } from "lucide-react";
-import { ChapterCreationForm } from "../ChapterCreationForm";
+import { CourseChapterCreationForm } from "../CourseChapterCreationForm";
 
 type Chapter = {
     id: string;
@@ -65,7 +65,7 @@ export const ChapterModal = ({ id, value }: ChapterModalProps) => {
                     </DialogHeader>
                 }
                 <DialogBody>
-                    <ChapterCreationForm
+                    <CourseChapterCreationForm
                         courseId={id}
                         actions={
                             <DialogFooter>

@@ -41,7 +41,7 @@ const CourseEditChapters = ({ courseId, chapters }: CourseChaptersProps) => {
     return (
         <div className={chaptersSX.container}>
             <div className={chaptersSX.body}>
-                <PlaylistDnD courseId={courseId} items={items} currentPath={path} onReorder={() => handleReorder(items)} onEdit={() => handleEdit(items)} onDelete={() => handleDelete(items)} />
+                <PlaylistDnD courseId={courseId} items={items} location="content" onReorder={() => handleReorder(items)} onEdit={() => handleEdit(items)} onDelete={() => handleDelete(items)} />
             </div>
         </div>
     );

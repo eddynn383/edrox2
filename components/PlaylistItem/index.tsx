@@ -9,7 +9,7 @@ import { CirclePlay } from "lucide-react";
 
 
 
-export const PlaylistItem = ({ id, title, duration, status, description, href, showDescription = false }: PlaylistItemProps) => {
+export const PlaylistItem = ({ id, name, duration, status, description, href, showDescription = false }: PlaylistItemProps) => {
     const router = useRouter()
 
     const handleClick = (e: React.MouseEvent) => {
@@ -19,14 +19,11 @@ export const PlaylistItem = ({ id, title, duration, status, description, href, s
     };
 
     return (
-        <div
-            className={playlistItem.container}
-            onClick={handleClick}
-        >
+        <div className={playlistItem.container} onClick={handleClick} >
             <div className={playlistItem.title}>
 
                 <CirclePlay size={16} />
-                <Text type="span" size="S" weight="400">{title}</Text>
+                <Text type="span" size="S" weight="400">{name}</Text>
                 {
                     showDescription &&
                     <Text type="span" size="XS" weight="300">{description}</Text>

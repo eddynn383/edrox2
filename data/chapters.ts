@@ -5,7 +5,7 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 type ChapterBodyType = {
-    title: string;
+    name: string;
     description?: string;
     videoUrl?: string;
     isPublished?: boolean;
@@ -51,7 +51,7 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
 
         const chapter = await prisma.chapter.create({
             data: {
-                title: body.title,
+                name: body.name,
                 description: body.description,
                 position: newPosition,
                 isPublished: body.isPublished,

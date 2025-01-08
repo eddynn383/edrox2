@@ -18,12 +18,12 @@ export const CourseCreationForm = ({ className, course, categories, actions, onO
     const form = useForm<z.infer<typeof NewCourseSchema>>({
         resolver: zodResolver(NewCourseSchema),
         defaultValues: {
-            title: course ? course.title : "",
+            name: course ? course.name : "",
             category: course ? course.categoryId : ""
         }
     });
 
-    const titleState = form.getFieldState("title")
+    const titleState = form.getFieldState("name")
     const titleStatus = !titleState.invalid ? "default" : "fail";
 
 
@@ -74,12 +74,12 @@ export const CourseCreationForm = ({ className, course, categories, actions, onO
                     <FormRows className={courseSX.rows}>
                         <FormField
                             control={form.control}
-                            name="title"
+                            name="name"
                             render={({ field }) => {
                                 return (
                                     <FormItem data-cols="1">
                                         <FormRowDetails>
-                                            <FormLabel>Title</FormLabel>
+                                            <FormLabel>Name</FormLabel>
                                             <FormMessage />
                                         </FormRowDetails>
                                         <FormRowFields>

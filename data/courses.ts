@@ -3,12 +3,12 @@ import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 type GetCourses = {
-    title: string;
+    name: string;
     categoryId?: string;
 };
 
 type Course = {
-    title: string;
+    name: string;
     category: string;
 }
 
@@ -25,7 +25,7 @@ export const setCourse = async (body: any) => {
         // Create the course
         const course = await prisma.course.create({
             data: {
-                title: body.title,
+                name: body.name,
                 categoryId: body.category,
                 createdById: user.id as string,
                 updatedAt: new Date(),
@@ -40,23 +40,32 @@ export const setCourse = async (body: any) => {
                             tags: false,
                         },
                     ],
+                },
+                groups: {
+                    create: {
+                        name: "Default Group",
+                        createdById: user.id as string,
+                        updatedAt: new Date(),
+                        updatedById: user.id,
+                        position: 1
+                    },
                 }
             },
         });
 
         // Create a default group for the course
-        const defaultGroup = await prisma.group.create({
-            data: {
-                name: "Default Group",
-                courseId: course.id,
-            }
-        });
+        // const defaultGroup = await prisma.group.create({
+        //     data: {
+        //         name: "Default Group",
+        //         courseId: course.id,
+        //     }
+        // });
 
         console.log(
             "SETTED COURSE (DATA): ",
             course,
             "DEFAULT GROUP: ",
-            defaultGroup
+            // defaultGroup
         );
 
         return NextResponse.json(course);
@@ -127,13 +136,13 @@ export const getAllCourses = async () => {
     }
 }
 
-export const getPublishdedCourses = async ({ title, categoryId }: GetCourses) => {
+export const getPublishdedCourses = async ({ name, categoryId }: GetCourses) => {
     try {
         const courses = await prisma.course.findMany({
             where: {
                 isPublished: true,
-                title: {
-                    contains: title,
+                name: {
+                    contains: name,
                     mode: 'insensitive'
                 },
                 categoryId,
@@ -206,12 +215,12 @@ export const getCourseById = async (id: string) => {
     }
 }
 
-export const getCoursesByTitle = async (title: string) => {
+export const getCoursesByName = async (name: string) => {
     try {
         const courses = await prisma.course.findMany({
             where: {
-                title: {
-                    contains: title
+                name: {
+                    contains: name
                 }
             }
         })
@@ -261,12 +270,13 @@ export const editCourseById = async (id: string, body: any) => {
                 id
             },
             data: {
-                title: body.title,
+                name: body.name,
                 description: body.description,
                 categoryId: body.category,
                 imageId: body.image || null,
                 updatedAt: new Date(),
-                updatedById: user?.id
+                updatedById: user?.id,
+
             },
             include: {
                 image: true,

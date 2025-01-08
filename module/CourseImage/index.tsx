@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useState, useTransition } from "react";
 import { Cover, UploadImage } from "@/components"
-import { CoverImageSchema } from "@/schemas"
+import { CourseImageSchema } from "@/schemas"
 import toast from "react-hot-toast"
 import { updateCourseCover } from "@/actions/course";
 import { Image } from "@/interfaces/global";
@@ -20,7 +20,7 @@ export const CourseImage = ({ cover, courseId, edit = false }: CourseImageProps)
     const [success, setSuccess] = useState<string | undefined>();
 
 
-    const uploadCoverImage = async (values: z.infer<typeof CoverImageSchema>) => {
+    const uploadCoverImage = async (values: z.infer<typeof CourseImageSchema>) => {
         try {
             // console.log("UPLOAD COVER VALUES: ", values)
             startTransition(() => {

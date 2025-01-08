@@ -12,7 +12,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     padding?: Size;
     radius?: Size;
     gap?: Size;
-    view?: "grid" | "list";
+    orientation?: "vertical" | "horizontal";
+    align?: "center" | "start" | "end";
 }
 
 export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {

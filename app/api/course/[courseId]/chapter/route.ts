@@ -58,7 +58,7 @@ export async function POST(request: Request, { params }: paramsType) {
         // console.log({ data })
         const chapter = await prisma.chapter.create({
             data: {
-                title: data.title,
+                name: data.name,
                 description: data.description,
                 // videoUrl: data.videoUrl,
                 position: newPosition,

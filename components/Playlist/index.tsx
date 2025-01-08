@@ -22,7 +22,7 @@ const Playlist = ({ items, currentPath, showDescription = false }: PlaylistProps
                             <li key={idx} className={playlist["list-item"]} data-active={isActive}>
                                 <PlaylistItem
                                     id={item.id}
-                                    title={item.title}
+                                    name={item.name}
                                     status={item.status}
                                     duration={item.duration}
                                     description={item.description || undefined}

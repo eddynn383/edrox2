@@ -21,7 +21,7 @@ interface CourseHeaderProps {
 }
 
 export const CourseHeader = async ({ course, categories, allowRating = true, ratingType = "Overall", rating, edit = false }: CourseHeaderProps) => {
-    const { id, title, description, category } = course
+    const { id, name, description, category } = course
 
     // console.log("COURSE HEADER DETAILS: ", course)
 
@@ -30,7 +30,7 @@ export const CourseHeader = async ({ course, categories, allowRating = true, rat
     return (
         <div className={courseSx.container}>
             <div className={courseSx.title}>
-                <PageTitle title={title} />
+                <PageTitle title={name} />
             </div>
             <div className={courseSx.metadata}>
                 {

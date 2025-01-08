@@ -8,7 +8,9 @@ import { CourseSchema } from "@/schemas";
 import page from "@/styles/page.module.css"
 
 interface CourseDetailsPage {
-    params: { courseId: string }
+    params: {
+        courseId: string
+    }
 }
 
 export default async function CourseDetailsPage({ params }: CourseDetailsPage) {
@@ -27,20 +29,22 @@ export default async function CourseDetailsPage({ params }: CourseDetailsPage) {
     // console.log("SETTIGNS IN DETAILS: ", settings)
 
     return (
-        <ScrollArea>
-            <div className={page.inner}>
-                {/* <CourseCreationFullForm
+        <div className={page["course-details"]}>
+            <ScrollArea>
+                <div className={page.inner}>
+                    {/* <CourseCreationFullForm
                     course={course}
                     categories={categories}
                     settings={settings}
                 /> */}
-                <CourseCreationFullForm2
-                    course={course}
-                    categories={categories}
-                    settings={settings}
-                />
-            </div>
-        </ScrollArea>
+                    <CourseCreationFullForm2
+                        course={course}
+                        categories={categories}
+                        settings={settings}
+                    />
+                </div>
+            </ScrollArea>
+        </div>
     )
 
 }

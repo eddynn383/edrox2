@@ -15,6 +15,7 @@ const DetailsEditLayout = async ({ children, settings, params }: DetailsEditLayo
     const courseId = params.courseId
     const chapters = await getAllChaptersByCourseId(courseId)
     const courseSettings = await getCourseSettingsByCourseId(courseId)
+
     return (
         <>
             <div className={page["section-left"]}>
@@ -23,8 +24,7 @@ const DetailsEditLayout = async ({ children, settings, params }: DetailsEditLayo
                 </div>
             </div>
             <div className={page["section-right"]}>
-                {/* {settings} */}
-                <SidePanel courseId={courseId} chapters={chapters} courseSettings={courseSettings} location="details" />
+                <SidePanel courseId={courseId} courseSettings={courseSettings} location="details" />
             </div>
         </>
     );

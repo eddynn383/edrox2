@@ -2,37 +2,37 @@
 
 import * as z from "zod";
 import toast from "react-hot-toast";
+import { useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input, Textarea } from "@/components";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
-import { NewChapterSchema } from "@/schemas";
-import { newInitChapter } from "@/actions/chapter";
-import chapter from "./chapter.module.css"
-import { useEffect, useTransition } from "react";
+import { NewCourseGroupSchema } from "@/schemas";
+import { newCourseGroup } from "@/actions/group";
+import group from "./group.module.css"
 
-interface ChapterCreationFormProps {
+interface CourseGroupCreationFormProps {
     actions?: any;
     courseId: string;
     onOpen?: any;
     onPendingChange?: (isPending: boolean) => void;
 }
 
-const ChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange }: ChapterCreationFormProps) => {
+const CourseGroupCreationForm = ({ actions, courseId, onOpen, onPendingChange }: CourseGroupCreationFormProps) => {
     const router = useRouter()
     const [isPending, startTransition] = useTransition();
 
-    const form = useForm<z.infer<typeof NewChapterSchema>>({
-        resolver: zodResolver(NewChapterSchema),
+    const form = useForm<z.infer<typeof NewCourseGroupSchema>>({
+        resolver: zodResolver(NewCourseGroupSchema),
         defaultValues: {
-            title: "",
+            name: "",
             description: ""
         }
     });
 
-    const titleState = form.getFieldState("title")
-    const titleStatus = !titleState.invalid ? "default" : "fail";
+    const nameState = form.getFieldState("name")
+    const nameStatus = !nameState.invalid ? "default" : "fail";
 
     const descriptionState = form.getFieldState("description")
     const descriptionStatus = !descriptionState.invalid ? "default" : "fail";
@@ -45,10 +45,10 @@ const ChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange }: Cha
 
     // const url = convertToURL(title)
 
-    const submitHandler = (values: z.infer<typeof NewChapterSchema>) => {
+    const submitHandler = (values: z.infer<typeof NewCourseGroupSchema>) => {
 
         startTransition(() => {
-            newInitChapter(values, courseId).then((data) => {
+            newCourseGroup(values, courseId).then((data) => {
 
                 if (data?.error) {
                     toast.error(data.error, { position: 'bottom-center' })
@@ -67,18 +67,18 @@ const ChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange }: Cha
     return (
         <>
             <Form {...form}>
-                <form id="chapter-creation-form" className={chapter.form} onSubmit={form.handleSubmit(submitHandler)}>
-                    <FormRows className={chapter.rows}>
+                <form id="group-creation-form" className={group.form} onSubmit={form.handleSubmit(submitHandler)}>
+                    <FormRows className={group.rows}>
                         <FormField
                             control={form.control}
-                            name="title"
+                            name="name"
                             render={({ field }) => {
                                 // setTitle(field.value)
 
                                 return (
                                     <FormItem data-cols="1">
                                         <FormRowDetails>
-                                            <FormLabel>Title</FormLabel>
+                                            <FormLabel>Name</FormLabel>
                                             <FormMessage />
                                         </FormRowDetails>
                                         <FormRowFields>
@@ -88,9 +88,9 @@ const ChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange }: Cha
                                                     mode="outline"
                                                     shade="200"
                                                     type="text"
-                                                    name="title"
-                                                    placeholder="Eg. Introduction in front-end technologies"
-                                                    status={titleStatus}
+                                                    name="name"
+                                                    placeholder="Eg. Design Team"
+                                                    status={nameStatus}
                                                 />
                                             </FormControl>
                                         </FormRowFields>
@@ -132,4 +132,4 @@ const ChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange }: Cha
     );
 }
 
-export { ChapterCreationForm };
+export { CourseGroupCreationForm };

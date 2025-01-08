@@ -13,7 +13,7 @@ import { RichTextEditor } from "@/components/RichTextEditor";
 import { Toolbar } from "@/components/RichTextEditor/components/Toolbar";
 import { ChapterSelection } from "../ChapterSelection";
 import { FormActions, FormRowFields, FormRows } from "@/components/Form";
-import { ContentChapterSchema } from "@/schemas";
+import { ContentCourseChapterSchema } from "@/schemas";
 import { updateContentChapter } from "@/actions/chapter";
 import chapter from "./chapter.module.css";
 import page from "@/styles/page.module.css";
@@ -45,8 +45,8 @@ export const ContentForm = ({ courseId, chapterId, chapters, currentChapter, edi
     // console.log("path: ", path)
     // console.log("playlist: ", playlist)
 
-    const form = useForm<z.infer<typeof ContentChapterSchema>>({
-        resolver: zodResolver(ContentChapterSchema),
+    const form = useForm<z.infer<typeof ContentCourseChapterSchema>>({
+        resolver: zodResolver(ContentCourseChapterSchema),
         defaultValues: {
             content: currentChapter ? content : "",
         }
@@ -62,7 +62,7 @@ export const ContentForm = ({ courseId, chapterId, chapters, currentChapter, edi
         }
     });
 
-    const submitHandler = (values: z.infer<typeof ContentChapterSchema>) => {
+    const submitHandler = (values: z.infer<typeof ContentCourseChapterSchema>) => {
 
         console.log("Values: ", values)
 

@@ -1,7 +1,7 @@
 "use server";
 
 import * as z from "zod";
-import { NewCourseSchema, CourseDescriptionSchema, CoverImageSchema, CourseMetadataSchema, CourseSchema, CourseSettingsSchema } from "@/schemas";
+import { NewCourseSchema, CourseDescriptionSchema, CourseImageSchema, CourseMetadataSchema, CourseSchema, CourseSettingsSchema } from "@/schemas";
 import { deleteCourseById, deleteCoursesByIds, editCourseById, editCourseSettingsById, getCourseById, setCourse } from "@/data/courses";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { setMetadata } from "@/data/metadata";
@@ -11,8 +11,8 @@ import { deleteFileUpload } from "./upload-file";
 export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
     const validatedFields = NewCourseSchema.safeParse(values);
 
-    if (!values.title) {
-        return { error: "Title is required" };
+    if (!values.name) {
+        return { error: "Name is required" };
     }
 
     if (!values.category) {
@@ -48,7 +48,7 @@ export const updateCourse = async (courseId: string, values: z.infer<typeof NewC
     console.groupEnd()
     console.log("************** Update Course End **************")
 
-    if (!values.title) {
+    if (!values.name) {
         return { error: "Title is required" };
     }
 
@@ -102,8 +102,8 @@ export const updateCourseDescription = async (courseId: string, values: z.infer<
 
 
 
-export const updateCourseCover = async (courseId: string, values: z.infer<typeof CoverImageSchema>) => {
-    const validatedFields = CoverImageSchema.safeParse(values);
+export const updateCourseCover = async (courseId: string, values: z.infer<typeof CourseImageSchema>) => {
+    const validatedFields = CourseImageSchema.safeParse(values);
 
     if (!validatedFields.success) return { error: "Invalid fields!" };
 

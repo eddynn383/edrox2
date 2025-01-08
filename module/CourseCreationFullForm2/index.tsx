@@ -26,8 +26,8 @@ export const CourseCreationFullForm2 = ({ className, course, categories, setting
         return () => debouncedSave.cancel();
     }, [formValues]);
 
-    const titleState = form.getFieldState("title")
-    const titleStatus = !titleState.invalid ? "default" : "fail";
+    const nameState = form.getFieldState("name")
+    const nameStatus = !nameState.invalid ? "default" : "fail";
 
     const descriptionState = form.getFieldState("description")
     const descriptionStatus = !descriptionState.invalid ? "default" : "fail";
@@ -70,7 +70,7 @@ export const CourseCreationFullForm2 = ({ className, course, categories, setting
                     <FormRows>
                         <FormField
                             control={form.control}
-                            name="title"
+                            name="name"
                             render={({ field }) => {
                                 return (
                                     <FormItem data-cols="1">
@@ -88,7 +88,7 @@ export const CourseCreationFullForm2 = ({ className, course, categories, setting
                                                     type="text"
                                                     name="title"
                                                     placeholder="Eg. Introduction in front-end technologies"
-                                                    status={titleStatus}
+                                                    status={nameStatus}
                                                 />
                                             </FormControl>
                                         </FormRowFields>
@@ -194,7 +194,7 @@ export const CourseCreationFullForm2 = ({ className, course, categories, setting
                                                             type="text"
                                                             name="subcategory"
                                                             placeholder="Eg. UX Design Principles"
-                                                            status={titleStatus}
+                                                            status={nameStatus}
                                                         />
                                                     </FormControl>
                                                 </FormRowFields>

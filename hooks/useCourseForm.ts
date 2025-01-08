@@ -9,7 +9,7 @@ export const useCourseForm = (course?: any) => {
     const form = useForm<z.infer<typeof CourseSchema>>({
         resolver: zodResolver(CourseSchema),
         defaultValues: {
-            title: course?.title || "",
+            name: course?.name || "",
             description: course?.description || "",
             category: course?.categoryId || "",
             subcategory: course?.subcategory || "",

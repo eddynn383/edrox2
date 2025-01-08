@@ -69,8 +69,8 @@ export const CategorySchema = z.object({
 /*=================COURSES======================*/
 
 export const NewCourseSchema = z.object({
-    title: z.string().min(1, {
-        message: "Title is required"
+    name: z.string().min(1, {
+        message: "Name is required"
     }),
     // url: z.string(),
     category: z.string().min(1, {
@@ -87,7 +87,7 @@ export const CourseSettingsSchema = z.object({
 })
 
 export const CourseSchema = z.object({
-    title: z.string().min(1, { message: "Title is required" }).max(100, { message: "Title is too long" }),
+    name: z.string().min(1, { message: "Name is required" }).max(100, { message: "Name is too long" }),
     description: z.string().optional(),
     category: z.string().min(1, {
         message: "Choose a category"
@@ -105,7 +105,7 @@ export const CourseDescriptionSchema = z.object({
 
 /*=================COVER IMAGE======================*/
 
-export const CoverImageSchema = z.object({
+export const CourseImageSchema = z.object({
     image: z.string().min(1, {
         message: "Image is required",
     }),
@@ -122,18 +122,27 @@ export const CourseMetadataSchema = z.object({
 
 /*=================CHAPTERS======================*/
 
-export const NewChapterSchema = z.object({
-    title: z.string().min(1, {
-        message: "Title is required"
+export const NewCourseChapterSchema = z.object({
+    name: z.string().min(1, {
+        message: "Name is required"
     }),
     description: z.string()
 })
 
-export const ContentChapterSchema = z.object({
+/*=================GROUPS======================*/
+
+export const NewCourseGroupSchema = z.object({
+    name: z.string().min(1, {
+        message: "Name is required"
+    }),
+    description: z.string()
+})
+
+export const ContentCourseChapterSchema = z.object({
     content: z.string()
 })
 
-export const ChapterSchema = z.object({
+export const CourseChapterSchema = z.object({
     content: z.string()
 })
 

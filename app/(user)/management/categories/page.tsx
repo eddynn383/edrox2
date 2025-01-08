@@ -6,6 +6,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { CategoryManager } from "@/module/CategoryManager";
 import { CategoryCreation } from "@/module/CategoryCreation";
 import psx from "@/styles/page.module.scss";
+import { PageHeader } from "@/module/PageHeader";
 
 type SearchParams = Promise<{ [key: string]: string }>
 
@@ -18,12 +19,10 @@ const Page = async (props: CategoriesPageProps) => {
     const categories = await getAllCategories();
 
     console.log(categories)
-    // const categories: any = []
 
-    // const PageActions = [{
-    //     id: "a1",
-    //     element: <Filter />
-    // }]
+    const PageTitle = "Categories"
+
+    const PageDescription = "Create, manage, and publish your course categories here."
 
     const PageBreadcrumb = [{
         id: "b1",
@@ -33,14 +32,19 @@ const Page = async (props: CategoriesPageProps) => {
         separator: "true"
     }, {
         id: "b2",
-        title: "Admin",
-        children: "Admin",
+        title: "Management",
+        children: "Management",
         separator: "false"
+    }]
+
+    const PageActions = [{
+        id: "a1",
+        element: <CategoryCreation />
     }]
 
     return (
         <>
-            <section className={psx["body-toolbar"]}>
+            {/* <section className={psx["body-toolbar"]}>
                 <div className={psx["body-toolbar-row"]}>
                     <Breadcrumb>
                         <BreadcrumbList>
@@ -62,7 +66,8 @@ const Page = async (props: CategoriesPageProps) => {
                         <CategoryCreation />
                     </div>
                 </div>
-            </section>
+            </section> */}
+            <PageHeader title={PageTitle} description={PageDescription} breadcrumb={PageBreadcrumb} actions={PageActions} />
             <section className={psx["body-content"]}>
                 <div className={psx["body-content-left"]}>
                     <Suspense fallback={<p>Loading category table...</p>}>

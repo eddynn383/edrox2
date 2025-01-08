@@ -106,7 +106,7 @@ const PageCourseId = async (props: PageCourseIdProps) => {
                 </section> */}
             <div className={page["course-details"]} data-device="desktop">
                 <div className={page.left}>
-                    <PageHeader title={course.title || ""} category={course.category} rating={rating} description={course.description || ""} breadcrumb={PageBreadcrumb} device="desktop" />
+                    <PageHeader title={course.name || ""} category={course.category} rating={rating} description={course.description || ""} breadcrumb={PageBreadcrumb} device="desktop" />
                     <PageBody orientation="vertical">
                         <div className={page.inner}>
                             <Suspense fallback={<ChapterSkeleton />}>
@@ -121,7 +121,7 @@ const PageCourseId = async (props: PageCourseIdProps) => {
             </div>
             <div className={page["course-details"]} data-device="mobile">
                 <ScrollArea>
-                    <PageHeader title={course.title || ""} category={course.category} rating={rating} description={course.description || ""} breadcrumb={PageBreadcrumb} image={course?.image || undefined} device="mobile" />
+                    <PageHeader title={course.name || ""} category={course.category} rating={rating} description={course.description || ""} breadcrumb={PageBreadcrumb} image={course?.image || undefined} device="mobile" />
                     <PageBody orientation="vertical">
                         <Suspense fallback={<p>Loading course details...</p>}>
                             {/* <CourseDetails courseId={courseId} tutors={course?.tutors} chapters={chapters} metadata={[]} /> */}

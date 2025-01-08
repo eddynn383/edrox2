@@ -2,6 +2,7 @@ import { Button } from "@/components";
 import { getAllChaptersByCourseId } from "@/data/chapters";
 import { ChapterSelection } from "@/module/ChapterSelection";
 import { PanelRightOpen } from "lucide-react";
+import { CourseChapterCreation } from "@/module/CourseChapterCreation";
 import page from "@/styles/page.module.css"
 
 interface NewChapterPageProps {
@@ -18,21 +19,23 @@ export default async function ContentPage({ params, searchParams }: NewChapterPa
     // console.log("Published chapters: ", chapters)
 
     return (
-        <>
-            <div className={page["section-header"]}>
+        <div className={page["courses-content"]}>
+            {/* <div className={page["section-header"]}>
                 <ChapterSelection courseId={courseId} chapters={chapters} />
                 <Button content="icon" size="S"><PanelRightOpen /></Button>
-            </div>
+            </div> */}
             <div className={page["section-body"]}>
                 <div className={page.empty}>
                     <p>Choose the following option to create content</p>
                     <div className={page["empty-actions"]}>
-                        <Button variant="accent" status="brand">Create Chapter</Button>
+                        <CourseChapterCreation courseId={courseId}>
+                            <Button variant="accent" status="brand">Create Chapter</Button>
+                        </CourseChapterCreation>
                         <Button>Create Quiz</Button>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 
 }

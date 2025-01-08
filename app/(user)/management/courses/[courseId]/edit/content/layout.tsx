@@ -2,7 +2,6 @@
 import { getAllChaptersByCourseId } from "@/data/chapters";
 import { SidePanel } from "@/module/SidePanel";
 import page from "@/styles/page.module.css"
-import { headers } from "next/headers";
 
 type SearchParams = Promise<{ playlist: string }>
 
@@ -27,7 +26,6 @@ const ChapterLayout = async (props: ChapterLayoutProps) => {
                 {children}
             </div>
             <div className={page["section-right"]}>
-                {/* {sidepanel} */}
                 <SidePanel courseId={courseId} chapters={chapters} location="content" />
             </div>
         </>

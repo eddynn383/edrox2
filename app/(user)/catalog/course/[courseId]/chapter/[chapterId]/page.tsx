@@ -34,7 +34,7 @@ const PageChapterId = async (props: PageChapterIdProps) => {
     const playlist = await getPublishdedChaptersByCourseId(params.courseId)
     const chapterDetails = await getChapterById(params.chapterId)
     // const chapterContent = await getContentByChapterId(params.chapterId)
-    const chapterTitle = chapterDetails?.title
+    const chapterName = chapterDetails?.name
 
     // if (!searchParams.playlist) {
     //     if (searchParams.viewport !== "mobile") {
@@ -44,7 +44,7 @@ const PageChapterId = async (props: PageChapterIdProps) => {
     //     }
     // }
 
-    if (!chapterTitle) {
+    if (!chapterName) {
         return
     }
     // console.log("chapterDetails: ", chapterDetails)
@@ -71,19 +71,19 @@ const PageChapterId = async (props: PageChapterIdProps) => {
     }, {
         id: "b3",
         href: `/catalog/course/${params.courseId}`,
-        title: courseDetails?.title,
+        title: courseDetails?.name,
         children: "Catalog",
         separator: "true"
     }, {
         id: "b4",
         title: "Chapter details",
-        children: courseDetails?.title,
+        children: courseDetails?.name,
         separator: "false"
     }]
 
     return (
         <>
-            <PageHeader title={chapterTitle || ""} breadcrumb={PageBreadcrumb} actions={PageActions} />
+            <PageHeader title={chapterName || ""} breadcrumb={PageBreadcrumb} actions={PageActions} />
             <section className={psx["body-content"]}>
                 <div className={psx["body-content-left"]}>
                     <Progress value={progressValue} style={{ "height": "2px" }} data-status={"success"} />

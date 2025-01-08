@@ -18,7 +18,7 @@ export const CategoryCreation = ({ }: CategoryCreationProps) => {
             onOpenChange={setOpen}
         >
             <DialogTrigger asChild>
-                <Button mode="solid" variant="accent" status="default" size="M" >
+                <Button mode="solid" variant="accent" status="brand" size="M" >
                     <Plus /> New
                 </Button>
             </DialogTrigger>
@@ -33,9 +33,9 @@ export const CategoryCreation = ({ }: CategoryCreationProps) => {
                         actions={
                             <DialogFooter>
                                 <DialogClose asChild>
-                                    <Button>Cancel</Button>
+                                    <Button mode="text">Cancel</Button>
                                 </DialogClose>
-                                <Button variant="accent" type="submit">{isPending ? <Spinner /> : "Create"}</Button>
+                                <Button variant="accent" status="brand" type="submit">{isPending ? <Spinner /> : "Create"}</Button>
                             </DialogFooter>
                         }
                         onPendingChange={(isPending) => {

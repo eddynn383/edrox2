@@ -1,10 +1,11 @@
 import { Heading, ScrollArea, Text } from "@/components";
 import { ChapterSkeleton } from "@/components/Skeleton";
-import { getAllChaptersByCourseId } from "@/data/chapters";
-import { ChapterCreation } from "@/module/ChapterCreation";
-import CourseChapters from "@/module/CourseViewChapters";
-import page from "@/styles/page.module.css"
+import { getAllGroupsByCourseId } from "@/data/groups";
+import { CourseEditGroups } from "@/module/CourseEditGroups";
+import { CourseGroupCreation } from "@/module/CourseGroupCreation";
 import { Suspense } from "react";
+import page from "@/styles/page.module.css"
+import { SidePanel } from "@/module/SidePanel";
 
 interface ParticipantsLayoutProps {
     children: React.ReactNode,
@@ -17,7 +18,7 @@ interface ParticipantsLayoutProps {
 
 export default async function ParticipantsLayout({ children, params }: ParticipantsLayoutProps) {
     const { courseId, chapterId } = params;
-    const chapters = await getAllChaptersByCourseId(courseId)
+    const groups = await getAllGroupsByCourseId(courseId)
 
     return (
         <>
@@ -25,19 +26,7 @@ export default async function ParticipantsLayout({ children, params }: Participa
                 {children}
             </div>
             <div className={page["section-right"]}>
-                <div className={page["section-header"]} >
-                    <Heading rank={3}>Groups</Heading>
-                    <ChapterCreation courseId={courseId} />
-                </div>
-                <div className={page["section-body"]}>
-                    <ScrollArea>
-                        <div className={page.inner}>
-                            {/* <Suspense fallback={<ChapterSkeleton />}>
-                                <CourseChapters courseId={courseId} chapters={chapters} />
-                            </Suspense> */}
-                        </div>
-                    </ScrollArea>
-                </div>
+                <SidePanel courseId={courseId} groups={groups} location="participants" />
             </div>
         </>
     );

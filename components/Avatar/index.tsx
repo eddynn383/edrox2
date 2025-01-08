@@ -27,8 +27,8 @@ const Avatar = ({ src, alt, text, id, style, size = "M", shape = "square", ...pr
 
     return (
         <div className={avatar.container} id={id} style={style} data-size={size} data-shape={shape} {...props}>
-            {!text && <Image className="profile" width={imageSize} height={imageSize} src={src} alt={alt ? alt : ''} />}
-            {text && <Text size="S">{text}</Text>}
+            {(src && !text) && <Image className="profile" width={imageSize} height={imageSize} src={src} alt={alt ? alt : ''} />}
+            {(!src && text) && <Text size="S">{text}</Text>}
         </div>
     )
 }

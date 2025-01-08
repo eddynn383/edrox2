@@ -2,33 +2,28 @@
 
 import { useState } from "react";
 import { Button, Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components";
-import { ChapterCreationProps } from "./interface";
-import { ChapterCreationForm } from "@/module/ChapterCreationForm"
-import { Plus } from "lucide-react";
-import ChaptersEditList from "../ChaptersEditList";
-import msx from "@/styles/module.module.scss"
+import { CourseChapterCreationProps } from "./interface";
+import { CourseChapterCreationForm } from "@/module/CourseChapterCreationForm";
 import { Spinner } from "@/components/Spinner";
+import msx from "@/styles/module.module.scss"
 
-const ChapterCreation = ({ chapters, courseId }: ChapterCreationProps) => {
+const CourseChapterCreation = ({ courseId, children }: CourseChapterCreationProps) => {
     const [open, setOpen] = useState(false)
     const [isPending, setIsPending] = useState(false)
 
     // console.log(open)
     return (
         <div className={msx["chapters"]}>
-            {/* <ChaptersEditList data={chapters} /> */}
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button mode="text" variant="primary" status="default" content="icon" size="S" >
-                        <Plus />
-                    </Button>
+                    {children}
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>New chapter</DialogTitle>
                     </DialogHeader>
                     <div>
-                        <ChapterCreationForm
+                        <CourseChapterCreationForm
                             courseId={courseId}
                             actions={
                                 <DialogFooter>
@@ -50,4 +45,4 @@ const ChapterCreation = ({ chapters, courseId }: ChapterCreationProps) => {
     );
 }
 
-export { ChapterCreation }
+export { CourseChapterCreation }

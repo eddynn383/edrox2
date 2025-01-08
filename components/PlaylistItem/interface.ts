@@ -1,6 +1,6 @@
 export interface PlaylistItemProps {
     id: string;
-    title: string;
+    name: string;
     status?: string;
     duration?: number;
     description?: string;

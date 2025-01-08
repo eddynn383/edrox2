@@ -9,6 +9,7 @@ import { headers } from "next/headers";
 import { NextRequest } from "next/server";
 import page from "@/styles/page.module.css"
 import { StepperControls } from "@/components/Stepper";
+import { notFound, redirect } from "next/navigation";
 
 interface CourseEditLayoutProps {
     children: React.ReactNode,
@@ -26,19 +27,6 @@ const CourseEditLayout = async ({ children, params }: CourseEditLayoutProps) => 
 
     const currentCourse = await getCourseById(courseId)
     const creationSteps = await getAllCreationStepsByFor("courses")
-
-    function getCurrentPath() {
-        const headersList = headers()
-        const referer = headersList.get('referer')
-        if (referer) {
-            const url = new URL(referer);
-            const paths = url.pathname.split("/")
-            return paths[paths.length - 1]
-        }
-    }
-    console.log("pathname:: ", getCurrentPath())  // Extract the pathname
-
-    const currentStep = await getAllCreationStepsByUrl(getCurrentPath() || "")
 
     const PageActions = [{
         id: "a1",
@@ -105,10 +93,14 @@ const CourseEditLayout = async ({ children, params }: CourseEditLayoutProps) => 
         // onAction: async () => await goToCourseContent()
     }]
 
+    if (!currentCourse) {
+        redirect("/not-found");
+    }
+
 
     return (
         <div className={page["course-edit"]}>
-            <PageHeader title={currentCourse?.title || ""} breadcrumb={PageBreadcrumb} actions={PageActions} />
+            <PageHeader title={currentCourse?.name || ""} breadcrumb={PageBreadcrumb} actions={PageActions} />
             <PageBody orientation="vertical">
                 <div className={page.toolbar}>
                     <div className={page.inner}>

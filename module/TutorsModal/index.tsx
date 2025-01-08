@@ -3,7 +3,7 @@
 import { Button, Dialog, DialogBody, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components";
 import { useState } from "react";
 import { PlusCircle } from "lucide-react";
-import { ChapterCreationForm } from "../ChapterCreationForm";
+import { CourseChapterCreationForm } from "../CourseChapterCreationForm";
 
 type Chapter = {
     id: string;

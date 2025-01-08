@@ -10,7 +10,7 @@ import csx from "@/styles/module.module.scss"
 import { auth } from "@/auth";
 
 type SearchParams = Promise<{
-    title: string;
+    name: string;
     categoryId: string;
     viewport: string;
     view: "grid" | "list";

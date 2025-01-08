@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, DatePicker, Dropzone, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea, UploadImage } from "@/components";
 import { newCourse, updateCourse } from "@/actions/course";
-import { CourseSchema, CoverImageSchema, NewCourseSchema } from "@/schemas";
+import { CourseSchema, CourseImageSchema, NewCourseSchema } from "@/schemas";
 import { FormActions, FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 import courseSX from "./course.module.css"
 import { getImageById } from "@/data/image";
@@ -25,7 +25,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
     const form = useForm<z.infer<typeof CourseSchema>>({
         resolver: zodResolver(CourseSchema),
         defaultValues: {
-            title: course.title || "",
+            name: course.name || "",
             description: course.description || "",
             category: course.categoryId || "",
             subcategory: course.subcategory || "",
@@ -107,8 +107,8 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
     console.log("FORM: ", form);
     console.log("COURSE: ", course);
 
-    const titleState = form.getFieldState("title")
-    const titleStatus = !titleState.invalid ? "default" : "fail";
+    const nameState = form.getFieldState("name")
+    const nameStatus = !nameState.invalid ? "default" : "fail";
 
     const descriptionState = form.getFieldState("description")
     const descriptionStatus = !descriptionState.invalid ? "default" : "fail";
@@ -169,12 +169,12 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
                     <FormRows>
                         <FormField
                             control={form.control}
-                            name="title"
+                            name="name"
                             render={({ field }) => {
                                 return (
                                     <FormItem data-cols="1">
                                         <FormRowDetails>
-                                            <FormLabel required>Title</FormLabel>
+                                            <FormLabel required>Name</FormLabel>
                                             <FormMessage />
                                         </FormRowDetails>
                                         <FormRowFields>
@@ -187,7 +187,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
                                                     type="text"
                                                     name="title"
                                                     placeholder="Eg. Introduction in front-end technologies"
-                                                    status={titleStatus}
+                                                    status={nameStatus}
                                                 />
                                             </FormControl>
                                         </FormRowFields>
@@ -298,7 +298,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
                                                             type="text"
                                                             name="subcategory"
                                                             placeholder="Eg. UX Design Principles"
-                                                            status={titleStatus}
+                                                            status={nameStatus}
                                                         />
                                                     </FormControl>
                                                 </FormRowFields>
