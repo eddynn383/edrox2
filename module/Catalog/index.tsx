@@ -9,15 +9,15 @@ const Catalog = async ({ courses, layout }: CatalogProps) => {
     console.log("Courses in Catalog: ", courses)
 
     return (
-        <div className={sx["catalog"]}>
+        <div className={sx["catalog"]} data-layout={layout}>
             {
                 courses.length > 0 && (
                     <ScrollArea>
-                        <ul className={sx["catalog-list"]}>
+                        <ul className={sx["catalog-list"]} >
                             {
                                 courses.map((item: any) => (
                                     <li key={item.id}>
-                                        <CourseCard cardId={item?.id} data={item} view={layout} mode="solid" variant="primary" shade="100" />
+                                        <CourseCard cardId={item?.id} data={item} orientation={layout === "grid" ? "vertical" : "horizontal"} mode="solid" variant="primary" shade="100" />
                                     </li>
                                 ))
                             }

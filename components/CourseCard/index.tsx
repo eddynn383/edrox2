@@ -12,7 +12,7 @@ import { getEnrolment } from "@/data/enrolment"
 import { getProgress } from "@/data/progress"
 import card from "./card.module.css"
 
-const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", view = "grid", mode = "solid", variant = "primary", shade = "100" }: CourseCardProps) => {
+const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", orientation = "vertical", mode = "solid", variant = "primary", shade = "100" }: CourseCardProps) => {
     const { image } = data
     const coverURL = image?.url ? image.url : "https://images.pexels.com/photos/2457284/pexels-photo-2457284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
@@ -32,7 +32,7 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", view =
     console.log("avgRating data: ", avgRating)
 
     return (
-        <Card className={card.container} mode={mode} variant={variant} shade={shade} view={view} padding="0" radius="200">
+        <Card className={card.container} mode={mode} variant={variant} shade={shade} orientation={orientation} padding="0" radius="200">
             <Link href={`${detailsURL}/${data.id}`} >
                 <CardHeader className={card.header}>
                     <Cover className={card.cover} src={coverURL} alt={data.title} width={250} height={100} />
