@@ -151,7 +151,7 @@ export const deleteUsersByIds = async (ids: string[]) => {
             }
         })
 
-        console.log("DELETED USERS BY IDs (DATA): ", deletedUsers)
+        // console.log("DELETED USERS BY IDs (DATA): ", deletedUsers)
 
         return deletedUsers;
 

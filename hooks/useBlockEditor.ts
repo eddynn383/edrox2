@@ -97,8 +97,8 @@ export const useBlockEditor = ({ initialContent = "", onUpdate }: UseBlockEditor
         onBlur: ({ editor }) => {
             const updatedContent = editor.getHTML();
             const isEmpty = editor.isEmpty;
-            console.log("Updated Content:", updatedContent);
-            console.log("Is Editor Empty:", isEmpty);
+            // console.log("Updated Content:", updatedContent);
+            // console.log("Is Editor Empty:", isEmpty);
         },
         // onFocus: ({ editor }) => {
         //     setFocus(true)

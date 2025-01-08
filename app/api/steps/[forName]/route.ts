@@ -22,7 +22,7 @@ export async function GET(request: Request, { params }: paramsType) {
 
         return Response.json(creationStep)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

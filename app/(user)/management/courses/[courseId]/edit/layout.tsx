@@ -23,7 +23,7 @@ const CourseEditLayout = async ({ children, params }: CourseEditLayoutProps) => 
 
     const { courseId } = params
 
-    console.log("CourseEditLayout COURSE ID: ", courseId)
+    // console.log("CourseEditLayout COURSE ID: ", courseId)
 
     const currentCourse = await getCourseById(courseId)
     const creationSteps = await getAllCreationStepsByFor("courses")

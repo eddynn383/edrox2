@@ -23,7 +23,7 @@ const Page = async (props: CoursesPageProps) => {
     const searchParams = await props.searchParams
 
 
-    console.log("courses: ", courses)
+    // console.log("courses: ", courses)
     const PageTitle = "Course Management"
 
     const PageDescription = "Create, manage, and publish your courses here."

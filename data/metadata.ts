@@ -8,8 +8,8 @@ type Metadata = {
     courseId?: string;
 }
 
-export const setMetadata = async ( courseId: string, body: Metadata ) => {
-    console.log("set Meta Body: ", body)
+export const setMetadata = async (courseId: string, body: Metadata) => {
+    // console.log("set Meta Body: ", body)
 
     try {
 
@@ -27,7 +27,7 @@ export const setMetadata = async ( courseId: string, body: Metadata ) => {
             }
         })
 
-        console.log("alreadyCreated: ", alreadyCreated)
+        // console.log("alreadyCreated: ", alreadyCreated)
 
         // if (!alreadyCreated) {
         //     return new NextResponse("Key already exists!!!!!", { status: 500 })
@@ -41,7 +41,7 @@ export const setMetadata = async ( courseId: string, body: Metadata ) => {
             }
         })
 
-        console.log("METADATA: ", metadata)
+        // console.log("METADATA: ", metadata)
 
         return Response.json(metadata)
         // console.log("Metadata: ", metadata)
@@ -53,13 +53,13 @@ export const setMetadata = async ( courseId: string, body: Metadata ) => {
 }
 
 export const getMetadata = async (courseId: string) => {
-    try {        
+    try {
         const metadata = await prisma.metadata.findMany({
             where: {
-                courseId 
+                courseId
             }
         })
-    
+
         return metadata
     } catch (error) {
         return [];

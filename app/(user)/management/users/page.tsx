@@ -29,7 +29,7 @@ const Page = async () => {
 
     const users = await getAllUsers()
 
-    console.log("Users: ", users)
+    // console.log("Users: ", users)
 
     return (
         <>

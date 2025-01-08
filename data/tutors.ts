@@ -12,8 +12,8 @@ export const setTutor = async (body: any) => {
 
         const tutor = await prisma.tutor.create({
             data: {
-                name: body.name,   
-                image: body.image,   
+                name: body.name,
+                image: body.image,
                 userId: body.id,
             }
         })

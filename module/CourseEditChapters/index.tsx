@@ -11,8 +11,8 @@ const CourseEditChapters = ({ courseId, chapters }: CourseChaptersProps) => {
     const [items, setItems] = useState(chapters);
     const path = usePathname()
 
-    console.log("Chapters in CourseEditChapters: ", chapters)
-    console.log("Items in CourseEditChapters: ", items)
+    // console.log("Chapters in CourseEditChapters: ", chapters)
+    // console.log("Items in CourseEditChapters: ", items)
 
     useEffect(() => {
         setItems(chapters)
@@ -23,7 +23,7 @@ const CourseEditChapters = ({ courseId, chapters }: CourseChaptersProps) => {
 
         try {
             updateChaptersPositions(newItems);
-            console.log('New order saved:', newItems);
+            // console.log('New order saved:', newItems);
         } catch (error) {
             console.error('Failed to save new order:', error);
         }

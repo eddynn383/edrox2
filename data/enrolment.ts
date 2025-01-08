@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
-export const setEnrolment = async ( courseId: string, userId?: string ) => {
+export const setEnrolment = async (courseId: string, userId?: string) => {
     try {
 
         const session = await auth()
@@ -13,7 +13,7 @@ export const setEnrolment = async ( courseId: string, userId?: string ) => {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        console.log("its triggered on server")
+        // console.log("its triggered on server")
 
         const alreadyEnrolled = await prisma.enrollment.findUnique({
             where: {
@@ -24,7 +24,7 @@ export const setEnrolment = async ( courseId: string, userId?: string ) => {
             }
         })
 
-        console.log("[alreadyEnrolled]: ", alreadyEnrolled)
+        // console.log("[alreadyEnrolled]: ", alreadyEnrolled)
 
         if (alreadyEnrolled) {
             return new NextResponse("Already enrolled", { status: 401 });
@@ -38,18 +38,18 @@ export const setEnrolment = async ( courseId: string, userId?: string ) => {
             }
         })
 
-        console.log("[enrolledCourse]: ", enrolledCourse)
+        // console.log("[enrolledCourse]: ", enrolledCourse)
 
         return NextResponse.json(enrolledCourse)
         // return Response.json(enrolledCourse)
         // return enrolledCourse
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 });
     }
 }
 
-export const getEnrolment = async ( courseId: string, userId?: string ) => {
+export const getEnrolment = async (courseId: string, userId?: string) => {
     try {
         const session = await auth()
         const user = session?.user
@@ -65,13 +65,13 @@ export const getEnrolment = async ( courseId: string, userId?: string ) => {
 
         return enrolment
     } catch (error) {
-        console.log("GET ENROLMENT", error)
+        // console.log("GET ENROLMENT", error)
 
         return null
     }
 }
 
-export const getAllUserEnrolments = async ( userId?: string ) => {
+export const getAllUserEnrolments = async (userId?: string) => {
     try {
         const session = await auth()
         const user = session?.user
@@ -87,7 +87,7 @@ export const getAllUserEnrolments = async ( userId?: string ) => {
 
         return enrolment
     } catch (error) {
-        console.log("GET ALL ENROLMENTS", error)
+        // console.log("GET ALL ENROLMENTS", error)
 
         return null
     }

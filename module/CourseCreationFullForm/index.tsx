@@ -38,7 +38,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
     const { watch } = form;
     const { isDirty, defaultValues } = form.formState;
 
-    console.log("IS DIRTY: ", isDirty)
+    // console.log("IS DIRTY: ", isDirty)
 
     const formValues = watch();
 
@@ -72,7 +72,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
         if (!isDirty) return; // Only auto-save if there are changes
 
         const debouncedSave = debounce(() => {
-            console.log("Auto-saving form values:", formValues);
+            // console.log("Auto-saving form values:", formValues);
             setIsSaving(true);
 
             updateCourse(course.id, formValues)
@@ -104,8 +104,8 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
         // return () => autoSave.cancel();
     }, [formValues, isDirty]);
 
-    console.log("FORM: ", form);
-    console.log("COURSE: ", course);
+    // console.log("FORM: ", form);
+    // console.log("COURSE: ", course);
 
     const nameState = form.getFieldState("name")
     const nameStatus = !nameState.invalid ? "default" : "fail";
@@ -118,7 +118,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
 
 
 
-    console.log("default values: ", defaultValues);
+    // console.log("default values: ", defaultValues);
 
     // const submitHandler = (values: z.infer<typeof NewCourseSchema>) => {
     //     console.log("submit is triggered");
@@ -143,7 +143,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
 
         newImage(image).then((data) => {
 
-            console.log("COURSE FORM IMAGE: ", data.data.id)
+            // console.log("COURSE FORM IMAGE: ", data.data.id)
 
             form.setValue("image", data.data.id, { shouldDirty: true })
 
@@ -222,7 +222,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
                                         // setCurrentImageId(field?.value || "")
                                         // const image = getImage(field?.value || "")
 
-                                        console.log("GET FIELD (COURSE FORM): ", field)
+                                        // console.log("GET FIELD (COURSE FORM): ", field)
 
                                         return (
                                             <FormItem data-cols="1" style={{ width: "100%" }}>
@@ -236,7 +236,7 @@ export const CourseCreationFullForm = ({ className, course, categories, settings
                                                             endpoint="courseImage"
                                                             onChange={(image) => {
 
-                                                                console.log(image)
+                                                                // console.log(image)
                                                                 uploadImage(image)
 
                                                             }}

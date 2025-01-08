@@ -45,7 +45,7 @@ export const PlaylistItemDnD = ({ id, name, description, href, isSorting, showDe
 
     let pressTimer: NodeJS.Timeout;
 
-    console.log("href: ", href)
+    // console.log("href: ", href)
 
     const handlePressStart = () => {
         pressTimer = setTimeout(() => {
@@ -59,8 +59,8 @@ export const PlaylistItemDnD = ({ id, name, description, href, isSorting, showDe
 
     const handleClick = (e: React.MouseEvent) => {
         // Prevent navigation if we're in sorting mode or clicking the menu
-        console.log("its clicked")
-        console.log("href: ", href)
+        // console.log("its clicked")
+        // console.log("href: ", href)
         if (isSorting || e.target instanceof HTMLButtonElement) {
             return;
         }

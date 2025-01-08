@@ -7,11 +7,11 @@ const Page = async ({ params }: { params: { courseId: string } }) => {
     const { courseId } = params
 
 
-    console.log("courseSettings Course ID: ", courseId)
+    // console.log("courseSettings Course ID: ", courseId)
 
     const courseSettings = await getCourseSettingsByCourseId(courseId)
 
-    console.log("courseSettings: ", courseSettings)
+    // console.log("courseSettings: ", courseSettings)
 
     if (!courseSettings) {
         return <p>Settings are not defined!</p>

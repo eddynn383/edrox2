@@ -61,12 +61,7 @@ export const setCourse = async (body: any) => {
         //     }
         // });
 
-        console.log(
-            "SETTED COURSE (DATA): ",
-            course,
-            "DEFAULT GROUP: ",
-            // defaultGroup
-        );
+        // console.log("SETTED COURSE (DATA): ", course);
 
         return NextResponse.json(course);
     } catch (error) {
@@ -82,7 +77,7 @@ export const setCourseSettings = async (data: any) => {
             data
         })
 
-        console.log("SETTED COURSE SETTINGS (DATA): ", courseSettings)
+        // console.log("SETTED COURSE SETTINGS (DATA): ", courseSettings)
 
         return NextResponse.json(courseSettings)
 
@@ -126,7 +121,7 @@ export const getAllCourses = async () => {
             }
         })
 
-        console.log("GET ALL COURSS (DATA): ", courses)
+        // console.log("GET ALL COURSS (DATA): ", courses)
 
         return courses;
 
@@ -167,7 +162,7 @@ export const getPublishdedCourses = async ({ name, categoryId }: GetCourses) => 
             },
         })
 
-        console.log("GET PUBLISHED COURSES (DATA): ", courses)
+        // console.log("GET PUBLISHED COURSES (DATA): ", courses)
 
         return courses;
 
@@ -205,7 +200,7 @@ export const getCourseById = async (id: string) => {
             }
         })
 
-        console.log("GET COURSE BY ID (DATA): ", course)
+        // console.log("GET COURSE BY ID (DATA): ", course)
 
         return course;
 
@@ -225,7 +220,7 @@ export const getCoursesByName = async (name: string) => {
             }
         })
 
-        console.log("GET COURSE BY TITLE (DATA): ", courses)
+        // console.log("GET COURSE BY TITLE (DATA): ", courses)
 
         return courses;
 
@@ -243,7 +238,7 @@ export const getCourseSettingsByCourseId = async (courseId: string) => {
             }
         })
 
-        console.log("GET COURSE SETTIGNS BY COURSE ID (DATA): ", courseSettings)
+        // console.log("GET COURSE SETTIGNS BY COURSE ID (DATA): ", courseSettings)
 
         return courseSettings;
 
@@ -263,7 +258,7 @@ export const editCourseById = async (id: string, body: any) => {
         }
 
         // console.log("edit happened")
-        console.log("Edit Course Body: ", body)
+        // console.log("Edit Course Body: ", body)
 
         const editedCourse = await prisma.course.update({
             where: {
@@ -283,7 +278,7 @@ export const editCourseById = async (id: string, body: any) => {
             }
         })
 
-        console.log("UPDATE COURSE BY ID (DATA): ", editedCourse)
+        // console.log("UPDATE COURSE BY ID (DATA): ", editedCourse)
 
         return editedCourse;
 
@@ -304,7 +299,7 @@ export const editCourseSettingsById = async (id: string, data: any) => {
             data
         })
 
-        console.log("UPDATE COURSE SETTINGS BY ID (DATA): ", courseSettings)
+        // console.log("UPDATE COURSE SETTINGS BY ID (DATA): ", courseSettings)
 
         return courseSettings;
 
@@ -335,7 +330,7 @@ export const deleteCourseById = async (id: string) => {
         })
 
 
-        console.log("DELETED COURSE BY ID (DATA): ", deletedCourse)
+        // console.log("DELETED COURSE BY ID (DATA): ", deletedCourse)
 
         const transaction = await prisma.$transaction([deletedCourseSettings, deletedCourse])
 
@@ -363,7 +358,7 @@ export const deleteCoursesByIds = async (ids: string[]) => {
             }
         })
 
-        console.log("DELETED COURSES BY IDs (DATA): ", deletedCourses)
+        // console.log("DELETED COURSES BY IDs (DATA): ", deletedCourses)
 
         return deletedCourses;
 

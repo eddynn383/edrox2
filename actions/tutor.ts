@@ -7,8 +7,8 @@ export const getTutor = async (tutorId: string) => {
 
     // console.log("Tutor Data Json", tutor)
 
-    return { 
+    return {
         data: tutor,
-        success: "The course was successfully created!" 
+        success: "The course was successfully created!"
     };
 };

@@ -3,11 +3,11 @@ import { MetadataListProps } from "./interface";
 import metadata from "./metadata.module.css"
 import { Edit, Trash2 } from "lucide-react";
 
-export const MetadataList = ({data, edit=false}: MetadataListProps) => {
+export const MetadataList = ({ data, edit = false }: MetadataListProps) => {
 
-    console.log("Metadata List Data:", data)
+    // console.log("Metadata List Data:", data)
 
-    return ( 
+    return (
         <>
             {
                 data &&

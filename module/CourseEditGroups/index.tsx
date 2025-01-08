@@ -10,17 +10,17 @@ import groupsSX from "./course-groups.module.css"
 
 const CourseEditGroups = ({ courseId, groups }: CourseEditGroupsProps) => {
 
-    console.log("groups: ", groups)
+    // console.log("groups: ", groups)
     const altGroups = groups.map((group: any) => {
         return { ...group, description: `${group._count.users} people assigned` }
     })
 
-    console.log("altGroups: ", altGroups)
+    // console.log("altGroups: ", altGroups)
 
     const [items, setItems] = useState(altGroups);
 
-    console.log("Chapters in CourseEditGroups: ", groups)
-    console.log("Items in CourseEditGroiups: ", items)
+    // console.log("Chapters in CourseEditGroups: ", groups)
+    // console.log("Items in CourseEditGroiups: ", items)
 
     useEffect(() => {
         setItems(altGroups)

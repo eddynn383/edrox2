@@ -9,7 +9,7 @@ export async function POST(request: Request) {
         const res = await request.json()
         // const session = await auth()
         // const user = session?.user
-        console.log({ res })
+        // console.log({ res })
 
         const creationStep = await prisma.creationStep.create({
             data: {
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
         return Response.json(creationStep)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return new NextResponse("Internal Error", { status: 500 })
     }
 }

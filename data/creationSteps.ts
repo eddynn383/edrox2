@@ -6,7 +6,7 @@ export const getAllCreationSteps = async () => {
     try {
         const steps = await prisma.creationStep.findMany()
 
-        console.log("GET ALL CREATION STEPS (DATA): ", steps)
+        // console.log("GET ALL CREATION STEPS (DATA): ", steps)
 
         return steps;
 
@@ -25,7 +25,7 @@ export const getAllCreationStepsByFor = async (forName: string) => {
             orderBy: { position: 'asc' }
         })
 
-        console.log("GET ALL CREATION STEPS BY FOR (DATA): ", steps)
+        // console.log("GET ALL CREATION STEPS BY FOR (DATA): ", steps)
 
         return steps;
 
@@ -46,7 +46,7 @@ export const getAllCreationStepsByUrl = async (url: string) => {
             }
         })
 
-        console.log("GET ALL CREATION STEPS BY FOR (DATA): ", steps)
+        // console.log("GET ALL CREATION STEPS BY FOR (DATA): ", steps)
 
         return steps;
 

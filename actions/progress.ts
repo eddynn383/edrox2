@@ -2,7 +2,7 @@ import { setProgress } from "@/data/progress"
 import { revalidatePath } from "next/cache"
 
 export const newProgress = async (courseId: string, chapterId: string, isCompleted: boolean) => {
-    console.log("chapter ID: ", chapterId)
+    // console.log("chapter ID: ", chapterId)
     const content = await setProgress(chapterId, isCompleted)
 
     const data = await content?.json()

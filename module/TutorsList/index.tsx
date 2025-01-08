@@ -29,9 +29,9 @@ const Tutor = async ({ id }: TutorProps) => {
     if (!tutor) {
         return null
     }
-        // console.log(tutor)
-    
-    return ( 
+    // console.log(tutor)
+
+    return (
         <div className={tutorSx.container}>
             <div className={tutorSx.left}>
                 <Cover src={image ? image : ProfileAvatar} alt={name ? name : `tutor-${id}`} width={44} height={44} defSize />
@@ -52,7 +52,7 @@ interface TutorsListProps {
 
 export const TutorsList = async ({ tutors }: TutorsListProps) => {
     // console.log(tutors)
-    return ( 
+    return (
         <ul className={tutorSx.list}>
             {
                 tutors.map((item: any) => (

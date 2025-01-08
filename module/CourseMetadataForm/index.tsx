@@ -12,7 +12,7 @@ import { FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 import { TriangleAlert } from "lucide-react";
 import courseSx from "./course-metadata.module.css"
 
-export const CourseMetadataForm = ({courseId, key, value, actions, onOpen, onPending}: CourseMetadataFormProps) => { 
+export const CourseMetadataForm = ({ courseId, key, value, actions, onOpen, onPending }: CourseMetadataFormProps) => {
     // const router = useRouter()
     const [isPending, startTransition] = useTransition();
     const form = useForm<z.infer<typeof CourseMetadataSchema>>({
@@ -29,21 +29,21 @@ export const CourseMetadataForm = ({courseId, key, value, actions, onOpen, onPen
 
     const submitHandler = (values: z.infer<typeof CourseMetadataSchema>) => {
 
-        console.log(values)
+        // console.log(values)
 
         startTransition(() => {
             updateCourseMetadata(courseId, values).then((data) => {
 
-                console.log("data after submit: ", data.data)
+                // console.log("data after submit: ", data.data)
 
                 if (data?.error) {
-                    toast.error(data.error, { position: 'bottom-center'});
+                    toast.error(data.error, { position: 'bottom-center' });
                 }
 
                 if (data?.success) {
                     form.reset();
                     onOpen(false)
-                    toast.success(data.success, { position: 'bottom-center'});
+                    toast.success(data.success, { position: 'bottom-center' });
                 }
 
             }).catch((error) => toast.error(error.message))
@@ -53,7 +53,7 @@ export const CourseMetadataForm = ({courseId, key, value, actions, onOpen, onPen
     return (
         <>
             <Form {...form}>
-                <form id="course-description-form" className={courseSx.form} onSubmit={form.handleSubmit(submitHandler)}>                    
+                <form id="course-description-form" className={courseSx.form} onSubmit={form.handleSubmit(submitHandler)}>
                     <FormRows className={courseSx.rows}>
                         <FormField
                             control={form.control}

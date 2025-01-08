@@ -54,7 +54,7 @@ export const CourseImage = ({ cover, courseId, edit = false }: CourseImageProps)
                 // <UploadImage currentImage={cover} endpoint="courseImage" onChange={
                 //     (url) => {
                 //         if (url) {
-                //             // console.log("URL uploaded: ", url)
+                //             console.log("URL uploaded: ", url)
                 //             uploadCoverImage({
                 //                 image: url
                 //             })

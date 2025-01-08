@@ -9,14 +9,14 @@ export const newImage = async (values: any) => {
         return { error: "URL is missing" };
     }
 
-    console.log("NEW IMAGE VALUES (ACTION): ", values)
+    // console.log("NEW IMAGE VALUES (ACTION): ", values)
 
     const imageData = await setImage(values)
     const data = await imageData.json()
 
     // revalidateTag('courses')
 
-    console.log("NEW IMAGE (ACTION): ", data)
+    // console.log("NEW IMAGE (ACTION): ", data)
 
     return {
         data,
@@ -32,7 +32,7 @@ export const getImage = async (imageId: string) => {
 
     const image = await getImageById(imageId)
 
-    console.log("GET IMAGE (ACTION): ", image)
+    // console.log("GET IMAGE (ACTION): ", image)
 
     return image
 }

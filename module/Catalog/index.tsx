@@ -6,7 +6,7 @@ import sx from "@/styles/module.module.scss"
 
 
 const Catalog = async ({ courses, layout }: CatalogProps) => {
-    console.log("Courses in Catalog: ", courses)
+    // console.log("Courses in Catalog: ", courses)
 
     return (
         <div className={sx["catalog"]} data-layout={layout}>

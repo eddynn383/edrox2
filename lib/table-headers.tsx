@@ -151,18 +151,18 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "title",
-        header: () => <span>Title</span>,
+        accessorKey: "name",
+        header: () => <span>Name</span>,
         cell: ({ row }) => {
             const image = row.original.image
             const courseId = row.original.id
-            const title: string = row.getValue("title")
+            const name: string = row.getValue("name")
 
             return (
-                <div className={csx["table-body-title"]}>
-                    <Cover src={image?.url} alt={title} width={60} height={36} size="S" defSize />
+                <div className={csx["table-body-name"]}>
+                    <Cover src={image?.url} alt={name} width={60} height={36} size="S" defSize />
                     <div>
-                        <Link className={csx["link"]} href={`/management/courses/edit/${courseId}`}>{title}</Link>
+                        <Link className={csx["link"]} href={`/management/courses/${courseId}/preview`}>{name}</Link>
                     </div>
                 </div>
             )
@@ -276,8 +276,8 @@ export const coursesColsDesktop: ColumnDef<Course>[] = [
             const rows = model.rows
             const ids = rows.map((row: any) => row.original.id);
             const selectedRowsLength = ids.length
-            console.log(ids)
-            console.log(selectedRowsLength)
+            // console.log(ids)
+            // console.log(selectedRowsLength)
 
             const deleteHandler = () => {
                 try {
@@ -392,18 +392,18 @@ export const coursesColsDesktopSmall: ColumnDef<Course>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "title",
-        header: () => <span>Title</span>,
+        accessorKey: "name",
+        header: () => <span>Name</span>,
         cell: ({ row }) => {
             const image = row.original.image
-            const title: string = row.getValue("title")
+            const name: string = row.getValue("name")
             const courseId = row.original.id
 
             return (
-                <div className={csx["table-body-title"]}>
-                    <Cover src={image?.url} alt={title} width={60} height={36} size="S" defSize />
+                <div className={csx["table-body-name"]}>
+                    <Cover src={image?.url} alt={name} width={60} height={36} size="S" defSize />
                     <div>
-                        <Link className={csx["link"]} href={`/management/courses/edit/${courseId}`}>{title}</Link>
+                        <Link className={csx["link"]} href={`/management/courses/${courseId}/preview`}>{name}</Link>
                     </div>
                 </div>
             )
@@ -528,11 +528,11 @@ export const coursesColsTablet: ColumnDef<Course>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "title",
-        header: () => <span>Title</span>,
+        accessorKey: "name",
+        header: () => <span>Name</span>,
         cell: ({ row }) => {
-            const title: string = row.getValue("title")
-            return <span className={csx["table-body-title"]}>{title}</span>
+            const name: string = row.getValue("name")
+            return <span className={csx["table-body-name"]}>{name}</span>
         }
     },
     {
@@ -653,15 +653,15 @@ export const coursesColsMobile: ColumnDef<Course>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "title",
-        header: () => <span>Title</span>,
+        accessorKey: "name",
+        header: () => <span>Name</span>,
         cell: ({ row }) => {
-            const title: string = row.getValue("title")
+            const name: string = row.getValue("name")
             const courseId = row.original.id
             return (
-                <span className={csx["table-body-title"]}>
+                <span className={csx["table-body-name"]}>
                     <div>
-                        <Link className={csx["link"]} href={`/management/courses/edit/${courseId}`}>{title}</Link>
+                        <Link className={csx["link"]} href={`/management/courses/edit/${courseId}/preview`}>{name}</Link>
                     </div>
                 </span>
             )
@@ -731,10 +731,10 @@ export const coursesColsMobileCard: ColumnDef<Course>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "title",
+        accessorKey: "name",
         cell: ({ row }) => {
-            const title: string = row.getValue("title")
-            return <span className={csx["table-body-title"]}>{title}</span>
+            const name: string = row.getValue("name")
+            return <span className={csx["table-body-name"]}>{name}</span>
         }
     },
     {
@@ -1220,7 +1220,7 @@ export const usersCols: ColumnDef<any>[] = [
 
             const initials = name.split(" ").map(name => name[0]).join('')
 
-            console.log("row: ", row)
+            // console.log("row: ", row)
 
             return (
                 <div className={csx["table-body-name"]} style={{ display: "flex", gap: "var(--size-200, 8px)", alignItems: "center" }}>
@@ -1258,8 +1258,8 @@ export const usersCols: ColumnDef<any>[] = [
             const rows = model.rows
             const ids = rows.map((row: any) => row.original.id);
             const selectedRowsLength = ids.length
-            console.log(ids)
-            console.log(selectedRowsLength)
+            // console.log(ids)
+            // console.log(selectedRowsLength)
 
             const deleteHandler = () => {
                 try {

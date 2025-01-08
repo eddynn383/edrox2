@@ -29,7 +29,7 @@ export async function POST(request: Request, { params }: paramsType) {
 
         // console.log("tutor exists: ", alreadyExists)
 
-        if(alreadyExists) {
+        if (alreadyExists) {
             return new NextResponse("Tutor already exists!", { status: 502 })
         }
 

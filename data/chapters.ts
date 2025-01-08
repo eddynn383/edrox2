@@ -60,7 +60,7 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
             }
         })
 
-        console.log("SETTED CHAPTER (DATA): ", chapter)
+        // console.log("SETTED CHAPTER (DATA): ", chapter)
 
         return Response.json(chapter)
 
@@ -74,7 +74,7 @@ export const getAllChapters = async () => {
     try {
         const chapters = await prisma.chapter.findMany()
 
-        console.log("GET ALL CHAPTERS (DATA): ", chapters)
+        // console.log("GET ALL CHAPTERS (DATA): ", chapters)
 
         return chapters;
 
@@ -92,7 +92,7 @@ export const getAllChaptersLazy = async (page: number) => {
             skip: (page - 1) * 12,
         })
 
-        console.log("GET ALL CHAPTERS LAZY (DATA): ", chapters)
+        // console.log("GET ALL CHAPTERS LAZY (DATA): ", chapters)
 
         return chapters;
 
@@ -128,12 +128,12 @@ export const getPublishdedChapters = async () => {
             },
         })
 
-        console.log("GET PUBLISHED CHAPTERS (DATA): ", chapters)
+        // console.log("GET PUBLISHED CHAPTERS (DATA): ", chapters)
 
         return chapters;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -150,12 +150,12 @@ export const getPublishdedChaptersById = async (id: string) => {
             },
         })
 
-        console.log("GET PUBLISHED CHAPTERS BY ID (DATA): ", chapters)
+        // console.log("GET PUBLISHED CHAPTERS BY ID (DATA): ", chapters)
 
         return chapters;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -172,12 +172,12 @@ export const getPublishdedChaptersByCourseId = async (courseId: string) => {
             },
         })
 
-        console.log("GET PUBLISHED CHAPTERS BY COURSE ID (DATA): ", chapters)
+        // console.log("GET PUBLISHED CHAPTERS BY COURSE ID (DATA): ", chapters)
 
         return chapters;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return [];
     }
 }
@@ -199,12 +199,12 @@ export const getAllChaptersByCourseId = async (courseId: string) => {
         // revalidatePath('/chapters')
         // revalidateTag('chapters')
         // revalidatePath(`/management/courses/${courseId}/edit/content`)
-        console.log("GET ALL CHAPTERS BY COURSE ID (DATA): ", chapters)
+        // console.log("GET ALL CHAPTERS BY COURSE ID (DATA): ", chapters)
 
         return chapters;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return [];
     }
 }
@@ -217,12 +217,12 @@ export const getChapterById = async (id: string) => {
             }
         })
 
-        console.log("GET CHAPTER BY ID (DATA): ", chapter)
+        // console.log("GET CHAPTER BY ID (DATA): ", chapter)
 
         return chapter;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -236,12 +236,12 @@ export const getChaptersCountByCourseId = async (courseId: string) => {
             _count: true
         })
 
-        console.log("COUNT CHAPTERS BY COURSE ID (DATA): ", chapter._count)
+        // console.log("COUNT CHAPTERS BY COURSE ID (DATA): ", chapter._count)
 
         return chapter._count;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -260,7 +260,7 @@ export const getChaptersSumDurationByCourseId = async (courseId: string) => {
         return chapter._sum.duration === null ? 0 : chapter._sum.duration;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -274,7 +274,7 @@ export const editChapterById = async (id: string, body: any) => {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        console.log("Edit Course Body: ", body)
+        // console.log("Edit Course Body: ", body)
 
         const editedChapter = await prisma.chapter.update({
             where: {
@@ -283,12 +283,12 @@ export const editChapterById = async (id: string, body: any) => {
             data: body
         })
 
-        console.log("EDIT CHAPTER BY ID (DATA): ", editedChapter)
+        // console.log("EDIT CHAPTER BY ID (DATA): ", editedChapter)
 
         return editedChapter;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }

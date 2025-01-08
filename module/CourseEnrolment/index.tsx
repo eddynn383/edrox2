@@ -8,8 +8,8 @@ import { CourseEnrolmentProps } from "./interface";
 export const CourseEnrolment = ({ courseId, isEnrolled }: CourseEnrolmentProps) => {
     // const alreadyEnrolled = await getEnrolment(courseId)
 
-    console.log("courseId: ", courseId)
-    console.log("isEnrolled: ", isEnrolled)
+    // console.log("courseId: ", courseId)
+    // console.log("isEnrolled: ", isEnrolled)
 
     if (isEnrolled) {
         return (

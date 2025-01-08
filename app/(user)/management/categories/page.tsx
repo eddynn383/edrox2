@@ -18,7 +18,7 @@ const Page = async (props: CategoriesPageProps) => {
     const searchParams = await props.searchParams
     const categories = await getAllCategories();
 
-    console.log(categories)
+    // console.log(categories)
 
     const PageTitle = "Categories"
 

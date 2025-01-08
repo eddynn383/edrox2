@@ -16,7 +16,7 @@ import { DatePickerProps } from "./interface"
 
 const DatePicker = ({ type = "single", size = "M" }: DatePickerProps) => {
     const [date, setDate] = React.useState<DateRange | undefined>()
-    console.log(date)
+    // console.log(date)
     return (
         <Popover>
             <PopoverTrigger asChild>

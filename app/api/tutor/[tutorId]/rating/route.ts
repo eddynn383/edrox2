@@ -59,7 +59,7 @@ export async function PATCH(request: Request, { params }: paramsType) {
         const user = session?.user
         const body = await request.json()
         const { tutorId } = params
-        
+
         const rating = await prisma.ratingsOnTutors.updateMany({
             where: {
                 tutorId,

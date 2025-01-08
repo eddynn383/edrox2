@@ -3098,7 +3098,7 @@
         &-checkbox {
             width: auto;
         }
-        &-title {
+        &-name {
             display: grid;
             grid-template-columns: min-content auto;
             gap: var(--gap-200, 8px);
@@ -3124,7 +3124,7 @@
 
     @media only screen and (max-width: 768px) {
         &-body {
-            &-title {
+            &-name {
                 grid-template-columns: auto;
             }
         }

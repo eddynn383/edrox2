@@ -29,7 +29,7 @@ export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
     const courseData = await setCourse(validatedFields.data)
 
     const data = await courseData.json()
-    console.log("courseData JSON: ", data)
+    // console.log("courseData JSON: ", data)
 
     revalidateTag('courses')
 
@@ -42,11 +42,11 @@ export const newCourse = async (values: z.infer<typeof NewCourseSchema>) => {
 export const updateCourse = async (courseId: string, values: z.infer<typeof NewCourseSchema>) => {
     const validatedFields = CourseSchema.safeParse(values);
 
-    console.log("************** Update Course Start **************")
+    // console.log("************** Update Course Start **************")
     console.group()
-    console.log(values)
+    // console.log(values)
     console.groupEnd()
-    console.log("************** Update Course End **************")
+    // console.log("************** Update Course End **************")
 
     if (!values.name) {
         return { error: "Title is required" };
@@ -121,13 +121,13 @@ export const updateCourseCover = async (courseId: string, values: z.infer<typeof
 export const updateCourseMetadata = async (courseId: string, values: z.infer<typeof CourseMetadataSchema>) => {
     const validatedFields = CourseMetadataSchema.safeParse(values);
 
-    console.log("Validated Values", validatedFields)
+    // console.log("Validated Values", validatedFields)
 
     if (!validatedFields.success) return { error: "Invalid fields!" };
 
     const metadata = await setMetadata(courseId, validatedFields.data)
     const data = await metadata?.json()
-    console.log("===metadata:", metadata)
+    // console.log("===metadata:", metadata)
 
     revalidatePath(`/management/courses/edit/${courseId}`)
 

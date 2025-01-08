@@ -27,7 +27,7 @@ export async function POST(request: Request, { params }: paramsType) {
 
         // console.log("metadata exists: ", alreadyExists)
 
-        if(alreadyExists) {
+        if (alreadyExists) {
             return new NextResponse("Metadata already exists!", { status: 502 })
         }
 

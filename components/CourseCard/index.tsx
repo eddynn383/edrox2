@@ -23,13 +23,13 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", orient
     const progress = await getProgress(data.id)
 
 
-    console.log("is already enrolled: ", alreadyEnrolled)
+    // console.log("is already enrolled: ", alreadyEnrolled)
     // const duration = chaptersDuration ? chaptersDuration.duration : 0
     const totalDuration = convertDuration(chaptersDuration || 0)
     // console.log("Duration: ", chaptersDuration)
     // console.log("Chapters: ", totalChapters)
-    console.log("Course data: ", data)
-    console.log("avgRating data: ", avgRating)
+    // console.log("Course data: ", data)
+    // console.log("avgRating data: ", avgRating)
 
     return (
         <Card className={card.container} mode={mode} variant={variant} shade={shade} orientation={orientation} padding="0" radius="200">

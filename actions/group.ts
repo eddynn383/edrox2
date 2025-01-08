@@ -35,7 +35,7 @@ export const assignUsersToGroup = async (groupId: string, usersIds: string[]) =>
     //     error: "Invalid fields!"
     // };
 
-    console.log("Its called assignUsersOnGroup")
+    // console.log("Its called assignUsersOnGroup")
 
     await assignUsersOnGroup(groupId, usersIds)
     // revalidateTag('groups')

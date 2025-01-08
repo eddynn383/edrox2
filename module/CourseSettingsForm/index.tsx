@@ -30,7 +30,7 @@ export const CourseSettingsForm = ({ id, settings }: CourseSettingsFormProps) =>
     });
 
     const submitHandler = (values: z.infer<typeof CourseSettingsSchema>) => {
-        console.log("====== FORM WAS UPDATED =======")
+        // console.log("====== FORM WAS UPDATED =======")
 
         updateCourseSettings(id, values)
 
@@ -40,7 +40,7 @@ export const CourseSettingsForm = ({ id, settings }: CourseSettingsFormProps) =>
 
         // }).catch((error) => toast.error(error.message))
 
-        console.log(values)
+        // console.log(values)
         // if (course) {
         //     startTransition(() => {
         //         updateCourse(course.id, values).then((data) => {

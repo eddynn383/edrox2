@@ -38,7 +38,7 @@ const PlaylistDnD = ({ items, courseId, location, showDescription = false, onReo
     );
 
     useEffect(() => {
-        console.log("ITEMS IN PLAYLIST DND: ", items)
+        // console.log("ITEMS IN PLAYLIST DND: ", items)
     }, [items])
 
     useEffect(() => {
@@ -82,7 +82,7 @@ const PlaylistDnD = ({ items, courseId, location, showDescription = false, onReo
                             {
                                 items.map((item: any, idx) => {
                                     const isActive = pathname?.includes(item.id);
-                                    console.log(item)
+                                    // console.log(item)
                                     return (
                                         <li key={idx} className={playlist["list-item"]} data-active={isActive}>
                                             <PlaylistItemDnD

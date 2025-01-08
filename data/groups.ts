@@ -10,7 +10,7 @@ type GroupBodyType = {
 
 export const setGroup = async (body: GroupBodyType, courseId: string) => {
     try {
-        console.log("Its called setGroup")
+        // console.log("Its called setGroup")
         const session = await auth()
         const user = session?.user
 
@@ -27,7 +27,7 @@ export const setGroup = async (body: GroupBodyType, courseId: string) => {
             },
         });
 
-        console.log("lastGroup: ", lastGroup)
+        // console.log("lastGroup: ", lastGroup)
 
         const newPosition = lastGroup ? lastGroup.position + 1 : 1;
 
@@ -43,7 +43,7 @@ export const setGroup = async (body: GroupBodyType, courseId: string) => {
             }
         })
 
-        console.log("SETTED Group (DATA): ", groupData)
+        // console.log("SETTED Group (DATA): ", groupData)
 
         return Response.json(groupData)
 
@@ -57,7 +57,7 @@ export const getAllGroups = async () => {
     try {
         const Groups = await prisma.group.findMany()
 
-        console.log("GET ALL GroupS (DATA): ", Groups)
+        // console.log("GET ALL GroupS (DATA): ", Groups)
 
         return Groups;
 
@@ -75,7 +75,7 @@ export const getAllGroupsLazy = async (page: number) => {
             skip: (page - 1) * 12,
         })
 
-        console.log("GET ALL GroupS LAZY (DATA): ", Groups)
+        // console.log("GET ALL GroupS LAZY (DATA): ", Groups)
 
         return Groups;
 
@@ -107,12 +107,12 @@ export const getAllGroupsByCourseId = async (courseId: string) => {
             await simulateDelay(3000); // 3 seconds delay
         }
 
-        console.log("GET ALL GroupS BY COURSE ID (DATA): ", groups)
+        // console.log("GET ALL GroupS BY COURSE ID (DATA): ", groups)
 
         return groups;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return [];
     }
 }
@@ -125,12 +125,12 @@ export const getGroupById = async (id: string) => {
             }
         })
 
-        console.log("GET Group BY ID (DATA): ", group)
+        // console.log("GET Group BY ID (DATA): ", group)
 
         return group;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -163,7 +163,7 @@ export const editGroupById = async (id: string, body: any) => {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 
-        console.log("Edit Course Body: ", body)
+        // console.log("Edit Course Body: ", body)
 
         const editedGroup = await prisma.group.update({
             where: {
@@ -172,12 +172,12 @@ export const editGroupById = async (id: string, body: any) => {
             data: body
         })
 
-        console.log("EDIT Group BY ID (DATA): ", editedGroup)
+        // console.log("EDIT Group BY ID (DATA): ", editedGroup)
 
         return editedGroup;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -201,12 +201,12 @@ export const assignUsersOnGroup = async (groupId: string, usersIds: string[]) =>
             skipDuplicates: true,
         })
 
-        console.log("ASSIGN USERS ON GROUPID (DATA): ", assignment)
+        // console.log("ASSIGN USERS ON GROUPID (DATA): ", assignment)
 
         // return { success: true, assignment }
         return assignment
     } catch (error) {
-        console.log("ASSIGN USERS ON GROUPID (DATA): ", error)
+        // console.log("ASSIGN USERS ON GROUPID (DATA): ", error)
         return { success: false, error };
     }
 }

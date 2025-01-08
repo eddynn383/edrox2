@@ -18,7 +18,7 @@ export default middleware((req) => {
         nextUrl.searchParams.set('viewport', viewport)
         return NextResponse.redirect(nextUrl)
     }
-    console.log("MIDDLEWARE PATH: ", nextUrl.pathname.includes("edit/content"))
+    // console.log("MIDDLEWARE PATH: ", nextUrl.pathname.includes("edit/content"))
 
     if (nextUrl.pathname.includes("/catalog")) {
         if (!nextUrl.searchParams.has('view')) {

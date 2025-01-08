@@ -236,7 +236,7 @@ export const getTutorRatingCount = async (tutorId: string) => {
     }
 }
 
-export const updateCourseRating = async ( userId: string, courseId: string, data: any) => {
+export const updateCourseRating = async (userId: string, courseId: string, data: any) => {
     try {
 
         const rating = await prisma.ratingsOnCourses.updateMany({
@@ -276,7 +276,7 @@ export const updateCourseRating = async ( userId: string, courseId: string, data
     }
 }
 
-export const updateTutorRating = async ( userId: string, tutorId: string, data: any) => {
+export const updateTutorRating = async (userId: string, tutorId: string, data: any) => {
     try {
 
         const rating = await prisma.ratingsOnTutors.updateMany({

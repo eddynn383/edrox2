@@ -56,7 +56,7 @@ export const ContentForm = ({ courseId, chapterId, chapters, currentChapter, edi
     const { editor } = useBlockEditor({
         initialContent: currentChapter ? content : "",
         onUpdate: (newContent) => {
-            console.log("newContent: ", newContent)
+            // console.log("newContent: ", newContent)
             form.setValue("content", newContent);
             setContentChanged(newContent !== content)
         }
@@ -64,7 +64,7 @@ export const ContentForm = ({ courseId, chapterId, chapters, currentChapter, edi
 
     const submitHandler = (values: z.infer<typeof ContentCourseChapterSchema>) => {
 
-        console.log("Values: ", values)
+        // console.log("Values: ", values)
 
         startTransition(() => {
             updateContentChapter(courseId, chapterId, values)
@@ -106,18 +106,18 @@ export const ContentForm = ({ courseId, chapterId, chapters, currentChapter, edi
     useEffect(() => {
         if (formActionsRef.current) {
             setFormActionsHeight(formActionsRef.current.clientHeight);
-            console.log("FormActions Height:", formActionsRef.current.clientHeight);
+            // console.log("FormActions Height:", formActionsRef.current.clientHeight);
         }
     }, []);
 
     useEffect(() => {
         if (playlistValue) {
-            console.log("palylist is updated")
+            // console.log("palylist is updated")
             setPlaylist(playlistValue);
         }
     }, [playlistValue])
 
-    console.log(playlist)
+    // console.log(playlist)
     return (
         <>
             <div className={page["section-header"]}>

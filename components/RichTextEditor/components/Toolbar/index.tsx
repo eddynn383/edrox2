@@ -13,7 +13,7 @@ const SetLinkDialog = ({ editor, isOpen, onClose }: { editor: Editor; isOpen: bo
     const [linkText, setLinkText] = useState("");
     const [linkPopoverState, setLinkPopoverState] = useState(false)
 
-    console.log(linkPopoverState)
+    // console.log(linkPopoverState)
 
     const handleSubmit = () => {
         if (!url) {

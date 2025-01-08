@@ -22,11 +22,11 @@ const CourseParticipantsSelection = ({ courseId, groupId, users, children }: Cou
     };
 
     const handleSubmit = () => {
-        console.log("handleSubmit its clicked")
+        // console.log("handleSubmit its clicked")
         assignUsersToGroup(groupId, selectedUsers)
     }
 
-    console.log("selectedUsers: ", selectedUsers)
+    // console.log("selectedUsers: ", selectedUsers)
     // console.log(open)
     return (
         <div className={msx["chapters"]}>

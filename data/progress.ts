@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 
-export const setProgress = async ( chapterId: string, isCompleted: boolean) => {
+export const setProgress = async (chapterId: string, isCompleted: boolean) => {
 
     try {
         const session = await auth()
@@ -32,7 +32,7 @@ export const setProgress = async ( chapterId: string, isCompleted: boolean) => {
 
         return NextResponse.json(userProgress);
     } catch (error) {
-        console.log("[CHAPTER_ID_PROGRESS]", error);
+        // console.log("[CHAPTER_ID_PROGRESS]", error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 }
@@ -68,7 +68,7 @@ export const getProgress = async (courseId: string, userId?: string): Promise<nu
 
         return progressPercentage;
     } catch (error) {
-        console.log("[GET_PROGRESS]", error);
+        // console.log("[GET_PROGRESS]", error);
         return 0;
     }
 }

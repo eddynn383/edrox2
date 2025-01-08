@@ -14,18 +14,18 @@ export const useDebouncedCourseSave = (form: any) => {
     });
 
     useEffect(() => {
-        console.log("formValues in custom hook: ", formValues)
+        // console.log("formValues in custom hook: ", formValues)
 
     }, [formValues]); // Only re-run effect if formValues change
 
 
     const debouncedSave = debounce(async (courseId: string) => {
         try {
-            console.log("formValues in hook: ", formValues)
+            // console.log("formValues in hook: ", formValues)
 
             const data = await updateCourse(courseId, formValues);
 
-            console.log("data in hook: ", data)
+            // console.log("data in hook: ", data)
 
             if (data?.error) {
                 toast.error(data.error, { position: "bottom-center" });

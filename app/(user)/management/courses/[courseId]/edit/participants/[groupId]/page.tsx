@@ -18,8 +18,8 @@ const GroupPage = async ({ params }: GroupPageProps) => {
     const users = await getAllUsersByRole("LEARNER", courseId)
     const groupUsers = await getUsersByCourseGroupId(groupId)
 
-    console.log("groupUsers: ", groupUsers)
-    console.log("users to add: ", users)
+    // console.log("groupUsers: ", groupUsers)
+    // console.log("users to add: ", users)
 
     return (
         <div className={page["courses-groups-users"]}>

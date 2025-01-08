@@ -19,7 +19,7 @@ export const setCategory = async (body: any) => {
             }
         })
 
-        console.log("SETTED CATEGORY (DATA): ", category)
+        // console.log("SETTED CATEGORY (DATA): ", category)
 
         return NextResponse.json(category);
 
@@ -47,7 +47,7 @@ export const editCategoryById = async (id: string, body: any) => {
 
         return editedCategory
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null;
     }
 }
@@ -61,7 +61,7 @@ export const getAllCategories = async () => {
             }
         })
 
-        console.log("GET ALL CATEGORIES (DATA): ", categories)
+        // console.log("GET ALL CATEGORIES (DATA): ", categories)
 
         return categories;
 
@@ -79,7 +79,7 @@ export const getCategoryById = async (id: string) => {
             }
         })
 
-        console.log("GET CATEGORY BY ID (DATA): ", category)
+        // console.log("GET CATEGORY BY ID (DATA): ", category)
 
         return category;
 
@@ -103,7 +103,7 @@ export const deleteCategoryById = async (id: string) => {
             }
         })
 
-        console.log("DELETED CATEGORY BY ID (DATA): ", deletedCategory)
+        // console.log("DELETED CATEGORY BY ID (DATA): ", deletedCategory)
 
         return deletedCategory;
 
@@ -128,7 +128,7 @@ export const deleteCategoriesByIds = async (ids: string[]) => {
             }
         })
 
-        console.log("DELETED CATEGORIES BY IDs (DATA): ", deletedCategories)
+        // console.log("DELETED CATEGORIES BY IDs (DATA): ", deletedCategories)
 
         return deletedCategories;
 

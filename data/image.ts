@@ -12,7 +12,7 @@ export const setImage = async (body: any) => {
             return new NextResponse("Unauthorized", { status: 401 })
         }
 
-        console.log("SETTED IMAGE BODY (DATA): ", body)
+        // console.log("SETTED IMAGE BODY (DATA): ", body)
 
         const image = await prisma.image.create({
             data: {
@@ -25,7 +25,7 @@ export const setImage = async (body: any) => {
             }
         })
 
-        console.log("SETTED IMAGE (DATA): ", image)
+        // console.log("SETTED IMAGE (DATA): ", image)
 
         return NextResponse.json(image)
 
@@ -43,12 +43,12 @@ export const getImageById = async (id: string) => {
             }
         })
 
-        console.log("GET IMAGE BY ID (DATA): ", image)
+        // console.log("GET IMAGE BY ID (DATA): ", image)
 
         return image;
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return null
     }
 }

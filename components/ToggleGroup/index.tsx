@@ -51,7 +51,7 @@ const ToggleGroupItem = React.forwardRef<
 >(({ className = toggle.container, children, size = "M", mode = "solid", variant = "primary", status = "default", content = "text", ...props }, ref) => {
     const context = React.useContext(ToggleGroupContext)
 
-    console.log("CONTEXT: ", context)
+    // console.log("CONTEXT: ", context)
 
     const customAttrs = {
         "data-size": context.size || size,

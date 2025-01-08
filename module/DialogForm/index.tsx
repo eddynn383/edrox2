@@ -39,7 +39,7 @@ interface DialogFormProps {
     trigger: any;
 }
 
-export const DialogForm = ({title, description, form, trigger}: DialogFormProps) => {
+export const DialogForm = ({ title, description, form, trigger }: DialogFormProps) => {
     const searchParams = useSearchParams()
     const pathname = usePathname()
     const router = useRouter()
@@ -47,21 +47,21 @@ export const DialogForm = ({title, description, form, trigger}: DialogFormProps)
     const isOpen = searchParams.get('modal') === "true"
 
     const test = searchParams.get('modal')
-    console.log(test)
+    // console.log(test)
 
-    console.log(isOpen)
+    // console.log(isOpen)
 
     const createQueryString = useCallback(
         (name: string, value: string) => {
-          const params = new URLSearchParams(searchParams.toString())
-          params.set(name, value)
-     
-          return params.toString()
+            const params = new URLSearchParams(searchParams.toString())
+            params.set(name, value)
+
+            return params.toString()
         },
         [searchParams]
     )
 
-    return ( 
+    return (
         <Dialog open={isOpen} onOpenChange={() => router.push(pathname + "?" + createQueryString("modal", "true"))}>
             <DialogTrigger asChild>
                 {trigger}

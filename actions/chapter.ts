@@ -48,7 +48,7 @@ export const updateContentChapter = async (courseId: string, chapterId: string, 
 
     if (!validatedFields.success) return { error: "Invalid fields!" };
 
-    console.log("Chapter validatedFields: ", validatedFields.data)
+    // console.log("Chapter validatedFields: ", validatedFields.data)
 
     await editChapterById(chapterId, validatedFields.data)
 

@@ -17,7 +17,7 @@ const CourseViewChapters = ({ courseId, chapters }: CourseViewChaptersProps) => 
 
         try {
             updateChaptersPositions(newItems);
-            console.log('New order saved:', newItems);
+            // console.log('New order saved:', newItems);
         } catch (error) {
             console.error('Failed to save new order:', error);
         }

@@ -17,7 +17,7 @@ interface CourseSummaryProps {
 }
 
 export const CourseSummary = async ({ course, metadata, edit = false }: CourseSummaryProps) => {
-    console.log("course", course)
+    // console.log("course", course)
 
     const { id, image, price } = course
     const coverURL = image?.url ? image.url : "https://images.pexels.com/photos/2457284/pexels-photo-2457284.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
