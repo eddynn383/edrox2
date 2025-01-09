@@ -14,15 +14,15 @@ import { coursesColsDesktop, coursesColsDesktopSmall, coursesColsMobile, courses
 import { CoursesManagerProps } from "./interface";
 import { DataPagination } from "../DataPagination";
 import useScreenSize from "@/hooks/useScreenSize";
-import msx from "@/styles/module.module.scss"
 import { useLocalStorage } from "@uidotdev/usehooks";
+import msx from "@/styles/module.module.scss"
 
 export const CoursesManager = ({ courses, categories, device }: CoursesManagerProps) => {
-    const [open, setOpen] = useState(false)
+    // const [open, setOpen] = useState(false)
     const deviceScreen = useScreenSize()
     const deviceWidth = deviceScreen.width
 
-    const desktop = deviceWidth >= 1024 ? true : false
+    // const desktop = deviceWidth >= 1024 ? true : false
 
     // console.log("IS DESKTOP: ", desktop)
 

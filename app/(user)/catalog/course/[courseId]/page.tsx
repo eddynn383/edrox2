@@ -7,14 +7,11 @@ import { getCourseRatingAvg, getCourseRatingCount } from "@/data/ratings";
 import { CourseDetails } from "@/module/CourseViewDetails";
 import { CourseHeader } from "@/module/CourseHeader";
 import { CourseSummary } from "@/module/CourseSummary";
-import psx from "@/styles/page.module.scss";
-import page from "@/styles/page.module.css";
-import msx from "@/styles/module.module.scss";
 import { PageHeader } from "@/module/PageHeader";
-import { SidePanelToggle } from "@/module/ActionButtons";
 import { PageBody } from "@/module/PageBody";
 import { ChapterSkeleton } from "@/components/Skeleton";
 import CourseViewChapters from "@/module/CourseViewChapters";
+import page from "@/styles/page.module.css";
 
 type Params = Promise<{ courseId: string }>
 

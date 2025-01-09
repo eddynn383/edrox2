@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { ContentCourseChapterSchema, NewCourseChapterSchema } from "@/schemas";
-import { editChapterById, setChapter } from "@/data/chapters";
+import { deleteChapterById, editChapterById, getChapterById, setChapter } from "@/data/chapters";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { Chapter } from "@/interfaces/global";
 
@@ -39,6 +39,25 @@ export const newInitChapter = async (values: z.infer<typeof NewCourseChapterSche
     return {
         // data,
         success: "The chapter was successfully created!"
+    };
+};
+
+export const updateChapter = async (chapterId: string, values: z.infer<typeof NewCourseChapterSchema>) => {
+    const validatedFields = NewCourseChapterSchema.safeParse(values);
+
+    if (!values.name) {
+        return { error: "Name is required" };
+    }
+
+    if (!validatedFields.success) return { error: "Invalid fields!" };
+
+    const course: any = await editChapterById(chapterId, validatedFields.data)
+
+    revalidateTag("chapters")
+
+    return {
+        course,
+        success: "The chapter was successfully updated!"
     };
 };
 
@@ -79,3 +98,22 @@ export async function updateChaptersPositions(chapters: Chapter[]) {
         return { success: false, error: "Failed to update positions" };
     }
 }
+
+export const useChapterById = async (id: string) => {
+    const chapter = await getChapterById(id)
+
+    // const data = await chapter?.json()
+
+    // revalidatePath(`/catalog/course/${courseId}`)
+
+    return {
+        data: chapter,
+        success: "You are successfully enrolled"
+    }
+};
+
+export const deleteChapter = async (id: string) => {
+
+    await deleteChapterById(id);
+    revalidateTag('chapters')
+};

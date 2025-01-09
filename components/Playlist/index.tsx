@@ -8,7 +8,7 @@ import {
 import { PlaylistProps } from "./interface";
 import playlist from "./playlist.module.css";
 
-const Playlist = ({ items, currentPath, showDescription = false }: PlaylistProps) => {
+const Playlist = ({ items, courseId, currentPath, showDescription = false }: PlaylistProps) => {
     const componentRef = useRef<HTMLDivElement>(null);
 
     return (
@@ -25,6 +25,7 @@ const Playlist = ({ items, currentPath, showDescription = false }: PlaylistProps
                                     name={item.name}
                                     status={item.status}
                                     duration={item.duration}
+                                    href={`/catalog/course/${courseId}/chapter/${item.id}`}
                                     description={item.description || undefined}
                                     showDescription={showDescription}
                                 />

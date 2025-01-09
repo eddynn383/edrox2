@@ -4,8 +4,6 @@ import { getChapterById, getPublishdedChaptersByCourseId } from "@/data/chapters
 import { getCourseById } from "@/data/courses";
 import { ChapterDetails } from "@/module/ChapterDetails";
 import { ArrowRightToLine, Home } from "lucide-react";
-import { redirect } from "next/navigation";
-import msx from "@/styles/module.module.scss"
 import psx from "@/styles/page.module.scss"
 // import { getContentByChapterId } from "@/data/content";
 import { Chapter } from "@/interfaces/global";
@@ -88,7 +86,7 @@ const PageChapterId = async (props: PageChapterIdProps) => {
                 <div className={psx["body-content-left"]}>
                     <Progress value={progressValue} style={{ "height": "2px" }} data-status={"success"} />
                     <ScrollArea>
-                        <ChapterDetails data={chapterDetails} courseId={params.courseId} chapterId={params.chapterId} edit={false} />
+                        <ChapterDetails data={chapterDetails} courseId={params.courseId} chapterId={params.chapterId} />
                     </ScrollArea>
                     <div className={psx["body-content-actions"]}>
                         <Button mode="solid" variant="accent" size="M">Next Chapter</Button>

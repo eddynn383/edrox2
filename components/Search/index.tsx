@@ -10,7 +10,7 @@ import { SearchProps } from "./interface"
 import search from "./search.module.css"
 import icon from "@/components/Icon/icon.module.css"
 
-const Search = React.forwardRef<HTMLInputElement, SearchProps>(({ className=search.container, containerId="search", value, onChange, ...props }, ref) => {
+const Search = React.forwardRef<HTMLInputElement, SearchProps>(({ className = search.container, containerId = "search", value, onChange, ...props }, ref) => {
     const [innerValue, setInnerValue] = useState("")
     const debouncedValue = useDebounce(innerValue);
 
@@ -25,7 +25,7 @@ const Search = React.forwardRef<HTMLInputElement, SearchProps>(({ className=sear
             url: pathname,
             query: {
                 categoryId: currentCategoryId,
-                title: debouncedValue,
+                name: debouncedValue,
             }
         }, { skipEmptyString: true, skipNull: true });
 

@@ -1,11 +1,18 @@
-const Page = async () => {
+import { getFirstGroupByCourseId } from "@/data/groups"
+import { redirect } from "next/navigation"
 
-    return (
-        <div>
-            <h1>Course Edit - Participants</h1>
-        </div>
-    )
-
+export interface ParticipantsPageProps {
+    params: {
+        courseId: string,
+    }
 }
 
-export default Page;
+export default async function ParticipantsPage({ params }: ParticipantsPageProps) {
+
+    const { courseId } = params
+
+    const firstGroup = await getFirstGroupByCourseId(courseId)
+
+    redirect(`/management/courses/${courseId}/edit/participants/${firstGroup?.id}`)
+
+}

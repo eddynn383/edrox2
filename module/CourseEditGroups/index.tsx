@@ -26,19 +26,19 @@ const CourseEditGroups = ({ courseId, groups }: CourseEditGroupsProps) => {
         setItems(altGroups)
     }, [groups])
 
-    const handleEdit = (newItems: any) => {
-
+    const handleEdit = (id: string) => {
+        console.log("Edited Item: ", id)
 
     }
 
-    const handleDelete = (newItems: any) => {
-
+    const handleDelete = (id: string) => {
+        console.log("Deleted Item: ", id)
     }
 
     return (
         <div className={groupsSX.container}>
             <div className={groupsSX.body}>
-                <PlaylistDnD courseId={courseId} items={items} location="participants" showDescription onEdit={() => handleEdit(items)} onDelete={() => handleDelete(items)} />
+                <PlaylistDnD courseId={courseId} items={items} location="participants" showDescription onEdit={handleEdit} onDelete={handleDelete} />
             </div>
         </div>
     );

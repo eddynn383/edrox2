@@ -35,7 +35,7 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", orient
         <Card className={card.container} mode={mode} variant={variant} shade={shade} orientation={orientation} padding="0" radius="200">
             <Link href={`${detailsURL}/${data.id}`} >
                 <CardHeader className={card.header}>
-                    <Cover className={card.cover} src={coverURL} alt={data.title} width={250} height={100} />
+                    <Cover className={card.cover} src={coverURL} alt={data.name} width={250} height={100} />
                     {data.category &&
                         <div className={card.category}>
                             <Badge>{data.category.name}</Badge>
@@ -80,7 +80,7 @@ const CourseCard = async ({ cardId, data, detailsURL = "/catalog/course", orient
                     </div>
                     <div className={card["content-bottom"]}>
                         <div className={card.info}>
-                            <CardTitle rank={2} size="S">{data?.title}</CardTitle>
+                            <CardTitle rank={2} size="S">{data?.name}</CardTitle>
                             <CardDescription truncated>{data?.description}</CardDescription>
                         </div>
                         <ul className={card["metadata-list"]}>

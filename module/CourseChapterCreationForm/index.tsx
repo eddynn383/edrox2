@@ -8,26 +8,27 @@ import { Input, Textarea } from "@/components";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormRowDetails, FormRowFields, FormRows } from "@/components/Form";
 import { NewCourseChapterSchema } from "@/schemas";
-import { newInitChapter } from "@/actions/chapter";
-import chapter from "./chapter.module.css"
+import { newInitChapter, updateChapter, useChapterById } from "@/actions/chapter";
 import { useEffect, useTransition } from "react";
+import chapterSx from "./chapter.module.css"
 
 interface CourseChapterCreationFormProps {
+    chapter?: any;
     actions?: any;
     courseId: string;
     onOpen?: any;
+    edit?: boolean;
     onPendingChange?: (isPending: boolean) => void;
 }
 
-const CourseChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange }: CourseChapterCreationFormProps) => {
+const CourseChapterCreationForm = ({ chapter, actions, courseId, onOpen, edit = false, onPendingChange }: CourseChapterCreationFormProps) => {
     const router = useRouter()
     const [isPending, startTransition] = useTransition();
-
     const form = useForm<z.infer<typeof NewCourseChapterSchema>>({
         resolver: zodResolver(NewCourseChapterSchema),
         defaultValues: {
-            name: "",
-            description: ""
+            name: chapter?.name || "",
+            description: chapter?.description || ""
         }
     });
 
@@ -46,29 +47,44 @@ const CourseChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange 
     // const url = convertToURL(title)
 
     const submitHandler = (values: z.infer<typeof NewCourseChapterSchema>) => {
-
         startTransition(() => {
-            newInitChapter(values, courseId).then((data) => {
+            if (!edit) {
+                newInitChapter(values, courseId).then((data) => {
 
-                if (data?.error) {
-                    toast.error(data.error, { position: 'bottom-center' })
-                }
+                    if (data?.error) {
+                        toast.error(data.error, { position: 'bottom-center' })
+                    }
 
-                if (data?.success) {
-                    onOpen(false)
-                    form.reset();
-                    toast.success(data.success, { position: 'bottom-center' })
-                }
+                    if (data?.success) {
+                        onOpen(false)
+                        form.reset();
+                        toast.success(data.success, { position: 'bottom-center' })
+                    }
 
-            }).catch(() => toast.error("Something went wrong!"))
+                }).catch(() => toast.error("Something went wrong!"))
+            } else {
+                updateChapter(chapter.id, values).then((data) => {
+
+                    if (data?.error) {
+                        toast.error(data.error, { position: 'bottom-center' })
+                    }
+
+                    if (data?.success) {
+                        onOpen(false)
+                        form.reset();
+                        toast.success(data.success, { position: 'bottom-center' })
+                    }
+
+                }).catch(() => toast.error("Something went wrong!"))
+            }
         })
     }
 
     return (
         <>
             <Form {...form}>
-                <form id="chapter-creation-form" className={chapter.form} onSubmit={form.handleSubmit(submitHandler)}>
-                    <FormRows className={chapter.rows}>
+                <form id="chapter-creation-form" className={chapterSx.form} onSubmit={form.handleSubmit(submitHandler)}>
+                    <FormRows className={chapterSx.rows}>
                         <FormField
                             control={form.control}
                             name="name"
@@ -78,7 +94,7 @@ const CourseChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange 
                                 return (
                                     <FormItem data-cols="1">
                                         <FormRowDetails>
-                                            <FormLabel>Title</FormLabel>
+                                            <FormLabel>Name</FormLabel>
                                             <FormMessage />
                                         </FormRowDetails>
                                         <FormRowFields>
@@ -88,7 +104,7 @@ const CourseChapterCreationForm = ({ actions, courseId, onOpen, onPendingChange 
                                                     mode="outline"
                                                     shade="200"
                                                     type="text"
-                                                    name="title"
+                                                    name="name"
                                                     placeholder="Eg. Introduction in front-end technologies"
                                                     status={titleStatus}
                                                 />

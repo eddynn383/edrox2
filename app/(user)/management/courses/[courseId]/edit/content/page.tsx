@@ -26,6 +26,7 @@ export default async function ContentPage({ params, searchParams }: NewChapterPa
             </div> */}
             <div className={page["section-body"]}>
                 <div className={page.empty}>
+                    <ChapterSelection courseId={courseId} chapters={chapters} />
                     <p>Choose the following option to create content</p>
                     <div className={page["empty-actions"]}>
                         <CourseChapterCreation courseId={courseId}>

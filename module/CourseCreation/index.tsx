@@ -31,10 +31,10 @@ export const CourseCreation = ({ categories }: CourseCreationProps) => {
                         categories={categories}
                         actions={
                             <DialogFooter>
-                                <Button mode="solid" variant="accent" status="brand" type="submit">Create</Button>
                                 <DialogClose asChild>
-                                    <Button mode="outline">Cancel</Button>
+                                    <Button mode="text">Cancel</Button>
                                 </DialogClose>
+                                <Button mode="solid" variant="accent" status="brand" type="submit">Create</Button>
                             </DialogFooter>
                         }
                         onOpen={setOpen}

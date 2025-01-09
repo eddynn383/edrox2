@@ -5,7 +5,6 @@ import { Award, BookOpenText, Eye, Home, LayoutList, ListPlus, Medal, ScanEye, U
 import { PageBody } from "@/module/PageBody";
 import { getCourseById } from "@/data/courses";
 import { getAllCreationStepsByFor, getAllCreationStepsByUrl } from "@/data/creationSteps";
-import { headers } from "next/headers";
 import { NextRequest } from "next/server";
 import page from "@/styles/page.module.css"
 import { StepperControls } from "@/components/Stepper";
@@ -16,7 +15,6 @@ interface CourseEditLayoutProps {
     params: {
         courseId: string
     },
-    req: NextRequest
 }
 
 const CourseEditLayout = async ({ children, params }: CourseEditLayoutProps) => {

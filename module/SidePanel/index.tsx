@@ -22,6 +22,12 @@ const SidePanel = (props: SidePanelProps) => {
     const show = playlist === "on" ? true : false
 
     const [sidePanelState, setSidePanelState] = useLocalStorage("SidePanelState")
+
+
+    const onReorder = () => {
+        alert("Will be implmeneted soon")
+    }
+
     return (
         <div className={sidepanelSX.container} data-active={sidePanelState} >
             {
@@ -57,7 +63,7 @@ const SidePanel = (props: SidePanelProps) => {
                                 <Heading rank={2}>Chapters</Heading>
                             </div>
                             <div className={sidepanelSX["header-right"]}>
-                                <Button mode="text" size="S" content="icon"><ArrowDownUp /></Button>
+                                <Button mode="text" size="S" content="icon" onClick={onReorder}><ArrowDownUp /></Button>
                                 <CourseChapterCreation courseId={courseId}>
                                     <Button mode="text" variant="primary" status="default" content="icon" size="S" >
                                         <Plus />

@@ -1,3 +1,5 @@
+import { Course } from "@prisma/client";
+
 export interface CoursesManagerProps {
     courses: any;
     categories: any;

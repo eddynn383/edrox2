@@ -49,16 +49,17 @@
         gap: var(--gap-100, 4px);
     }
 
-    .new {
-        color: var(--course-price-new-text-color, var(--accent-brand-400));
-        letter-spacing: var(--course-price-new-letter-space, 0);
+    .current-price {
+        font-size: var(--course-current-price-font-size, var(--size-350, 14px));
+        line-height: 1;
+        color: var(--course-current-price-text-color, var(--accent-success-400));
     }
 
-    .old {
-        font-size: var(--course-price-old-font-size, var(--size-400, 16px));
-        line-height: var(--course-price-old-line-height, 1);
-        color: var(--course-price-old, var(--primary-background-400));
+    .old-price {
+        font-size: var(--course-old-price-font-size, var(--size-300, 12px));
+        line-height: 1;
         text-decoration: line-through;
+        color: var(--course-old-price-text-color, var(--primary-text-600));
     }
 }
 

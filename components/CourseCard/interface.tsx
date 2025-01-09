@@ -4,7 +4,7 @@ import { Image } from "@prisma/client";
 
 export type Course = {
     id: string;
-    title: string;
+    name: string;
     description: string | null;
     image: Image;
     price: Price;

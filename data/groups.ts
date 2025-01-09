@@ -103,9 +103,9 @@ export const getAllGroupsByCourseId = async (courseId: string) => {
             }
         })
 
-        if (process.env.NODE_ENV === "development") {
-            await simulateDelay(3000); // 3 seconds delay
-        }
+        // if (process.env.NODE_ENV === "development") {
+        //     await simulateDelay(3000); // 3 seconds delay
+        // }
 
         // console.log("GET ALL GroupS BY COURSE ID (DATA): ", groups)
 
@@ -114,6 +114,23 @@ export const getAllGroupsByCourseId = async (courseId: string) => {
     } catch (error) {
         // console.log(error)
         return [];
+    }
+}
+
+export const getFirstGroupByCourseId = async (courseId: string) => {
+    try {
+        const group = await prisma.group.findFirst({
+            where: {
+                courseId,
+                position: 1
+            },
+        })
+
+        return group;
+
+    } catch (error) {
+        // console.log(error)
+        return null;
     }
 }
 
@@ -208,5 +225,56 @@ export const assignUsersOnGroup = async (groupId: string, usersIds: string[]) =>
     } catch (error) {
         // console.log("ASSIGN USERS ON GROUPID (DATA): ", error)
         return { success: false, error };
+    }
+}
+
+export const deleteGroupById = async (id: string) => {
+    try {
+        const session = await auth()
+
+        if (!session) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        const deletedGroup = prisma.group.delete({
+            where: {
+                id
+            }
+        })
+
+
+        // console.log("DELETED GROUP BY ID (DATA): ", deletedCourse)
+
+        return deletedGroup;
+
+    } catch (error) {
+        console.error("DELETED COURSE BY ID (DATA): ", error)
+        return null;
+    }
+}
+
+export const deleteGroupsByIds = async (ids: string[]) => {
+    try {
+        const session = await auth()
+
+        if (!session) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        const deletedGroups = await prisma.group.deleteMany({
+            where: {
+                id: {
+                    in: ids
+                }
+            }
+        })
+
+        // console.log("DELETED GROUPS BY IDs (DATA): ", deletedGroups)
+
+        return deletedGroups;
+
+    } catch (error) {
+        console.error("DELETED COURSES BY IDs (DATA): ", error)
+        return null;
     }
 }

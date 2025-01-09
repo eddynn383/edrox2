@@ -1,3 +1,5 @@
+"use server"
+
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prismadb"
 import { simulateDelay } from "@/lib/utils";
@@ -15,40 +17,33 @@ type ChapterBodyType = {
 
 export const setChapter = async (body: ChapterBodyType, courseId: string) => {
     try {
-
-        const session = await auth()
-        const user = session?.user
-        // console.log({ body })
+        const session = await auth();
+        const user = session?.user;
 
         if (!user) {
-            return new NextResponse("Unauthorized", { status: 401 })
+            return new NextResponse("Unauthorized", { status: 401 });
         }
 
+        // Optional: Check if the user is the course owner
         // const courseOwner = await prisma.course.findUnique({
         //     where: {
         //         id: courseId,
-        //         createdById: session.user.id,
+        //         createdById: user.id,
         //     }
-        // })
-
+        // });
         // if (!courseOwner) {
-        //     console.log("You are not allowed to create a chapter for this course")
+        //     console.log("You are not allowed to create a chapter for this course");
         //     return new NextResponse("Unauthorized", { status: 401 });
         // }
 
         const lastChapter = await prisma.chapter.findFirst({
-            where: {
-                courseId
-            },
-            orderBy: {
-                position: "desc",
-            },
+            where: { courseId },
+            orderBy: { position: "desc" },
         });
-
-        // console.log("lastChapter: ", lastChapter)
 
         const newPosition = lastChapter ? lastChapter.position + 1 : 1;
 
+        // Create the new chapter
         const chapter = await prisma.chapter.create({
             data: {
                 name: body.name,
@@ -56,19 +51,27 @@ export const setChapter = async (body: ChapterBodyType, courseId: string) => {
                 position: newPosition,
                 isPublished: body.isPublished,
                 isFree: body.isFree,
-                courseId: courseId
-            }
-        })
+                courseId,
+                prevChapter: lastChapter?.id || null, // Link to the previous chapter if it exists
+            },
+        });
 
-        // console.log("SETTED CHAPTER (DATA): ", chapter)
+        // Update the `nextChapterId` of the previous chapter, if it exists
+        if (lastChapter) {
+            await prisma.chapter.update({
+                where: { id: lastChapter.id },
+                data: { nextChapter: chapter.id },
+            });
+        }
 
-        return Response.json(chapter)
+        return Response.json(chapter);
 
     } catch (error) {
-        console.error(error)
-        return null
+        console.error(error);
+        return new NextResponse("Internal Server Error", { status: 500 });
     }
-}
+};
+
 
 export const getAllChapters = async () => {
     try {
@@ -219,7 +222,8 @@ export const getChapterById = async (id: string) => {
 
         // console.log("GET CHAPTER BY ID (DATA): ", chapter)
 
-        return chapter;
+        return chapter
+        // return NextResponse.json(chapter);
 
     } catch (error) {
         // console.log(error)
@@ -289,6 +293,57 @@ export const editChapterById = async (id: string, body: any) => {
 
     } catch (error) {
         // console.log(error)
+        return null;
+    }
+}
+
+export const deleteChapterById = async (id: string) => {
+    try {
+        const session = await auth()
+
+        if (!session) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        const deletedChapter = prisma.chapter.delete({
+            where: {
+                id
+            }
+        })
+
+
+        // console.log("DELETED CHAPTER BY ID (DATA): ", deletedCourse)
+
+        return deletedChapter;
+
+    } catch (error) {
+        console.error("DELETED COURSE BY ID (DATA): ", error)
+        return null;
+    }
+}
+
+export const deleteChaptersByIds = async (ids: string[]) => {
+    try {
+        const session = await auth()
+
+        if (!session) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        const deletedChapters = await prisma.chapter.deleteMany({
+            where: {
+                id: {
+                    in: ids
+                }
+            }
+        })
+
+        // console.log("DELETED CHAPTERS BY IDs (DATA): ", deletedChapters)
+
+        return deletedChapters;
+
+    } catch (error) {
+        console.error("DELETED COURSES BY IDs (DATA): ", error)
         return null;
     }
 }

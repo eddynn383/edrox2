@@ -6,9 +6,6 @@ import { PlaylistItemProps } from "./interface";
 import playlistItem from "./playlistItem.module.css"
 import { CirclePlay } from "lucide-react";
 
-
-
-
 export const PlaylistItem = ({ id, name, duration, status, description, href, showDescription = false }: PlaylistItemProps) => {
     const router = useRouter()
 

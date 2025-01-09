@@ -8,7 +8,7 @@ import { deleteManyCourses } from "@/actions/delete-course"
 import useScreenSize from "@/hooks/useScreenSize"
 import csx from "@/styles/module.module.scss"
 
-export function DataToolbar<TData>({ table, showTableColumnsEdit, showFilterToggle, target = "title" }: DataToolbarProps<TData>) {
+export function DataToolbar<TData>({ table, showTableColumnsEdit, showFilterToggle, target = "name" }: DataToolbarProps<TData>) {
     const isFiltered = table.getState().columnFilters.length > 0
     const [selectedRows, setSelectedRows] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,6 @@ export function DataToolbar<TData>({ table, showTableColumnsEdit, showFilterTogg
             toast.success("Course deleted");
         } catch (error) {
             toast.error("Something went wrong");
-
         } finally {
             setIsLoading(false)
         }

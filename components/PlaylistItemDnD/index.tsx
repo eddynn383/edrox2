@@ -107,15 +107,12 @@ export const PlaylistItemDnD = ({ id, name, description, href, isSorting, showDe
                         {/* Start Dropdowon Definition */}
                         <DropdownMenuContent shade="100" align="end">
                             <DropdownMenuItem hasChild>
-                                {/* <ChapterModal id={item.id} value={item} /> */}
-                                {/* <Link href={`/management/courses/edit/${courseId}`}>
-                                            <Pencil /> Edit
-                                        </Link> */}
+                                <Button variant="primary" status="default" mode="text" size="S" content="icon-text" onClick={() => onEdit && onEdit(id)}><Pencil /> Edit</Button>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem hasChild>
                                 <AlertDialogTrigger asChild >
-                                    <Button mode="text" variant="accent" status="fail" size="S">
+                                    <Button mode="text" variant="accent" status="fail" size="S" content="icon-text">
                                         <Trash2 /> Delete
                                     </Button>
                                 </AlertDialogTrigger>
@@ -133,11 +130,11 @@ export const PlaylistItemDnD = ({ id, name, description, href, isSorting, showDe
                             <AlertDialogFooter>
                                 <AlertDialogCancel asChild>
                                     <div>
-                                        <Button>Cancel</Button>
+                                        <Button mode="text">Cancel</Button>
                                     </div>
                                 </AlertDialogCancel>
                                 <AlertDialogAction asChild>
-                                    <Button variant="accent" status="fail">Delete</Button>
+                                    <Button variant="accent" status="fail" onClick={() => onDelete && onDelete(id)}>Delete</Button>
                                 </AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>

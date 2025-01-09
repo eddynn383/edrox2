@@ -1,15 +1,19 @@
 "use client"
 
-import { updateChaptersPositions } from "@/actions/chapter";
-import { PlaylistDnD } from "@/components";
+import { deleteChapter, updateChaptersPositions } from "@/actions/chapter";
+import { Button, DialogClose, DialogFooter, PlaylistDnD } from "@/components";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { DataEditModal } from "../DataEditModal";
+import { CourseChapterCreationForm } from "../CourseChapterCreationForm";
+import { getChapterById } from "@/data/chapters";
+import { Spinner } from "@/components/Spinner";
 import chaptersSX from "./course-chapters.module.css"
-import { convertDuration } from "@/lib/utils";
 
 const CourseEditChapters = ({ courseId, chapters }: CourseChaptersProps) => {
+    const [openDialog, setOpenDialog] = useState(false);
     const [items, setItems] = useState(chapters);
-    const path = usePathname()
+    const [chapter, setChapter] = useState<any>();
+    const [isPending, setIsPending] = useState(false)
 
     // console.log("Chapters in CourseEditChapters: ", chapters)
     // console.log("Items in CourseEditChapters: ", items)
@@ -29,19 +33,77 @@ const CourseEditChapters = ({ courseId, chapters }: CourseChaptersProps) => {
         }
     };
 
-    const handleEdit = (newItems: any) => {
+    const handleEdit = async (id: string) => {
+        console.log("Edited Item: ", id)
+        // setChapterId(id)
+        try {
+            const chapterData = await getChapterById(id); // Fetch chapter data
+            if (chapterData) {
+                setChapter(chapterData);
+                console.log("Fetched Chapter: ", chapterData);
+            } else {
+                console.error("Chapter not found");
+            }
+        } catch (error) {
+            console.error("Error fetching chapter:", error);
+        }
 
-
+        setOpenDialog(true)
     }
 
-    const handleDelete = (newItems: any) => {
+    const handleDelete = async (id: string) => {
+        console.log("Deleted Item: ", id)
+        try {
+            const deletedChapter = deleteChapter(id);
 
+            console.log("DELETED CHAPTER: ", deletedChapter)
+        } catch (error) {
+            console.error("Error deleting chapter:", error);
+        }
     }
+
+    const onCancel = () => {
+        setOpenDialog(false)
+        setChapter(null);
+    }
+
 
     return (
         <div className={chaptersSX.container}>
             <div className={chaptersSX.body}>
-                <PlaylistDnD courseId={courseId} items={items} location="content" onReorder={() => handleReorder(items)} onEdit={() => handleEdit(items)} onDelete={() => handleDelete(items)} />
+                <PlaylistDnD courseId={courseId} items={items} location="content" onReorder={handleReorder} onEdit={handleEdit} onDelete={handleDelete} />
+                {
+                    <DataEditModal
+                        title="Edit Chapter"
+                        children={
+                            <CourseChapterCreationForm
+                                courseId={courseId}
+                                chapter={chapter}
+                                actions={
+                                    <DialogFooter>
+                                        <DialogClose asChild>
+                                            <Button>Cancel</Button>
+                                        </DialogClose>
+                                        <Button status="brand" variant="accent" type="submit">{isPending ? <Spinner /> : "Update"}</Button>
+                                    </DialogFooter>
+                                }
+                                onPendingChange={(isPending) => {
+                                    setIsPending(isPending)
+                                }}
+                                onOpen={setOpenDialog}
+                                edit={true}
+                            />
+                        }
+                        // actions={
+                        //     <>
+                        //         <Button onClick={onCancel}>Cancel</Button>
+                        //         <Button onClick={onEdit}>Edit</Button>
+                        //     </>
+                        // }
+                        open={openDialog}
+                        setOpen={() => setOpenDialog(false)}
+                    />
+                }
             </div>
         </div>
     );
